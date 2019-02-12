@@ -1,12 +1,14 @@
 {
-  "name": "FRENTLY-Frontend",
+  "name": "frently-frontend",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "prop-types": "^15.7.1",
     "react": "^16.8.1",
     "react-dom": "^16.8.1",
     "react-redux": "^6.0.0",
     "react-scripts": "2.1.5",
+    "react-uwp": "^1.2.31",
     "redux": "^4.0.1"
   },
   "scripts": {
@@ -23,5 +25,17 @@
     "not dead",
     "not ie <= 11",
     "not op_mini all"
-  ]
+  ],
+  "compilerOptions": {
+    "typeRoots": [
+      "./node_modules/@types"
+    ],
+    "filesGlob": [
+      "**/*.ts",
+      "**/*.tsx"
+    ],
+    "files": [
+      "node_modules/react-uwp/index.d.ts"
+      ]
+  }
 }
