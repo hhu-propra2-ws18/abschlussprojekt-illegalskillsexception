@@ -1,10 +1,14 @@
 package hhu.propra2.illegalskillsexception.frently.backend.Models;
 
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import lombok.Data;
+import org.springframework.data.annotation.CreatedDate;
+import org.springframework.data.annotation.LastModifiedDate;
+
+import javax.persistence.*;
 import java.time.LocalDateTime;
 
+@Data
+@Entity
 public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
@@ -12,6 +16,10 @@ public class User {
     private String email;
     private String username;
     private String bankAccount;
+    @CreatedDate
+    @Column(nullable = false)
     private LocalDateTime timestamp;
+    @LastModifiedDate
+    @Column(nullable = false)
     private LocalDateTime updated;
 }
