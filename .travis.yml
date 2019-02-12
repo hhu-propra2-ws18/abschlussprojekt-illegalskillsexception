@@ -1,3 +1,27 @@
 language: java
 
-before_install: cd backend
+sudo: required
+
+services:
+  - docker
+
+before_install:
+  # Docker Compose Install 
+  - curl -L https://github.com/docker/compose/releases/download/${COMPOSE_VERSION}/docker-compose-`uname -s`-`uname -m` > docker-compose
+  - chmod +x docker-compose
+  - sudo mv docker-compose /usr/local/bin
+  # Download and install Docker libs
+  - curl -L https://github.com/Ortus-Solutions/docker-buildfiles/archive/master.zip > docker.zip
+  - unzip docker.zip -d workbench
+  - mv workbench/docker-buildfiles-master workbench/docker
+
+  - cd backend
+
+install:
+  # Docker CFML Server Tests
+  - docker-compose --build
+  - docker-compose up
+
+after_script:
+  - docker-compose stop
+  - docker-compose rm -f
