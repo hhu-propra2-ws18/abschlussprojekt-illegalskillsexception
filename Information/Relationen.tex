@@ -1,0 +1,25 @@
+\documentclass{article}
+\usepackage{geometry}
+\geometry{
+  left=2cm,
+  right=2cm,
+  top=2cm,
+  bottom=4cm,
+  bindingoffset=5mm
+}
+
+\begin{document}
+
+\title{Propra 2 Abschlussprojekt}
+\author{IlegalSkillsException}
+
+\maketitle
+
+\paragraph{Relationen-Modell fRENTly} \hspace{5pt} \\
+\newline
+$ User (\underline{id}, email, username, bankAccount, timestamp, updated)$ \newline \newline
+$ Article (\underline{id}, title, description, deposit, dailyRate, \overline{owner:User.id}, timestamp, updated) $ \newline \newline
+$ Inquiry (\underline{id}, \overline{article:Article.id}, \overline{borrower:User.id},\overline{lender:User.id}, duration, state, timestamp, updated) $ \newline \newline
+$ Transaction (\underline{id}, \overline{inquiry:Inquiry.id}, returnDate, state, timestamp, updated) $ \newline \newline
+
+\end{document}
