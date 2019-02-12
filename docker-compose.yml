@@ -1,0 +1,29 @@
+version: "3.1"
+
+volumes:
+ mysql:
+
+services:
+  projekt:
+    build: ./backend
+    container_name: spring_boot_app
+    links:
+       - "frentlydb:database"
+    ports:
+       - "8080"
+    depends_on:
+       - "frentlydb"
+
+  frentlydb:
+    image: mysql:5.7.24
+    container_name: mysql
+    restart: always
+    volumes:
+        - mysql:/var/lib/mysql
+    environment:
+        MYSQL_ROOT_PASSWORD: secret
+        MYSQL_DATABASE: frentlydb
+        MYSQL_PASSWORD: secret
+    ports:
+        - "3306"
+  # ========================================
