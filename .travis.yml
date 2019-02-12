@@ -7,18 +7,20 @@ services:
 
 before_install:
   # Docker Compose Install 
+  - sudo rm /usr/local/bin/docker-compose
   - curl -L https://github.com/docker/compose/releases/download/${COMPOSE_VERSION}/docker-compose-`uname -s`-`uname -m` > docker-compose
   - chmod +x docker-compose
   - sudo mv docker-compose /usr/local/bin
-  # Download and install Docker libs
-  - curl -L https://github.com/Ortus-Solutions/docker-buildfiles/archive/master.zip > docker.zip
-  - unzip docker.zip -d workbench
-  - mv workbench/docker-buildfiles-master workbench/docker
+  # Upgrade Docker.
+  - sudo apt-get update
+  - sudo apt-get -y -o Dpkg::Options::="--force-confnew" install docker-ce
 
 install:
   # Docker CFML Server Tests
   - docker-compose build
   - docker-compose up -d
+
+before_script:
   - cd backend
 
 after_script:
