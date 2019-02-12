@@ -10,5 +10,5 @@ WORKDIR /app
 COPY wait-for-it.sh .
 COPY --from=build /app/build/libs/*.jar app.jar
 
-CMD ./wait-for-it.sh frently:3306 --timeout=0 -- java -jar app.jar
+CMD ./wait-for-it.sh frentlydb:3306 --timeout=0 -- java -jar app.jar
 
