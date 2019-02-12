@@ -5,7 +5,7 @@ import java.time.Period;
 
 public class Inquiry {
     public enum State {
-
+        open, declined, accepted
     }
 
     private long id;
