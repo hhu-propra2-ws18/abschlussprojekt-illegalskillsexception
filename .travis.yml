@@ -19,7 +19,8 @@ before_install:
 
 install:
   # Docker CFML Server Tests
-  - docker-compose up --build
+  - docker-compose build
+  - docker-compose up -d
 
 after_script:
   - docker-compose stop
