@@ -5,25 +5,22 @@ sudo: required
 services:
   - docker
 
+env:
+  DOCKER_COMPOSE_VERSION: 1.23.2
+
 before_install:
   # Docker Compose Install 
   - sudo rm /usr/local/bin/docker-compose
   - curl -L https://github.com/docker/compose/releases/download/${COMPOSE_VERSION}/docker-compose-`uname -s`-`uname -m` > docker-compose
   - chmod +x docker-compose
   - sudo mv docker-compose /usr/local/bin
-  # Upgrade Docker.
-  - sudo apt-get update
-  - sudo apt-get -y -o Dpkg::Options::="--force-confnew" install docker-ce
+  - docker-compose up --build
 
-install:
-  # Docker CFML Server Tests
-  - docker-compose build
-  - docker-compose up -d
+#before_script:
+#  - cd backend
 
-before_script:
-  - cd backend
+#after_script:
+#  - cd ..
+#  - docker-compose stop
+#  - docker-compose rm -f
 
-after_script:
-  - cd ..
-  - docker-compose stop
-  - docker-compose rm -f
