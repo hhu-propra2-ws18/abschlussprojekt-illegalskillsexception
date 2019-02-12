@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import Button from "react-uwp/Button";
 import ContentDialog from "react-uwp/ContentDialog";
+import TextBox from "react-uwp/TextBox";
 
 export default class Login extends Component {
     constructor(props) {
@@ -38,9 +39,7 @@ export default class Login extends Component {
         );
     }
 
-    signIn() {
-        
-    }
+    signIn() {}
 
     cancel() {}
 }
