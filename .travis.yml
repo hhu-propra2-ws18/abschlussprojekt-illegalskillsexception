@@ -15,7 +15,7 @@ before_install:
   - unzip docker.zip -d workbench
   - mv workbench/docker-buildfiles-master workbench/docker
 
-  - cd backend
+#  - cd backend
 
 install:
   # Docker CFML Server Tests
