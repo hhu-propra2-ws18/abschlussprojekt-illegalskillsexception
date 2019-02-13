@@ -19,16 +19,24 @@ public class TransactionService implements ITransactionService {
         this.transactionRepository = pTransactionRepo;
     }
 
-    public void createTransaction(Transaction.State state, Inquiry inquiry, LocalDateTime returnDate){
-        final Transaction temp = setTransaction(new Transaction(), inquiry,Transaction.State.open, returnDate);
+    public void createTransaction(Transaction.State state, Inquiry inquiry){
+        final Transaction temp = setTransaction(new Transaction(), inquiry,Transaction.State.open, null, LocalDateTime.now());
         transactionRepository.save(temp);
     }
 
-    private Transaction setTransaction(Transaction temp, Inquiry inquiry, Transaction.State state, LocalDateTime returnDate) {
+    public void updateTranscation(Transaction t){
+        if(transactionRepository.findById(t.getId()).isPresent()){
+            transactionRepository.save(t);
+        } else{
+            //TODO: Errorhandling in case the Transaction isn't in the database
+        }
+    }
+
+    private Transaction setTransaction(Transaction temp, Inquiry inquiry, Transaction.State state, LocalDateTime returnDate, LocalDateTime timestamp) {
         temp.setInquiry(inquiry);
         temp.setState(state);
         temp.setReturnDate(returnDate);
-        temp.setTimestamp(LocalDateTime.now());
+        temp.setTimestamp(timestamp);
         temp.setUpdated(LocalDateTime.now());
         return temp;
     }
