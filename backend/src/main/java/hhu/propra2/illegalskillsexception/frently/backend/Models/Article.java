@@ -18,7 +18,7 @@ public class Article {
     private String title;
 
     @OneToOne
-    private User owner;
+    private ApplicationUser owner;
     private int deposit;
 
     @Lob
