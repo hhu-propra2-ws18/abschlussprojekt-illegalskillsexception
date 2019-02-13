@@ -1,4 +1,4 @@
-package hhu.propra2.illegalskillsexception.frently.backend.Controllers.Repositories;
+package hhu.propra2.illegalskillsexception.frently.backend.Repositories;
 
 import hhu.propra2.illegalskillsexception.frently.backend.Models.User;
 import org.springframework.data.repository.CrudRepository;
