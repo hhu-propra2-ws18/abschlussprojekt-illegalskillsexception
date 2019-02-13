@@ -5,7 +5,6 @@ import org.springframework.data.repository.CrudRepository;
 
 import java.util.List;
 
-public interface IPersonRepository extends CrudRepository {
-    public List<User> findAll();
-    public User findUserById(Long id);
+public interface IPersonRepository extends CrudRepository<User, Long> {
+    List<User> findAll();
 }
