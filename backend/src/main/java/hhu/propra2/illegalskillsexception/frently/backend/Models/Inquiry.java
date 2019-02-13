@@ -23,10 +23,10 @@ public class Inquiry {
     private Article article;
 
     @OneToOne
-    private User borrower;
+    private ApplicationUser borrower;
 
     @OneToOne
-    private User lender;
+    private ApplicationUser lender;
 
     @Embedded
     @Column(nullable = false)

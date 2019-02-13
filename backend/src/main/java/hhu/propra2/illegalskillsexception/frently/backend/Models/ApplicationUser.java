@@ -3,13 +3,15 @@ package hhu.propra2.illegalskillsexception.frently.backend.Models;
 import lombok.Data;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
+import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
 
 @Data
 @Entity
-class User {
+@EntityListeners(AuditingEntityListener.class)
+public class ApplicationUser {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private long id;
@@ -18,8 +20,11 @@ class User {
 
     @Column(unique = true)
     private String username;
+
+    @Column(nullable = false)
     private String password;
 
+    @Column(nullable = false)
     private String bankAccount;
 
     @CreatedDate
