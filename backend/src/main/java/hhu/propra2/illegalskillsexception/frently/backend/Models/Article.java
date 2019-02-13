@@ -1,6 +1,8 @@
 package hhu.propra2.illegalskillsexception.frently.backend.Models;
 
 import lombok.Data;
+import org.hibernate.annotations.NotFound;
+import org.hibernate.annotations.NotFoundAction;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
 
@@ -11,13 +13,14 @@ import java.time.LocalDateTime;
 @Entity
 public class Article {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;
 
     @Column(nullable = false)
     private String title;
 
-    @OneToOne
+    @ManyToOne
+    @NotFound(action = NotFoundAction.IGNORE)
     private ApplicationUser owner;
     private int deposit;
 

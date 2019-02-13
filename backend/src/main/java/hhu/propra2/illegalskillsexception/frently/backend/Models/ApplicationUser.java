@@ -1,7 +1,5 @@
 package hhu.propra2.illegalskillsexception.frently.backend.Models;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.databind.util.JSONPObject;
 import hhu.propra2.illegalskillsexception.frently.backend.Controllers.Response.FrentlyData;
 import lombok.Data;
 import org.springframework.data.annotation.CreatedDate;
