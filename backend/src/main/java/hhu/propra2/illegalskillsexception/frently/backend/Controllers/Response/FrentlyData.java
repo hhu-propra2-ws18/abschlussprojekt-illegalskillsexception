@@ -1,4 +1,7 @@
 package hhu.propra2.illegalskillsexception.frently.backend.Controllers.Response;
 
-class FrentlyData {
+
+import com.fasterxml.jackson.annotation.JsonProperty;
+
+public interface FrentlyData {
 }
