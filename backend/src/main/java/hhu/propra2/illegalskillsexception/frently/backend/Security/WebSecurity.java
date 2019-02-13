@@ -1,6 +1,6 @@
 package hhu.propra2.illegalskillsexception.frently.backend.Security;
 
-import hhu.propra2.illegalskillsexception.frently.backend.Controllers.Services.UserDetailsServiceImpl;
+import hhu.propra2.illegalskillsexception.frently.backend.Services.UserDetailsServiceImpl;
 import org.springframework.context.annotation.Bean;
 import org.springframework.http.HttpMethod;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
@@ -13,6 +13,7 @@ import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.CorsConfigurationSource;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 
+import static hhu.propra2.illegalskillsexception.frently.backend.Security.SecurityConstants.LANDING_URL;
 import static hhu.propra2.illegalskillsexception.frently.backend.Security.SecurityConstants.SIGN_UP_URL;
 
 
@@ -30,6 +31,7 @@ public class WebSecurity extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
         http.cors().and().csrf().disable().authorizeRequests()
                 .antMatchers(HttpMethod.POST, SIGN_UP_URL).permitAll()
+                .antMatchers(HttpMethod.GET, LANDING_URL).permitAll()
                 .anyRequest().authenticated()
                 .and()
                 .addFilter(new JWTAuthenticationFilter(authenticationManager()))
