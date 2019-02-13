@@ -9,16 +9,23 @@ import java.time.LocalDateTime;
 
 @Data
 @Entity
-public class User {
+class User {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private long id;
+
     private String email;
+
+    @Column(unique = true)
     private String username;
+    private String password;
+
     private String bankAccount;
+
     @CreatedDate
     @Column(nullable = false)
     private LocalDateTime timestamp;
+
     @LastModifiedDate
     @Column(nullable = false)
     private LocalDateTime updated;
