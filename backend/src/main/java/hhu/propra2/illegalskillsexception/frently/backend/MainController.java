@@ -8,6 +8,6 @@ public class MainController {
 
     @GetMapping("/")
     public String mainView(){
-        return "index";
+        return "redirect:/index.html";
     }
 }
