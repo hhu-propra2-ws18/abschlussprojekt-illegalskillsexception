@@ -52,7 +52,7 @@ public class ArticleService implements IArticleService {
         return articleRepo.findAllByOwner_Id(owner.getId());
     }
 
-    public void updateArticle(Long articleId, String title, int deposit, String description, int dailyRate) {
+    public Article updateArticle(Long articleId, String title, int deposit, String description, int dailyRate) {
         Optional<Article> toUpdateOpt = articleRepo.findById(articleId);
 
         if (toUpdateOpt.isPresent()) {
@@ -63,9 +63,9 @@ public class ArticleService implements IArticleService {
             toUpdate.setDescription(description);
             toUpdate.setDailyRate(dailyRate);
 
-            articleRepo.save(toUpdate);
+            return articleRepo.save(toUpdate);
         } else {
-            //TODO Error handling
+            return null;
         }
     }
 
