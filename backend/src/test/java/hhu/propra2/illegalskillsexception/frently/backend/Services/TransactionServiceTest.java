@@ -9,6 +9,7 @@ import org.junit.Test;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.Arrays;
 
 import static org.junit.Assert.*;
 import static org.mockito.ArgumentMatchers.any;
@@ -20,6 +21,7 @@ public class TransactionServiceTest {
     private TransactionRepository transactionRepository;
     private TransactionService transactionService;
     private ArrayList<Transaction> transactionList;
+    private ArrayList<Inquiry> inquiryList;
 
     @Before
     public void setup() {
@@ -29,6 +31,9 @@ public class TransactionServiceTest {
         when(inquiry0.getId()).thenReturn((long) 0);
         when(inquiry1.getId()).thenReturn((long) 0);
         when(inquiry2.getId()).thenReturn((long) 0);
+
+        inquiryList = new ArrayList<>();
+        inquiryList.addAll(Arrays.asList(inquiry0, inquiry1, inquiry2));
 
         LocalDateTime tmpTimeStamp = LocalDateTime.now();
 
@@ -57,9 +62,7 @@ public class TransactionServiceTest {
         when(transaction2.getStatus()).thenReturn(Transaction.Status.conflict);
 
         transactionList = new ArrayList<>();
-        transactionList.add(transaction0);
-        transactionList.add(transaction1);
-        transactionList.add(transaction2);
+        transactionList.addAll(Arrays.asList(transaction0, transaction1, transaction2));
 
         transactionRepository = mock(TransactionRepository.class);
         when(transactionRepository.findAll()).thenReturn(transactionList);
