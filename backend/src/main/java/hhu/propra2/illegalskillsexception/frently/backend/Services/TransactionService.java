@@ -24,7 +24,7 @@ public class TransactionService implements ITransactionService {
     }
 
     public void updateTranscation(Transaction t){
-        if(transactionRepository.findById(t.getId()).isPresent()){
+        if (transactionRepository.existsById(t.getId())) {
             transactionRepository.save(t);
         } else{
             //TODO: Errorhandling in case the Transaction isn't in the database
