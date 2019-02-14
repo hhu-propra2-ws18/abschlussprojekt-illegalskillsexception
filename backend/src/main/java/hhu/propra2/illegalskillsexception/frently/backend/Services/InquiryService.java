@@ -7,7 +7,8 @@ import hhu.propra2.illegalskillsexception.frently.backend.Models.LendingPeriod;
 import hhu.propra2.illegalskillsexception.frently.backend.Repositories.InquiryRepository;
 import org.springframework.stereotype.Service;
 
-import java.util.Arrays;
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 @Service
@@ -33,9 +34,9 @@ public class InquiryService {
 
     public List<Inquiry> getInquiry(long id){
         if(inquiryRepository.existsById(id)){
-            return Arrays.asList(inquiryRepository.findById(id).get());
+            return Collections.singletonList(inquiryRepository.findById(id).get());
         }
-        return null;
+        return new ArrayList<>();
     }
 
     public List<Inquiry> getAllInquirys(){
