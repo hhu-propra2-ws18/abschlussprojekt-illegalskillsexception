@@ -11,7 +11,7 @@ import java.time.LocalDateTime;
 @Entity
 public class Inquiry {
     @Embeddable
-    public enum State {
+    public enum Status {
         open, declined, accepted
     }
 
@@ -33,7 +33,7 @@ public class Inquiry {
     private LendingPeriod duration;
 
     @Embedded
-    private State state;
+    private Status status;
 
     @CreatedDate
     @Column(nullable = false)
