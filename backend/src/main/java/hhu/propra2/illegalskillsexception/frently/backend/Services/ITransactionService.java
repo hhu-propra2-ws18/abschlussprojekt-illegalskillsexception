@@ -11,4 +11,5 @@ public interface ITransactionService {
     void updateTransactionReturnDate(Transaction t, LocalDate date);
     void updateTransactionStatus(Transaction t, Transaction.Status status);
     List<Transaction> getAllTransactions();
+    List<Transaction> getTransactions(long id);
 }

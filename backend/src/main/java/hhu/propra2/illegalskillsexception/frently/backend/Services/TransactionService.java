@@ -5,9 +5,8 @@ import hhu.propra2.illegalskillsexception.frently.backend.Models.Transaction;
 import hhu.propra2.illegalskillsexception.frently.backend.Repositories.TransactionRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
 import java.time.LocalDate;
-import java.time.LocalDateTime;
+import java.util.Collections;
 import java.util.List;
 
 @Service
@@ -41,6 +40,14 @@ public class TransactionService implements ITransactionService {
 
     public List<Transaction> getAllTransactions() {
         return transactionRepository.findAll();
+    }
+
+    public List<Transaction> getTransactions(long id) {
+        if(transactionRepository.existsById(id)){
+            return Collections.singletonList(transactionRepository.findById(id).get());
+        } else {
+            return null;
+        }
     }
 
     private Transaction setTransaction(Transaction temp, Inquiry inquiry, Transaction.Status status, LocalDate returnDate) {
