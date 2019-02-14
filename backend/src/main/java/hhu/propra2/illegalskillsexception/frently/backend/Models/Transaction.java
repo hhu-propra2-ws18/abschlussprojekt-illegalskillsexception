@@ -5,6 +5,7 @@ import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
 
 import javax.persistence.*;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 @Data
@@ -21,7 +22,7 @@ public class Transaction {
 
     @OneToOne
     private Inquiry inquiry;
-    private LocalDateTime returnDate;
+    private LocalDate returnDate;
 
     @Embedded
     private Status status;
