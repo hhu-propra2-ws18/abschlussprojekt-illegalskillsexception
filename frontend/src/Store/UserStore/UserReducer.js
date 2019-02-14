@@ -1,15 +1,14 @@
 import { LOGIN_USER, LOGOUT_USER } from "./UserActions";
 
-export default function user(state = { isLoggedIn: false }, action) {
+export default function user(state = { isLoggedIn: true }, action) {
     switch (action.type) {
         case LOGIN_USER: {
-            state = {
+            return {
                 isLoggedIn: true,
                 token: action.token
             };
-            break;
         }
-        case LOGOUT_USER: {
+        case LOGOUT_USER: { 
             state = {
                 isLoggedIn: false,
                 token: ""
@@ -17,8 +16,9 @@ export default function user(state = { isLoggedIn: false }, action) {
         }
         default: {
             state = {
-                isLoggedIn: false
+                isLoggedIn: true
             };
         }
     }
+    return state;
 }
