@@ -23,7 +23,7 @@ public class TransactionService implements ITransactionService {
         transactionRepository.save(temp);
     }
 
-    public void updateTranscation(Transaction t){
+    public void updateTransaction(Transaction t) {
         if (transactionRepository.existsById(t.getId())) {
             transactionRepository.save(t);
         } else{
