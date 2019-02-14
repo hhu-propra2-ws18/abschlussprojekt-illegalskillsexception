@@ -18,23 +18,54 @@ public class ArticleService {
         this.articleRepo = articleRepo;
     }
 
-    List<Article> getAllArticles() {
+
+    public void createArticle(String title, ApplicationUser owner, int deposit, String description, int dailyRate) {
+        Article toCreate = new Article();
+        toCreate.setTitle(title);
+        toCreate.setOwner(owner);
+        toCreate.setDeposit(deposit);
+        toCreate.setDescription(description);
+        toCreate.setDailyRate(dailyRate);
+
+        articleRepo.save(toCreate);
+    }
+
+    public List<Article> getAllArticles() {
         return articleRepo.findAll();
     }
 
-    Optional<Article> getArticleById(Long id) {
-        return articleRepo.findById(id);
+    public Article getArticleById(Long id) {
+        Optional<Article> articleOpt = articleRepo.findById(id);
+
+        if (articleOpt.isPresent()) {
+            return articleOpt.get();
+        } else {
+            return null;
+        }
     }
 
-    List<Article> getAllArticlesOfOwner(ApplicationUser owner) {
+    public List<Article> getAllArticlesOfOwner(ApplicationUser owner) {
         return articleRepo.findAllByOwner_Id(owner.getId());
     }
 
-    void updateArticle(Article toUpdate) {
-        articleRepo.save(toUpdate);
+    public void updateArticle(Long articleId, String title, int deposit, String description, int dailyRate) {
+        Optional<Article> toUpdateOpt = articleRepo.findById(articleId);
+
+        if (toUpdateOpt.isPresent()) {
+            Article toUpdate = toUpdateOpt.get();
+
+            toUpdate.setTitle(title);
+            toUpdate.setDeposit(deposit);
+            toUpdate.setDescription(description);
+            toUpdate.setDailyRate(dailyRate);
+
+            articleRepo.save(toUpdate);
+        } else {
+            //TODO Error handling
+        }
     }
 
-    void deleteArticle(Long id) {
+    public void deleteArticle(Long id) {
         articleRepo.deleteById(id);
     }
 }
