@@ -21,8 +21,8 @@ public class InquiryService {
     }
 
     public void createInquiry(Article article, ApplicationUser borrower, ApplicationUser lender,
-                              LendingPeriod lendingPeriod, Inquiry.State state){
-        final Inquiry temp = setInquiry(new Inquiry(), article, borrower, lender, lendingPeriod, state);
+                              LendingPeriod lendingPeriod, Inquiry.Status status){
+        final Inquiry temp = setInquiry(new Inquiry(), article, borrower, lender, lendingPeriod, status);
         inquiryRepository.save(temp);
     }
 
@@ -44,12 +44,12 @@ public class InquiryService {
     }
 
     private Inquiry setInquiry(Inquiry inquiry, Article article, ApplicationUser borrower,
-                               ApplicationUser lender , LendingPeriod lendingPeriod, Inquiry.State state){
+                               ApplicationUser lender , LendingPeriod lendingPeriod, Inquiry.Status status){
         inquiry.setArticle(article);
         inquiry.setBorrower(borrower);
         inquiry.setLender(lender);
         inquiry.setDuration(lendingPeriod);
-        inquiry.setState(state);
+        inquiry.setStatus(status);
         return inquiry;
     }
 }
