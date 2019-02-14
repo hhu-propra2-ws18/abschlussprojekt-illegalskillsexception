@@ -11,7 +11,7 @@ import java.time.LocalDateTime;
 @Entity
 public class Transaction {
     @Embeddable
-    public enum State {
+    public enum Status {
         open, closed, conflict
     }
 
@@ -24,7 +24,7 @@ public class Transaction {
     private LocalDateTime returnDate;
 
     @Embedded
-    private State state;
+    private Status status;
 
     @CreatedDate
     @Column(nullable = false)
