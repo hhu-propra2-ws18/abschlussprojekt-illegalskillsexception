@@ -6,7 +6,9 @@ import hhu.propra2.illegalskillsexception.frently.backend.Repositories.Transacti
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Service
 public class TransactionService implements ITransactionService {
@@ -19,24 +21,32 @@ public class TransactionService implements ITransactionService {
     }
 
     public void createTransaction(Transaction.Status status, Inquiry inquiry) {
-        final Transaction temp = setTransaction(new Transaction(), inquiry, Transaction.Status.open, null, LocalDateTime.now());
+        final Transaction temp = setTransaction(new Transaction(), inquiry, Transaction.Status.open, null);
         transactionRepository.save(temp);
     }
 
-    public void updateTransaction(Transaction t) {
+    public void updateTransactionReturnDate(Transaction t, LocalDate date) {
         if (transactionRepository.existsById(t.getId())) {
+            t.setReturnDate(date);
             transactionRepository.save(t);
-        } else{
-            //TODO: Errorhandling in case the Transaction isn't in the database
         }
     }
 
-    private Transaction setTransaction(Transaction temp, Inquiry inquiry, Transaction.Status status, LocalDateTime returnDate, LocalDateTime timestamp) {
+    public void updateTransactionStatus(Transaction t, Transaction.Status status) {
+        if (transactionRepository.existsById(t.getId())) {
+            t.setStatus(status);
+            transactionRepository.save(t);
+        }
+    }
+
+    public List<Transaction> getAllTransactions() {
+        return transactionRepository.findAll();
+    }
+
+    private Transaction setTransaction(Transaction temp, Inquiry inquiry, Transaction.Status status, LocalDate returnDate) {
         temp.setInquiry(inquiry);
         temp.setStatus(status);
         temp.setReturnDate(returnDate);
-        temp.setTimestamp(timestamp);
-        temp.setUpdated(LocalDateTime.now());
         return temp;
     }
 }
