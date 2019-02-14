@@ -6,7 +6,6 @@ import hhu.propra2.illegalskillsexception.frently.backend.Repositories.Transacti
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 @Service
@@ -19,22 +18,22 @@ public class TransactionService implements ITransactionService {
         this.transactionRepository = pTransactionRepo;
     }
 
-    public void createTransaction(Transaction.State state, Inquiry inquiry){
-        final Transaction temp = setTransaction(new Transaction(), inquiry,Transaction.State.open, null, LocalDateTime.now());
+    public void createTransaction(Transaction.Status status, Inquiry inquiry) {
+        final Transaction temp = setTransaction(new Transaction(), inquiry, Transaction.Status.open, null, LocalDateTime.now());
         transactionRepository.save(temp);
     }
 
-    public void updateTranscation(Transaction t){
-        if(transactionRepository.findById(t.getId()).isPresent()){
+    public void updateTransaction(Transaction t) {
+        if (transactionRepository.existsById(t.getId())) {
             transactionRepository.save(t);
         } else{
             //TODO: Errorhandling in case the Transaction isn't in the database
         }
     }
 
-    private Transaction setTransaction(Transaction temp, Inquiry inquiry, Transaction.State state, LocalDateTime returnDate, LocalDateTime timestamp) {
+    private Transaction setTransaction(Transaction temp, Inquiry inquiry, Transaction.Status status, LocalDateTime returnDate, LocalDateTime timestamp) {
         temp.setInquiry(inquiry);
-        temp.setState(state);
+        temp.setStatus(status);
         temp.setReturnDate(returnDate);
         temp.setTimestamp(timestamp);
         temp.setUpdated(LocalDateTime.now());
