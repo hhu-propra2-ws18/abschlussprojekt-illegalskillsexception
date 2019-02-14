@@ -22,17 +22,11 @@ public class ArticleService {
         return articleRepo.findAll();
     }
 
-    Article getArticleById(Long id) {
-        Optional<Article> p = articleRepo.findById(id);
-        if (p.isPresent()) {
-            return p.get();
-        } else {
-            // TODO Error Handling
-            return null;
-        }
+    Optional<Article> getArticleById(Long id) {
+        return articleRepo.findById(id);
     }
 
-    List<Article> getAllArticlesFromOwner(ApplicationUser owner) {
+    List<Article> getAllArticlesOfOwner(ApplicationUser owner) {
         return articleRepo.findAllByOwner_Id(owner.getId());
     }
 
