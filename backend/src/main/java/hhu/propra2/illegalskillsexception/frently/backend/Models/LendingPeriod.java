@@ -7,7 +7,7 @@ import java.time.LocalDateTime;
 
 @Data
 @Embeddable
-class LendingPeriod {
+public class LendingPeriod {
     private LocalDateTime startLend;
     private LocalDateTime endLend;
 }
