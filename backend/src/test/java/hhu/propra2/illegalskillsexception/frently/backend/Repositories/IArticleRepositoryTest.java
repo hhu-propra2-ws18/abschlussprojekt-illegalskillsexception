@@ -4,7 +4,6 @@ import hhu.propra2.illegalskillsexception.frently.backend.Models.ApplicationUser
 import hhu.propra2.illegalskillsexception.frently.backend.Models.Article;
 import org.junit.After;
 import org.junit.Assert;
-import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,8 +23,14 @@ public class IArticleRepositoryTest {
     @Autowired
     IApplicationUserRepository personRepo;
 
-    @Before
-    public void setUp() {
+    @After
+    public void tearDown() {
+        personRepo.deleteAll();
+        articleRepo.deleteAll();
+    }
+
+    @Test
+    public void OwnerHasOneArticleTest() {
         ApplicationUser owner = new ApplicationUser();
         owner.setId(1L);
         owner.setUsername("Hans");
@@ -44,17 +49,10 @@ public class IArticleRepositoryTest {
 
         personRepo.save(owner);
         articleRepo.save(test1);
-    }
 
-    @After
-    public void tearDown() {
-        personRepo.deleteAll();
-        articleRepo.deleteAll();
-    }
 
-    @Test
-    public void OwnerHasOneArticleTest() {
         List<Article> articles = articleRepo.findAllByOwner_Id(1L);
+
 
         Assert.assertEquals(1, articles.size());
         Assert.assertEquals(2, articles.get(0).getId());
@@ -69,4 +67,37 @@ public class IArticleRepositoryTest {
         Assert.assertEquals(0, articles.size());
     }
 
+
+    @Test
+    public void OwnerHasTwoArticleTest() {
+        ApplicationUser owner = new ApplicationUser();
+        owner.setUsername("Johann");
+        owner.setBankAccount("300");
+        owner.setEmail("Johann@mail");
+        owner.setPassword("321");
+        owner.setTimestamp(LocalDateTime.of(2013, 12, 18, 14, 30));
+        owner.setUpdated(LocalDateTime.of(2014, 2, 18, 14, 30));
+
+        Article dishwasher = new Article();
+        dishwasher.setTitle("Washes dishes.");
+        dishwasher.setOwner(owner);
+        dishwasher.setTimestamp(LocalDateTime.of(2013, 12, 18, 14, 30));
+        dishwasher.setUpdated(LocalDateTime.of(2014, 2, 18, 14, 30));
+
+        Article theDevice9000 = new Article();
+        theDevice9000.setTitle("The Device9000 starts earlier than normal workers.");
+        theDevice9000.setOwner(owner);
+        theDevice9000.setTimestamp(LocalDateTime.of(2013, 12, 18, 14, 30));
+        theDevice9000.setUpdated(LocalDateTime.of(2014, 2, 18, 14, 30));
+
+        personRepo.save(owner);
+        articleRepo.save(dishwasher);
+        articleRepo.save(theDevice9000);
+
+
+        List<Article> articles = articleRepo.findAllByOwner_Id(3L);
+
+
+        Assert.assertEquals(2, articles.size());
+    }
 }
