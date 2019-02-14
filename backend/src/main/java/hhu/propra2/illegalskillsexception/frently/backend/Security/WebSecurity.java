@@ -13,9 +13,7 @@ import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.CorsConfigurationSource;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 
-import static hhu.propra2.illegalskillsexception.frently.backend.Security.SecurityConstants.LANDING_URL;
-import static hhu.propra2.illegalskillsexception.frently.backend.Security.SecurityConstants.LOGIN_URL;
-import static hhu.propra2.illegalskillsexception.frently.backend.Security.SecurityConstants.SIGN_UP_URL;
+import static hhu.propra2.illegalskillsexception.frently.backend.Security.SecurityConstants.*;
 
 
 @EnableWebSecurity
