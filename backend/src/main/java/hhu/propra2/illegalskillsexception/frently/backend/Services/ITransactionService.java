@@ -8,8 +8,8 @@ import java.util.List;
 
 public interface ITransactionService {
     void createTransaction(Transaction.Status status, Inquiry inquiry);
-    void updateTransactionReturnDate(Transaction t, LocalDate date);
-    void updateTransactionStatus(Transaction t, Transaction.Status status);
+    Transaction updateTransactionReturnDate(Transaction t, LocalDate date);
+    Transaction updateTransactionStatus(Transaction t, Transaction.Status status);
     List<Transaction> getAllTransactions();
-    List<Transaction> getTransactions(long id);
+    Transaction getTransaction(long id);
 }

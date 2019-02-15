@@ -5,8 +5,8 @@ import hhu.propra2.illegalskillsexception.frently.backend.Models.Transaction;
 import hhu.propra2.illegalskillsexception.frently.backend.Repositories.TransactionRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
 import java.time.LocalDate;
-import java.util.Collections;
 import java.util.List;
 
 @Service
@@ -24,30 +24,31 @@ public class TransactionService implements ITransactionService {
         transactionRepository.save(temp);
     }
 
-    public void updateTransactionReturnDate(Transaction t, LocalDate date) {
+    public Transaction updateTransactionReturnDate(Transaction t, LocalDate date) {
         if (transactionRepository.existsById(t.getId())) {
             t.setReturnDate(date);
-            transactionRepository.save(t);
+            return transactionRepository.save(t);
         }
+        return null;
     }
 
-    public void updateTransactionStatus(Transaction t, Transaction.Status status) {
+    public Transaction updateTransactionStatus(Transaction t, Transaction.Status status) {
         if (transactionRepository.existsById(t.getId())) {
             t.setStatus(status);
-            transactionRepository.save(t);
+            return transactionRepository.save(t);
         }
+        return null;
     }
 
     public List<Transaction> getAllTransactions() {
         return transactionRepository.findAll();
     }
 
-    public List<Transaction> getTransactions(long id) {
+    public Transaction getTransaction(long id) {
         if(transactionRepository.existsById(id)){
-            return Collections.singletonList(transactionRepository.findById(id).get());
-        } else {
-            return null;
+            return transactionRepository.findById(id).get();
         }
+        return null;
     }
 
     private Transaction setTransaction(Transaction temp, Inquiry inquiry, Transaction.Status status, LocalDate returnDate) {
