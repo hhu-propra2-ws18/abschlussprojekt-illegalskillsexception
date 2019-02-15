@@ -5,10 +5,12 @@ import hhu.propra2.illegalskillsexception.frently.backend.Repositories.IApplicat
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Optional;
 
 @Service
 public class ApplicationUserService {
+
     private IApplicationUserRepository userRepo;
 
     @Autowired
@@ -24,5 +26,27 @@ public class ApplicationUserService {
             return userOpt.get();
         }
         return null;
+    }
+
+    public List<ApplicationUser> getAllUsers(){
+        return userRepo.findAll();
+    }
+
+    public void deleteUser(long userId){
+        userRepo.deleteById(userId);
+    }
+
+    public void updateUser(ApplicationUser updateUser){
+        userRepo.save(updateUser);
+    }
+
+    public void createUser(String email, String username, String password, String bankAccount){
+        ApplicationUser temp = new ApplicationUser();
+        temp.setEmail(email);
+        temp.setUsername(username);
+        temp.setPassword(password);
+        temp.setBankAccount(bankAccount);
+
+        userRepo.save(temp);
     }
 }
