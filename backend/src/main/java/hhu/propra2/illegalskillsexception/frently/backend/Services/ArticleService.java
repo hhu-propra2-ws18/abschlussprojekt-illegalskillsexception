@@ -10,7 +10,7 @@ import java.util.List;
 import java.util.Optional;
 
 @Service
-public class ArticleService {
+public class ArticleService implements IArticleService {
     private IArticleRepository articleRepo;
 
     @Autowired
@@ -18,23 +18,62 @@ public class ArticleService {
         this.articleRepo = articleRepo;
     }
 
-    List<Article> getAllArticles() {
+    public void createArticle(String title, ApplicationUser owner, int deposit, String description, int dailyRate) {
+        Article toCreate = new Article();
+        toCreate.setTitle(title);
+        toCreate.setOwner(owner);
+        toCreate.setDeposit(deposit);
+        toCreate.setDescription(description);
+        toCreate.setDailyRate(dailyRate);
+
+        articleRepo.save(toCreate);
+    }
+
+    public void createArticle(ApplicationUser owner, Article article) {
+        article.setOwner(owner);
+        articleRepo.save(article);
+    }
+
+    public List<Article> getAllArticles() {
         return articleRepo.findAll();
     }
 
-    Optional<Article> getArticleById(Long id) {
-        return articleRepo.findById(id);
+    public Article getArticleById(Long id) {
+        Optional<Article> articleOpt = articleRepo.findById(id);
+
+        if (articleOpt.isPresent()) {
+            return articleOpt.get();
+        } else {
+            return null;
+        }
     }
 
-    List<Article> getAllArticlesOfOwner(ApplicationUser owner) {
+    public List<Article> getAllArticlesOfOwner(ApplicationUser owner) {
         return articleRepo.findAllByOwner_Id(owner.getId());
     }
 
-    void updateArticle(Article toUpdate) {
-        articleRepo.save(toUpdate);
+    public Article updateArticle(Long articleId, String title, int deposit, String description, int dailyRate) {
+        Optional<Article> toUpdateOpt = articleRepo.findById(articleId);
+
+        if (toUpdateOpt.isPresent()) {
+            Article toUpdate = toUpdateOpt.get();
+
+            toUpdate.setTitle(title);
+            toUpdate.setDeposit(deposit);
+            toUpdate.setDescription(description);
+            toUpdate.setDailyRate(dailyRate);
+
+            return articleRepo.save(toUpdate);
+        } else {
+            return null;
+        }
     }
 
-    void deleteArticle(Long id) {
+    public void updateArticle(Article article) {
+        articleRepo.save(article);
+    }
+
+    public void deleteArticle(Long id) {
         articleRepo.deleteById(id);
     }
 }
