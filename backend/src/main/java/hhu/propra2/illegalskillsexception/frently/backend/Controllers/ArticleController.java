@@ -1,11 +1,14 @@
 package hhu.propra2.illegalskillsexception.frently.backend.Controllers;
 
+import hhu.propra2.illegalskillsexception.frently.backend.Controllers.Response.FrentlyData;
+import hhu.propra2.illegalskillsexception.frently.backend.Controllers.Response.FrentlyResponse;
 import hhu.propra2.illegalskillsexception.frently.backend.Models.ApplicationUser;
 import hhu.propra2.illegalskillsexception.frently.backend.Models.Article;
 import hhu.propra2.illegalskillsexception.frently.backend.Services.IArticleService;
 import lombok.AllArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @AllArgsConstructor
@@ -16,13 +19,17 @@ public class ArticleController {
     private IArticleService articleService;
 
     @GetMapping("/all")
-    public List<Article> showAllArticles() {
-        return articleService.getAllArticles();
+    public FrentlyResponse showAllArticles() {
+        List<Article> dataList = articleService.getAllArticles();
+        return new FrentlyResponse(null,new ArrayList<>(dataList));
     }
 
     @GetMapping("/{id}")
-    public Article showDetails(@PathVariable Long id) {
-        return articleService.getArticleById(id);
+    public FrentlyResponse showDetails(@PathVariable Long id) {
+        FrentlyData article = articleService.getArticleById(id);
+        List<FrentlyData> data = new ArrayList<>();
+        data.add(article);
+        return new FrentlyResponse(null,data);
     }
 
     @PostMapping("/create")
