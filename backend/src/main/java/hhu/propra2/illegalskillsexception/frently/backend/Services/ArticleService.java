@@ -18,16 +18,6 @@ public class ArticleService implements IArticleService {
         this.articleRepo = articleRepo;
     }
 
-    public void createArticle(String title, ApplicationUser owner, int deposit, String description, int dailyRate) {
-        Article toCreate = new Article();
-        toCreate.setTitle(title);
-        toCreate.setOwner(owner);
-        toCreate.setDeposit(deposit);
-        toCreate.setDescription(description);
-        toCreate.setDailyRate(dailyRate);
-
-        articleRepo.save(toCreate);
-    }
 
     public void createArticle(ApplicationUser owner, Article article) {
         article.setOwner(owner);

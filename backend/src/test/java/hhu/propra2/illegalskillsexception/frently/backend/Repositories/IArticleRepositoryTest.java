@@ -50,9 +50,7 @@ public class IArticleRepositoryTest {
         personRepo.save(owner);
         articleRepo.save(test1);
 
-
         List<Article> articles = articleRepo.findAllByOwner_Id(1L);
-
 
         Assert.assertEquals(1, articles.size());
         Assert.assertEquals(2, articles.get(0).getId());
@@ -66,7 +64,6 @@ public class IArticleRepositoryTest {
 
         Assert.assertEquals(0, articles.size());
     }
-
 
     @Test
     public void OwnerHasTwoArticleTest() {
@@ -94,9 +91,7 @@ public class IArticleRepositoryTest {
         articleRepo.save(dishwasher);
         articleRepo.save(theDevice9000);
 
-
         List<Article> articles = articleRepo.findAllByOwner_Id(3L);
-
 
         Assert.assertEquals(2, articles.size());
     }
