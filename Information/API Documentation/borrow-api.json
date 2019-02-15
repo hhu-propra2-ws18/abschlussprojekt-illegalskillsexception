@@ -1,5 +1,5 @@
 {
-    "/borrow/getall": {
+    "/borrow/getAll": {
         "method": "get",
         "sendData": {},
         "expectedData": {
@@ -8,6 +8,7 @@
                     "title": "String",
                     "dailyRate": "Number",
                     "deposit": "Number",
+                    "owner": "String",
                     "place": "String",
                     "id":"Number"
                 }
