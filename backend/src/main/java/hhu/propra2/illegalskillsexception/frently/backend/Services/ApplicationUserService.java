@@ -28,19 +28,20 @@ public class ApplicationUserService {
         return null;
     }
 
-    public List<ApplicationUser> getAllUsers(){
+    public List<ApplicationUser> getAllUsers() {
         return userRepo.findAll();
     }
 
-    public void deleteUser(long userId){
+    public void deleteUser(long userId) {
         userRepo.deleteById(userId);
     }
 
-    public void updateUser(ApplicationUser updateUser){
+    public ApplicationUser updateUser(ApplicationUser updateUser) {
         userRepo.save(updateUser);
+        return updateUser;
     }
 
-    public void createUser(String email, String username, String password, String bankAccount){
+    public void createUser(String email, String username, String password, String bankAccount) {
         ApplicationUser temp = new ApplicationUser();
         temp.setEmail(email);
         temp.setUsername(username);
