@@ -7,8 +7,6 @@ import hhu.propra2.illegalskillsexception.frently.backend.Models.LendingPeriod;
 import hhu.propra2.illegalskillsexception.frently.backend.Repositories.InquiryRepository;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 
 @Service
@@ -21,30 +19,31 @@ public class InquiryService {
     }
 
     public void createInquiry(Article article, ApplicationUser borrower, ApplicationUser lender,
-                              LendingPeriod lendingPeriod, Inquiry.Status status){
+                              LendingPeriod lendingPeriod, Inquiry.Status status) {
         final Inquiry temp = setInquiry(new Inquiry(), article, borrower, lender, lendingPeriod, status);
         inquiryRepository.save(temp);
     }
 
-    public void updateInquiry(Inquiry inquiry){
-        if(inquiryRepository.existsById(inquiry.getId())){
+    public Inquiry updateInquiry(Inquiry inquiry) {
+        if (inquiryRepository.existsById(inquiry.getId())) {
             inquiryRepository.save(inquiry);
         }
+        return inquiry;
     }
 
-    public List<Inquiry> getInquiry(long id){
-        if(inquiryRepository.existsById(id)){
-            return Collections.singletonList(inquiryRepository.findById(id).get());
+    public Inquiry getInquiry(long id) {
+        if (inquiryRepository.existsById(id)) {
+            return inquiryRepository.findById(id).get();
         }
-        return new ArrayList<>();
+        return null;
     }
 
-    public List<Inquiry> getAllInquirys(){
+    public List<Inquiry> getAllInquirys() {
         return inquiryRepository.findAll();
     }
 
     private Inquiry setInquiry(Inquiry inquiry, Article article, ApplicationUser borrower,
-                               ApplicationUser lender , LendingPeriod lendingPeriod, Inquiry.Status status){
+                               ApplicationUser lender, LendingPeriod lendingPeriod, Inquiry.Status status) {
         inquiry.setArticle(article);
         inquiry.setBorrower(borrower);
         inquiry.setLender(lender);
