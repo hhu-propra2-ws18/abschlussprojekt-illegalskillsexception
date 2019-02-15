@@ -1,6 +1,8 @@
 package hhu.propra2.illegalskillsexception.frently.backend.Services;
 
+import hhu.propra2.illegalskillsexception.frently.backend.Models.ApplicationUser;
 import hhu.propra2.illegalskillsexception.frently.backend.Models.Inquiry;
+import hhu.propra2.illegalskillsexception.frently.backend.Models.LendingPeriod;
 import hhu.propra2.illegalskillsexception.frently.backend.Models.Transaction;
 import hhu.propra2.illegalskillsexception.frently.backend.Repositories.TransactionRepository;
 import org.junit.Before;
@@ -11,11 +13,9 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Arrays;
 
-import static org.junit.Assert.*;
-import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.when;
-import static org.mockito.Mockito.verify;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNull;
+import static org.mockito.Mockito.*;
 
 public class TransactionServiceTest {
     private TransactionRepository transactionRepository;
@@ -25,68 +25,99 @@ public class TransactionServiceTest {
 
     @Before
     public void setup() {
-        Inquiry inquiry0 = mock(Inquiry.class);
-        Inquiry inquiry1 = mock(Inquiry.class);
-        Inquiry inquiry2 = mock(Inquiry.class);
-        when(inquiry0.getId()).thenReturn((long) 0);
-        when(inquiry1.getId()).thenReturn((long) 0);
-        when(inquiry2.getId()).thenReturn((long) 0);
+        ApplicationUser applicationUser0 = mock(ApplicationUser.class);
+        ApplicationUser applicationUser1 = mock(ApplicationUser.class);
+        when(applicationUser0.getId()).thenReturn(0L);
+        when(applicationUser1.getId()).thenReturn(1L);
+
+        LendingPeriod lendingPeriod0 = new LendingPeriod(LocalDate.of(2019, 2, 3), LocalDate.of(2019, 2, 5));
+        LendingPeriod lendingPeriod1 = new LendingPeriod(LocalDate.of(2019, 2, 3), LocalDate.of(2019, 2, 10));
+
+        LocalDateTime timestamp = LocalDateTime.of(2019, 2, 3, 12, 23,34);
+
+        Inquiry inquiry0 = new Inquiry();
+        Inquiry inquiry1 = new Inquiry();
+        inquiry0.setId(0L);
+        inquiry1.setId(1L);
+        inquiry0.setStatus(Inquiry.Status.open);
+        inquiry1.setStatus(Inquiry.Status.accepted);
+        inquiry0.setBorrower(applicationUser0);
+        inquiry1.setBorrower(applicationUser1);
+        inquiry0.setLender(applicationUser0);
+        inquiry1.setLender(applicationUser1);
+        inquiry0.setDuration(lendingPeriod0);
+        inquiry1.setDuration(lendingPeriod1);
+        inquiry0.setTimestamp(timestamp);
+        inquiry1.setTimestamp(timestamp.plusMinutes(2));
 
         inquiryList = new ArrayList<>();
-        inquiryList.addAll(Arrays.asList(inquiry0, inquiry1, inquiry2));
+        inquiryList.addAll(Arrays.asList(inquiry0, inquiry1));
 
-        LocalDateTime tmpTimeStamp = LocalDateTime.now();
+        Transaction transaction0 = new Transaction();
+        transaction0.setId(0L);
+        transaction0.setStatus(Transaction.Status.open);
+        transaction0.setReturnDate(LocalDate.of(2019, 1, 1));
+        transaction0.setInquiry(inquiry0);
+        transaction0.setTimestamp(timestamp);
+        transaction0.setUpdated(timestamp);
 
-        Transaction transaction0 = mock(Transaction.class);
-        when(transaction0.getId()).thenReturn((long) 0);
-        when(transaction0.getInquiry()).thenReturn(inquiry0);
-        when(transaction0.getReturnDate()).thenReturn(LocalDate.now().plusDays(3));
-        when(transaction0.getTimestamp()).thenReturn(tmpTimeStamp);
-        when(transaction0.getUpdated()).thenReturn(tmpTimeStamp);
-        when(transaction0.getStatus()).thenReturn(Transaction.Status.open);
-
-        Transaction transaction1 = mock(Transaction.class);
-        when(transaction1.getId()).thenReturn((long) 1);
-        when(transaction1.getInquiry()).thenReturn(inquiry1);
-        when(transaction1.getReturnDate()).thenReturn(LocalDate.now().plusDays(7));
-        when(transaction1.getTimestamp()).thenReturn(tmpTimeStamp);
-        when(transaction1.getUpdated()).thenReturn(tmpTimeStamp);
-        when(transaction1.getStatus()).thenReturn(Transaction.Status.closed);
-
-        Transaction transaction2 = mock(Transaction.class);
-        when(transaction2.getId()).thenReturn((long) 2);
-        when(transaction2.getInquiry()).thenReturn(inquiry2);
-        when(transaction2.getReturnDate()).thenReturn(LocalDate.now().plusDays(1));
-        when(transaction2.getTimestamp()).thenReturn(tmpTimeStamp);
-        when(transaction2.getUpdated()).thenReturn(tmpTimeStamp);
-        when(transaction2.getStatus()).thenReturn(Transaction.Status.conflict);
+        Transaction transaction1 = new Transaction();
+        transaction1.setId(1L);
+        transaction1.setStatus(Transaction.Status.conflict);
+        transaction1.setReturnDate(LocalDate.of(2019, 2, 2));
+        transaction1.setInquiry(inquiry1);
+        transaction1.setTimestamp(timestamp.plusMinutes(2));
+        transaction1.setUpdated(timestamp.plusMinutes(2));
 
         transactionList = new ArrayList<>();
-        transactionList.addAll(Arrays.asList(transaction0, transaction1, transaction2));
+        transactionList.addAll(Arrays.asList(transaction0, transaction1));
 
         transactionRepository = mock(TransactionRepository.class);
-        when(transactionRepository.findAll()).thenReturn(transactionList);
+        when(transactionRepository.existsById(0L)).thenReturn(true);
+        when(transactionRepository.existsById(1L)).thenReturn(false);
+        when(transactionRepository.save(transaction0)).thenReturn(transaction0);
+        when(transactionRepository.save(transaction1)).thenReturn(transaction1);
 
         transactionService = new TransactionService(transactionRepository);
     }
 
     @Test
-    public void createTransaction() {
-        Transaction tmpTransaction = transactionList.get(0);
+    public void updateTransactionReturnDateIfTransactionExistsAndReturnUpdatedObject() {
+        Transaction testTransaction = transactionList.get(0);
+        LocalDate newDate = LocalDate.of(2019, 12, 12);
 
-        transactionService.createTransaction(tmpTransaction.getStatus(), tmpTransaction.getInquiry());
-        verify(transactionRepository).save(any(Transaction.class));
+        Transaction updatedTransaction = transactionService.updateTransactionReturnDate(testTransaction, newDate);
+        LocalDate updatedDate = updatedTransaction.getReturnDate();
+
+        verify(transactionRepository).save(updatedTransaction);
+        assertEquals(newDate.getYear(), updatedDate.getYear());
+        assertEquals(newDate.getDayOfYear(), updatedDate.getDayOfYear());
     }
 
     @Test
-    public void updateTransactionReturnDate() {
+    public void updateTransactionReturnDateIfTransactionDoesNotExistAndReturnNull() {
+        Transaction testTransaction = transactionList.get(1);
+        LocalDate newDate = LocalDate.of(2019, 12, 12);
+
+        assertNull(transactionService.updateTransactionReturnDate(testTransaction, newDate));
+        verify(transactionRepository, never()).save(testTransaction);
     }
 
     @Test
-    public void updateTransactionStatus() {
+    public void updateTransactionStatusIfTransactionExistsAndReturnUpdatedObject() {
+        Transaction testTransaction = transactionList.get(0);
+
+        Transaction updatedTransaction = transactionService.updateTransactionStatus(testTransaction, Transaction.Status.closed);
+
+        verify(transactionRepository).save(updatedTransaction);
+        assertEquals(Transaction.Status.closed, updatedTransaction.getStatus());
     }
 
     @Test
-    public void getAllTransactions() {
+    public void updateTransactionStatusIfTransactionDoesNotExistAndReturnNull() {
+        Transaction testTransaction = transactionList.get(1);
+
+        assertNull(transactionService.updateTransactionStatus(testTransaction, Transaction.Status.closed));
+        verify(transactionRepository, never()).save(testTransaction);
     }
 }
