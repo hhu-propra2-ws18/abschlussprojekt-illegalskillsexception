@@ -14,8 +14,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
-import java.net.http.HttpResponse;
-
 @AllArgsConstructor
 @RestController
 @RequestMapping("/users")
