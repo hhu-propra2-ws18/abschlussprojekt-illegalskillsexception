@@ -12,7 +12,6 @@ import static org.mockito.Mockito.when;
 
 public class ArticleServiceTest {
 
-
     @Test
     public void articleOfId1NotFoundThenReturnsNull() {
         IArticleRepository repoMock = Mockito.mock(IArticleRepository.class);
@@ -21,9 +20,7 @@ public class ArticleServiceTest {
         Optional<Article> opt = Optional.empty();
         when(repoMock.findById(1L)).thenReturn(opt);
 
-
         Article article = service.getArticleById(1L);
-
 
         Assert.assertNull(article);
     }
@@ -39,9 +36,7 @@ public class ArticleServiceTest {
 
         when(repoMock.findById(1L)).thenReturn(opt);
 
-
         Article article = service.getArticleById(1L);
-
 
         Assert.assertEquals(articleInDatabase, article);
     }
@@ -59,9 +54,7 @@ public class ArticleServiceTest {
         when(repoMock.findById(1L)).thenReturn(opt);
         when(repoMock.save(articleInDatabase)).thenReturn(articleInDatabase);
 
-
         Article article = service.updateArticle(1L, "title", 300, "new", 100);
-
 
         Assert.assertEquals("new", article.getDescription());
     }
@@ -74,9 +67,7 @@ public class ArticleServiceTest {
         Optional<Article> opt = Optional.empty();
         when(repoMock.findById(1L)).thenReturn(opt);
 
-
         Article article = service.updateArticle(1L, "title", 300, "new", 100);
-
 
         Assert.assertNull(article);
     }

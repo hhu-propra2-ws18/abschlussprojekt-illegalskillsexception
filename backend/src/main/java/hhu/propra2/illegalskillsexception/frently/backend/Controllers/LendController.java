@@ -21,9 +21,7 @@ public class LendController {
     public FrentlyResponse getAllArticlesOwner(Authentication authentication) {
         ApplicationUser user = (ApplicationUser) authentication.getPrincipal();
         List<Article> articles = articleService.getAllArticlesOfOwner(user);
-        List<FrentlyData> dataList = new ArrayList<>();
-        dataList.addAll(articles);
-        return new FrentlyResponse(null,dataList);
+        return new FrentlyResponse(null, new ArrayList<>(articles));
     }
 
     @PostMapping("/item")
@@ -32,6 +30,6 @@ public class LendController {
         articleService.createArticle(user,article);
         List<FrentlyData> dataList = new ArrayList<>();
         dataList.add(article);
-        return new FrentlyResponse(null,dataList);
+        return new FrentlyResponse(null, dataList);
     }
 }

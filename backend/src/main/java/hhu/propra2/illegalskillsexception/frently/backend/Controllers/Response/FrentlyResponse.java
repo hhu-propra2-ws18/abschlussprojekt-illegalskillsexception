@@ -9,7 +9,7 @@ public class FrentlyResponse {
     private FrentlyError error;
     private List<FrentlyData> frentlyDataList;
 
-    public <T> FrentlyResponse(FrentlyError inputError, List<FrentlyData> inputData) {
+    public FrentlyResponse(FrentlyError inputError, List<FrentlyData> inputData) {
         this.error = inputError;
         this.frentlyDataList = inputData;
     }
