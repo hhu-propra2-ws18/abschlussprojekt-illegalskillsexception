@@ -13,7 +13,7 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.*;
 import static org.mockito.Mockito.*;
 
 public class InquiryServiceTest {
@@ -67,16 +67,15 @@ public class InquiryServiceTest {
     public void getInquiryWhichExists() {
         Inquiry expectedInquiry = inquiryList.get(0);
 
-        List<Inquiry> returnedInquiries = inquiryService.getInquiry(0L);
+        Inquiry inquiry = inquiryService.getInquiry(0L);
 
-        assertEquals(expectedInquiry.getId(), returnedInquiries.get(0).getId());
-        assertEquals(1, returnedInquiries.size());
+        assertEquals(expectedInquiry.getId(), inquiry.getId());
+        assertNotNull(inquiry);
     }
 
     @Test
     public void getInquiryWhichNotExists() {
-        List<Inquiry> returnedInquiries = inquiryService.getInquiry(1L);
-
-        assertEquals(0, returnedInquiries.size());
+        Inquiry inquiry = inquiryService.getInquiry(1L);
+        assertNull(inquiry);
     }
 }
