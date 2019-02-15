@@ -10,14 +10,13 @@ import java.util.List;
 import java.util.Optional;
 
 @Service
-public class ArticleService {
+public class ArticleService implements IArticleService {
     private IArticleRepository articleRepo;
 
     @Autowired
     public ArticleService(IArticleRepository articleRepo) {
         this.articleRepo = articleRepo;
     }
-
 
     public void createArticle(String title, ApplicationUser owner, int deposit, String description, int dailyRate) {
         Article toCreate = new Article();
@@ -28,6 +27,11 @@ public class ArticleService {
         toCreate.setDailyRate(dailyRate);
 
         articleRepo.save(toCreate);
+    }
+
+    public void createArticle(ApplicationUser owner, Article article) {
+        article.setOwner(owner);
+        articleRepo.save(article);
     }
 
     public List<Article> getAllArticles() {
@@ -48,7 +52,7 @@ public class ArticleService {
         return articleRepo.findAllByOwner_Id(owner.getId());
     }
 
-    public void updateArticle(Long articleId, String title, int deposit, String description, int dailyRate) {
+    public Article updateArticle(Long articleId, String title, int deposit, String description, int dailyRate) {
         Optional<Article> toUpdateOpt = articleRepo.findById(articleId);
 
         if (toUpdateOpt.isPresent()) {
@@ -59,10 +63,14 @@ public class ArticleService {
             toUpdate.setDescription(description);
             toUpdate.setDailyRate(dailyRate);
 
-            articleRepo.save(toUpdate);
+            return articleRepo.save(toUpdate);
         } else {
-            //TODO Error handling
+            return null;
         }
+    }
+
+    public void updateArticle(Article article) {
+        articleRepo.save(article);
     }
 
     public void deleteArticle(Long id) {
