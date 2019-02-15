@@ -2,14 +2,14 @@ import React from "react";
 
 import Button from "react-uwp/Button";
 
-export default class InqueriesViewItem extends React.Component {
+export default class InquiriesViewItem extends React.Component {
     render() {
         return (
             <article>
                 <h1>{this.props.data.title}</h1>
                 <p>{this.props.data.description}</p>
 
-                {this.props.data.isLendingInquerie ? (
+                {this.props.data.isLendingInquirie ? (
                     <div>
                         <p>Borrower:</p>
 

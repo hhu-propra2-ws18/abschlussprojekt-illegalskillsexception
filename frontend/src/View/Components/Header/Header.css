@@ -1,10 +1,21 @@
 header {
     width: 100%;
     text-align: center;
-    background-color: rgb(7, 197, 255);
+    background-color: #0078D7;
     height: 60px;
 }
 
 header>h1 {
     padding-top: 5px;
+    font-family: 'Raleway', sans-serif;
+    font-family: 'PT Sans', sans-serif;
+    font-family: 'Exo', sans-serif;
+    font-family: 'Monda', sans-serif;
+    font-family: 'K2D', sans-serif;
+    font-family: 'Bai Jamjuree', sans-serif;
+    font-family: 'Duru Sans', sans-serif;
+}
+
+header>h1>span {
+    font-size: 26px;
 }

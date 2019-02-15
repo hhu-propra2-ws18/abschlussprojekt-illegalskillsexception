@@ -1,0 +1,30 @@
+{
+    "/borrow/getall": {
+        "method": "get",
+        "sendData": {},
+        "expectedData": {
+            "data": [
+                {
+                    "title": "String",
+                    "dailyRate": "Number",
+                    "deposit": "Number",
+                    "place": "String",
+                    "id":"Number"
+                }
+            ],
+            "error": "String or null"
+        }
+    },
+    "/borrow/borrow/{id}" : {
+        "method":"post",
+        "sendData": {"lendDays":[
+            "Date","Date","Date"
+        ]},
+        "expectedData":{
+            "data":{
+                "id":"Number"
+            },
+            "error":"String or null"
+        }
+    }
+}

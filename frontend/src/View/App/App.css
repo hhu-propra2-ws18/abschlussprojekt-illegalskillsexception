@@ -38,15 +38,26 @@
 
 body {
     height: 100vh;
+    
+}
+
+#root{
+    background-image: url("https://d2v9y0dukr6mq2.cloudfront.net/video/thumbnail/U4GOIU-/summer-famous-phuket-island-orange-sunset-panorama-4k-thailand_ewajnerhg__F0000.png");
 }
 
 main {
-    max-width: 800px;
+    max-width: 1200px;
     margin: auto;
     background: none;
+    width: 80%;
+    min-width: 300px;
     height: calc(100% - 60px);
+    
 }
 
-#content-view {
-    padding: 20px;
+@media (max-screen-width: 720px) {
+    main {
+        width: 100%;
+        min-width: 0px;
+    }
 }

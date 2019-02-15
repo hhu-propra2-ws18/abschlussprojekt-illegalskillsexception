@@ -27,9 +27,7 @@ export class App extends Component {
                         theme={getTheme({
                             themeName: "light", // set custom theme
                             accent: "#0078D7", // set accent color
-                            useFluentDesign: true, // sure you want use new fluent design.
-                            desktopBackgroundImage:
-                                "https://d2v9y0dukr6mq2.cloudfront.net/video/thumbnail/U4GOIU-/summer-famous-phuket-island-orange-sunset-panorama-4k-thailand_ewajnerhg__F0000.png"
+                            useFluentDesign: true // sure you want use new fluent design.
                         })}
                     >
                         {this.props.user.isLoggedIn ? (

@@ -1,5 +1,5 @@
 import React from "react";
-import BorrowItemComponent from "../BorrowItemComponent/BorrowItemComponent";
+import BorrowItemComponent from "./BorrowItemComponent/BorrowItemComponent";
 
 const items = [
     {

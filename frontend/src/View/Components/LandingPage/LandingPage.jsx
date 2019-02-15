@@ -77,11 +77,12 @@ export default class LandingPage extends React.Component {
         this.setState({ login: false });
     }
 
-    async loginUser(namePassed, passwordPassed) {
-        
+     loginUser(namePassed, passwordPassed) {
+        this.hideLogin();
         let loginaction = getLoginUserAction("some-token");
         store.dispatch(loginaction);
         
+        /*
         let nameInner = namePassed
             ? namePassed
             : this.nameLogin.current.getValue();
@@ -131,7 +132,7 @@ export default class LandingPage extends React.Component {
         }
         */
         //console.log(user.Authorization);
-        console.log(user);
+        //console.log(user);
         
 
 
