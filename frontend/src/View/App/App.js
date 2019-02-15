@@ -1,26 +1,21 @@
 import React, { Component } from "react";
 import "./App.css";
 import { Theme as UWPThemeProvider, getTheme } from "react-uwp/Theme";
-import Login from "../Components/LoginComponent/Login";
-import NavigationView from "react-uwp/NavigationView";
-import Button from "react-uwp/Button";
-import SplitViewCommand from "react-uwp/SplitViewCommand";
-import SplitView from "react-uwp/SplitView";
-import Tabs, { Tab } from "react-uwp/Tabs";
 import Header from "../Components/Header/Header";
-import BorrowView from "../Components/Borrow/BorrowView/BorrowView";
-import LendView from "../Components/Lend/LendView/LendView";
-import TreeView, { TreeItem } from "react-uwp/TreeView";
 import LandingPage from "../Components/LandingPage/LandingPage";
 import ContentPage from "../Components/ContentPage/ContentPage.jsx";
+
+import { connect } from "react-redux";
+
+const mapStateToProps = state => {
+    return { user: state.user };
+};
 
 export class App extends Component {
     constructor(props) {
         super(props);
 
         this.state = { hasUser: false };
-
-        this.tab = React.createRef();
     }
 
     render() {
@@ -32,40 +27,24 @@ export class App extends Component {
                         theme={getTheme({
                             themeName: "light", // set custom theme
                             accent: "#0078D7", // set accent color
-                            useFluentDesign: true, // sure you want use new fluent design.
-                            desktopBackgroundImage:
-                                "https://d2v9y0dukr6mq2.cloudfront.net/video/thumbnail/U4GOIU-/summer-famous-phuket-island-orange-sunset-panorama-4k-thailand_ewajnerhg__F0000.png"
+                            useFluentDesign: true // sure you want use new fluent design.
                         })}
                     >
-                        {this.state.hasUser ? <ContentPage /> : <LandingPage />}
+                        {this.props.user.isLoggedIn ? (
+                            <ContentPage />
+                        ) : (
+                            <LandingPage />
+                        )}
                     </UWPThemeProvider>
                 </main>
             </>
         );
     }
-
-    onClickNode(index) {
-        this.tab.current.setState({ tabFocusIndex: parseInt(index) });
-        console.log(this.tab.current.state);
-        //this.tab.state = {tabIndex : index};
-    }
 }
 
-/*
-
-                <Tabs animateMode="in-out" class="tabs">
-                    <Tab title="Borrow">
-                        <BorrowView />
-                    </Tab>
-                    <Tab title="Lend">
-                        <LendView />
-                    </Tab>
-                    <Tab title="Inquiry" />
-                </Tabs>
-
-
-
-            
-*/
-
-export default App;
+let appExport = connect(
+    mapStateToProps,
+    null,
+    null
+)(App);
+export default appExport;

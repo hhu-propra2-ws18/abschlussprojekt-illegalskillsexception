@@ -4,6 +4,10 @@ import Button from "react-uwp/Button";
 import Dialog from "react-uwp/Dialog";
 import LendItemCreateOfferDialog from "../LendItemCreateOfferDialog/LendItemCreateOfferDialog";
 
+import CommandBar from "react-uwp/CommandBar";
+import AppBarButton from "react-uwp/AppBarButton";
+import AppBarSeparator from "react-uwp/AppBarSeparator";
+
 export default class LendViewHeader extends React.Component {
     constructor(props) {
         super(props);
@@ -13,7 +17,19 @@ export default class LendViewHeader extends React.Component {
     render() {
         return (
             <div>
-                <Button onClick={()=>this.createOfferDialog()}>Create Offer</Button>
+                <CommandBar
+                    primaryCommands={[
+                        <AppBarButton
+                            label="List item"
+                            onClick={() => this.createOfferDialog()}
+                            icon={"\uE710"}
+                            labelPosition="right"
+                        />
+                    ]}
+                    labelPosition="right"
+                    flowDirection="row"
+                    expanded={true}
+                />
                 <Dialog
                     defaultShow={this.state.showDialog}
                     style={{ zIndex: 400 }}

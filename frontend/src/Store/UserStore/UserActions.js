@@ -4,7 +4,7 @@ export const LOGOUT_USER = "LOGOUT_USER";
 export function getLoginUserAction(userData) {
     return {
         type: LOGIN_USER,
-        token: userData.token
+        token: userData.token ? userData.token : "test"
     };
 }
 

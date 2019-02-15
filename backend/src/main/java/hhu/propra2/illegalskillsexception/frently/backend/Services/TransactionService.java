@@ -6,7 +6,8 @@ import hhu.propra2.illegalskillsexception.frently.backend.Repositories.Transacti
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.time.LocalDateTime;
+import java.time.LocalDate;
+import java.util.List;
 
 @Service
 public class TransactionService implements ITransactionService {
@@ -19,24 +20,41 @@ public class TransactionService implements ITransactionService {
     }
 
     public void createTransaction(Transaction.Status status, Inquiry inquiry) {
-        final Transaction temp = setTransaction(new Transaction(), inquiry, Transaction.Status.open, null, LocalDateTime.now());
+        final Transaction temp = setTransaction(new Transaction(), inquiry, Transaction.Status.open, null);
         transactionRepository.save(temp);
     }
 
-    public void updateTransaction(Transaction t) {
+    public Transaction updateTransactionReturnDate(Transaction t, LocalDate date) {
         if (transactionRepository.existsById(t.getId())) {
-            transactionRepository.save(t);
-        } else{
-            //TODO: Errorhandling in case the Transaction isn't in the database
+            t.setReturnDate(date);
+            return transactionRepository.save(t);
         }
+        return null;
     }
 
-    private Transaction setTransaction(Transaction temp, Inquiry inquiry, Transaction.Status status, LocalDateTime returnDate, LocalDateTime timestamp) {
+    public Transaction updateTransactionStatus(Transaction t, Transaction.Status status) {
+        if (transactionRepository.existsById(t.getId())) {
+            t.setStatus(status);
+            return transactionRepository.save(t);
+        }
+        return null;
+    }
+
+    public List<Transaction> getAllTransactions() {
+        return transactionRepository.findAll();
+    }
+
+    public Transaction getTransaction(long id) {
+        if(transactionRepository.existsById(id)){
+            return transactionRepository.findById(id).get();
+        }
+        return null;
+    }
+
+    private Transaction setTransaction(Transaction temp, Inquiry inquiry, Transaction.Status status, LocalDate returnDate) {
         temp.setInquiry(inquiry);
         temp.setStatus(status);
         temp.setReturnDate(returnDate);
-        temp.setTimestamp(timestamp);
-        temp.setUpdated(LocalDateTime.now());
         return temp;
     }
 }

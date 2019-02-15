@@ -4,6 +4,8 @@ import Button from "react-uwp/Button";
 import TextBox from "react-uwp/TextBox";
 import Dialog from "react-uwp/Dialog";
 import axios from "axios";
+import { store } from "../../../Store/reduxInit";
+import { getLoginUserAction } from "../../../Store/UserStore/UserActions";
 
 export default class LandingPage extends React.Component {
     constructor(props) {
@@ -75,7 +77,12 @@ export default class LandingPage extends React.Component {
         this.setState({ login: false });
     }
 
-    async loginUser(namePassed, passwordPassed) {
+     loginUser(namePassed, passwordPassed) {
+        this.hideLogin();
+        let loginaction = getLoginUserAction("some-token");
+        store.dispatch(loginaction);
+        
+        /*
         let nameInner = namePassed
             ? namePassed
             : this.nameLogin.current.getValue();
@@ -125,9 +132,8 @@ export default class LandingPage extends React.Component {
         }
         */
         //console.log(user.Authorization);
-        console.log(user);
-
-
+        //console.log(user);
+        
 
 
     }

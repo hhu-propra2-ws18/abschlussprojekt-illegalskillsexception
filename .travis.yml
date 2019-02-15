@@ -2,3 +2,7 @@ language: java
 
 before_install:
   - cd backend
+
+branches:
+  only:
+  - master
