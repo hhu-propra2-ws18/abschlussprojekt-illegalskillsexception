@@ -9,11 +9,12 @@
                     "description": "String",
                     "status": "String",
                     "deposit": "Number",
-                    "dailyRate": "Number"
+                    "dailyRate": "Number",
+                    "location": "String"
                 }
             ],
             "error": {
-                "code": "Number/String or null",
+                "code": "Number or null",
                 "message": "String or null"
             }
         }
@@ -25,12 +26,13 @@
             "description": "String",
             "status": "String",
             "deposit": "Number",
-            "dailyRate": "Number"
+            "dailyRate": "Number",
+            "location": "String"
         },
         "expectedData": {
             "data": {},
             "error": {
-                "code": "Number/String or null",
+                "code": "Number or null",
                 "message": "String or null"
             }
         }

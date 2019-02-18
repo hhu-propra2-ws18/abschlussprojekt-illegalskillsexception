@@ -9,17 +9,17 @@
                     "dailyRate": "Number",
                     "deposit": "Number",
                     "owner": "String",
-                    "place": "String",
+                    "location": "String",
                     "id": "Number"
                 }
             ],
             "error": {
-                "code": "Number/String or null",
+                "code": "Number or null",
                 "message": "String or null"
             }
         }
     },
-    "/borrow/borrow/{id}": {
+    "/borrow/inquiry": {
         "method": "post",
         "sendData": {
             "id": "Number",
@@ -28,10 +28,10 @@
         },
         "expectedData": {
             "data": {
-                "id": "Number"
+                "inquiryId": "Number"
             },
             "error": {
-                "code": "Number/String or null",
+                "code": "Number or null",
                 "message": "String or null"
             }
         }
