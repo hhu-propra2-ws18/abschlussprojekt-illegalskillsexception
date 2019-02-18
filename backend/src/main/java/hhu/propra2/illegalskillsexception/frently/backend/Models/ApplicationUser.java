@@ -1,5 +1,6 @@
 package hhu.propra2.illegalskillsexception.frently.backend.Models;
 
+import hhu.propra2.illegalskillsexception.frently.backend.Controllers.Response.FrentlyData;
 import lombok.Data;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
@@ -11,7 +12,7 @@ import java.time.LocalDateTime;
 @Data
 @Entity
 @EntityListeners(AuditingEntityListener.class)
-public class ApplicationUser {
+public class ApplicationUser implements FrentlyData {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private long id;
