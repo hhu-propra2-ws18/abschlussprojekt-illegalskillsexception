@@ -46,7 +46,8 @@ public class TransactionService implements ITransactionService {
 
     public Transaction getTransaction(long id) {
         if(transactionRepository.existsById(id)){
-            return transactionRepository.findById(id).get();
+            if (transactionRepository.findById(id).isPresent())
+                return transactionRepository.findById(id).get();
         }
         return null;
     }

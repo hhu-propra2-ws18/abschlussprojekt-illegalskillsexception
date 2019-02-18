@@ -1,16 +1,15 @@
 {
-    "/borrow/getAll": {
+    "/lend/getAll": {
         "method": "get",
         "sendData": {},
         "expectedData": {
             "data": [
                 {
                     "title": "String",
-                    "dailyRate": "Number",
+                    "description": "String",
+                    "status": "String",
                     "deposit": "Number",
-                    "owner": "String",
-                    "place": "String",
-                    "id": "Number"
+                    "dailyRate": "Number"
                 }
             ],
             "error": {
@@ -19,17 +18,17 @@
             }
         }
     },
-    "/borrow/borrow/{id}": {
+    "/lend/create": {
         "method": "post",
         "sendData": {
-            "id": "Number",
-            "startDate": "Date",
-            "endDate": "Date"
+            "title": "String",
+            "description": "String",
+            "status": "String",
+            "deposit": "Number",
+            "dailyRate": "Number"
         },
         "expectedData": {
-            "data": {
-                "id": "Number"
-            },
+            "data": {},
             "error": {
                 "code": "Number/String or null",
                 "message": "String or null"

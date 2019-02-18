@@ -10,6 +10,4 @@ import java.util.List;
 public interface IApplicationUserRepository extends CrudRepository<ApplicationUser, Long> {
     List<ApplicationUser> findAll();
     ApplicationUser findByUsername(String username);
-
-    boolean existsByUsername(String username);
 }

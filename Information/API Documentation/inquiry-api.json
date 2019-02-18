@@ -1,3 +1,48 @@
 {
-    
+    "/inquiry/getall": {
+        "method": "get",
+        "sendData": {},
+        "expectedData": {
+            "data": {
+                "title": "String",
+                "description": "String",
+                "lendTime": "String",
+                "isLendingInquirie": "Boolean",
+                "borrower": "String (Optional: If not a isLendingInquirie can be null)",
+                "lender": "String (Optional: If isLendingInquirie can be null",
+                "status": "String"
+            },
+            "error": {
+                "code": "Number/String or null",
+                "message": "String or null"
+            }
+        }
+    },
+    "inquiry/accept": {
+        "method": "post",
+        "sendData": {
+            "id": "Number"
+        },
+        "expectedData": {
+            "data": {},
+            "error": {
+                "code": "Number/String or null",
+                "message": "String or null"
+            }
+        }
+    },
+    "inquiry/decline": {
+        "method": "post",
+        "sendData": {
+            "id": "Number"
+        },
+        "expectedData": {
+            "data": {},
+
+            "error": {
+                "code": "Number/String or null",
+                "message": "String or null"
+            }
+        }
+    }
 }

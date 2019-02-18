@@ -1,6 +1,5 @@
 package hhu.propra2.illegalskillsexception.frently.backend.Models;
 
-import hhu.propra2.illegalskillsexception.frently.backend.Controllers.Response.FrentlyData;
 import lombok.Data;
 import org.hibernate.annotations.NotFound;
 import org.hibernate.annotations.NotFoundAction;
@@ -14,7 +13,7 @@ import java.time.LocalDateTime;
 @Data
 @Entity
 @EntityListeners(AuditingEntityListener.class)
-public class Article implements FrentlyData {
+public class Article {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;
@@ -30,6 +29,7 @@ public class Article implements FrentlyData {
     @Lob
     private String description;
     private int dailyRate;
+    private String location;
 
     @CreatedDate
     @Column(nullable = false)

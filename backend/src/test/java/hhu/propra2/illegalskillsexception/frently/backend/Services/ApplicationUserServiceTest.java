@@ -4,13 +4,15 @@ import hhu.propra2.illegalskillsexception.frently.backend.Models.ApplicationUser
 import hhu.propra2.illegalskillsexception.frently.backend.Repositories.IApplicationUserRepository;
 import org.junit.Before;
 import org.junit.Test;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertNull;
 import static org.mockito.Mockito.*;
 
 public class ApplicationUserServiceTest {
@@ -33,7 +35,7 @@ public class ApplicationUserServiceTest {
         when(applicationUserRepository.findById(0L)).thenReturn(userList.get(0));
         when(applicationUserRepository.findById(1L)).thenReturn(userList.get(1));
         when(applicationUserRepository.findAll()).thenReturn(userList2);
-        applicationUserService = new ApplicationUserService(applicationUserRepository);
+        applicationUserService = new ApplicationUserService(applicationUserRepository, new BCryptPasswordEncoder());
     }
 
     @Test
@@ -48,12 +50,5 @@ public class ApplicationUserServiceTest {
         ApplicationUser temp = applicationUserService.getUserById(1L);
         verify(applicationUserRepository).findById(1L);
         assertNotNull(temp);
-    }
-
-    @Test
-    public void severalUsers(){
-        List<ApplicationUser> temp = applicationUserService.getAllUsers();
-        verify(applicationUserRepository).findAll();
-        assertEquals(3, userList2.size());
     }
 }
