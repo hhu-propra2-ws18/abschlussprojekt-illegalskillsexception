@@ -4,6 +4,7 @@ import hhu.propra2.illegalskillsexception.frently.backend.Exceptions.UserAlready
 import hhu.propra2.illegalskillsexception.frently.backend.Models.ApplicationUser;
 import hhu.propra2.illegalskillsexception.frently.backend.Repositories.IApplicationUserRepository;
 import lombok.AllArgsConstructor;
+import org.springframework.security.core.Authentication;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -13,6 +14,7 @@ import java.util.Optional;
 @Service
 @AllArgsConstructor
 public class ApplicationUserService {
+
     private IApplicationUserRepository userRepo;
     private BCryptPasswordEncoder bCryptPasswordEncoder;
 
@@ -65,4 +67,7 @@ public class ApplicationUserService {
     }
 
 
+    public ApplicationUser getCurrentUser(Authentication authentication) {
+        return userRepo.findByUsername((String)(authentication.getPrincipal()));
+    }
 }

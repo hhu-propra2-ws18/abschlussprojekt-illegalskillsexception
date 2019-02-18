@@ -1,10 +1,12 @@
-import { ADD_LEND_ITEM } from "./LendActions";
+import { ADD_LEND_ITEM, SET_LEND_ITEMS } from "./LendActions";
 
 export default function lendstore(state = [], action) {
     switch (action.type) {
         case ADD_LEND_ITEM: {
-            state.push(action.data);
-            return state;
+            return [...state,action.data];
+        }
+        case SET_LEND_ITEMS:{
+            return action["list"];
         }
         default: {
             return [];
