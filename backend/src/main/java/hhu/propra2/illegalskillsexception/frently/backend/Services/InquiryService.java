@@ -39,7 +39,7 @@ public class InquiryService implements IInquiryService{
         return null;
     }
 
-    public List<Inquiry> getAllInquiries() {
+    public List<Inquiry> getAllInquirys() {
         return inquiryRepository.findAll();
     }
 
@@ -51,5 +51,11 @@ public class InquiryService implements IInquiryService{
         inquiry.setDuration(lendingPeriod);
         inquiry.setStatus(status);
         return inquiry;
+    }
+    public List<Inquiry> getAllInquiries(Long id) {
+        List<Inquiry> list = inquiryRepository.findAllByBorrower_Id(id);
+        list.addAll(inquiryRepository.findAllByLender_Id(id));
+
+        return list;
     }
 }
