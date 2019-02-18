@@ -39,7 +39,7 @@ public class InquiryService implements IInquiryService{
         return null;
     }
 
-    public List<Inquiry> getAllInquirys() {
+    public List<Inquiry> getAllInquiries() {
         return inquiryRepository.findAll();
     }
 

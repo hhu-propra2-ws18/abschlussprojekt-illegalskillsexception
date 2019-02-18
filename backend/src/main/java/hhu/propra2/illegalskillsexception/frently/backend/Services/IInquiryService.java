@@ -10,5 +10,5 @@ public interface IInquiryService {
     long createInquiry(Article article, ApplicationUser borrower, LendingPeriod lendingPeriod, Inquiry.Status status);
     Inquiry updateInquiry(Inquiry inquiry);
     Inquiry getInquiry(long id);
-    List<Inquiry> getAllInquirys();
+    List<Inquiry> getAllInquiries();
 }
