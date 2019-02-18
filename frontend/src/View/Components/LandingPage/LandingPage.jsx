@@ -7,6 +7,9 @@ import axios from "axios";
 import { store } from "../../../Store/reduxInit";
 import { getLoginUserAction } from "../../../Store/UserStore/UserActions";
 
+
+import getToken from "../../../Services/Authentication/getToken";
+
 export default class LandingPage extends React.Component {
     constructor(props) {
         super(props);
@@ -23,6 +26,7 @@ export default class LandingPage extends React.Component {
     }
 
     render() {
+
         return (
             <div>
                 <p>Hello user</p>
@@ -77,12 +81,7 @@ export default class LandingPage extends React.Component {
         this.setState({ login: false });
     }
 
-     loginUser(namePassed, passwordPassed) {
-        this.hideLogin();
-        let loginaction = getLoginUserAction("some-token");
-        store.dispatch(loginaction);
-        
-        /*
+    async loginUser(namePassed, passwordPassed) {
         let nameInner = namePassed
             ? namePassed
             : this.nameLogin.current.getValue();
@@ -91,50 +90,7 @@ export default class LandingPage extends React.Component {
             : this.passwordLogin.current.getValue();
 
         
-        let user = await axios.post(
-            "http://localhost:8080/login",
-            {
-                username: nameInner,
-                password: passwordInner
-            },
-            {
-                
-                data: {
-                    username: nameInner,
-                    password: passwordInner
-                }
-            }
-        );
-        
-        /*
-        var xhr = new XMLHttpRequest();
-        var url = "http://localhost:8080/login";
-        xhr.open("POST", url, true);
-        xhr.setRequestHeader("Content-Type", "application/json");
-        xhr.onreadystatechange = function() {
-            if (xhr.readyState === 4 && xhr.status === 200) {
-                var json = JSON.parse(xhr.responseText);
-                console.log(json.email + ", " + json.password);
-            }
-        };
-        var data = JSON.stringify({
-            username: nameInner,
-            password: passwordInner
-        });
-        xhr.send(data);
-
-        xhr.onreadystatechange = (data)=> {
-            console.log(data);
-            console.log(xhr);
-            console.log(xhr.getAllResponseHeaders());
-            console.log(xhr.getResponseHeader());
-            console.log(xhr.response);
-        }
-        */
-        //console.log(user.Authorization);
-        //console.log(user);
-        
-
+        let user = await getToken(nameInner,passwordInner);
 
     }
 
