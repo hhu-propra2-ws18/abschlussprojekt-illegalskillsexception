@@ -1,5 +1,6 @@
 package hhu.propra2.illegalskillsexception.frently.backend.Services;
 
+import hhu.propra2.illegalskillsexception.frently.backend.Exceptions.UserAlreadyExistsAuthenticationException;
 import hhu.propra2.illegalskillsexception.frently.backend.Models.ApplicationUser;
 import hhu.propra2.illegalskillsexception.frently.backend.Repositories.IApplicationUserRepository;
 import org.junit.Before;
@@ -30,11 +31,18 @@ public class ApplicationUserServiceTest {
         userList = new ArrayList<>();
         userList.addAll(Arrays.asList(user0, user1, user2));
         userList2 = new ArrayList<>();
-        userList2.addAll(Arrays.asList(new ApplicationUser(), new ApplicationUser(), new ApplicationUser()));
+
+        ApplicationUser user3 = new ApplicationUser();
+        user3.setUsername("ExampleUser");
+        user3.setPassword("ExamplePassword");
+        user3.setBankAccount("ExampleBank");
+
+        userList2.addAll(Arrays.asList(new ApplicationUser(), new ApplicationUser(), new ApplicationUser(), user3));
         applicationUserRepository = mock(IApplicationUserRepository.class);
         when(applicationUserRepository.findById(0L)).thenReturn(userList.get(0));
         when(applicationUserRepository.findById(1L)).thenReturn(userList.get(1));
         when(applicationUserRepository.findAll()).thenReturn(userList2);
+        when(applicationUserRepository.existsByUsername("ExampleUser")).thenReturn(true);
         applicationUserService = new ApplicationUserService(applicationUserRepository, new BCryptPasswordEncoder());
     }
 
@@ -50,5 +58,29 @@ public class ApplicationUserServiceTest {
         ApplicationUser temp = applicationUserService.getUserById(1L);
         verify(applicationUserRepository).findById(1L);
         assertNotNull(temp);
+    }
+
+    @Test
+    public void createValidUser(){
+        ApplicationUser temp = new ApplicationUser();
+        temp.setUsername("TestUser");
+        temp.setPassword("TestPassword");
+        temp.setBankAccount("TestBank");
+        applicationUserService.createUser(temp);
+
+        verify(applicationUserRepository).existsByUsername("TestUser");
+        verify(applicationUserRepository).save(temp);
+    }
+
+    @Test(expected = UserAlreadyExistsAuthenticationException.class)
+    public void creatInvalidUser(){
+        ApplicationUser temp = new ApplicationUser();
+        temp.setUsername("ExampleUser");
+        temp.setPassword("ExamplePassword");
+        temp.setBankAccount("ExampleBank");
+        applicationUserService.createUser(temp);
+
+        verify(applicationUserRepository).existsByUsername("ExampleUser");
+
     }
 }
