@@ -5,14 +5,14 @@ import hhu.propra2.illegalskillsexception.frently.backend.Controllers.Response.F
 import hhu.propra2.illegalskillsexception.frently.backend.Controllers.Response.FrentlyResponse;
 import hhu.propra2.illegalskillsexception.frently.backend.Exceptions.UserAlreadyExistsAuthenticationException;
 import hhu.propra2.illegalskillsexception.frently.backend.Models.ApplicationUser;
-import hhu.propra2.illegalskillsexception.frently.backend.Repositories.IApplicationUserRepository;
 import hhu.propra2.illegalskillsexception.frently.backend.Services.ApplicationUserService;
 import lombok.AllArgsConstructor;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+
+import java.util.Collections;
 
 @AllArgsConstructor
 @RestController
@@ -23,11 +23,13 @@ public class ApplicationUserController {
 
     @PostMapping("/sign-up")
     public FrentlyResponse signUp(@RequestBody ApplicationUser user) {
+
         FrentlyResponse response = new FrentlyResponse();
         userService.encryptPassword(user);
         try {
             userService.createUser(user);
-            response.setData(user);
+
+            response.setFrentlyDataList(Collections.singletonList(user));
         } catch (UserAlreadyExistsAuthenticationException e) {
             response.setError(new FrentlyError(e.getMessage(), FrentlyErrorType.MISC));
         }
