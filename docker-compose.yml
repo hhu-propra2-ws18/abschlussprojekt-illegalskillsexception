@@ -1,29 +1,50 @@
 version: "3.1"
 
 volumes:
- mysql:
+  mysql:
 
 services:
-  projekt:
-    build: ./backend
-    container_name: spring_boot_app
-    links:
-       - "frentlydb:database"
-    ports:
-       - "8080"
-    depends_on:
-       - "frentlydb"
 
   frentlydb:
     image: mysql:5.7.24
     container_name: mysql
     restart: always
     volumes:
-        - mysql:/var/lib/mysql
+      - mysql:/var/lib/mysql
     environment:
-        MYSQL_ROOT_PASSWORD: secret
-        MYSQL_DATABASE: frentlydb
-        MYSQL_PASSWORD: secret
+      MYSQL_ROOT_PASSWORD: secret
+      MYSQL_DATABASE: frentlydb
+      MYSQL_PASSWORD: secret
     ports:
-        - "3306"
-  # ========================================
+      - "3306"
+
+  propay:
+    image: propra/propay
+    ports:
+      - "8888:8888"
+    # Optional
+    volumes:
+      - ./data:/code/data
+
+  frentlyapi:
+    build: ./backend
+    container_name: frentlyapi
+    links:
+      - "frentlydb:database"
+    ports:
+      - "8080:8080"
+    depends_on:
+      - "frentlydb"
+      - "propay"
+
+
+  frentlyfrontend:
+    build: ./frontend
+    container_name: frentlyfrontend
+    ports:
+      - "8090:80"
+
+
+
+
+
