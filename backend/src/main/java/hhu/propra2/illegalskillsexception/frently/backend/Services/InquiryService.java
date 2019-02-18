@@ -18,10 +18,11 @@ public class InquiryService implements IInquiryService{
         this.inquiryRepository = pInquiryRepository;
     }
 
-    public void createInquiry(Article article, ApplicationUser borrower, ApplicationUser lender,
+    public long createInquiry(Article article, ApplicationUser borrower,
                               LendingPeriod lendingPeriod, Inquiry.Status status) {
-        final Inquiry temp = setInquiry(new Inquiry(), article, borrower, lender, lendingPeriod, status);
+        final Inquiry temp = setInquiry(new Inquiry(), article, borrower, article.getOwner(), lendingPeriod, status);
         inquiryRepository.save(temp);
+        return temp.getId();
     }
 
     public Inquiry updateInquiry(Inquiry inquiry) {
@@ -38,7 +39,7 @@ public class InquiryService implements IInquiryService{
         return null;
     }
 
-    public List<Inquiry> getAllInquirys() {
+    public List<Inquiry> getAllInquiries() {
         return inquiryRepository.findAll();
     }
 

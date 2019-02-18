@@ -7,9 +7,8 @@ import hhu.propra2.illegalskillsexception.frently.backend.Models.LendingPeriod;
 import java.util.List;
 
 public interface IInquiryService {
-    void createInquiry(Article article, ApplicationUser borrower, ApplicationUser lender,
-                              LendingPeriod lendingPeriod, Inquiry.Status status);
+    long createInquiry(Article article, ApplicationUser borrower, LendingPeriod lendingPeriod, Inquiry.Status status);
     Inquiry updateInquiry(Inquiry inquiry);
     Inquiry getInquiry(long id);
-    List<Inquiry> getAllInquirys();
+    List<Inquiry> getAllInquiries();
 }
