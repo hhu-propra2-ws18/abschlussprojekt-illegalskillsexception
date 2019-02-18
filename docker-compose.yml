@@ -5,6 +5,18 @@ volumes:
 
 services:
 
+  proxy:
+    image: nginx:1.15-alpine
+    ports:
+      - "8080:80"
+    volumes:
+      - ./proxy/conf/nginx.conf:/etc/nginx/nginx.conf:ro
+      - ./proxy/conf/domain.conf:/etc/nginx/domain.conf:ro
+    depends_on:
+      - frentlyapi
+      - frentlyfrontend
+
+
   frentlydb:
     image: mysql:5.7.24
     container_name: mysql
@@ -32,7 +44,7 @@ services:
     links:
       - "frentlydb:database"
     ports:
-      - "8080:8080"
+      - "8080"
     depends_on:
       - "frentlydb"
       - "propay"
@@ -42,7 +54,7 @@ services:
     build: ./frontend
     container_name: frentlyfrontend
     ports:
-      - "8090:80"
+      - "8000:443"
 
 
 
