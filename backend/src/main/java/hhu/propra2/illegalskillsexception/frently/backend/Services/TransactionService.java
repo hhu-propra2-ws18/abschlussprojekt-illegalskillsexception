@@ -20,7 +20,7 @@ public class TransactionService implements ITransactionService {
     }
 
     public void createTransaction(Transaction.Status status, Inquiry inquiry) {
-        final Transaction temp = setTransaction(new Transaction(), inquiry, Transaction.Status.open, null);
+        final Transaction temp = setTransaction(new Transaction(), inquiry);
         transactionRepository.save(temp);
     }
 
@@ -51,10 +51,10 @@ public class TransactionService implements ITransactionService {
         return null;
     }
 
-    private Transaction setTransaction(Transaction temp, Inquiry inquiry, Transaction.Status status, LocalDate returnDate) {
+    private Transaction setTransaction(Transaction temp, Inquiry inquiry) {
         temp.setInquiry(inquiry);
-        temp.setStatus(status);
-        temp.setReturnDate(returnDate);
+        temp.setStatus(Transaction.Status.open);
+        temp.setReturnDate(null);
         return temp;
     }
 }

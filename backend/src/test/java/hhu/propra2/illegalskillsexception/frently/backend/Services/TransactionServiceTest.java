@@ -12,9 +12,9 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Optional;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNull;
+import static org.junit.Assert.*;
 import static org.mockito.Mockito.*;
 
 public class TransactionServiceTest {
@@ -75,6 +75,7 @@ public class TransactionServiceTest {
         transactionRepository = mock(TransactionRepository.class);
         when(transactionRepository.existsById(0L)).thenReturn(true);
         when(transactionRepository.existsById(1L)).thenReturn(false);
+        when(transactionRepository.findById(0L)).thenReturn(Optional.of(new Transaction()));
         when(transactionRepository.save(transaction0)).thenReturn(transaction0);
         when(transactionRepository.save(transaction1)).thenReturn(transaction1);
 
@@ -120,4 +121,18 @@ public class TransactionServiceTest {
         assertNull(transactionService.updateTransactionStatus(testTransaction, Transaction.Status.closed));
         verify(transactionRepository, never()).save(testTransaction);
     }
+
+    @Test
+    public void getExistingTransaction() {
+        assertNotNull(transactionService.getTransaction(0L));
+        verify(transactionRepository).existsById(0L);
+    }
+
+    @Test
+    public void getNullFromInexistentTransaction() {
+        assertNull(transactionService.getTransaction(1L));
+        verify(transactionRepository).existsById(1L);
+    }
+
+
 }
