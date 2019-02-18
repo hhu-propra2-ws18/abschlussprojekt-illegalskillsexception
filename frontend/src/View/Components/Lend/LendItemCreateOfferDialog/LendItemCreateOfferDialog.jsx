@@ -1,6 +1,7 @@
 import React from "react";
 import TextBox from "react-uwp/TextBox";
 import Button from "react-uwp/Button";
+import { createLendItem } from "../../../../Services/Lend/lendCompleteService";
 
 export default class LendItemCreateOfferDialog extends React.Component {
     render() {
@@ -23,6 +24,11 @@ export default class LendItemCreateOfferDialog extends React.Component {
     }
                                                             
     createLendItem(){
+
+        let data={"title":"Studdsadsa "};
+
+        createLendItem(data);
+        
         this.props.close();
     }
 }
