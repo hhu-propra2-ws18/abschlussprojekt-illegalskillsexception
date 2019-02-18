@@ -1,4 +1,4 @@
-FROM openjdk:8-jdk-alpine AS build
+FROM openjdk:8-jdk-alpine AS frentlyapi
 WORKDIR /app
 COPY . .
 RUN ./gradlew --no-daemon --stacktrace clean bootJar
@@ -8,7 +8,9 @@ RUN apk add --no-cache bash
 WORKDIR /app
 
 COPY wait-for-it.sh .
-COPY --from=build /app/build/libs/*.jar app.jar
+COPY --from=frentlyapi /app/build/libs/*.jar app.jar
+
+EXPOSE 8080
 
 CMD ./wait-for-it.sh frentlydb:3306 --timeout=0 -- java -jar app.jar
 
