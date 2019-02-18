@@ -29,6 +29,7 @@ public class Article {
     @Lob
     private String description;
     private int dailyRate;
+    private String location;
 
     @CreatedDate
     @Column(nullable = false)
