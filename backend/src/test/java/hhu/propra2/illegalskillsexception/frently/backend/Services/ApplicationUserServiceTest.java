@@ -73,7 +73,7 @@ public class ApplicationUserServiceTest {
     }
 
     @Test(expected = UserAlreadyExistsAuthenticationException.class)
-    public void creatInvalidUser(){
+    public void createInvalidUser(){
         ApplicationUser temp = new ApplicationUser();
         temp.setUsername("ExampleUser");
         temp.setPassword("ExamplePassword");
