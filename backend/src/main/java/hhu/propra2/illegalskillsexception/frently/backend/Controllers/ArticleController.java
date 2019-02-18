@@ -1,6 +1,6 @@
-package hhu.propra2.illegalskillsexception.frently.backend.Controllers;
+/*package hhu.propra2.illegalskillsexception.frently.backend.Controllers;
 
-import hhu.propra2.illegalskillsexception.frently.backend.Controllers.Response.FrentlyData;
+import hhu.propra2.illegalskillsexception.frently.backend.Controllers.Response.FrentlyError;
 import hhu.propra2.illegalskillsexception.frently.backend.Controllers.Response.FrentlyResponse;
 import hhu.propra2.illegalskillsexception.frently.backend.Models.ApplicationUser;
 import hhu.propra2.illegalskillsexception.frently.backend.Models.Article;
@@ -13,15 +13,25 @@ import java.util.List;
 
 @AllArgsConstructor
 @RestController
-@RequestMapping("/article")
+@RequestMapping("/borrow")
 public class ArticleController {
 
     private IArticleService articleService;
 
-    @GetMapping("/all")
+    @GetMapping("/getAll")
     public FrentlyResponse showAllArticles() {
-        List<Article> dataList = articleService.getAllArticles();
-        return new FrentlyResponse(null,new ArrayList<>(dataList));
+        FrentlyResponse frResponse = new FrentlyResponse();
+        try {
+            List<Article> dataList = articleService.getAllArticles();
+            frResponse.setData(dataList);
+        }
+        catch (Exception e) {
+            FrentlyError error = new FrentlyError();
+            error.setErrorMessage("Could not find any Articles");
+            error.setErrorCode(1);
+            frResponse.setError(error);
+        }
+        return frResponse;
     }
 
     @GetMapping("/{id}")
@@ -49,3 +59,4 @@ public class ArticleController {
 
 
 }
+*/

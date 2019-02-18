@@ -29,7 +29,7 @@ public class ApplicationUserController {
         try {
             userService.createUser(user);
 
-            response.setFrentlyDataList(Collections.singletonList(user));
+            response.setData(Collections.singletonList(user));
         } catch (UserAlreadyExistsAuthenticationException e) {
             response.setError(new FrentlyError(e.getMessage(), FrentlyErrorType.MISC));
         }
