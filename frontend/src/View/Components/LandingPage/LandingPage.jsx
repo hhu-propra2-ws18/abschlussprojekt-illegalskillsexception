@@ -119,7 +119,11 @@ export default class LandingPage extends React.Component {
             ? passwordPassed
             : this.passwordLogin.current.getValue();
 
-        let token = getToken(nameInner, passwordInner,"http://localhost:8080/login");
+        let token = await getToken(
+            nameInner,
+            passwordInner,
+            "http://localhost:8080/login"
+        );
 
         let action = getLoginUserAction({ token: token });
         store.dispatch(action);
@@ -130,7 +134,7 @@ export default class LandingPage extends React.Component {
         let emailInner = this.emailRegister.current.getValue();
         let passwordInner = this.passwordRegister.current.getValue();
 
-        registerUser(nameInner, emailInner, passwordInner);
+        await registerUser(nameInner, emailInner, passwordInner);
         this.loginUser(nameInner, passwordInner);
         this.setState({ register: false });
     }
