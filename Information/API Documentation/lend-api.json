@@ -12,10 +12,13 @@
                     "dailyRate": "Number"
                 }
             ],
-            "error": "String or null"
+            "error": {
+                "code": "Number/String or null",
+                "message": "String or null"
+            }
         }
     },
-    "/lend/lend": {
+    "/lend/create": {
         "method": "post",
         "sendData": {
             "title": "String",
@@ -26,7 +29,10 @@
         },
         "expectedData": {
             "data": {},
-            "error": "String or null"
+            "error": {
+                "code": "Number/String or null",
+                "message": "String or null"
+            }
         }
     }
 }

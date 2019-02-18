@@ -10,22 +10,30 @@
                     "deposit": "Number",
                     "owner": "String",
                     "place": "String",
-                    "id":"Number"
+                    "id": "Number"
                 }
             ],
-            "error": "String or null"
+            "error": {
+                "code": "Number/String or null",
+                "message": "String or null"
+            }
         }
     },
-    "/borrow/borrow/{id}" : {
-        "method":"post",
-        "sendData": {"lendDays":[
-            "Date","Date","Date"
-        ]},
-        "expectedData":{
-            "data":{
-                "id":"Number"
+    "/borrow/borrow/{id}": {
+        "method": "post",
+        "sendData": {
+            "id": "Number",
+            "startDate": "Date",
+            "endDate": "Date"
+        },
+        "expectedData": {
+            "data": {
+                "id": "Number"
             },
-            "error":"String or null"
+            "error": {
+                "code": "Number/String or null",
+                "message": "String or null"
+            }
         }
     }
 }
