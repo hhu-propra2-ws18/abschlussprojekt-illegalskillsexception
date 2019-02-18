@@ -10,7 +10,7 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 
 @Service
-public class InquiryService {
+public class InquiryService implements IInquiryService{
 
     private final InquiryRepository inquiryRepository;
 

@@ -9,7 +9,7 @@ import java.util.List;
 public interface IInquiryService {
     void createInquiry(Article article, ApplicationUser borrower, ApplicationUser lender,
                               LendingPeriod lendingPeriod, Inquiry.Status status);
-    void updateInquiry(Inquiry inquiry);
-    List<Inquiry> getInquiry(long id);
+    Inquiry updateInquiry(Inquiry inquiry);
+    Inquiry getInquiry(long id);
     List<Inquiry> getAllInquirys();
 }
