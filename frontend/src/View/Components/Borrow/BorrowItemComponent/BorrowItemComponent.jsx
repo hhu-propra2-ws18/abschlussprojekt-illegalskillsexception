@@ -18,8 +18,8 @@ export default class BorrowItemComponent extends React.Component {
                 <p>{this.props.data.dailyRate}</p>
                 <h6>Safety deposit:</h6>
                 <p>{this.props.data.deposit}</p>
-                <h6>Place:</h6>
-                <p>{this.props.data.place}</p>
+                <h6>Location:</h6>
+                <p>{this.props.data.location}</p>
                 <Button onClick={() => this.onClickDetails()}>Details</Button>
                 <Dialog
                     defaultShow={this.state.showDialog}

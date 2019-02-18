@@ -6,7 +6,7 @@ const items = [
         title: "Der Gerät 9000",
         dailyRate: "3,50 €",
         deposit: "500€",
-        place: "Dönerbude um die Ecke"
+        location: "Dönerbude um die Ecke"
     }
 ];
 
@@ -14,7 +14,7 @@ export default class BorrowView extends React.Component {
     render() {
         return (
             <>
-                <div id="borrow-grid">
+                <div id="borrow-grid" className="grid-article-view">
                     {items.map(dataItem => (
                         <BorrowItemComponent
                             key={dataItem.title}

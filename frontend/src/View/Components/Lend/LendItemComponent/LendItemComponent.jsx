@@ -13,12 +13,12 @@ export default class LendItemComponent extends React.Component {
     render() {
         return (
             <article>
-                <h1>{this.props.data.title}</h1>
-                <h6>Place:</h6>
-                <p>{this.props.data.place}</p>
-                <h6>Daily rate:</h6>
+                <h3>{this.props.data.title}</h3>
+                <h5>location:</h5>
+                <p>{this.props.data.location}</p>
+                <h5>Daily rate:</h5>
                 <p>{this.props.data.dailyRate}</p>
-                <h6>Safety deposit:</h6>
+                <h5>Safety deposit:</h5>
                 <p>{this.props.data.deposit}</p>
                 <Button onClick={() => this.showEditDialog()}>Edit</Button>
                 <Dialog

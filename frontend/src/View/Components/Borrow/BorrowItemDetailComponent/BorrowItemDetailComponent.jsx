@@ -1,6 +1,6 @@
 import React from "react";
 
-import CalendarView from "react-uwp/CalendarView";
+import DatePicker from "react-uwp/DatePicker";
 import Button from "react-uwp/Button";
 import Dialog from "react-uwp/Dialog";
 import BorrowItemAcceptanceDialog from "../BorrowItemAcceptanceDialog.jsx/BorrowItemAcceptanceDialog";
@@ -16,15 +16,17 @@ export default class BorrowItemDetailComponent extends React.Component {
             <article>
                 <h1>{this.props.data.title}</h1>
                 <p>{this.props.data.description}</p>
-                <h6>Place:</h6>
-                <p>{this.props.data.place}</p>
-                <CalendarView />
-                <h6>Daily rate:</h6>
+                <h5>Location:</h5>
+                <p>{this.props.data.location}</p>
+                <DatePicker />
+                <h5>Daily rate:</h5>
                 <p>{this.props.data.dailyRate}</p>
-                <h6>Safety deposit:</h6>
+                <h5>Safety deposit:</h5>
                 <p>{this.props.data.deposit}</p>
+                <div className="dialog-buttons-div">
                 <Button onClick={() => this.borrowDialog()}>Borrow</Button>
                 <Button onClick={() => this.props.close()}>Back</Button>
+                </div>
                 <Dialog
                     defaultShow={this.state.showDialog}
                     style={{ zIndex: 400 }}

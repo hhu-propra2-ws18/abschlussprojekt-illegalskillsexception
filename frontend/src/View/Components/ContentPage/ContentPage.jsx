@@ -6,7 +6,7 @@ import LendView from "../Lend/LendView.jsx";
 import TreeView, { TreeItem } from "react-uwp/TreeView";
 import Tabs, { Tab } from "react-uwp/Tabs";
 import SplitViewCommand from "react-uwp/SplitViewCommand";
-import InquiriesView from "../Inquiries/InquiriesView/InquiriesView";
+import InquiriesView from "../Inquiries/InquiriesView";
 
 import "./ContentPage.css";
 import ProcessesView from "../Processes/ProcessesView";
@@ -39,12 +39,12 @@ export default class ContentPage extends React.Component {
                     <SplitViewCommand
                         onClick={() => this.switchTab(2)}
                         label="Inquiry"
-                        icon={"\uE9D5"}
+                        icon={"\uE73E"}
                     />,
                     <SplitViewCommand
                         onClick={() => this.switchTab(3)}
                         label="Processes"
-                        icon={"\uE9D5"}
+                        icon={"\uE9F5"}
                     />
                 ]}
                 navigationBottomNodes={[]}
@@ -67,7 +67,7 @@ export default class ContentPage extends React.Component {
                     <Tab title="Inquiries" style={{ width: "100%" }}>
                         <InquiriesView />
                     </Tab>
-                    <Tab>
+                    <Tab  style={{ width: "100%" }}>
                         <ProcessesView />
                     </Tab>
                 </Tabs>

@@ -1,13 +1,20 @@
 import React from "react";
-import { Theme as UWPThemeProvider, getTheme } from "react-uwp/Theme";
 import Button from "react-uwp/Button";
 import TextBox from "react-uwp/TextBox";
+import PasswordBox from "react-uwp/PasswordBox";
 import Dialog from "react-uwp/Dialog";
 import axios from "axios";
 import { store } from "../../../Store/reduxInit";
 import { getLoginUserAction } from "../../../Store/UserStore/UserActions";
+import * as PropTypes from "prop-types";
+
+import "./LandingPage.css";
+import getToken from "../../../Services/Authentication/getToken";
+import { registerUser } from "../../../Services/Authentication/userApi";
 
 export default class LandingPage extends React.Component {
+    static contextTypes = { theme: PropTypes.object };
+
     constructor(props) {
         super(props);
 
@@ -23,39 +30,66 @@ export default class LandingPage extends React.Component {
     }
 
     render() {
+        const { theme } = this.context;
         return (
-            <div>
-                <p>Hello user</p>
-                <Button onClick={() => this.showRegister()}>Register</Button>
-                <Button onClick={() => this.showLogin()}>Login</Button>
+            <div id="greeting-div">
+                <p>Welcome to fRENTly the simple Webapp for renting items.</p>
+                <div className="login-buttons-div">
+                    <Button
+                        className="login-button"
+                        onClick={() => this.showRegister()}
+                    >
+                        Register
+                    </Button>
+                    <Button
+                        className="login-button"
+                        onClick={() => this.showLogin()}
+                    >
+                        Login
+                    </Button>
+                </div>
+
                 <Dialog
                     defaultShow={this.state.register}
                     style={{ zIndex: 400 }}
                     onCloseDialog={() => this.setState({ register: false })}
                 >
-                    <label>Username:</label>
-                    <TextBox ref={this.nameRegister} />
-                    <label>Email:</label>
-                    <TextBox ref={this.emailRegister} />
-                    <label>Password:</label>
-                    <TextBox ref={this.passwordRegister} />
-
-                    <Button onClick={() => this.hideRegister()}>Cancel</Button>
-                    <Button onClick={() => this.registerUser()}>
-                        Register
-                    </Button>
+                    <div className="dialog-container">
+                        <label>Username:</label>
+                        <TextBox ref={this.nameRegister} />
+                        <label>Email:</label>
+                        <TextBox ref={this.emailRegister} />
+                        <label>Password:</label>
+                        <PasswordBox ref={this.passwordRegister} />
+                        <div className="dialog-buttons-div">
+                            <Button onClick={() => this.hideRegister()}>
+                                Cancel
+                            </Button>
+                            <Button onClick={() => this.registerUser()}>
+                                Register
+                            </Button>
+                        </div>
+                    </div>
                 </Dialog>
                 <Dialog
                     defaultShow={this.state.login}
                     style={{ zIndex: 400 }}
                     onCloseDialog={() => this.setState({ login: false })}
                 >
-                    <label>Username:</label>
-                    <TextBox ref={this.nameLogin} />
-                    <label>Password:</label>
-                    <TextBox ref={this.passwordLogin} />
-                    <Button onClick={() => this.hideLogin()}>Cancel</Button>
-                    <Button onClick={() => this.loginUser()}>Login</Button>
+                    <div className="dialog-container">
+                        <label>Username:</label>
+                        <TextBox ref={this.nameLogin} />
+                        <label>Password:</label>
+                        <PasswordBox ref={this.passwordLogin} />
+                        <div className="dialog-buttons-div">
+                            <Button onClick={() => this.hideLogin()}>
+                                Cancel
+                            </Button>
+                            <Button onClick={() => this.loginUser()}>
+                                Login
+                            </Button>
+                        </div>
+                    </div>
                 </Dialog>
             </div>
         );
@@ -77,12 +111,7 @@ export default class LandingPage extends React.Component {
         this.setState({ login: false });
     }
 
-     loginUser(namePassed, passwordPassed) {
-        this.hideLogin();
-        let loginaction = getLoginUserAction("some-token");
-        store.dispatch(loginaction);
-        
-        /*
+    async loginUser(namePassed, passwordPassed) {
         let nameInner = namePassed
             ? namePassed
             : this.nameLogin.current.getValue();
@@ -90,52 +119,10 @@ export default class LandingPage extends React.Component {
             ? passwordPassed
             : this.passwordLogin.current.getValue();
 
-        
-        let user = await axios.post(
-            "http://localhost:8080/login",
-            {
-                username: nameInner,
-                password: passwordInner
-            },
-            {
-                
-                data: {
-                    username: nameInner,
-                    password: passwordInner
-                }
-            }
-        );
-        
-        /*
-        var xhr = new XMLHttpRequest();
-        var url = "http://localhost:8080/login";
-        xhr.open("POST", url, true);
-        xhr.setRequestHeader("Content-Type", "application/json");
-        xhr.onreadystatechange = function() {
-            if (xhr.readyState === 4 && xhr.status === 200) {
-                var json = JSON.parse(xhr.responseText);
-                console.log(json.email + ", " + json.password);
-            }
-        };
-        var data = JSON.stringify({
-            username: nameInner,
-            password: passwordInner
-        });
-        xhr.send(data);
+        let token = getToken(nameInner, passwordInner,"http://localhost:8080/login");
 
-        xhr.onreadystatechange = (data)=> {
-            console.log(data);
-            console.log(xhr);
-            console.log(xhr.getAllResponseHeaders());
-            console.log(xhr.getResponseHeader());
-            console.log(xhr.response);
-        }
-        */
-        //console.log(user.Authorization);
-        //console.log(user);
-        
-
-
+        let action = getLoginUserAction({ token: token });
+        store.dispatch(action);
     }
 
     async registerUser() {
@@ -143,39 +130,7 @@ export default class LandingPage extends React.Component {
         let emailInner = this.emailRegister.current.getValue();
         let passwordInner = this.passwordRegister.current.getValue();
 
-        let request = await axios.post("http://localhost:8080/users/sign-up", {
-            username: nameInner,
-            email: emailInner,
-            password: passwordInner,
-            bankAccount: emailInner
-        });
-        try {
-            /*
-            const Http = new XMLHttpRequest();
-            Http.open("POST", "http://localhost:8080/login");
-            Http.send({
-                username: nameInner,
-                password: passwordInner
-            });
-
-            Http.onreadystatechange = function() {
-                console.log(Http.responseText);
-            };
-            */
-        } catch (exc) {}
-        /*
-        if (request.status === 200) {
-
-            const api = axios.create({
-                baseURL:"http://localhost:8080/login",
-                headers:{
-                    
-                }
-            });
-
-
-        }
-        */
+        registerUser(nameInner, emailInner, passwordInner);
         this.loginUser(nameInner, passwordInner);
         this.setState({ register: false });
     }

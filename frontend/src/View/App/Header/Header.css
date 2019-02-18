@@ -1,0 +1,18 @@
+header {
+    width: 100%;
+    text-align: center;
+    background-color: #0078D7;
+    height: 60px;
+}
+
+header>h1 {
+    padding-top: 5px;
+    font-family: 'Oxygen', sans-serif;
+    font-weight: 500;
+}
+
+header>h1>span {
+    font-weight: 400;
+    font-size: 26px;
+    margin: 2px;
+}

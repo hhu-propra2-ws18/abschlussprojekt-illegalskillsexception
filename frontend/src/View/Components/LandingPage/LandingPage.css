@@ -1,0 +1,27 @@
+#greeting-div {
+    position: relative;
+    margin: auto;
+    margin-top: 30%;
+    width: 100%;
+}
+
+#greeting-div>p {
+    width: fit-content;
+    margin: auto;
+}
+
+#greeting-div .login-buttons-div {
+    vertical-align: center;
+    position: relative;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    width: fit-content;
+    padding-top: 20px;
+    margin: auto;
+}
+
+#greeting-div .login-buttons-div .login-button {
+    margin: 10px;
+}

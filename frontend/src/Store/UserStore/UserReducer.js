@@ -21,5 +21,4 @@ export default function user(state = { isLoggedIn: false }, action) {
             };
         }
     }
-    return state;
 }

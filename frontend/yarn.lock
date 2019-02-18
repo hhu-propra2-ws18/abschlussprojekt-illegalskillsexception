@@ -81,7 +81,7 @@
     "@babel/helper-member-expression-to-functions" "^7.0.0"
     "@babel/helper-optimise-call-expression" "^7.0.0"
     "@babel/helper-plugin-utils" "^7.0.0"
-    "@babel/helper-replace-supers" "^7.2.3"
+    "@babel/helper-relocation-supers" "^7.2.3"
 
 "@babel/helper-define-map@^7.1.0":
   version "7.1.0"
@@ -179,9 +179,9 @@
     "@babel/traverse" "^7.1.0"
     "@babel/types" "^7.0.0"
 
-"@babel/helper-replace-supers@^7.1.0", "@babel/helper-replace-supers@^7.2.3":
+"@babel/helper-relocation-supers@^7.1.0", "@babel/helper-relocation-supers@^7.2.3":
   version "7.2.3"
-  resolved "https://registry.yarnpkg.com/@babel/helper-replace-supers/-/helper-replace-supers-7.2.3.tgz#19970020cf22677d62b3a689561dbd9644d8c5e5"
+  resolved "https://registry.yarnpkg.com/@babel/helper-relocation-supers/-/helper-relocation-supers-7.2.3.tgz#19970020cf22677d62b3a689561dbd9644d8c5e5"
   integrity sha512-GyieIznGUfPXPWu0yLS6U55Mz67AZD9cUk0BfirOWlPrXlBcan9Gz+vHGz+cPfuoweZSnPzPIm67VtQM0OWZbA==
   dependencies:
     "@babel/helper-member-expression-to-functions" "^7.0.0"
@@ -400,7 +400,7 @@
     "@babel/helper-function-name" "^7.1.0"
     "@babel/helper-optimise-call-expression" "^7.0.0"
     "@babel/helper-plugin-utils" "^7.0.0"
-    "@babel/helper-replace-supers" "^7.1.0"
+    "@babel/helper-relocation-supers" "^7.1.0"
     "@babel/helper-split-export-declaration" "^7.0.0"
     globals "^11.1.0"
 
@@ -525,7 +525,7 @@
   integrity sha512-VMyhPYZISFZAqAPVkiYb7dUe2AsVi2/wCT5+wZdsNO31FojQJa9ns40hzZ6U9f50Jlq4w6qwzdBB2uwqZ00ebg==
   dependencies:
     "@babel/helper-plugin-utils" "^7.0.0"
-    "@babel/helper-replace-supers" "^7.1.0"
+    "@babel/helper-relocation-supers" "^7.1.0"
 
 "@babel/plugin-transform-parameters@^7.2.0":
   version "7.2.0"
@@ -788,9 +788,9 @@
   resolved "https://registry.yarnpkg.com/@svgr/babel-plugin-remove-jsx-empty-expression/-/babel-plugin-remove-jsx-empty-expression-4.0.0.tgz#0b59338c00671cf8137eb823bd84a3efac686502"
   integrity sha512-nBGVl6LzXTdk1c6w3rMWcjq3mYGz+syWc5b3CdqAiEeY/nswYDoW/cnGUKKC8ofD6/LaG+G/IUnfv3jKoHz43A==
 
-"@svgr/babel-plugin-replace-jsx-attribute-value@^4.0.0":
+"@svgr/babel-plugin-relocation-jsx-attribute-value@^4.0.0":
   version "4.0.0"
-  resolved "https://registry.yarnpkg.com/@svgr/babel-plugin-replace-jsx-attribute-value/-/babel-plugin-replace-jsx-attribute-value-4.0.0.tgz#91785643540c2300f3d89e515b37af9b5ce4e695"
+  resolved "https://registry.yarnpkg.com/@svgr/babel-plugin-relocation-jsx-attribute-value/-/babel-plugin-relocation-jsx-attribute-value-4.0.0.tgz#91785643540c2300f3d89e515b37af9b5ce4e695"
   integrity sha512-ejQqpTfORy6TT5w1x/2IQkscgfbtNFjitcFDu63GRz7qfhVTYhMdiJvJ1+Aw9hmv9bO4tXThGQDr1IF5lIvgew==
 
 "@svgr/babel-plugin-svg-dynamic-title@^4.0.0":
@@ -821,7 +821,7 @@
     "@svgr/babel-plugin-add-jsx-attribute" "^4.0.0"
     "@svgr/babel-plugin-remove-jsx-attribute" "^4.0.3"
     "@svgr/babel-plugin-remove-jsx-empty-expression" "^4.0.0"
-    "@svgr/babel-plugin-replace-jsx-attribute-value" "^4.0.0"
+    "@svgr/babel-plugin-relocation-jsx-attribute-value" "^4.0.0"
     "@svgr/babel-plugin-svg-dynamic-title" "^4.0.0"
     "@svgr/babel-plugin-svg-em-dimensions" "^4.0.0"
     "@svgr/babel-plugin-transform-react-native-svg" "^4.0.0"
@@ -4479,9 +4479,9 @@ iconv-lite@0.4.24, iconv-lite@^0.4.24, iconv-lite@^0.4.4:
   dependencies:
     safer-buffer ">= 2.1.2 < 3"
 
-icss-replace-symbols@^1.1.0:
+icss-relocation-symbols@^1.1.0:
   version "1.1.0"
-  resolved "https://registry.yarnpkg.com/icss-replace-symbols/-/icss-replace-symbols-1.1.0.tgz#06ea6f83679a7749e386cfe1fe812ae5db223ded"
+  resolved "https://registry.yarnpkg.com/icss-relocation-symbols/-/icss-relocation-symbols-1.1.0.tgz#06ea6f83679a7749e386cfe1fe812ae5db223ded"
   integrity sha1-Bupvg2ead0njhs/h/oEq5dsiPe0=
 
 icss-utils@^2.1.0:
@@ -7265,7 +7265,7 @@ postcss-modules-values@^1.3.0:
   resolved "https://registry.yarnpkg.com/postcss-modules-values/-/postcss-modules-values-1.3.0.tgz#ecffa9d7e192518389f42ad0e83f72aec456ea20"
   integrity sha1-7P+p1+GSUYOJ9CrQ6D9yrsRW6iA=
   dependencies:
-    icss-replace-symbols "^1.1.0"
+    icss-relocation-symbols "^1.1.0"
     postcss "^6.0.1"
 
 postcss-nesting@^7.0.0:
@@ -7379,9 +7379,9 @@ postcss-page-break@^2.0.0:
   dependencies:
     postcss "^7.0.2"
 
-postcss-place@^4.0.1:
+postcss-location@^4.0.1:
   version "4.0.1"
-  resolved "https://registry.yarnpkg.com/postcss-place/-/postcss-place-4.0.1.tgz#e9f39d33d2dc584e46ee1db45adb77ca9d1dcc62"
+  resolved "https://registry.yarnpkg.com/postcss-location/-/postcss-location-4.0.1.tgz#e9f39d33d2dc584e46ee1db45adb77ca9d1dcc62"
   integrity sha512-Zb6byCSLkgRKLODj/5mQugyuj9bvAAw9LqJJjgwz5cYryGeXfFZfSXoP1UfveccFmeq0b/2xxwcTEVScnqGxBg==
   dependencies:
     postcss "^7.0.2"
@@ -7424,9 +7424,9 @@ postcss-preset-env@6.5.0:
     postcss-nesting "^7.0.0"
     postcss-overflow-shorthand "^2.0.0"
     postcss-page-break "^2.0.0"
-    postcss-place "^4.0.1"
+    postcss-location "^4.0.1"
     postcss-pseudo-class-any-link "^6.0.0"
-    postcss-replace-overflow-wrap "^3.0.0"
+    postcss-relocation-overflow-wrap "^3.0.0"
     postcss-selector-matches "^4.0.0"
     postcss-selector-not "^4.0.0"
 
@@ -7458,9 +7458,9 @@ postcss-reduce-transforms@^4.0.1:
     postcss "^7.0.0"
     postcss-value-parser "^3.0.0"
 
-postcss-replace-overflow-wrap@^3.0.0:
+postcss-relocation-overflow-wrap@^3.0.0:
   version "3.0.0"
-  resolved "https://registry.yarnpkg.com/postcss-replace-overflow-wrap/-/postcss-replace-overflow-wrap-3.0.0.tgz#61b360ffdaedca84c7c918d2b0f0d0ea559ab01c"
+  resolved "https://registry.yarnpkg.com/postcss-relocation-overflow-wrap/-/postcss-relocation-overflow-wrap-3.0.0.tgz#61b360ffdaedca84c7c918d2b0f0d0ea559ab01c"
   integrity sha512-2T5hcEHArDT6X9+9dVSPQdo7QHzG4XKclFT8rU5TzJPDN7RIRTbO9c4drUISOVemLj03aezStHCR2AIcr8XLpw==
   dependencies:
     postcss "^7.0.2"
@@ -8164,9 +8164,9 @@ repeating@^2.0.0:
   dependencies:
     is-finite "^1.0.0"
 
-replace-ext@1.0.0:
+relocation-ext@1.0.0:
   version "1.0.0"
-  resolved "https://registry.yarnpkg.com/replace-ext/-/replace-ext-1.0.0.tgz#de63128373fcbf7c3ccfa4de5a480c45a67958eb"
+  resolved "https://registry.yarnpkg.com/relocation-ext/-/relocation-ext-1.0.0.tgz#de63128373fcbf7c3ccfa4de5a480c45a67958eb"
   integrity sha1-3mMSg3P8v3w8z6TeWkgMRaZ5WOs=
 
 request-promise-core@1.1.1:
@@ -9526,7 +9526,7 @@ vfile@^3.0.0, vfile@^3.0.1:
   integrity sha512-y7Y3gH9BsUSdD4KzHsuMaCzRjglXN0W2EcMf0gpvu6+SbsGhMje7xDc8AEoeXy6mIwCKMI6BkjMsRjzQbhMEjQ==
   dependencies:
     is-buffer "^2.0.0"
-    replace-ext "1.0.0"
+    relocation-ext "1.0.0"
     unist-util-stringify-position "^1.0.0"
     vfile-message "^1.0.0"
 

@@ -38,10 +38,9 @@
 
 body {
     height: 100vh;
-    
 }
 
-#root{
+#root {
     background-image: url("https://d2v9y0dukr6mq2.cloudfront.net/video/thumbnail/U4GOIU-/summer-famous-phuket-island-orange-sunset-panorama-4k-thailand_ewajnerhg__F0000.png");
 }
 
@@ -52,7 +51,33 @@ main {
     width: 80%;
     min-width: 300px;
     height: calc(100% - 60px);
-    
+}
+
+.grid-article-view {
+    display: grid;
+    grid-auto-rows: max-content;
+    grid-gap: 10px;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+}
+
+article {
+    margin: 10px;
+    padding:10px;
+}
+
+article h1,article h2, article h3 {
+    width:100%;
+    text-align: center;
+}
+
+.react-uwp-theme-light article {
+    background-color: rgba(255, 255, 255, 0.5);
+    border: 2px solid rgba(0, 0, 0, 0.25)
+}
+
+.react-uwp-theme-dark article {
+    background-color: rgba(255, 255, 255, 0.2);
+    border: 2px solid rgba(255, 255, 255, 0.2)
 }
 
 @media (max-screen-width: 720px) {
@@ -60,4 +85,35 @@ main {
         width: 100%;
         min-width: 0px;
     }
+}
+
+#provider {
+}
+
+#float-nav {
+    position: absolute;
+    right: 20px;
+    bottom: 20px;
+}
+
+button {
+    margin: 10px;
+}
+
+.dialog-container {
+    padding: 10px;
+}
+
+.dialog-buttons-div {
+    height: 40px;
+}
+
+.dialog-buttons-div>button:first-child {
+    float: left;
+    margin-left: 0px;
+}
+
+.dialog-buttons-div>button:last-child {
+    float: right;
+    margin-right: 0px;
 }

@@ -2,8 +2,6 @@ import React from "react";
 import LendViewHeader from "./LendViewHeader/LendViewHeader";
 import LendItemComponent from "./LendItemComponent/LendItemComponent";
 
-
-
 import "./LendView.css";
 
 const items = [
@@ -11,7 +9,22 @@ const items = [
         title: "Der Gerät 9000",
         dailyRate: "3.50",
         deposit: "500",
-        place: "Dönerbude um die Ecke"
+        location: "Dönerbude um die Ecke",
+        id: 1
+    },
+    {
+        title: "Der Gerät 9000",
+        dailyRate: "3.50",
+        deposit: "500",
+        location: "Dönerbude um die Ecke",
+        id: 2
+    },
+    {
+        title: "Der Gerät 9000",
+        dailyRate: "3.50",
+        deposit: "500",
+        location: "Dönerbude um die Ecke",
+        id: 3
     }
 ];
 
@@ -19,14 +32,10 @@ export default class LendView extends React.Component {
     render() {
         return (
             <div id="lendview-container">
-
                 <LendViewHeader />
-                <div id="lend-grid">
+                <div id="lend-grid" className="grid-article-view">
                     {items.map(dataItem => (
-                        <LendItemComponent
-                            key={dataItem.title}
-                            data={dataItem}
-                        />
+                        <LendItemComponent key={dataItem.id} data={dataItem} />
                     ))}
                 </div>
             </div>

@@ -8,6 +8,8 @@ import CommandBar from "react-uwp/CommandBar";
 import AppBarButton from "react-uwp/AppBarButton";
 import AppBarSeparator from "react-uwp/AppBarSeparator";
 
+import "./LendViewHeader.css";
+
 export default class LendViewHeader extends React.Component {
     constructor(props) {
         super(props);
@@ -29,6 +31,7 @@ export default class LendViewHeader extends React.Component {
                     labelPosition="right"
                     flowDirection="row"
                     expanded={true}
+                    id="lend-command-bar"
                 />
                 <Dialog
                     defaultShow={this.state.showDialog}

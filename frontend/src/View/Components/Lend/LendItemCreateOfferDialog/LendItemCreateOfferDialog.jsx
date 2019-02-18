@@ -14,7 +14,7 @@ export default class LendItemCreateOfferDialog extends React.Component {
                 <TextBox type="number" />
                 <label>Daily rate</label>
                 <TextBox type="number" />
-                <label>Place</label>
+                <label>location</label>
                 <TextBox />
                 <Button onClick={()=> this.createLendItem()}>Confirm</Button>
                 <Button onClick={() => this.props.close()}>Cancel</Button>
