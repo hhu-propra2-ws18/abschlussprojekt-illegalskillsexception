@@ -20,16 +20,6 @@ public class ApplicationUserService {
 
     // CRUD
 
-    public void createUser(String email, String username, String password, String bankAccount) {
-        ApplicationUser temp = new ApplicationUser();
-        temp.setEmail(email);
-        temp.setUsername(username);
-        temp.setPassword(password);
-        temp.setBankAccount(bankAccount);
-
-        userRepo.save(temp);
-    }
-
     public void createUser(ApplicationUser user) {
         if (!userRepo.existsByUsername(user.getUsername())) {
             userRepo.save(user);
