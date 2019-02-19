@@ -11,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
@@ -37,24 +38,22 @@ public class InquiryController {
         return fr;
     }
 
-    // TODO Complete the method
-    /*
     @GetMapping("/accept")
     public FrentlyResponse acceptInquiry(Authentication authentication, @RequestParam Long inquiry_id) {
-        ApplicationUser user = (ApplicationUser) authentication.getPrincipal();
+        ApplicationUser borrower = (ApplicationUser) authentication.getPrincipal();
         Inquiry inquiry = inquiryService.getInquiry(inquiry_id);
 
-        long prize = calculatePrize(inquiry);
+        Double prize = calculatePrize(inquiry);
 
         return null;
-    }*/
+    }
 
-    private Long calculatePrize(Inquiry inquiry) {
+    private Double calculatePrize(Inquiry inquiry) {
         Article article  = inquiry.getArticle();
-        long deposit = article.getDeposit();
-        long dailyRate = article.getDailyRate();
+        Double deposit = article.getDeposit();
+        Double dailyRate = article.getDailyRate();
         LendingPeriod lendingPeriod = inquiry.getDuration();
-        long length = lendingPeriod.getLengthInDays();
+        Long length = lendingPeriod.getLengthInDays();
 
         return deposit + dailyRate * length;
     }

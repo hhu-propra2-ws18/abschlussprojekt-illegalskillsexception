@@ -24,11 +24,11 @@ public class Article {
     @ManyToOne
     @NotFound(action = NotFoundAction.IGNORE)
     private ApplicationUser owner;
-    private int deposit;
+    private Double deposit;
 
     @Lob
     private String description;
-    private int dailyRate;
+    private Double dailyRate;
     private String location;
 
     @CreatedDate
