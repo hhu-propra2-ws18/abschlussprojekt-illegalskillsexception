@@ -33,7 +33,7 @@ services:
   propay:
     image: propra/propay
     ports:
-      - "8888:8888"
+      - "8888"
     volumes:
       - ./data:/code/data
 
