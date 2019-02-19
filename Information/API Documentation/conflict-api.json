@@ -1,16 +1,16 @@
 {
-    "/borrow/getAll": {
+    "/conflict/getAll": {
         "method": "get",
-        "sendData": {},
+        "sendData": null,
         "expectedData": {
             "data": [
                 {
+                    "id": "Number (Snowflake)",
                     "title": "String",
-                    "dailyRate": "Number",
-                    "deposit": "Number",
-                    "owner": "String",
-                    "location": "String",
-                    "id": "Number (Snowflake)"
+                    "borrowEmail": "String",
+                    "lendEmail": "String",
+                    "description": "String",
+                    "deposit": "Number"
                 }
             ],
             "error": {
@@ -19,17 +19,15 @@
             }
         }
     },
-    "/borrow/inquiry": {
+
+    "/conflict/resolve": {
         "method": "post",
         "sendData": {
             "id": "Number (Snowflake)",
-            "startDate": "Date",
-            "endDate": "Date"
+            "resolvedDeposit": "Number"
         },
         "expectedData": {
-            "data": {
-                "inquiryId": "Number (Snowflake)"
-            },
+            "data": null,
             "error": {
                 "code": "Number or null",
                 "message": "String or null"

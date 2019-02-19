@@ -30,7 +30,7 @@
             "location": "String"
         },
         "expectedData": {
-            "data": { "id": "Number" },
+            "data": { "id": "Number (Snowflake)" },
             "error": {
                 "code": "Number or null",
                 "message": "String or null"

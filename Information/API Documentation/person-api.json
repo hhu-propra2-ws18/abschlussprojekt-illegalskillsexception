@@ -1,0 +1,34 @@
+{
+    "/user/sign-up": {
+        "method": "post",
+        "sendData": {
+            "username": "String",
+            "email": "String",
+            "password": "String",
+            "bankAccount": "String"
+        },
+        "expectedData": {
+            "data": null,
+            "error": {
+                "code": "Number or null",
+                "message": "String or null"
+            }
+        }
+    },
+    "/user/login": {
+        "method": "post",
+        "sendData": {
+            "username": "String",
+            "password": "String"
+        },
+        "expectedData": {
+            "data": {
+                "isSupportService":"Boolean"
+            },
+            "error": {
+                "code": "Number or null",
+                "message": "String or null"
+            }
+        }
+    }
+}
