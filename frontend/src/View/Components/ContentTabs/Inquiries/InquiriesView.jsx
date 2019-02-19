@@ -2,6 +2,7 @@ import React from "react";
 import InquiriesViewItem from "./InquiriesViewItem/InquiriesViewItem";
 
 import { connect } from "react-redux";
+import { getAllInquiries } from "../../../../Services/Inquiry/inquiryCompleteService";
 
 const items = [
     {
@@ -38,6 +39,12 @@ const mapStateToProps = state => {
 };
 
 export class InquiriesView extends React.Component {
+    
+    async componentDidMount(){
+        await getAllInquiries();
+        console.log(this.props.items);
+    }
+    
     render() {
         return (
             <div className="grid-article-view">

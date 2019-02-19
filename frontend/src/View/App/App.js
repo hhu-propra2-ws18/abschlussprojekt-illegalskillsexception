@@ -17,7 +17,7 @@ export class App extends Component {
     constructor(props) {
         super(props);
 
-        this.state = { hasUser: false, theme: "light" };
+        this.state = { hasUser: false, theme: "dark" };
     }
 
     render() {
@@ -48,8 +48,8 @@ export class App extends Component {
                                             activeStyle={{}}
                                         >
                                             {this.state.theme === "light"
-                                                ? "Brightness"
-                                                : "QuietHours"}
+                                                ? "QuietHours"
+                                                : "Brightness"}
                                         </IconButton>
                                     ),
                                     title: "Toogle theme",
