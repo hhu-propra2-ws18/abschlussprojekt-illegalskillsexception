@@ -37,8 +37,15 @@ public class InquiryService implements IInquiryService{
         return null;
     }
 
-    public List<Inquiry> getAllInquirys() {
+    public List<Inquiry> getAllInquiries() {
         return inquiryRepository.findAll();
+    }
+
+    public List<Inquiry> getAllInquiries(Long id) {
+        List<Inquiry> list = inquiryRepository.findAllByBorrower_Id(id);
+        list.addAll(inquiryRepository.findAllByLender_Id(id));
+
+        return list;
     }
 
     private Inquiry setInquiry(Inquiry inquiry, Article article, ApplicationUser borrower,
@@ -49,13 +56,6 @@ public class InquiryService implements IInquiryService{
         inquiry.setDuration(lendingPeriod);
         inquiry.setStatus(status);
         return inquiry;
-    }
-
-    public List<Inquiry> getAllInquiries(Long id) {
-        List<Inquiry> list = inquiryRepository.findAllByBorrower_Id(id);
-        list.addAll(inquiryRepository.findAllByLender_Id(id));
-
-        return list;
     }
 
     // TODO
