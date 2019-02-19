@@ -68,12 +68,20 @@ public class InquiryService implements IInquiryService {
         Inquiry inquiry = getInquiry(inquiryId);
 
         Double prize = calculatePrize(inquiry);
-        ProPayAccount proPayAccount = getProPayAccount(borrower.getBankAccount());
+        ProPayAccount proPayAccountBorrower = getProPayAccount(borrower.getBankAccount());
+        String accountLender = inquiry.getLender().getBankAccount();
 
-        if(hasEnoughMoney(proPayAccount, prize)) {
+        if (hasEnoughMoney(proPayAccountBorrower, prize)) {
             transactionservice.createTransaction(Transaction.Status.open, inquiry);
+            blockMoney(proPayAccountBorrower, accountLender, prize);
             inquiry.setStatus(accepted);
         } else throw new Exception();
+    }
+
+    private void blockMoney(ProPayAccount accountBorrower, String accountLender, Double prize) {
+        final String url = "http://localhost:8080/Propay/reservation/reserve/" + accountBorrower.getAccount() + "/" + accountLender + "?amount=" + prize;
+        RestTemplate restTemplate = new RestTemplate();
+        restTemplate.postForLocation(url, null);
     }
 
     public void decline(ApplicationUser borrower, Long inquiryId) {
