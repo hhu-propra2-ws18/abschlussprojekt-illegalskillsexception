@@ -57,16 +57,16 @@ export default class ContentPage extends React.Component {
                     animateMode="in"
                     style={{ display: "block" }}
                 >
-                    <Tab title="Borrow" style={{ width: "100%" }}>
+                    <Tab title="Borrow" style={{ width: "100%",height:"100%" }}>
                         <BorrowView />
                     </Tab>
-                    <Tab title="Lend" style={{ width: "100%" }}>
+                    <Tab title="Lend" style={{ width: "100%",height:"100%" }}>
                         <LendView />
                     </Tab>
-                    <Tab title="Inquiries" style={{ width: "100%" }}>
+                    <Tab title="Inquiries" style={{ width: "100%",height:"100%" }}>
                         <InquiriesView />
                     </Tab>
-                    <Tab  style={{ width: "100%" }}>
+                    <Tab  style={{ width: "100%",height:"100%" }}>
                         <TransactionsView />
                     </Tab>
                 </Tabs>

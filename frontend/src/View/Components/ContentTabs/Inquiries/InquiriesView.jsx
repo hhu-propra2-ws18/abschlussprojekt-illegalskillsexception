@@ -1,6 +1,8 @@
 import React from "react";
 import InquiriesViewItem from "./InquiriesViewItem/InquiriesViewItem";
 
+import { connect } from "react-redux";
+
 const items = [
     {
         title: "Jackhammer",
@@ -31,14 +33,25 @@ const items = [
     }
 ];
 
-export default class InquiriesView extends React.Component {
+const mapStateToProps = state => {
+    return { items: state.inquirystore };
+};
+
+export class InquiriesView extends React.Component {
     render() {
         return (
             <div className="grid-article-view">
-                {items.map(dataItem => (
+                {this.props.items.map(dataItem => (
                     <InquiriesViewItem key={dataItem.id} data={dataItem} />
                 ))}
             </div>
         );
     }
 }
+
+let inquiryViewEXport = connect(
+    mapStateToProps,
+    null,
+    null
+)(InquiriesView);
+export default inquiryViewEXport;

@@ -18,7 +18,7 @@ export default class LendItemCreateOfferDialog extends React.Component {
 
     render() {
         return (
-            <div>
+            <article>
                 <label>Title:</label>
                 <TextBox ref={this.titleRef}/>
                 <label>Description</label>
@@ -31,7 +31,7 @@ export default class LendItemCreateOfferDialog extends React.Component {
                 <TextBox ref={this.locationRef}/>
                 <Button onClick={()=> this.createLendItem()}>Confirm</Button>
                 <Button onClick={() => this.props.close()}>Cancel</Button>
-            </div>
+            </article>
         );
     }
     createLendItem(){

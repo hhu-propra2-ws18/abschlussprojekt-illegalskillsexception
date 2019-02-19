@@ -9,7 +9,7 @@ export default class BorrowItemAcceptanceDialog extends React.Component {
             <div className="acceptance-dialog">
                 <p>Do you really want to request borrowing this?</p>
                 <div className="dialog-buttons-div">
-                    <Button onClick={this.props.close}>Yes</Button>
+                    <Button onClick={this.props.accept}>Yes</Button>
                     <Button onClick={this.props.close}>No</Button>
                 </div>
             </div>

@@ -10,10 +10,15 @@ export async function getAllBorrowItemsBackend(token, url = BORROW_GETALL) {
     return data;
 }
 
-export async function createLend(data, token, url = BORROW_INQUIRY) {
+export async function borrowItemBackend(data, token, url = BORROW_INQUIRY) {
     let returnData = await Axios.post(url, data, {
         headers: {
             Authorization: token
+        },
+        params: {
+            id: data.id,
+            startDate: data.id,
+            endData: data.id
         }
     });
     return returnData;

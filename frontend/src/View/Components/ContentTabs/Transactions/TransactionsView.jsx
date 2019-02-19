@@ -1,6 +1,8 @@
 import React from "react";
 import TransactionsItem from "./Transactions/TransactionsItem";
 
+import { connect } from "react-redux";
+
 const items = [
     {
         title: "Der Gerät 9000",
@@ -10,7 +12,11 @@ const items = [
     }
 ];
 
-export default class TransactionsView extends React.Component {
+const mapStateToProps = state => {
+    return { items: state.transactionView };
+};
+
+export class TransactionsView extends React.Component {
     render() {
         return (
             <>
@@ -23,3 +29,10 @@ export default class TransactionsView extends React.Component {
         );
     }
 }
+
+let transactionView = connect(
+    mapStateToProps,
+    null,
+    null
+)(TransactionsView);
+export default transactionView;

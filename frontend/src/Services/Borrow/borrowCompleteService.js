@@ -1,7 +1,7 @@
 import { getAddLendItemAction, getSetLendItemListAction } from "../../Store/LendStore/LendActions";
 import { store } from "../../Store/reduxInit";
 
-import { getAllBorrowItemsBackend } from "./borrowBackendService";
+import { getAllBorrowItemsBackend, borrowItemBackend } from "./borrowBackendService";
 import { getSetBorrowListAction } from "../../Store/BorrowStore/BorrowActions";
 
 export async function inquiryBorrowItem(item) {
@@ -19,4 +19,8 @@ export async function getAllBorrowItems(){
 
     let action = getSetBorrowListAction(list)
     store.dispatch(action);
+}
+
+export async function borrowItem(data){
+    await borrowItemBackend(data,store.getState().user.token);
 }

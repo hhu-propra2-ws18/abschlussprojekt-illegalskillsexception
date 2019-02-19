@@ -17,7 +17,7 @@ export default class LendItemComponentEditDialog extends React.Component {
 
     render() {
         return (
-            <div>
+            <article>
                 <label>Title:</label>
                 <TextBox
                     ref={this.titleRef}
@@ -49,7 +49,7 @@ export default class LendItemComponentEditDialog extends React.Component {
                     <Button onClick={() => this.saveChanges()}>Confirm</Button>
                     <Button onClick={() => this.props.close()}>Cancel</Button>
                 </div>
-            </div>
+            </article>
         );
     }
 

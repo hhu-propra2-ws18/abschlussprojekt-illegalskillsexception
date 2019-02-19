@@ -39,7 +39,7 @@ public class TransactionController {
     }
 
     @PostMapping("/problem")
-    public FrentlyResponse conflict(Authentication authentication, @RequestParam long id) {
+    public FrentlyResponse conflict(Authentication authentication, @RequestBody Long id) {
         FrentlyResponse response = new FrentlyResponse();
         try {
             transactionService.updateTransactionStatus(transactionService.getTransaction(id), Transaction.Status.conflict);

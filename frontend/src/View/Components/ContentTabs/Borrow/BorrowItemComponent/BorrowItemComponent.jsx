@@ -21,16 +21,20 @@ export default class BorrowItemComponent extends React.Component {
                 <h6>Location:</h6>
                 <p>{this.props.data.location}</p>
                 <Button onClick={() => this.onClickDetails()}>Details</Button>
-                <Dialog
-                    defaultShow={this.state.showDialog}
-                    style={{ zIndex: 400 }}
-                    onCloseDialog={() => this.setState({ showDialog: false })}
-                > 
-                    <BorrowItemDetailComponent
-                        close={() => this.closeDialog()}
-                        data={this.props.data}
-                    />
-                </Dialog>
+                {this.state.showDialog && (
+                    <Dialog
+                        defaultShow={this.state.showDialog}
+                        style={{ zIndex: 400 }}
+                        onCloseDialog={() =>
+                            this.setState({ showDialog: false })
+                        }
+                    >
+                        <BorrowItemDetailComponent
+                            close={() => this.closeDialog()}
+                            data={this.props.data}
+                        />
+                    </Dialog>
+                )}
             </article>
         );
     }
