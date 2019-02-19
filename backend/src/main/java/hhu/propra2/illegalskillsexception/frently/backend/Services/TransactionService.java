@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -49,6 +50,17 @@ public class TransactionService implements ITransactionService {
             return transactionRepository.findById(id).get();
         }
         return null;
+    }
+
+    public List<Transaction> getAllConflicts() {
+        List<Transaction> transactions = transactionRepository.findAll();
+        List<Transaction> conflicts = new ArrayList<>();
+        for (Transaction t : transactions) {
+            if(t.getStatus().equals(Transaction.Status.conflict)) {
+                conflicts.add(t);
+            }
+        }
+        return conflicts;
     }
 
     private Transaction setTransaction(Transaction temp, Inquiry inquiry) {
