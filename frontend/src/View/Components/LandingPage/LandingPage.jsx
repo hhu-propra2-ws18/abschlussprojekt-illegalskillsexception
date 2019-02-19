@@ -56,11 +56,11 @@ export default class LandingPage extends React.Component {
                 >
                     <div className="dialog-container">
                         <label>Username:</label>
-                        <TextBox ref={this.nameRegister} />
+                        <TextBox value="user" ref={this.nameRegister} />
                         <label>Email:</label>
-                        <TextBox ref={this.emailRegister} />
+                        <TextBox value="idiot@frently.com" ref={this.emailRegister} />
                         <label>Password:</label>
-                        <PasswordBox ref={this.passwordRegister} />
+                        <PasswordBox value="password" ref={this.passwordRegister} />
                         <div className="dialog-buttons-div">
                             <Button onClick={() => this.hideRegister()}>
                                 Cancel
@@ -78,9 +78,9 @@ export default class LandingPage extends React.Component {
                 >
                     <div className="dialog-container">
                         <label>Username:</label>
-                        <TextBox ref={this.nameLogin} />
+                        <TextBox value="user" ref={this.nameLogin} />
                         <label>Password:</label>
-                        <PasswordBox ref={this.passwordLogin} />
+                        <PasswordBox value="password" ref={this.passwordLogin} />
                         <div className="dialog-buttons-div">
                             <Button onClick={() => this.hideLogin()}>
                                 Cancel

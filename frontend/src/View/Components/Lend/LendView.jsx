@@ -2,7 +2,10 @@ import React from "react";
 import LendViewHeader from "./LendViewHeader/LendViewHeader";
 import LendItemComponent from "./LendItemComponent/LendItemComponent";
 
+import {connect} from "react-redux";
+
 import "./LendView.css";
+import { getAllLendItems } from "../../../Services/Lend/lendCompleteService";
 
 const items = [
     {
@@ -27,14 +30,21 @@ const items = [
         id: 3
     }
 ];
+const mapStateToProps = state => {
+    return { items: state.lendstore };
+};
+export class LendView extends React.Component {
 
-export default class LendView extends React.Component {
+    async componentDidMount(){
+        await getAllLendItems();
+    }
+
     render() {
         return (
             <div id="lendview-container">
                 <LendViewHeader />
                 <div id="lend-grid" className="grid-article-view">
-                    {items.map(dataItem => (
+                    {this.props.items.map(dataItem => (
                         <LendItemComponent key={dataItem.id} data={dataItem} />
                     ))}
                 </div>
@@ -42,3 +52,12 @@ export default class LendView extends React.Component {
         );
     }
 }
+
+
+
+let lendViewExport = connect(
+    mapStateToProps,
+    null,
+    null
+)(LendView);
+export default lendViewExport;

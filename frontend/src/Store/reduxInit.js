@@ -1,8 +1,12 @@
 import user from "./UserStore/UserReducer";
+import borrowstore from "./BorrowStore/BorrowReducer";
+import lendstore from "./LendStore/LendReducer";
 import { createStore,combineReducers } from "redux";
 
 export const reducers = combineReducers({
-    user
+    user,
+    borrowstore,
+    lendstore
 });
 
 export function getDevtoolsExtension(object) {

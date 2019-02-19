@@ -1,23 +1,27 @@
 import React from "react";
 import BorrowItemComponent from "./BorrowItemComponent/BorrowItemComponent";
 
-const items = [
-    {
-        title: "Der Gerät 9000",
-        dailyRate: "3,50 €",
-        deposit: "500€",
-        location: "Dönerbude um die Ecke"
-    }
-];
+import {connect} from "react-redux";
+import { getAllBorrowItems } from "../../../Services/Borrow/borrowCompleteService";
 
-export default class BorrowView extends React.Component {
+
+const mapStateToProps = state => {
+    return { items: state.borrowstore };
+};
+
+export  class BorrowView extends React.Component {
+
+    async componentDidMount(){
+        await getAllBorrowItems();
+    }
+
     render() {
         return (
             <>
                 <div id="borrow-grid" className="grid-article-view">
-                    {items.map(dataItem => (
+                    {this.props.items.map(dataItem => (
                         <BorrowItemComponent
-                            key={dataItem.title}
+                            key={dataItem.id}
                             data={dataItem}
                         />
                     ))}
@@ -26,3 +30,10 @@ export default class BorrowView extends React.Component {
         );
     }
 }
+
+let borrowViewExport = connect(
+    mapStateToProps,
+    null,
+    null
+)(BorrowView);
+export default borrowViewExport;

@@ -1,8 +1,10 @@
 package hhu.propra2.illegalskillsexception.frently.backend.Services;
 
+import hhu.propra2.illegalskillsexception.frently.backend.Models.ApplicationUser;
 import hhu.propra2.illegalskillsexception.frently.backend.Models.Inquiry;
 import hhu.propra2.illegalskillsexception.frently.backend.Models.LendingPeriod;
 import hhu.propra2.illegalskillsexception.frently.backend.Repositories.InquiryRepository;
+import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -24,20 +26,36 @@ public class InquiryServiceTest {
 
     @Before
     public void setup() {
+        ApplicationUser user1 = new ApplicationUser();
+        ApplicationUser user2 = new ApplicationUser();
+        ApplicationUser user3 = new ApplicationUser();
+        user1.setId(0L);
+        user2.setId(1L);
+        user3.setId(2L);
+
         Inquiry inquiry0 = mock(Inquiry.class);
         when(inquiry0.getId()).thenReturn(0L);
         when(inquiry0.getDuration()).thenReturn(new LendingPeriod(LocalDate.of(2019, 4, 23), LocalDate.of(2019, 4, 23)));
         when(inquiry0.getTimestamp()).thenReturn(LocalDateTime.of(2019, 4, 23, 22, 12, 43));
         when(inquiry0.getUpdated()).thenReturn(LocalDateTime.of(2019, 4, 23, 22, 12, 43));
+        when(inquiry0.getBorrower()).thenReturn(user1);
+        when(inquiry0.getLender()).thenReturn(user2);
 
         Inquiry inquiry1 = mock(Inquiry.class);
         when(inquiry1.getId()).thenReturn(1L);
         when(inquiry1.getDuration()).thenReturn(new LendingPeriod(LocalDate.of(2019, 4, 25), LocalDate.of(2019, 4, 28)));
         when(inquiry1.getTimestamp()).thenReturn(LocalDateTime.of(2019, 4, 23, 22, 12, 47));
         when(inquiry1.getUpdated()).thenReturn(LocalDateTime.of(2019, 4, 23, 22, 12, 47));
+        when(inquiry1.getBorrower()).thenReturn(user3);
+        when(inquiry1.getLender()).thenReturn(user1);
 
         inquiryList = new ArrayList<>();
         inquiryList.addAll(Arrays.asList(inquiry0, inquiry1));
+
+        List<Inquiry> list1 = new ArrayList<>();
+        List<Inquiry> list2 = new ArrayList<>();
+        list1.add(new Inquiry());
+        list2.add(new Inquiry());
 
         inquiryRepository = mock(InquiryRepository.class);
         when(inquiryRepository.findAll()).thenReturn(inquiryList);
@@ -45,6 +63,8 @@ public class InquiryServiceTest {
         when(inquiryRepository.findById(1L)).thenReturn(null);
         when(inquiryRepository.existsById(0L)).thenReturn(true);
         when(inquiryRepository.existsById(1L)).thenReturn(false);
+        when(inquiryRepository.findAllByBorrower_Id(0L)).thenReturn(list1);
+        when(inquiryRepository.findAllByLender_Id(0L)).thenReturn(list2);
 
         inquiryService = new InquiryService(inquiryRepository);
     }
@@ -77,5 +97,10 @@ public class InquiryServiceTest {
     public void getInquiryWhichNotExists() {
         Inquiry inquiry = inquiryService.getInquiry(1L);
         assertNull(inquiry);
+    }
+    @Test
+    public void getAllInquiries() {
+        List<Inquiry> list = inquiryService.getAllInquiries(0L);
+        assertEquals(2,list.size());
     }
 }

@@ -15,10 +15,7 @@ export default function user(state = { isLoggedIn: false }, action) {
             };
         }
         default: {
-            return {
-                isLoggedIn: false,
-                token: ""
-            };
-        }
+            return state
+        };
     }
 }
