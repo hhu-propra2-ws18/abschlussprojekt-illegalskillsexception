@@ -37,7 +37,22 @@ the general Object. This way we can even return lists. \
 frentlyError is composed of an error-message and an error-type, given with an enum.
 
 #### Config
-//TODO write documentation for config
+
+##### Docker-Compose
+  * We use a nginx container as a reverse proxy. It maps "/" to the "frentlyfrontend" frontend container and
+    /api to the "frentlyapi" backend container.
+  * The "frentlydb" database container hosts a mysql database
+    and is linked to the "frentlyapi" backend container.
+  * The "propay" backend container hosts the propay app and is linked to the "frentlyapi" backend container.
+  * The "frentlyapi" backend container starts the spring-boot app with the jar-file from the application and 
+    waits with the wait-for-it script for the "frentlydb" database container to start.
+  * The "frentlyfrontend" frontend container delivers the react frontend with nginx.
+  
+We had problems with the /api mapping to the "frentlyapi" backend container caused by spring-security component
+and nginx domain.conf. Nginx maps to /api to a spring-boot app without adding the /api in the spring-boot app, if a "/"
+is added to the proxy_pass url in the domain.conf. But that results in a error in spring security because it produces a url with a
+"//" and that is by default not allowed in spring security. The solution was to tell nginx to remove the /api.
+
 #### Models
 Models are the data, being saved in our repository and they are specified by the Objects in our Java application. They are as described:
   * ApplicationUser
