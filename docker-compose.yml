@@ -34,7 +34,6 @@ services:
     image: propra/propay
     ports:
       - "8888:8888"
-    # Optional
     volumes:
       - ./data:/code/data
 
@@ -54,8 +53,7 @@ services:
     build: ./frontend
     container_name: frentlyfrontend
     ports:
-      - "8000:443"
-
+      - "8080"
 
 
 
