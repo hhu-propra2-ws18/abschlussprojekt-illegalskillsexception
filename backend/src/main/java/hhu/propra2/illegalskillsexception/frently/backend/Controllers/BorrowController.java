@@ -18,7 +18,7 @@ import java.time.LocalDate;
 import java.util.List;
 
 @RestController
-@RequestMapping("/borrow")
+@RequestMapping("/api/borrow")
 public class BorrowController {
 
     private ArticleService articleService;

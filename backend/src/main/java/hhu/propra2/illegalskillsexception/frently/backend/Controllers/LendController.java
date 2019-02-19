@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/lend")
+@RequestMapping("/api/lend")
 @AllArgsConstructor
 public class LendController {
 

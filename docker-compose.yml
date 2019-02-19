@@ -42,6 +42,7 @@ services:
     container_name: frentlyapi
     links:
       - "frentlydb:database"
+      - propay
     ports:
       - "8080"
     depends_on:
