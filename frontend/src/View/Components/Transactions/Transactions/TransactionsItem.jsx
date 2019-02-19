@@ -1,6 +1,6 @@
 import React from "react";
 
-export default class ProcessItem extends React.Component {
+export default class TransactionsItem extends React.Component {
     render() {
         return (
             <article>
