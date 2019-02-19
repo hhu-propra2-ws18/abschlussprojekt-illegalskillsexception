@@ -5,7 +5,7 @@ import LendItemComponent from "./LendItemComponent/LendItemComponent";
 import {connect} from "react-redux";
 
 import "./LendView.css";
-import { getAllLendItems } from "../../../Services/Lend/lendCompleteService";
+import { getAllLendItems } from "../../../../Services/Lend/lendCompleteService";
 
 const items = [
     {
