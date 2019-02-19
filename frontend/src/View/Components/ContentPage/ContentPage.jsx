@@ -1,14 +1,14 @@
 import React from "react";
 import NavigationView from "react-uwp/NavigationView";
 
-import BorrowView from "../Borrow/BorrowView";
-import LendView from "../Lend/LendView.jsx";
+import BorrowView from "../ContentTabs/Borrow/BorrowView";
+import LendView from "../ContentTabs/Lend/LendView.jsx";
 import Tabs, { Tab } from "react-uwp/Tabs";
 import SplitViewCommand from "react-uwp/SplitViewCommand";
-import InquiriesView from "../Inquiries/InquiriesView";
+import InquiriesView from "../ContentTabs/Inquiries/InquiriesView";
 
 import "./ContentPage.css";
-import TransactionsView from "../Transactions/TransactionsView";
+import TransactionsView from "../ContentTabs/Transactions/TransactionsView";
 
 export default class ContentPage extends React.Component {
     constructor(props) {

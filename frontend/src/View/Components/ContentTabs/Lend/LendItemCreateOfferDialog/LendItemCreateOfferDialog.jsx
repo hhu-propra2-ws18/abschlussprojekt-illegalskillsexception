@@ -1,7 +1,7 @@
 import React from "react";
 import TextBox from "react-uwp/TextBox";
 import Button from "react-uwp/Button";
-import { createLendItem } from "../../../../Services/Lend/lendCompleteService";
+import { createLendItem } from "../../../../../Services/Lend/lendCompleteService";
 
 export default class LendItemCreateOfferDialog extends React.Component {
 

@@ -2,7 +2,7 @@ import React from "react";
 import BorrowItemComponent from "./BorrowItemComponent/BorrowItemComponent";
 
 import {connect} from "react-redux";
-import { getAllBorrowItems } from "../../../Services/Borrow/borrowCompleteService";
+import { getAllBorrowItems } from "../../../../Services/Borrow/borrowCompleteService";
 
 
 const mapStateToProps = state => {

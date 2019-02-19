@@ -1,9 +1,9 @@
-import { getAddLendItemAction, getSetLendItemListAction } from "../../Store/LendStore/LendActions";
+import { getAddLendItemAction, getSetLendItemListAction, getUpdateLendItemAction } from "../../Store/LendStore/LendActions";
 import { store } from "../../Store/reduxInit";
-import { createLend, getAllLendItemsBackend } from "./lendBackendService";
+import { createLendBackend, getAllLendItemsBackend, updateLendBackend } from "./lendBackendService";
 
 export async function createLendItem(item) {
-    await createLend(item, store.getState().user.token);
+    await createLendBackend(item, store.getState().user.token);
 
     let action = getAddLendItemAction(item);
     store.dispatch(action);
@@ -17,4 +17,12 @@ export async function getAllLendItems(){
 
     let action = getSetLendItemListAction(list)
     store.dispatch(action);
+}
+
+
+export async function updateLendItem(item){
+    await updateLendBackend(item,store.getState().user.token);
+
+    let updateLendItemAction = getUpdateLendItemAction(item);
+    store.dispatch(updateLendItemAction);
 }

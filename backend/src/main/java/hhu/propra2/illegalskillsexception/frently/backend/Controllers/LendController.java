@@ -8,7 +8,6 @@ import hhu.propra2.illegalskillsexception.frently.backend.Models.Article;
 import hhu.propra2.illegalskillsexception.frently.backend.Services.ApplicationUserService;
 import hhu.propra2.illegalskillsexception.frently.backend.Services.ArticleService;
 import lombok.AllArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
 
