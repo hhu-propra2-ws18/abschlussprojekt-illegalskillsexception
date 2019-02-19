@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.List;
 
 @RestController
-@RequestMapping("/inquiry")
+@RequestMapping("/api/inquiry")
 public class InquiryController {
 
     private IInquiryService inquiryService;
@@ -37,11 +37,24 @@ public class InquiryController {
     }
 
     @GetMapping("/accept")
-    public FrentlyResponse acceptInquiry(Authentication authentication, @RequestParam Long inquiry_id) {
+    public FrentlyResponse acceptInquiry(Authentication authentication, @RequestParam Long inquiryId) {
         ApplicationUser user = (ApplicationUser) authentication.getPrincipal();
         FrentlyResponse fr = new FrentlyResponse();
         try {
-            inquiryService.accept(user, inquiry_id);
+            inquiryService.accept(user, inquiryId);
+        } catch (Exception e) {
+            FrentlyError fe = new FrentlyError("", null);
+            fr.setError(fe);
+        }
+        return fr;
+    }
+
+    @GetMapping("/decline")
+    public FrentlyResponse declineInquiry(Authentication authentication, @RequestParam Long inquiryId) {
+        ApplicationUser user = (ApplicationUser) authentication.getPrincipal();
+        FrentlyResponse fr = new FrentlyResponse();
+        try {
+            inquiryService.decline(user, inquiryId);
         } catch (Exception e) {
             FrentlyError fe = new FrentlyError("", null);
             fr.setError(fe);
