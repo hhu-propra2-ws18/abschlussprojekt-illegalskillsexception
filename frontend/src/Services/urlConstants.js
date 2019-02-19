@@ -1,6 +1,6 @@
 export const BASEURL = "http://localhost:8080/";
 
-export const SIGN_UP= `${BASEURL}users/sign-up`;
+export const SIGN_UP = `${BASEURL}users/sign-up`;
 export const LOGINURL = `${BASEURL}login`;
 
 export const BORROW_GETALL = `${BASEURL}borrow/getAll`;
@@ -9,3 +9,10 @@ export const BORROW_INQUIRY = `${BASEURL}borrow/inquiry`;
 export const LEND_GETALL = `${BASEURL}lend/getAll`;
 export const LEND_CREATE = `${BASEURL}lend/create`;
 export const LEND_UPDATE = `${BASEURL}lend/update`;
+
+export const INQUIRY_GETALL = `${BASEURL}inquiry/getAll`;
+export const INQUIRY_ACCEPT = `${BASEURL}inquiry/accept`;
+export const INQUIRY_DECLINE = `${BASEURL}inquiry/decline`;
+
+export const TRANSACTION_GETALL = `${BASEURL}transaction/getAll`;
+export const TRANSACTION_PROBLEM = `${BASEURL}transaction/problem`;
