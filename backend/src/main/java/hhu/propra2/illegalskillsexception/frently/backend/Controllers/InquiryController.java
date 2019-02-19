@@ -40,10 +40,12 @@ public class InquiryController {
     public FrentlyResponse acceptInquiry(Authentication authentication, @RequestParam Long inquiry_id) {
         ApplicationUser user = (ApplicationUser) authentication.getPrincipal();
         FrentlyResponse fr = new FrentlyResponse();
-        Long id = inquiryService.accept(user, inquiry_id);
-        fr.setData(id);
-        FrentlyError e = new FrentlyError("",null);
-        fr.setError(e);
+        try {
+            inquiryService.accept(user, inquiry_id);
+        } catch (Exception e) {
+            FrentlyError fe = new FrentlyError("", null);
+            fr.setError(fe);
+        }
         return fr;
     }
 }

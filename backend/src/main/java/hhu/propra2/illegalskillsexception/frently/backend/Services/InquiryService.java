@@ -2,18 +2,24 @@ package hhu.propra2.illegalskillsexception.frently.backend.Services;
 
 import hhu.propra2.illegalskillsexception.frently.backend.Models.*;
 import hhu.propra2.illegalskillsexception.frently.backend.Repositories.InquiryRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
 import java.util.List;
 
+import static hhu.propra2.illegalskillsexception.frently.backend.Models.Inquiry.Status.accepted;
+
 @Service
-public class InquiryService implements IInquiryService{
+public class InquiryService implements IInquiryService {
 
     private final InquiryRepository inquiryRepository;
+    private ITransactionService transactionservice;
 
-    public InquiryService(InquiryRepository pInquiryRepository) {
+    @Autowired
+    public InquiryService(InquiryRepository pInquiryRepository, ITransactionService transactionService) {
         this.inquiryRepository = pInquiryRepository;
+        this.transactionservice = transactionService;
     }
 
     public Long createInquiry(Article article, ApplicationUser borrower,
@@ -58,18 +64,16 @@ public class InquiryService implements IInquiryService{
         return inquiry;
     }
 
-    // TODO
-    public Long accept(ApplicationUser borrower, Long inquiryId) {
+    public void accept(ApplicationUser borrower, Long inquiryId) throws Exception {
         Inquiry inquiry = getInquiry(inquiryId);
 
         Double prize = calculatePrize(inquiry);
         ProPayAccount proPayAccount = getProPayAccount(borrower.getBankAccount());
 
         if(hasEnoughMoney(proPayAccount, prize)) {
-            // TODO create reservation and create Transaction
-        }
-
-        return 0L; // TODO alter return value
+            transactionservice.createTransaction(Transaction.Status.open, inquiry);
+            inquiry.setStatus(accepted);
+        } else throw new Exception();
     }
 
     public void decline(ApplicationUser borrower, Long inquiryId) {
@@ -81,7 +85,7 @@ public class InquiryService implements IInquiryService{
         return account.getAmount() >= requestedMoney;
     }
 
-    public ProPayAccount getProPayAccount(String account) {
+    private ProPayAccount getProPayAccount(String account) {
         final String url = "http://localhost:8080/ProPay/account/" + account;
         RestTemplate restTemplate = new RestTemplate();
 

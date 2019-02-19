@@ -20,6 +20,7 @@ public class InquiryServiceTest {
     private ArrayList<Inquiry> inquiryList;
     private InquiryRepository inquiryRepository;
     private InquiryService inquiryService;
+    private TransactionService transactionService;
 
     @Before
     public void setup() {
@@ -63,7 +64,8 @@ public class InquiryServiceTest {
         when(inquiryRepository.findAllByBorrower_Id(0L)).thenReturn(list1);
         when(inquiryRepository.findAllByLender_Id(0L)).thenReturn(list2);
 
-        inquiryService = new InquiryService(inquiryRepository);
+        transactionService = mock(TransactionService.class);
+        inquiryService = new InquiryService(inquiryRepository, transactionService);
     }
 
     @Test

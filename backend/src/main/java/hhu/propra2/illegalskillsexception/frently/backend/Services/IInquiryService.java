@@ -12,6 +12,7 @@ public interface IInquiryService {
     Inquiry updateInquiry(Inquiry inquiry);
     Inquiry getInquiry(Long id);
     List<Inquiry> getAllInquiries(Long id);
-    Long accept(ApplicationUser borrower, Long inquiryId);
+
+    void accept(ApplicationUser borrower, Long inquiryId) throws Exception;
     void decline(ApplicationUser borrower, Long inquiryId);
 }
