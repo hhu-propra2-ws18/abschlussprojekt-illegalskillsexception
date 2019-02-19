@@ -36,5 +36,24 @@
                 "message": "String or null"
             }
         }
+    },
+    "/lend/update": {
+        "method": "post",
+        "sendData": {
+            "title": "String",
+            "description": "String",
+            "status": "String",
+            "deposit": "Number",
+            "dailyRate": "Number",
+            "location": "String",
+            "id": "Number (Snowflake)"
+        },
+        "expectedData": {
+            "data": {},
+            "error": {
+                "code": "Number or null",
+                "message": "String or null"
+            }
+        }
     }
 }
