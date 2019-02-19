@@ -3,9 +3,7 @@ package hhu.propra2.illegalskillsexception.frently.backend.Controllers;
 import hhu.propra2.illegalskillsexception.frently.backend.Controllers.Response.FrentlyError;
 import hhu.propra2.illegalskillsexception.frently.backend.Controllers.Response.FrentlyResponse;
 import hhu.propra2.illegalskillsexception.frently.backend.Models.ApplicationUser;
-import hhu.propra2.illegalskillsexception.frently.backend.Models.Article;
 import hhu.propra2.illegalskillsexception.frently.backend.Models.Inquiry;
-import hhu.propra2.illegalskillsexception.frently.backend.Models.LendingPeriod;
 import hhu.propra2.illegalskillsexception.frently.backend.Services.IInquiryService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
@@ -40,21 +38,12 @@ public class InquiryController {
 
     @GetMapping("/accept")
     public FrentlyResponse acceptInquiry(Authentication authentication, @RequestParam Long inquiry_id) {
-        ApplicationUser borrower = (ApplicationUser) authentication.getPrincipal();
-        Inquiry inquiry = inquiryService.getInquiry(inquiry_id);
-
-        Double prize = calculatePrize(inquiry);
-
-        return null;
-    }
-
-    private Double calculatePrize(Inquiry inquiry) {
-        Article article  = inquiry.getArticle();
-        Double deposit = article.getDeposit();
-        Double dailyRate = article.getDailyRate();
-        LendingPeriod lendingPeriod = inquiry.getDuration();
-        Long length = lendingPeriod.getLengthInDays();
-
-        return deposit + dailyRate * length;
+        ApplicationUser user = (ApplicationUser) authentication.getPrincipal();
+        FrentlyResponse fr = new FrentlyResponse();
+        Long id = inquiryService.accept(user, inquiry_id);
+        fr.setData(id);
+        FrentlyError e = new FrentlyError("",null);
+        fr.setError(e);
+        return fr;
     }
 }
