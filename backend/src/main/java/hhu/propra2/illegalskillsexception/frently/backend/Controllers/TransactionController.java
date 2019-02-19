@@ -4,6 +4,7 @@ import hhu.propra2.illegalskillsexception.frently.backend.Controllers.Response.F
 import hhu.propra2.illegalskillsexception.frently.backend.Controllers.Response.FrentlyErrorType;
 import hhu.propra2.illegalskillsexception.frently.backend.Controllers.Response.FrentlyResponse;
 import hhu.propra2.illegalskillsexception.frently.backend.Models.ApplicationUser;
+import hhu.propra2.illegalskillsexception.frently.backend.Models.Transaction;
 import hhu.propra2.illegalskillsexception.frently.backend.Services.ApplicationUserService;
 import hhu.propra2.illegalskillsexception.frently.backend.Services.TransactionService;
 import lombok.AllArgsConstructor;
@@ -35,5 +36,18 @@ public class TransactionController {
     public FrentlyResponse returnArticle(Authentication authentication, @RequestParam long id) {
         //TODO
         return new FrentlyResponse();
+    }
+
+    @PostMapping("/problem")
+    public FrentlyResponse conflict(Authentication authentication, @RequestParam long id) {
+        FrentlyResponse response = new FrentlyResponse();
+        try {
+            transactionService.updateTransactionStatus(transactionService.getTransaction(id), Transaction.Status.conflict);
+            response.setData("" + Transaction.Status.conflict);
+        } catch (Exception e) {
+            FrentlyError error = new FrentlyError("Could not set conflict status", FrentlyErrorType.MISC);
+            response.setError(error);
+        }
+        return response;
     }
 }
