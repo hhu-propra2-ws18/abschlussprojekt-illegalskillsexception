@@ -67,15 +67,23 @@ public class InquiryService implements IInquiryService {
     public void accept(ApplicationUser borrower, Long inquiryId) throws Exception {
         Inquiry inquiry = getInquiry(inquiryId);
 
-        Double prize = calculatePrize(inquiry);
+        Double prize = calculateAccumulatedDailyRate(inquiry);
+        Double deposit = inquiry.getArticle().getDeposit();
         ProPayAccount proPayAccountBorrower = getProPayAccount(borrower.getBankAccount());
         String accountLender = inquiry.getLender().getBankAccount();
 
-        if (hasEnoughMoney(proPayAccountBorrower, prize)) {
+        if (hasEnoughMoney(proPayAccountBorrower, prize + deposit)) {
             transactionservice.createTransaction(Transaction.Status.open, inquiry);
-            blockMoney(proPayAccountBorrower, accountLender, prize);
+            blockMoney(proPayAccountBorrower, accountLender, deposit);
+            transferMoney(proPayAccountBorrower, accountLender, prize);
             inquiry.setStatus(accepted);
         } else throw new Exception();
+    }
+
+    private void transferMoney(ProPayAccount borrower, String lender, Double prize) {
+        final String url = "http://localhost:8080/Propay/account/" + borrower.getAccount() + "/transfer/" + lender + "?amount=" + prize;
+        RestTemplate restTemplate = new RestTemplate();
+        restTemplate.postForLocation(url, null);
     }
 
     private void blockMoney(ProPayAccount accountBorrower, String accountLender, Double prize) {
@@ -100,13 +108,12 @@ public class InquiryService implements IInquiryService {
         return restTemplate.getForObject(url, ProPayAccount.class);
     }
 
-    Double calculatePrize(Inquiry inquiry) {
+    Double calculateAccumulatedDailyRate(Inquiry inquiry) {
         Article article  = inquiry.getArticle();
-        Double deposit = article.getDeposit();
         Double dailyRate = article.getDailyRate();
         LendingPeriod lendingPeriod = inquiry.getDuration();
         Long length = lendingPeriod.getLengthInDays();
 
-        return deposit + dailyRate * length;
+        return dailyRate * length;
     }
 }
