@@ -52,7 +52,7 @@ public class Initializer implements ServletContextInitializer {
             int randomIndex = faker.number().numberBetween(0, 99);
             a.setOwner(fakeUsers[randomIndex]);
             a.setDescription(faker.lorem().paragraph(3));
-            a.setLocation(faker.gameOfThrones().city());
+            a.setLocation(faker.rickAndMorty().location());
 
             return a;
         }).forEach(a -> {

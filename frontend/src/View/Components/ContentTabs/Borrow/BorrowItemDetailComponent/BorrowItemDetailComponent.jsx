@@ -3,7 +3,7 @@ import React from "react";
 import DatePicker from "react-uwp/DatePicker";
 import Button from "react-uwp/Button";
 import Dialog from "react-uwp/Dialog";
-import BorrowItemAcceptanceDialog from "../BorrowItemAcceptanceDialog.jsx/BorrowItemAcceptanceDialog";
+import BorrowItemAcceptanceDialog from "../BorrowItemAcceptanceDialog/BorrowItemAcceptanceDialog";
 
 export default class BorrowItemDetailComponent extends React.Component {
     constructor(props) {
@@ -24,7 +24,7 @@ export default class BorrowItemDetailComponent extends React.Component {
                 <h5>Safety deposit:</h5>
                 <p>{this.props.data.deposit}</p>
                 <div className="dialog-buttons-div">
-                <Button onClick={() => this.borrowDialog()}>Borrow</Button>
+                <Button onClick={() => this.showBorrowDialog()}>Borrow</Button>
                 <Button onClick={() => this.props.close()}>Back</Button>
                 </div>
                 <Dialog
@@ -45,7 +45,7 @@ export default class BorrowItemDetailComponent extends React.Component {
         this.setState({ showDialog: false });
     }
 
-    borrowDialog() {
+    showBorrowDialog() {
         this.setState({ showDialog: true });
     }
 }
