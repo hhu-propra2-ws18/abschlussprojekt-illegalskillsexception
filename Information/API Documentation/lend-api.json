@@ -30,7 +30,7 @@
             "location": "String"
         },
         "expectedData": {
-            "data": {},
+            "data": { "id": "Number" },
             "error": {
                 "code": "Number or null",
                 "message": "String or null"

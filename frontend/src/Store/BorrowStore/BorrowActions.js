@@ -1,8 +1,10 @@
 import axios from "axios";
 
-const GET_ALL ="GET_ALL";
+export const SET_BORROW_ITEMS = "SET_BORROW_ITEMS";
 
-
-export function getAllAction(){
-    axios.get("")
+export function getSetBorrowListAction(list) {
+    return {
+        type: SET_BORROW_ITEMS,
+        list: list
+    };
 }
