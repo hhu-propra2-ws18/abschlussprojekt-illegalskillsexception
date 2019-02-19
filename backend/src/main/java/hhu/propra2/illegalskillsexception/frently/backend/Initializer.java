@@ -47,12 +47,12 @@ public class Initializer implements ServletContextInitializer {
         IntStream.range(0, 99).mapToObj(value -> {
             Article a = new Article();
             a.setTitle(faker.commerce().productName());
-            a.setDeposit(faker.number().numberBetween(10, 300));
-            a.setDailyRate(faker.number().numberBetween(1, 100));
+            a.setDeposit(faker.number().randomDouble(2, 10, 300));
+            a.setDailyRate(faker.number().randomDouble(2, 1, 100));
             int randomIndex = faker.number().numberBetween(0, 99);
             a.setOwner(fakeUsers[randomIndex]);
             a.setDescription(faker.lorem().paragraph(3));
-            a.setLocation(faker.gameOfThrones().city());
+            a.setLocation(faker.rickAndMorty().location());
 
             return a;
         }).forEach(a -> {

@@ -12,7 +12,17 @@ public class LendingPeriod {
     private LocalDate endLend;
 
     public LendingPeriod(LocalDate startLend, LocalDate endLend) {
-        this.startLend = startLend;
-        this.endLend = endLend;
+        if(startLend.isBefore(endLend)) {
+            this.startLend = startLend;
+            this.endLend = endLend;
+        }
+        else {
+            this.startLend = endLend;
+            this.endLend = startLend;
+        }
+    }
+
+    public long getLengthInDays() {
+        return startLend.until(endLend).getDays();
     }
 }

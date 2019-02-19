@@ -42,7 +42,7 @@ public class ArticleService implements IArticleService {
         return articleRepo.findAllByOwner_Id(owner.getId());
     }
 
-    public Article updateArticle(Long articleId, String title, int deposit, String description, int dailyRate) {
+    public Article updateArticle(Long articleId, String title, Double deposit, String description, Double dailyRate) {
         Optional<Article> toUpdateOpt = articleRepo.findById(articleId);
 
         if (toUpdateOpt.isPresent()) {

@@ -1,10 +1,7 @@
 package hhu.propra2.illegalskillsexception.frently.backend.Services;
 
-import hhu.propra2.illegalskillsexception.frently.backend.Models.ApplicationUser;
-import hhu.propra2.illegalskillsexception.frently.backend.Models.Inquiry;
-import hhu.propra2.illegalskillsexception.frently.backend.Models.LendingPeriod;
+import hhu.propra2.illegalskillsexception.frently.backend.Models.*;
 import hhu.propra2.illegalskillsexception.frently.backend.Repositories.InquiryRepository;
-import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -23,6 +20,7 @@ public class InquiryServiceTest {
     private ArrayList<Inquiry> inquiryList;
     private InquiryRepository inquiryRepository;
     private InquiryService inquiryService;
+    private TransactionService transactionService;
 
     @Before
     public void setup() {
@@ -66,7 +64,8 @@ public class InquiryServiceTest {
         when(inquiryRepository.findAllByBorrower_Id(0L)).thenReturn(list1);
         when(inquiryRepository.findAllByLender_Id(0L)).thenReturn(list2);
 
-        inquiryService = new InquiryService(inquiryRepository);
+        transactionService = mock(TransactionService.class);
+        inquiryService = new InquiryService(inquiryRepository, transactionService);
     }
 
     @Test
@@ -98,9 +97,47 @@ public class InquiryServiceTest {
         Inquiry inquiry = inquiryService.getInquiry(1L);
         assertNull(inquiry);
     }
+
     @Test
     public void getAllInquiries() {
         List<Inquiry> list = inquiryService.getAllInquiries(0L);
         assertEquals(2,list.size());
+    }
+
+    @Test
+    public void calculatePrize() {
+        LendingPeriod lendingPeriod = mock(LendingPeriod.class);
+        when(lendingPeriod.getLengthInDays()).thenReturn(5L);
+
+        Article article = new Article();
+        article.setDailyRate(10.);
+
+        Inquiry inquiry = new Inquiry();
+        inquiry.setArticle(article);
+        inquiry.setDuration(lendingPeriod);
+
+        // 5 * 10 + 25 = 75
+        assertEquals(50., inquiryService.calculateAccumulatedDailyRate(inquiry), 0.0000001);
+    }
+
+    @Test
+    public void hasExactlyEnoughMoney() {
+        ProPayAccount account = new ProPayAccount();
+        account.setAmount(25.);
+        assertTrue(inquiryService.hasEnoughMoney(account, 25.));
+    }
+
+    @Test
+    public void hasEnoughMoney() {
+        ProPayAccount account = new ProPayAccount();
+        account.setAmount(25.);
+        assertFalse(inquiryService.hasEnoughMoney(account, 30.));
+    }
+
+    @Test
+    public void hasNotEnoughMoney() {
+        ProPayAccount account = new ProPayAccount();
+        account.setAmount(25.);
+        assertTrue(inquiryService.hasEnoughMoney(account, 24.99));
     }
 }
