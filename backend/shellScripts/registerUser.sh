@@ -4,5 +4,5 @@ echo $( curl -H "Content-Type: application/json" -X POST -d '{
     "password": "password",
     "email": "admin@frently.com",
     "bankAccount": "admin.mcAdminFace"
-}' http://localhost:8080/users/sign-up ) | cat
+}' http://localhost:8080/api/users/sign-up ) | cat
 read  -n 1 -p "" mainmenuinput
