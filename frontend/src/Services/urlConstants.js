@@ -1,5 +1,6 @@
 export const BASEURL = "http://localhost:8080/api/";
 
+export const SIGN_UP = `${BASEURL}users/sign-up`;
 export const LOGINURL = `${BASEURL}login`;
 
 export const BORROW_GETALL = `${BASEURL}borrow/getAll`;
