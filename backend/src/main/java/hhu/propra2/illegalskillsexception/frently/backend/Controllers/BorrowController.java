@@ -7,6 +7,7 @@ import hhu.propra2.illegalskillsexception.frently.backend.Models.ApplicationUser
 import hhu.propra2.illegalskillsexception.frently.backend.Models.Article;
 import hhu.propra2.illegalskillsexception.frently.backend.Models.Inquiry;
 import hhu.propra2.illegalskillsexception.frently.backend.Models.LendingPeriod;
+import hhu.propra2.illegalskillsexception.frently.backend.Services.ApplicationUserService;
 import hhu.propra2.illegalskillsexception.frently.backend.Services.ArticleService;
 import hhu.propra2.illegalskillsexception.frently.backend.Services.InquiryService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,11 +23,13 @@ public class BorrowController {
 
     private ArticleService articleService;
     private InquiryService inquiryService;
+    private ApplicationUserService userService;
 
     @Autowired
-    public BorrowController(ArticleService articleService, InquiryService inquiryService) {
+    public BorrowController(ArticleService articleService, InquiryService inquiryService, ApplicationUserService userService) {
         this.articleService = articleService;
         this.inquiryService = inquiryService;
+        this.userService = userService;
     }
 
     @GetMapping("/getAll")
@@ -46,7 +49,7 @@ public class BorrowController {
     public FrentlyResponse makeInquiry(Authentication authentication, @RequestParam long id,
                                        @RequestParam LocalDate startDate, @RequestParam LocalDate endDate){
         FrentlyResponse response = new FrentlyResponse();
-        ApplicationUser borrower = (ApplicationUser) authentication.getPrincipal();
+        ApplicationUser borrower = userService.getCurrentUser(authentication);
         try{
             Article inquiryArticle = articleService.getArticleById(id);
             LendingPeriod period = new LendingPeriod(startDate, endDate);
