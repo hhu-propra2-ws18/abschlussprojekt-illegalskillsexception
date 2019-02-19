@@ -3,13 +3,12 @@ import NavigationView from "react-uwp/NavigationView";
 
 import BorrowView from "../Borrow/BorrowView";
 import LendView from "../Lend/LendView.jsx";
-import TreeView, { TreeItem } from "react-uwp/TreeView";
 import Tabs, { Tab } from "react-uwp/Tabs";
 import SplitViewCommand from "react-uwp/SplitViewCommand";
 import InquiriesView from "../Inquiries/InquiriesView";
 
 import "./ContentPage.css";
-import ProcessesView from "../Processes/ProcessesView";
+import TransactionsView from "../Transactions/TransactionsView";
 
 export default class ContentPage extends React.Component {
     constructor(props) {
@@ -68,7 +67,7 @@ export default class ContentPage extends React.Component {
                         <InquiriesView />
                     </Tab>
                     <Tab  style={{ width: "100%" }}>
-                        <ProcessesView />
+                        <TransactionsView />
                     </Tab>
                 </Tabs>
             </NavigationView>

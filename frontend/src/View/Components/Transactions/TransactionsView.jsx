@@ -1,5 +1,5 @@
 import React from "react";
-import ProcessItem from "./ProcessItem/ProcessItem";
+import TransactionsItem from "./Transactions/TransactionsItem";
 
 const items = [
     {
@@ -10,13 +10,13 @@ const items = [
     }
 ];
 
-export default class ProcessesView extends React.Component {
+export default class TransactionsView extends React.Component {
     render() {
         return (
             <>
                 <div id="testtext" className="grid-article-view">
                     {items.map(dataItem => (
-                        <ProcessItem key={dataItem.id} data={dataItem} />
+                        <TransactionsItem key={dataItem.id} data={dataItem} />
                     ))}
                 </div>
             </>
