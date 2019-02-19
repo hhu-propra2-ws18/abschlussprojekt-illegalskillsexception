@@ -111,14 +111,13 @@ public class InquiryServiceTest {
 
         Article article = new Article();
         article.setDailyRate(10.);
-        article.setDeposit(25.);
 
         Inquiry inquiry = new Inquiry();
         inquiry.setArticle(article);
         inquiry.setDuration(lendingPeriod);
 
         // 5 * 10 + 25 = 75
-        assertEquals(75., inquiryService.calculatePrize(inquiry), 0.0000001);
+        assertEquals(50., inquiryService.calculateAccumulatedDailyRate(inquiry), 0.0000001);
     }
 
     @Test
