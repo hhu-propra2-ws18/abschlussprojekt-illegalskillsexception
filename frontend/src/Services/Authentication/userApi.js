@@ -1,5 +1,10 @@
 import axios from "axios";
-import { SIGN_UP } from "../urlConstants";
+
+import {store} from "../../Store/reduxInit";
+import {getLoginUserAction} from "../../Store/UserStore/UserActions";
+
+import getToken from "./getToken";
+import { SIGN_UP, LOGINURL } from "../urlConstants";
 
 export async function registerUser(
     nameInner,
@@ -13,4 +18,18 @@ export async function registerUser(
         password: passwordInner,
         bankAccount: emailInner
     });
+}
+
+export async function loginUser(
+    nameInner,
+    passwordInner,
+) {
+    let token = await getToken(
+        nameInner,
+        passwordInner,
+        LOGINURL
+    );
+
+    let action = getLoginUserAction({ token: token });
+    store.dispatch(action);
 }

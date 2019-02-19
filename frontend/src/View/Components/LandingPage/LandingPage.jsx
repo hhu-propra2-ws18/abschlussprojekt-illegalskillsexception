@@ -3,14 +3,11 @@ import Button from "react-uwp/Button";
 import TextBox from "react-uwp/TextBox";
 import PasswordBox from "react-uwp/PasswordBox";
 import Dialog from "react-uwp/Dialog";
-import axios from "axios";
-import { store } from "../../../Store/reduxInit";
-import { getLoginUserAction } from "../../../Store/UserStore/UserActions";
 import * as PropTypes from "prop-types";
 
 import "./LandingPage.css";
-import getToken from "../../../Services/Authentication/getToken";
-import { registerUser } from "../../../Services/Authentication/userApi";
+import { registerUser, loginUser as loginUserService} from "../../../Services/Authentication/userApi";
+
 
 export default class LandingPage extends React.Component {
     static contextTypes = { theme: PropTypes.object };
@@ -119,14 +116,7 @@ export default class LandingPage extends React.Component {
             ? passwordPassed
             : this.passwordLogin.current.getValue();
 
-        let token = await getToken(
-            nameInner,
-            passwordInner,
-            "http://localhost:8080/login"
-        );
-
-        let action = getLoginUserAction({ token: token });
-        store.dispatch(action);
+        loginUserService(nameInner, passwordInner);
     }
 
     async registerUser() {
