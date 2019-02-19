@@ -23,7 +23,7 @@
     "inquiry/accept": {
         "method": "post",
         "sendData": {
-            "id": "Number"
+            "id": "Number (Snowflake)"
         },
         "expectedData": {
             "data": {},
@@ -36,7 +36,7 @@
     "inquiry/decline": {
         "method": "post",
         "sendData": {
-            "id": "Number"
+            "id": "Number (Snowflake)"
         },
         "expectedData": {
             "data": {},
