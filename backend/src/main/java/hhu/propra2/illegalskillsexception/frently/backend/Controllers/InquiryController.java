@@ -6,12 +6,16 @@ import hhu.propra2.illegalskillsexception.frently.backend.Models.ApplicationUser
 import hhu.propra2.illegalskillsexception.frently.backend.Models.Inquiry;
 import hhu.propra2.illegalskillsexception.frently.backend.Services.IInquiryService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.security.core.Authentication;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
 
 @RestController
-@RequestMapping("/inquiry")
+@RequestMapping("/api/inquiry")
 public class InquiryController {
 
     private IInquiryService inquiryService;
@@ -22,7 +26,8 @@ public class InquiryController {
     }
 
     @GetMapping("/getAll")
-    public FrentlyResponse returnEveryInquiryOf(@RequestBody ApplicationUser user){
+    public FrentlyResponse returnEveryInquiryOf(Authentication authentication) {
+        ApplicationUser user = (ApplicationUser) authentication.getPrincipal();
         FrentlyResponse fr = new FrentlyResponse();
         List<Inquiry> list = inquiryService.getAllInquiries(user.getId());
         fr.setData(list);
@@ -30,11 +35,30 @@ public class InquiryController {
         fr.setError(e);
         return fr;
     }
-    //TODO map accept
-    /*
+
     @GetMapping("/accept")
-    public FrentlyResponse acceptInquiry(@RequestBody ApplicationUser user, @RequestParam Inquiry_id) {
-        FrentlyResponse
+    public FrentlyResponse acceptInquiry(Authentication authentication, @RequestParam Long inquiryId) {
+        ApplicationUser user = (ApplicationUser) authentication.getPrincipal();
+        FrentlyResponse fr = new FrentlyResponse();
+        try {
+            inquiryService.accept(user, inquiryId);
+        } catch (Exception e) {
+            FrentlyError fe = new FrentlyError("", null);
+            fr.setError(fe);
+        }
+        return fr;
     }
-    */
+
+    @GetMapping("/decline")
+    public FrentlyResponse declineInquiry(Authentication authentication, @RequestParam Long inquiryId) {
+        ApplicationUser user = (ApplicationUser) authentication.getPrincipal();
+        FrentlyResponse fr = new FrentlyResponse();
+        try {
+            inquiryService.decline(user, inquiryId);
+        } catch (Exception e) {
+            FrentlyError fe = new FrentlyError("", null);
+            fr.setError(fe);
+        }
+        return fr;
+    }
 }
