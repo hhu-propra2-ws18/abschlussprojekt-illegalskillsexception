@@ -21,7 +21,6 @@ public class LendInquiryController {
     private final LendInquiryProcessingService lendInquiryProcessingService;
     private final ApplicationUserService userService;
 
-
     @GetMapping("/")
     public FrentlyResponse retrieveLendInquiry(Authentication authentication) {
 
@@ -39,7 +38,7 @@ public class LendInquiryController {
     }
 
     @PostMapping("/decline")
-    public FrentlyResponse declineInquiry(@RequestBody Long inquiryId) {
+    public FrentlyResponse declineLendInquiry(@RequestBody Long inquiryId) {
 
         FrentlyResponse response = new FrentlyResponse();
 
@@ -50,11 +49,13 @@ public class LendInquiryController {
             FrentlyError error = new FrentlyError(e.getMessage(), FrentlyErrorType.ACTUAL_EXCEPTION);
             response.setError(error);
         }
-
         return response;
     }
+/*
+    public FrentlyResponse accept(Authentication authentication, @RequestBody Long inquiryId) {
 
-
+    }
+*/
 
 
 }
