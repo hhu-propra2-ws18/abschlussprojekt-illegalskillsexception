@@ -9,10 +9,14 @@ import java.util.List;
 
 public interface IInquiryService {
     Long createInquiry(Article article, ApplicationUser borrower, LendingPeriod lendingPeriod, Inquiry.Status status);
+
     Inquiry updateInquiry(Inquiry inquiry);
+
     Inquiry getInquiry(Long id);
+
     List<Inquiry> getAllInquiries(Long id);
 
     void accept(ApplicationUser borrower, Long inquiryId) throws Exception;
+
     void decline(ApplicationUser borrower, Long inquiryId);
 }

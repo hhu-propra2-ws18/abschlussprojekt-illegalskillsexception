@@ -12,11 +12,10 @@ public class LendingPeriod {
     private LocalDate endLend;
 
     public LendingPeriod(LocalDate startLend, LocalDate endLend) {
-        if(startLend.isBefore(endLend)) {
+        if (startLend.isBefore(endLend)) {
             this.startLend = startLend;
             this.endLend = endLend;
-        }
-        else {
+        } else {
             this.startLend = endLend;
             this.endLend = startLend;
         }

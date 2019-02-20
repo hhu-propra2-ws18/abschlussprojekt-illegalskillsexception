@@ -41,7 +41,7 @@ public class TransactionServiceTest {
         LendingPeriod lendingPeriod0 = new LendingPeriod(LocalDate.of(2019, 2, 3), LocalDate.of(2019, 2, 5));
         LendingPeriod lendingPeriod1 = new LendingPeriod(LocalDate.of(2019, 2, 3), LocalDate.of(2019, 2, 10));
 
-        LocalDateTime timestamp = LocalDateTime.of(2019, 2, 3, 12, 23,34);
+        LocalDateTime timestamp = LocalDateTime.of(2019, 2, 3, 12, 23, 34);
 
         Inquiry inquiry0 = new Inquiry();
         Inquiry inquiry1 = new Inquiry();
