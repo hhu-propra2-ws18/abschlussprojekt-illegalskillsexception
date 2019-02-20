@@ -1,5 +1,3 @@
-import axios from "axios";
-
 export const SET_BORROW_ITEMS = "SET_BORROW_ITEMS";
 
 export function getSetBorrowListAction(list) {

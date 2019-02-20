@@ -1,12 +1,10 @@
 import React from "react";
 
-import Button from "react-uwp/Button";
 import Dialog from "react-uwp/Dialog";
 import LendItemCreateOfferDialog from "../LendItemCreateOfferDialog/LendItemCreateOfferDialog";
 
 import CommandBar from "react-uwp/CommandBar";
 import AppBarButton from "react-uwp/AppBarButton";
-import AppBarSeparator from "react-uwp/AppBarSeparator";
 
 import "./LendViewHeader.css";
 

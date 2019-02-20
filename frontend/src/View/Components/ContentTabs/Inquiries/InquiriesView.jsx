@@ -4,36 +4,6 @@ import InquiriesViewItem from "./InquiriesViewItem/InquiriesViewItem";
 import { connect } from "react-redux";
 import { getAllInquiries } from "../../../../Services/Inquiry/inquiryCompleteService";
 
-const items = [
-    {
-        title: "Jackhammer",
-        borrower: "Antoine",
-        lender: "Jens Bendisposto",
-        isLendingInquirie: true,
-        lendTime: "24.02.2019 - 28.02.2019",
-        status: "open",
-        id: 1
-    },
-    {
-        title: "Text",
-        borrower: "Test",
-        lender: "test",
-        isLendingInquirie: true,
-        lendTime: "dsagusioagdsikafgsa",
-        status: "statsa",
-        id: 2
-    },
-    {
-        title: "Text",
-        borrower: "Test",
-        lender: "test",
-        isLendingInquirie: false,
-        lendTime: "dsagusioagdsikafgsa",
-        status: "statsa",
-        id: 3
-    }
-];
-
 const mapStateToProps = state => {
     return { items: state.inquirystore };
 };
