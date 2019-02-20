@@ -30,16 +30,14 @@ public class BorrowInquiryService implements IBorrowInquiryService {
         Inquiry inquiry = new Inquiry();
 
         Article article = articleService.getArticleById(dto.getArticleId());
-        inquiry.setArticle(article);
+        List<Inquiry> allConflictingInquiries = inquiries.findAllByArticle_IdAndStartDateLessThanEqualAndEndDateGreaterThanEqual(article.getId(), dto.getStartDate(), dto.getEndDate());
+        if (!allConflictingInquiries.isEmpty()) {
+            throw new ArticleNotAvailableException();
+        }
 
+        inquiry.setArticle(article);
         inquiry.setBorrower(currentUser);
         inquiry.setLender(article.getOwner());
-
-        // get all inquiries involving this article and check if the lending periods intersect
-
-        //TreeSet<Inquiry> allInquiriesInvolvingArticle = inquiries.findAllByArticle_IdOrderByStartDate(article.getId());
-        //allInquiriesInvolvingArticle.
-
         inquiry.setStatus(Inquiry.Status.OPEN);
         inquiry.setStartDate(dto.getStartDate());
         inquiry.setEndDate(dto.getEndDate());
