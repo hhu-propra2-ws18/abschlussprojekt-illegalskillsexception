@@ -7,8 +7,8 @@ import hhu.propra2.illegalskillsexception.frently.backend.Models.ApplicationUser
 import hhu.propra2.illegalskillsexception.frently.backend.Models.Article;
 import hhu.propra2.illegalskillsexception.frently.backend.Models.Inquiry;
 import hhu.propra2.illegalskillsexception.frently.backend.Models.LendingPeriod;
-import hhu.propra2.illegalskillsexception.frently.backend.Services.ApplicationUserService;
 import hhu.propra2.illegalskillsexception.frently.backend.Services.ArticleService;
+import hhu.propra2.illegalskillsexception.frently.backend.Services.IApplicationUserService;
 import hhu.propra2.illegalskillsexception.frently.backend.Services.InquiryService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
@@ -23,10 +23,10 @@ public class BorrowController {
 
     private ArticleService articleService;
     private InquiryService inquiryService;
-    private ApplicationUserService userService;
+    private IApplicationUserService userService;
 
     @Autowired
-    public BorrowController(ArticleService articleService, InquiryService inquiryService, ApplicationUserService userService) {
+    public BorrowController(ArticleService articleService, InquiryService inquiryService, IApplicationUserService userService) {
         this.articleService = articleService;
         this.inquiryService = inquiryService;
         this.userService = userService;
@@ -53,7 +53,7 @@ public class BorrowController {
         try {
             Article inquiryArticle = articleService.getArticleById(id);
             LendingPeriod period = new LendingPeriod(startDate, endDate);
-            long inquiryId = inquiryService.createInquiry(inquiryArticle, borrower, period, Inquiry.Status.open);
+            long inquiryId = inquiryService.createInquiry(inquiryArticle, borrower, period, Inquiry.Status.OPEN);
             response.setData(inquiryId);
         } catch (Exception e) {
             FrentlyError error = new FrentlyError("Could not creat new inquiry.", FrentlyErrorType.MISC);

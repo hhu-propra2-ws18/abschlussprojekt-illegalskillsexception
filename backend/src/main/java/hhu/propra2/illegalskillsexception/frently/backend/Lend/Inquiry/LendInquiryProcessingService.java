@@ -25,7 +25,7 @@ public class LendInquiryProcessingService {
         }
 
         final Inquiry inquiry = inquiryOpt.get();
-        inquiry.setStatus(Inquiry.Status.declined);
+        inquiry.setStatus(Inquiry.Status.DECLINED);
 
         return inquiry;
     }
