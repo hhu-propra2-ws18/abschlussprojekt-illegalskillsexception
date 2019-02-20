@@ -45,7 +45,20 @@ public class ProPayService {
         double userBalance = getAccountBalance(userName);
         return userBalance >= amount;
     }
-    //public void freeDeposit(String userName,)
+
+    public void freeDeposit(String borrower, Transaction transaction) {
+        long reservationId = transaction.getReservationId();
+        final String url = "http://localhost:8080/propay/reservation/release" + borrower + "?reservationId=" + reservationId;
+        RestTemplate restTemplate = new RestTemplate();
+        restTemplate.postForObject(url, null, Reservation.class);
+    }
+
+    public void punishUser(String borrower, Transaction transaction) {
+        long reservationId = transaction.getReservationId();
+        final String url = "http://localhost:8080/propay/reservation/punish" + borrower + "?reservationId=" + reservationId;
+        RestTemplate restTemplate = new RestTemplate();
+        restTemplate.postForObject(url, null, Reservation.class);
+    }
 
     public void blockDeposit(String borrower, String lender, double amount, Transaction transaction) {
         final String url = "http://localhost:8080/Propay/reservation/reserve/" + borrower + "/" + lender + "?amount=" + amount;
