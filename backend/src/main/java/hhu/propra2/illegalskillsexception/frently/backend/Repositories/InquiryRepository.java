@@ -7,6 +7,8 @@ import java.util.List;
 
 public interface InquiryRepository extends CrudRepository<Inquiry, Long> {
     List<Inquiry> findAll();
+
     List<Inquiry> findAllByLender_Id(Long lenderId);
+
     List<Inquiry> findAllByBorrower_Id(Long borrowerId);
 }

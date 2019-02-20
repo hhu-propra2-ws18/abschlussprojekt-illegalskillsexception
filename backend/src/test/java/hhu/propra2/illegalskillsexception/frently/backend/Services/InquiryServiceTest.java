@@ -101,7 +101,7 @@ public class InquiryServiceTest {
     @Test
     public void getAllInquiries() {
         List<Inquiry> list = inquiryService.getAllInquiries(0L);
-        assertEquals(2,list.size());
+        assertEquals(2, list.size());
     }
 
     @Test

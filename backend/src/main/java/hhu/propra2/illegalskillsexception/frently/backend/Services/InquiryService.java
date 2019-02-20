@@ -109,7 +109,7 @@ public class InquiryService implements IInquiryService {
     }
 
     Double calculateAccumulatedDailyRate(Inquiry inquiry) {
-        Article article  = inquiry.getArticle();
+        Article article = inquiry.getArticle();
         Double dailyRate = article.getDailyRate();
         LendingPeriod lendingPeriod = inquiry.getDuration();
         Long length = lendingPeriod.getLengthInDays();

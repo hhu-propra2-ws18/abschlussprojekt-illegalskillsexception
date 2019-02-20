@@ -47,7 +47,7 @@ public class TransactionService implements ITransactionService {
     }
 
     public Transaction getTransaction(long id) {
-        if(transactionRepository.existsById(id)){
+        if (transactionRepository.existsById(id)) {
             return transactionRepository.findById(id).get();
         }
         return null;
@@ -57,7 +57,7 @@ public class TransactionService implements ITransactionService {
         List<Transaction> transactions = transactionRepository.findAll();
         List<Transaction> conflicts = new ArrayList<>();
         for (Transaction t : transactions) {
-            if(t.getStatus().equals(Transaction.Status.conflict)) {
+            if (t.getStatus().equals(Transaction.Status.conflict)) {
                 conflicts.add(t);
             }
         }
