@@ -1,7 +1,7 @@
 package hhu.propra2.illegalskillsexception.frently.backend.Services;
 
 import hhu.propra2.illegalskillsexception.frently.backend.Models.*;
-import hhu.propra2.illegalskillsexception.frently.backend.Repositories.TransactionRepository;
+import hhu.propra2.illegalskillsexception.frently.backend.Repositories.ITransactionRepository;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -16,7 +16,7 @@ import static org.junit.Assert.*;
 import static org.mockito.Mockito.*;
 
 public class TransactionServiceTest {
-    private TransactionRepository transactionRepository;
+    private ITransactionRepository ITransactionRepository;
     private TransactionService transactionService;
     private ArrayList<Transaction> transactionList;
     private ArrayList<Inquiry> inquiryList;
@@ -121,15 +121,15 @@ public class TransactionServiceTest {
         transactionList = new ArrayList<>();
         transactionList.addAll(Arrays.asList(transaction0, transaction1, transaction2, transaction3, transaction4));
 
-        transactionRepository = mock(TransactionRepository.class);
-        when(transactionRepository.existsById(0L)).thenReturn(true);
-        when(transactionRepository.existsById(1L)).thenReturn(false);
-        when(transactionRepository.findById(0L)).thenReturn(Optional.of(new Transaction()));
-        when(transactionRepository.save(transaction0)).thenReturn(transaction0);
-        when(transactionRepository.save(transaction1)).thenReturn(transaction1);
-        when(transactionRepository.findAll()).thenReturn(transactionList);
+        ITransactionRepository = mock(ITransactionRepository.class);
+        when(ITransactionRepository.existsById(0L)).thenReturn(true);
+        when(ITransactionRepository.existsById(1L)).thenReturn(false);
+        when(ITransactionRepository.findById(0L)).thenReturn(Optional.of(new Transaction()));
+        when(ITransactionRepository.save(transaction0)).thenReturn(transaction0);
+        when(ITransactionRepository.save(transaction1)).thenReturn(transaction1);
+        when(ITransactionRepository.findAll()).thenReturn(transactionList);
 
-        transactionService = new TransactionService(transactionRepository);
+        transactionService = new TransactionService(ITransactionRepository);
     }
 
     @Test
@@ -140,7 +140,7 @@ public class TransactionServiceTest {
         Transaction updatedTransaction = transactionService.updateTransactionReturnDate(testTransaction, newDate);
         LocalDate updatedDate = updatedTransaction.getReturnDate();
 
-        verify(transactionRepository).save(updatedTransaction);
+        verify(ITransactionRepository).save(updatedTransaction);
         assertEquals(newDate.getYear(), updatedDate.getYear());
         assertEquals(newDate.getDayOfYear(), updatedDate.getDayOfYear());
     }
@@ -151,7 +151,7 @@ public class TransactionServiceTest {
         LocalDate newDate = LocalDate.of(2019, 12, 12);
 
         assertNull(transactionService.updateTransactionReturnDate(testTransaction, newDate));
-        verify(transactionRepository, never()).save(testTransaction);
+        verify(ITransactionRepository, never()).save(testTransaction);
     }
 
     @Test
@@ -160,7 +160,7 @@ public class TransactionServiceTest {
 
         Transaction updatedTransaction = transactionService.updateTransactionStatus(testTransaction, Transaction.Status.closed);
 
-        verify(transactionRepository).save(updatedTransaction);
+        verify(ITransactionRepository).save(updatedTransaction);
         assertEquals(Transaction.Status.closed, updatedTransaction.getStatus());
     }
 
@@ -169,19 +169,19 @@ public class TransactionServiceTest {
         Transaction testTransaction = transactionList.get(1);
 
         assertNull(transactionService.updateTransactionStatus(testTransaction, Transaction.Status.closed));
-        verify(transactionRepository, never()).save(testTransaction);
+        verify(ITransactionRepository, never()).save(testTransaction);
     }
 
     @Test
     public void getExistingTransaction() {
         assertNotNull(transactionService.getTransaction(0L));
-        verify(transactionRepository).existsById(0L);
+        verify(ITransactionRepository).existsById(0L);
     }
 
     @Test
     public void getNullFromInexistentTransaction() {
         assertNull(transactionService.getTransaction(1L));
-        verify(transactionRepository).existsById(1L);
+        verify(ITransactionRepository).existsById(1L);
     }
 
     @Test
@@ -189,13 +189,13 @@ public class TransactionServiceTest {
         List<Transaction> expected = new ArrayList<>();
         expected.add(transactionList.get(0));
         assertEquals(expected, transactionService.getAllTransactionsForUser(0L));
-        verify(transactionRepository).findAll();
+        verify(ITransactionRepository).findAll();
     }
 
     @Test
     public void getNoTransactionFromUser() {
         assertEquals(new ArrayList<>(), transactionService.getAllTransactionsForUser(2L));
-        verify(transactionRepository).findAll();
+        verify(ITransactionRepository).findAll();
     }
 
     @Test
