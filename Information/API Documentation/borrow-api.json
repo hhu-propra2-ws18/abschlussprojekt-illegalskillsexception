@@ -1,5 +1,5 @@
 {
-    "/borrow/getAll": {
+    "/borrow/article/": {
         "method": "get",
         "sendData": {},
         "expectedData": {
@@ -19,7 +19,28 @@
             }
         }
     },
-    "/borrow/inquiry": {
+    "/borrow/inquiry/": {
+        "method": "get",
+        "sendData": {},
+        "expectedData": {
+            "data": [
+                {
+                    "title": "String",
+                    "description": "String",
+                    "lendTime": "String",
+                    "isLendingInquiry": "Boolean",
+                    "borrower": "String (Optional: If not a isLendingInquiry can be null)",
+                    "lender": "String (Optional: If isLendingInquiry can be null",
+                    "status": "String"
+                }
+            ],
+            "error": {
+                "code": "Number/String or null",
+                "message": "String or null"
+            }
+        }
+    },
+    "/borrow/inquiry/create": {
         "method": "post",
         "sendData": {
             "id": "Number (Snowflake)",
@@ -30,6 +51,25 @@
             "data": {
                 "inquiryId": "Number (Snowflake)"
             },
+            "error": {
+                "code": "Number or null",
+                "message": "String or null"
+            }
+        }
+    },
+    "borrow/transaction/": {
+        "method": "get",
+        "sendData": null,
+        "expectedData": {
+            "data": [
+                {
+                    "isLender": "Boolean",
+                    "title": "String",
+                    "status": "String",
+                    "location": "String",
+                    "returnData": "String"
+                }
+            ],
             "error": {
                 "code": "Number or null",
                 "message": "String or null"

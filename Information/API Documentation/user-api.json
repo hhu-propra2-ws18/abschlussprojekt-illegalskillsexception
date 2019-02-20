@@ -15,6 +15,20 @@
             }
         }
     },
+    "/user/": {
+        "method": "get",
+        "sendData": {},
+        "expectedData": {
+            "data": {
+                "accountBalance": "Number",
+                "username": "String"
+            },
+            "error": {
+                "code": "Number or null",
+                "message": "String or null"
+            }
+        }
+    },
     "/login": {
         "method": "post",
         "sendData": {
@@ -23,7 +37,7 @@
         },
         "expectedData": {
             "data": {
-                "isSupportService":"Boolean"
+                "isSupportService": "Boolean"
             },
             "error": {
                 "code": "Number or null",
