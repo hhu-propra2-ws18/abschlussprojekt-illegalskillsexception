@@ -11,20 +11,23 @@ import java.util.Optional;
 
 @Service
 @AllArgsConstructor
-public class LendArticleService {
+public class LendArticleService implements ILendArticleService {
 
     private IArticleRepository articleRepo;
 
-    Article createArticle(Article article, ApplicationUser user) {
+    @Override
+    public Article createArticle(Article article, ApplicationUser user) {
         article.setOwner(user);
         articleRepo.save(article);
         return article;
     }
 
-    List<Article> retrieveArticleList(ApplicationUser owner) {
+    @Override
+    public List<Article> retrieveArticleList(ApplicationUser owner) {
         return articleRepo.findAllByOwner_Id(owner.getId());
     }
 
+    @Override
     public Article updateArticle(LendArticleUpdate lendArticle) throws Exception {
 
         Optional<Article> articleOpt = articleRepo.findById(lendArticle.getArticleId());

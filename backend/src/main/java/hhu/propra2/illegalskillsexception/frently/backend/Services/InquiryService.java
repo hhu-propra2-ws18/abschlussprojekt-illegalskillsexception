@@ -1,7 +1,7 @@
 package hhu.propra2.illegalskillsexception.frently.backend.Services;
 
 import hhu.propra2.illegalskillsexception.frently.backend.Models.*;
-import hhu.propra2.illegalskillsexception.frently.backend.Repositories.InquiryRepository;
+import hhu.propra2.illegalskillsexception.frently.backend.Repositories.IInquiryRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
@@ -13,43 +13,43 @@ import static hhu.propra2.illegalskillsexception.frently.backend.Models.Inquiry.
 @Service
 public class InquiryService implements IInquiryService {
 
-    private final InquiryRepository inquiryRepository;
+    private final IInquiryRepository IInquiryRepository;
     private ITransactionService transactionservice;
 
     @Autowired
-    public InquiryService(InquiryRepository pInquiryRepository, ITransactionService transactionService) {
-        this.inquiryRepository = pInquiryRepository;
+    public InquiryService(IInquiryRepository pIInquiryRepository, ITransactionService transactionService) {
+        this.IInquiryRepository = pIInquiryRepository;
         this.transactionservice = transactionService;
     }
 
     public Long createInquiry(Article article, ApplicationUser borrower,
                               LendingPeriod lendingPeriod, Inquiry.Status status) {
         final Inquiry temp = setInquiry(new Inquiry(), article, borrower, article.getOwner(), lendingPeriod, status);
-        inquiryRepository.save(temp);
+        IInquiryRepository.save(temp);
         return temp.getId();
     }
 
     public Inquiry updateInquiry(Inquiry inquiry) {
-        if (inquiryRepository.existsById(inquiry.getId())) {
-            inquiryRepository.save(inquiry);
+        if (IInquiryRepository.existsById(inquiry.getId())) {
+            IInquiryRepository.save(inquiry);
         }
         return inquiry;
     }
 
     public Inquiry getInquiry(Long id) {
-        if (inquiryRepository.existsById(id)) {
-            return inquiryRepository.findById(id).get();
+        if (IInquiryRepository.existsById(id)) {
+            return IInquiryRepository.findById(id).get();
         }
         return null;
     }
 
     public List<Inquiry> getAllInquiries() {
-        return inquiryRepository.findAll();
+        return IInquiryRepository.findAll();
     }
 
     public List<Inquiry> getAllInquiries(Long id) {
-        List<Inquiry> list = inquiryRepository.findAllByBorrower_Id(id);
-        list.addAll(inquiryRepository.findAllByLender_Id(id));
+        List<Inquiry> list = IInquiryRepository.findAllByBorrower_Id(id);
+        list.addAll(IInquiryRepository.findAllByLender_Id(id));
 
         return list;
     }

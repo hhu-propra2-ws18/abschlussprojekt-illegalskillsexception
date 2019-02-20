@@ -1,7 +1,7 @@
 package hhu.propra2.illegalskillsexception.frently.backend.Services;
 
 import hhu.propra2.illegalskillsexception.frently.backend.Models.*;
-import hhu.propra2.illegalskillsexception.frently.backend.Repositories.InquiryRepository;
+import hhu.propra2.illegalskillsexception.frently.backend.Repositories.IInquiryRepository;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -18,7 +18,7 @@ import static org.mockito.Mockito.*;
 public class InquiryServiceTest {
 
     private ArrayList<Inquiry> inquiryList;
-    private InquiryRepository inquiryRepository;
+    private IInquiryRepository IInquiryRepository;
     private InquiryService inquiryService;
     private TransactionService transactionService;
 
@@ -55,31 +55,31 @@ public class InquiryServiceTest {
         list1.add(new Inquiry());
         list2.add(new Inquiry());
 
-        inquiryRepository = mock(InquiryRepository.class);
-        when(inquiryRepository.findAll()).thenReturn(inquiryList);
-        when(inquiryRepository.findById(0L)).thenReturn(Optional.of(inquiry0));
-        when(inquiryRepository.findById(1L)).thenReturn(null);
-        when(inquiryRepository.existsById(0L)).thenReturn(true);
-        when(inquiryRepository.existsById(1L)).thenReturn(false);
-        when(inquiryRepository.findAllByBorrower_Id(0L)).thenReturn(list1);
-        when(inquiryRepository.findAllByLender_Id(0L)).thenReturn(list2);
+        IInquiryRepository = mock(IInquiryRepository.class);
+        when(IInquiryRepository.findAll()).thenReturn(inquiryList);
+        when(IInquiryRepository.findById(0L)).thenReturn(Optional.of(inquiry0));
+        when(IInquiryRepository.findById(1L)).thenReturn(null);
+        when(IInquiryRepository.existsById(0L)).thenReturn(true);
+        when(IInquiryRepository.existsById(1L)).thenReturn(false);
+        when(IInquiryRepository.findAllByBorrower_Id(0L)).thenReturn(list1);
+        when(IInquiryRepository.findAllByLender_Id(0L)).thenReturn(list2);
 
         transactionService = mock(TransactionService.class);
-        inquiryService = new InquiryService(inquiryRepository, transactionService);
+        inquiryService = new InquiryService(IInquiryRepository, transactionService);
     }
 
     @Test
     public void updateInquiryWhichExists() {
         Inquiry tmpInquiry = inquiryList.get(0);
         inquiryService.updateInquiry(tmpInquiry);
-        verify(inquiryRepository).save(tmpInquiry);
+        verify(IInquiryRepository).save(tmpInquiry);
     }
 
     @Test
     public void updateInquiryWhichNotExists() {
         Inquiry tmpInquiry = inquiryList.get(1);
         inquiryService.updateInquiry(tmpInquiry);
-        verify(inquiryRepository, never()).save(tmpInquiry);
+        verify(IInquiryRepository, never()).save(tmpInquiry);
     }
 
     @Test

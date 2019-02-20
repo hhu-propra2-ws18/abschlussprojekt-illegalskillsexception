@@ -28,7 +28,7 @@ public class LendArticleController {
         FrentlyResponse response = new FrentlyResponse();
 
         try {
-            Article changedArticle = lendArticleService.createArticle(article, user);
+            final Article changedArticle = lendArticleService.createArticle(article, user);
             response.setData(changedArticle);
         } catch (Exception e) {
             FrentlyError error = new FrentlyError("Article could not be created", FrentlyErrorType.MISC);
@@ -43,10 +43,10 @@ public class LendArticleController {
         FrentlyResponse response = new FrentlyResponse();
 
         try {
-            List<Article> articleList = lendArticleService.retrieveArticleList(user);
+            final List<Article> articleList = lendArticleService.retrieveArticleList(user);
             response.setData(articleList);
         } catch (Exception e) {
-            FrentlyError error = new FrentlyError(e.toString(), FrentlyErrorType.ACTUAL_EXCEPTION);
+            FrentlyError error = new FrentlyError(e.getMessage(), FrentlyErrorType.ACTUAL_EXCEPTION);
             response.setError(error);
         }
         return response;
@@ -57,10 +57,10 @@ public class LendArticleController {
         FrentlyResponse response = new FrentlyResponse();
 
         try {
-            Article article = lendArticleService.updateArticle(lendArticle);
+            final Article article = lendArticleService.updateArticle(lendArticle);
             response.setData(article);
         } catch (Exception e) {
-            FrentlyError error = new FrentlyError(e.toString(), FrentlyErrorType.ACTUAL_EXCEPTION);
+            FrentlyError error = new FrentlyError(e.getMessage(), FrentlyErrorType.ACTUAL_EXCEPTION);
             response.setError(error);
         }
 
