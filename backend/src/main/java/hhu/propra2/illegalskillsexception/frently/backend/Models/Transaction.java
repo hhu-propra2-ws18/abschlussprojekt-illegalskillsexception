@@ -19,12 +19,14 @@ public class Transaction {
     private LocalDate returnDate;
     @Embedded
     private Status status;
+    private long reservationId;
     @CreatedDate
     @Column(nullable = false)
     private LocalDateTime timestamp;
     @LastModifiedDate
     @Column(nullable = false)
     private LocalDateTime updated;
+
 
     @Embeddable
     public enum Status {
