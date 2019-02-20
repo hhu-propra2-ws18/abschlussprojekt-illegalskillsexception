@@ -22,6 +22,13 @@ public class ProPayService {
         this.reservationService = reservationService;
     }
 
+    public ProPayAccount createAccount(String userName, double amount) {
+        final String url = "http://localhost:8888/propay/account/" + userName + "?amount=" + amount;
+        RestTemplate restTemplate = new RestTemplate();
+        ProPayAccount proPayAccount = restTemplate.postForObject(url, null, ProPayAccount.class);
+        moneyTransferService.createMoneyTransfer(userName, userName, amount);
+        return proPayAccount;
+    }
     public double getAccountBalance(String username) {
         ProPayAccount proPayAccount = getProPayAccount(username);
         return proPayAccount.getAmount();
