@@ -64,8 +64,8 @@
         "method": "post",
         "sendData": {
             "id": "Number (Snowflake)",
-            "startDate": "Date (Template: dd-mm-yyyy)",
-            "endDate": "Date (Template: dd-mm-yyyy)"
+            "startDate": "Date (Template: yyyy-mm-dd)",
+            "endDate": "Date (Template: yyyy-mm-dd)"
         },
         "expectedData": {
             "data": {
