@@ -13,13 +13,14 @@ import java.util.Optional;
 
 @Service
 @AllArgsConstructor
-public class ApplicationUserService {
+public class ApplicationUserService implements IApplicationUserService {
 
     private IApplicationUserRepository userRepo;
     private BCryptPasswordEncoder bCryptPasswordEncoder;
 
     // CRUD
 
+    @Override
     public void createUser(ApplicationUser user) {
         if (!userRepo.existsByUsername(user.getUsername())) {
             userRepo.save(user);
@@ -28,6 +29,7 @@ public class ApplicationUserService {
         }
     }
 
+    @Override
     public ApplicationUser getUserById(Long userId) {
         Optional<ApplicationUser> userOpt = userRepo.findById(userId);
 
@@ -37,26 +39,31 @@ public class ApplicationUserService {
         return null;
     }
 
+    @Override
     public List<ApplicationUser> getAllUsers() {
         return userRepo.findAll();
     }
 
+    @Override
     public ApplicationUser updateUser(ApplicationUser updateUser) {
         userRepo.save(updateUser);
         return updateUser;
     }
 
+    @Override
     public void deleteUser(long userId) {
         userRepo.deleteById(userId);
     }
 
     // Security
 
+    @Override
     public void encryptPassword(ApplicationUser user) {
         user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
     }
 
 
+    @Override
     public ApplicationUser getCurrentUser(Authentication authentication) {
         return userRepo.findByUsername((String)(authentication.getPrincipal()));
     }

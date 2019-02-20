@@ -4,7 +4,7 @@ import hhu.propra2.illegalskillsexception.frently.backend.Controllers.Response.F
 import hhu.propra2.illegalskillsexception.frently.backend.Controllers.Response.FrentlyErrorType;
 import hhu.propra2.illegalskillsexception.frently.backend.Controllers.Response.FrentlyResponse;
 import hhu.propra2.illegalskillsexception.frently.backend.Models.Transaction.Status;
-import hhu.propra2.illegalskillsexception.frently.backend.Services.ApplicationUserService;
+import hhu.propra2.illegalskillsexception.frently.backend.Services.IApplicationUserService;
 import hhu.propra2.illegalskillsexception.frently.backend.Services.TransactionService;
 import lombok.AllArgsConstructor;
 import org.springframework.security.core.Authentication;
@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.*;
 @AllArgsConstructor
 public class ConflictController {
 
-    private final ApplicationUserService userService;
+    private final IApplicationUserService userService;
     private final TransactionService transactionService;
 
     @GetMapping("/getAll")

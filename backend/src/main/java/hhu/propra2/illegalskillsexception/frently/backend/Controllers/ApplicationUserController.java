@@ -5,7 +5,7 @@ import hhu.propra2.illegalskillsexception.frently.backend.Controllers.Response.F
 import hhu.propra2.illegalskillsexception.frently.backend.Controllers.Response.FrentlyResponse;
 import hhu.propra2.illegalskillsexception.frently.backend.Exceptions.UserAlreadyExistsAuthenticationException;
 import hhu.propra2.illegalskillsexception.frently.backend.Models.ApplicationUser;
-import hhu.propra2.illegalskillsexception.frently.backend.Services.ApplicationUserService;
+import hhu.propra2.illegalskillsexception.frently.backend.Services.IApplicationUserService;
 import lombok.AllArgsConstructor;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -19,7 +19,7 @@ import java.util.Collections;
 @RequestMapping("/users")
 public class ApplicationUserController {
 
-    private ApplicationUserService userService;
+    private IApplicationUserService userService;
 
     @PostMapping("/sign-up")
     public FrentlyResponse signUp(@RequestBody ApplicationUser user) {
