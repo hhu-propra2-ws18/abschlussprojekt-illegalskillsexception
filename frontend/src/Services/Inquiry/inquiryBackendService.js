@@ -21,18 +21,16 @@ export async function getAllInquiriesBackend(
             Authorization: token
         }
     });
-    console.log(dataBorrow);
-    console.log(dataLend);
     return {
         borrowList: dataBorrow.data.data,
         lendList: dataLend.data.data
     };
 }
 
-export async function inquiryAcceptBackendd(id, token, url = INQUIRY_ACCEPT) {
+export async function inquiryAcceptBackend(id, token, url = INQUIRY_ACCEPT) {
     let data = await Axios.post(
         url,
-        { id: id },
+        { inquiryId: id },
         {
             headers: {
                 Authorization: token
@@ -46,7 +44,7 @@ export async function inquiryAcceptBackendd(id, token, url = INQUIRY_ACCEPT) {
 export async function inquiryDeclineBackend(id, token, url = INQUIRY_DECLINE) {
     let data = await Axios.post(
         url,
-        { id: id },
+        { inquiryId: id },
         {
             headers: {
                 Authorization: token

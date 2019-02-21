@@ -30,7 +30,7 @@
             "location": "String"
         },
         "expectedData": {
-            "data": { "id": "Number (Snowflake)" },
+            "data": { "articleId": "Number (Snowflake)" },
             "error": {
                 "code": "Number or null",
                 "message": "String or null"
@@ -46,7 +46,7 @@
             "deposit": "Number",
             "dailyRate": "Number",
             "location": "String",
-            "id": "Number (Snowflake)"
+            "articleId": "Number (Snowflake)"
         },
         "expectedData": {
             "data": {},
@@ -68,7 +68,8 @@
                     "isLendingInquiry": "Boolean",
                     "borrower": "String (Optional: If not a isLendingInquiry can be null)",
                     "lender": "String (Optional: If isLendingInquiry can be null",
-                    "status": "String"
+                    "status": "String",
+                    "id":"Number (Snowflake)"
                 }
             ],
             "error": {
@@ -107,7 +108,7 @@
         "sendData": {
             "data": [
                 {
-                    "id": "Boolean",
+                    "transactionId": "Boolean",
                     "isFaulty": "Boolean",
                     "itemReturn": "Boolean (usually true)"
                 }

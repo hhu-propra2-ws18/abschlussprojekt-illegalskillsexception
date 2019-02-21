@@ -12,7 +12,7 @@ import {
 
 export async function createLendItem(item) {
     let serverId = await createLendBackend(item, store.getState().user.token);
-//    item.id = serverId.data.data.id;
+    item.id = serverId.data.data.id;
     let action = getAddLendItemAction(item);
     store.dispatch(action);
 }

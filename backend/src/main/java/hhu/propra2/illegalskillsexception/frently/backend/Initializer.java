@@ -55,8 +55,8 @@ public class Initializer implements ServletContextInitializer {
 
             return a;
         }).forEach(a -> {
-            System.out.println(a);
             this.articleRepo.save(a);
+            System.out.println(a);
         });
     }
 }

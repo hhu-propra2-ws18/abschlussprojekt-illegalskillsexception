@@ -1,7 +1,7 @@
 import {
     ADD_INQUIRY_ITEM,
     SET_INQUIRY_ITEMS,
-    UPDATE_INQUIRY_ITEM
+    REMOVE_INQUIRY_ITEM
 } from "./InquiryActions";
 
 export default function inquirystore(
@@ -13,16 +13,26 @@ export default function inquirystore(
             return [...state, action.data];
         }
         case SET_INQUIRY_ITEMS: {
-            return action["list"];
+            return { borrowList: action.borrowList, lendList: action.lendList };
         }
-        case UPDATE_INQUIRY_ITEM: {
-            let copy = Object.assign([], state);
-            copy.forEach(item => {
-                if (item.id === action.data.id) {
-                    Object.assign(item, action.data);
-                }
-            });
-            return copy;
+        case REMOVE_INQUIRY_ITEM: {
+            let copyBorrow = Object.assign([], state.borrowList);
+            copyBorrow.splice(
+                copyBorrow.findIndex(function(i) {
+                    return i.inquiryId === action.inquiryId;
+                }),
+                1
+            );
+
+            let copyLend = Object.assign([], state.lendList);
+            copyLend.splice(
+                copyLend.findIndex(function(i) {
+                    return i.inquiryId === action.inquiryId;
+                }),
+                1
+            );
+
+            return { borrowList: copyBorrow, lendList: copyLend };
         }
         default: {
             return state;

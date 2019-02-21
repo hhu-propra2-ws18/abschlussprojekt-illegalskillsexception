@@ -19,6 +19,12 @@ export async function createLendBackend(data, token, url = LEND_CREATE) {
     return returnData;
 }
 
-export async function updateLendBackend(data,token,url =LEND_UPDATE){
-
+export async function updateLendBackend(data, token, url = LEND_UPDATE) {
+    let returnData = await Axios.post(url, data, {
+        headers: {
+            Authorization: token,
+        }
+    });
+    console.log(returnData);
+    return returnData;
 }

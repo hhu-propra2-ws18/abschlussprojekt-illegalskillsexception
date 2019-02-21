@@ -7,9 +7,9 @@ import * as PropTypes from "prop-types";
 
 import "./LandingPage.css";
 import {
-    registerUser,
-    loginUser as loginUserService
-} from "../../../Services/Authentication/userApi";
+    registerAndLoginUser,
+    loginUser
+} from "../../../Services/User/authentificationCompleteService";
 
 export default class LandingPage extends React.Component {
     static contextTypes = { theme: PropTypes.object };
@@ -127,7 +127,8 @@ export default class LandingPage extends React.Component {
             : this.passwordLogin.current.getValue();
 
         try {
-            loginUserService(nameInner, passwordInner);
+            loginUser(nameInner, passwordInner);
+            this.setState({ login: false });
         } catch (exception) {
             console.log(exception);
         }
@@ -138,8 +139,7 @@ export default class LandingPage extends React.Component {
         let emailInner = this.emailRegister.current.getValue();
         let passwordInner = this.passwordRegister.current.getValue();
 
-        await registerUser(nameInner, emailInner, passwordInner);
-        this.loginUser(nameInner, passwordInner);
+        await registerAndLoginUser(nameInner, emailInner, passwordInner);
         this.setState({ register: false });
     }
 }

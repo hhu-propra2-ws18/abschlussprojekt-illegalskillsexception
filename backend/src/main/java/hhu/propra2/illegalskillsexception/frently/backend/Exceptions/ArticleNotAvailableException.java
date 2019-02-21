@@ -1,7 +1,9 @@
 package hhu.propra2.illegalskillsexception.frently.backend.Exceptions;
 
-public class ArticleNotAvailableException extends Exception { // TODO: better Exception class to extend?
+import hhu.propra2.illegalskillsexception.frently.backend.Controllers.Response.FrentlyErrorType;
+
+public class ArticleNotAvailableException extends FrentlyException {
     public ArticleNotAvailableException() {
-        super("The selected article is not available in the requested period.");
+        super("The selected article is not available in the requested period.", FrentlyErrorType.ARTICLE_NOT_AVAILABLE);
     }
 }

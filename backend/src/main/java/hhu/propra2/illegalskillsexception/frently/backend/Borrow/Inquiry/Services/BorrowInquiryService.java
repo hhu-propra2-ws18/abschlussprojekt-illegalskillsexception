@@ -1,19 +1,20 @@
 package hhu.propra2.illegalskillsexception.frently.backend.Borrow.Inquiry.Services;
 
+import hhu.propra2.illegalskillsexception.frently.backend.Borrow.Article.Services.IBorrowArticleService;
 import hhu.propra2.illegalskillsexception.frently.backend.Borrow.Inquiry.DTOs.BorrowInquiryDTO;
 import hhu.propra2.illegalskillsexception.frently.backend.Exceptions.ArticleNotAvailableException;
+import hhu.propra2.illegalskillsexception.frently.backend.Exceptions.InvalidLendingPeriodException;
+import hhu.propra2.illegalskillsexception.frently.backend.Exceptions.NoSuchArticleException;
 import hhu.propra2.illegalskillsexception.frently.backend.Models.ApplicationUser;
 import hhu.propra2.illegalskillsexception.frently.backend.Models.Article;
 import hhu.propra2.illegalskillsexception.frently.backend.Models.Inquiry;
 import hhu.propra2.illegalskillsexception.frently.backend.Repositories.IInquiryRepository;
 import hhu.propra2.illegalskillsexception.frently.backend.Services.IApplicationUserService;
-import hhu.propra2.illegalskillsexception.frently.backend.Services.IArticleService;
 import lombok.AllArgsConstructor;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.TreeSet;
 
 @Service
 @AllArgsConstructor
@@ -22,16 +23,17 @@ public class BorrowInquiryService implements IBorrowInquiryService {
     private final IInquiryRepository inquiries;
 
     private final IApplicationUserService userService;
-    private final IArticleService articleService;
+    private final IBorrowArticleService articleService;
 
     @Override
-    public long createInquiry(Authentication auth, BorrowInquiryDTO dto) throws ArticleNotAvailableException {
+    public Inquiry createInquiry(Authentication auth, BorrowInquiryDTO dto)
+            throws ArticleNotAvailableException, InvalidLendingPeriodException, NoSuchArticleException {
         ApplicationUser currentUser = userService.getCurrentUser(auth);
 
+        if (isInvalidPeriod(dto)) throw new InvalidLendingPeriodException();
         Inquiry inquiry = new Inquiry();
 
         Article article = articleService.getArticleById(dto.getArticleId());
-
 
         inquiry.setArticle(article);
         inquiry.setBorrower(currentUser);
@@ -43,16 +45,22 @@ public class BorrowInquiryService implements IBorrowInquiryService {
         if (hasDateConflict(dto)) throw new ArticleNotAvailableException();
 
         inquiries.save(inquiry);
-        return inquiry.getId();
+        return inquiry;
     }
 
     @Override
     public List<Inquiry> retrieveAllInquiriesByUser(Authentication auth) {
-        return null;
+        ApplicationUser currentUser = userService.getCurrentUser(auth);
+        return inquiries.findAllByBorrower_Id(currentUser.getId());
     }
 
     private boolean hasDateConflict(BorrowInquiryDTO dto) {
-        List<Inquiry> allConflictingInquiries = inquiries.findAllByArticle_IdAndStartDateLessThanEqualAndEndDateGreaterThanEqual(dto.getArticleId(), dto.getStartDate(), dto.getEndDate());
+        List<Inquiry> allConflictingInquiries = inquiries.findAllByArticle_IdAndStartDateLessThanEqualAndEndDateGreaterThanEqual(dto.getArticleId(), dto.getEndDate(), dto.getStartDate());
+        System.out.println(allConflictingInquiries);
         return !allConflictingInquiries.isEmpty();
+    }
+
+    private boolean isInvalidPeriod(BorrowInquiryDTO dto) {
+        return dto.getEndDate().isBefore(dto.getStartDate());
     }
 }

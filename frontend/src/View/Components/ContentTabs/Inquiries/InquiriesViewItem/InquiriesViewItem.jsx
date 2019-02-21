@@ -1,6 +1,10 @@
 import React from "react";
 
 import Button from "react-uwp/Button";
+import {
+    declineInquiry,
+    acceptInquiry
+} from "../../../../../Services/Inquiry/inquiryCompleteService";
 
 export default class InquiriesViewItem extends React.Component {
     render() {
@@ -9,11 +13,11 @@ export default class InquiriesViewItem extends React.Component {
                 <h3>{this.props.data.title}</h3>
                 <p>{this.props.data.description}</p>
                 <h5>Lendtime:</h5>
-                <p>{this.props.data.lendTime}</p>
-                {this.props.data.isLendingInquirie ? (
+                <p>{this.props.data.startDate} to {this.props.data.endDate}</p>
+                {this.props.isLendingInquiry ? (
                     <div>
                         <h5>Borrower:</h5>
-                        <p>{this.props.data.borrower}</p>
+                        <p>{this.props.data.borrower.username}</p>
                         <div className="dialog-buttons-div">
                             <Button onClick={() => this.accept()}>
                                 Accept
@@ -26,7 +30,7 @@ export default class InquiriesViewItem extends React.Component {
                 ) : (
                     <div>
                         <h5>Lender:</h5>
-                        <p>{this.props.data.lender}</p>
+                        <p>{this.props.data.lender.username}</p>
                         <h5>Status: </h5>
                         <p>{this.props.data.status}</p>
                     </div>
@@ -35,6 +39,10 @@ export default class InquiriesViewItem extends React.Component {
         );
     }
 
-    accept() {}
-    decline() {}
+    async accept() {
+        await acceptInquiry(this.props.data.id);
+    }
+    async decline() {
+        await declineInquiry(this.props.data.id);
+    }
 }

@@ -10,7 +10,7 @@
                     "deposit": "Number",
                     "owner": "String",
                     "location": "String",
-                    "id": "Number (Snowflake)"
+                    "articleId": "Number (Snowflake)"
                 }
             ],
             "error": {
@@ -19,8 +19,11 @@
             }
         }
     },
-    "/borrow/article/{id}": {
+    "/borrow/article/": {
         "method": "get",
+        "params":{
+            "ofPerson":"Number (Snowflake)"
+        },
         "sendData": {},
         "expectedData": {
             "data": [
@@ -30,7 +33,7 @@
                     "deposit": "Number",
                     "owner": "String",
                     "location": "String",
-                    "id": "Number (Snowflake)"
+                    "articleId": "Number (Snowflake)"
                 }
             ],
             "error": {
@@ -51,7 +54,8 @@
                     "isLendingInquiry": "Boolean",
                     "borrower": "String (Optional: If not a isLendingInquiry can be null)",
                     "lender": "String (Optional: If isLendingInquiry can be null",
-                    "status": "String"
+                    "status": "String",
+                    "id":"Number (Snowflake)"
                 }
             ],
             "error": {
@@ -63,7 +67,7 @@
     "/borrow/inquiry/create": {
         "method": "post",
         "sendData": {
-            "id": "Number (Snowflake)",
+            "articleId": "Number (Snowflake)",
             "startDate": "Date (Template: yyyy-mm-dd)",
             "endDate": "Date (Template: yyyy-mm-dd)"
         },

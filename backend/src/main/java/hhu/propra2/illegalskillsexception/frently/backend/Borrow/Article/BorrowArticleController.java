@@ -1,6 +1,7 @@
 package hhu.propra2.illegalskillsexception.frently.backend.Borrow.Article;
 
 import hhu.propra2.illegalskillsexception.frently.backend.Borrow.Article.Services.IBorrowArticleService;
+import hhu.propra2.illegalskillsexception.frently.backend.Controllers.Response.FrentlyError;
 import hhu.propra2.illegalskillsexception.frently.backend.Controllers.Response.FrentlyResponse;
 import lombok.AllArgsConstructor;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -17,14 +18,22 @@ public class BorrowArticleController {
     @GetMapping(value = "/")
     public FrentlyResponse retrieveAllOffers() {
         FrentlyResponse response = new FrentlyResponse();
-        response.setData(articleService.retrieveAll());
+        try {
+            response.setData(articleService.retrieveAll());
+        } catch (Exception e) {
+            response.setError(new FrentlyError(e));
+        }
         return response;
     }
 
     @GetMapping(value = "/", params = "ofUser")
     public FrentlyResponse retrieveAllOffersOfUser(Long ofUser) {
         FrentlyResponse response = new FrentlyResponse();
-        response.setData(articleService.retrieveAllOfOwner(ofUser));
+        try {
+            response.setData(articleService.retrieveAllOfOwner(ofUser));
+        } catch (Exception e) {
+            response.setError(new FrentlyError(e));
+        }
         return response;
     }
 
