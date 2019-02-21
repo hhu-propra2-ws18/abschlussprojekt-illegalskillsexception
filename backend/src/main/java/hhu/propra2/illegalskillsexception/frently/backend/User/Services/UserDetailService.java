@@ -5,6 +5,7 @@ import hhu.propra2.illegalskillsexception.frently.backend.Models.ApplicationUser
 import hhu.propra2.illegalskillsexception.frently.backend.Models.Transaction;
 import hhu.propra2.illegalskillsexception.frently.backend.Services.IApplicationUserService;
 import hhu.propra2.illegalskillsexception.frently.backend.Services.TransactionService;
+import hhu.propra2.illegalskillsexception.frently.backend.User.DTOs.ForeignUserDetailResponse;
 import hhu.propra2.illegalskillsexception.frently.backend.User.DTOs.UserDetailResponse;
 import lombok.AllArgsConstructor;
 import org.springframework.security.core.Authentication;
@@ -40,5 +41,24 @@ public class UserDetailService implements IUserDetailService {
         //userDetails.setAccountBalance(accountBalance);
 
         return userDetails;
+    }
+
+
+    @Override
+    public ForeignUserDetailResponse getUserDetailService(String username) throws FrentlyException {
+
+        ForeignUserDetailResponse foreignUserDetailResponse = new ForeignUserDetailResponse();
+
+        ApplicationUser foreignUser = applicationUserService.getApplicationUserByUsername(username);
+        foreignUserDetailResponse.setUsername(foreignUser.getUsername());
+
+        List<Transaction> finishedTransaction = userTransactionService.getAllFinishedTransactions(foreignUser);
+        foreignUserDetailResponse.setCompletedTransactions(finishedTransaction);
+
+        //@TODO Deal with propay account
+        //double accountBalance = propayService.getCurrentBalance(currentUser);
+        //userDetails.setAccountBalance(accountBalance);
+
+        return foreignUserDetailResponse;
     }
 }

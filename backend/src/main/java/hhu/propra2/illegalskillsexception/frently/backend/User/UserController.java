@@ -8,6 +8,8 @@ import hhu.propra2.illegalskillsexception.frently.backend.Exceptions.FrentlyExce
 import hhu.propra2.illegalskillsexception.frently.backend.Exceptions.UserAlreadyExistsAuthenticationException;
 import hhu.propra2.illegalskillsexception.frently.backend.Models.ApplicationUser;
 import hhu.propra2.illegalskillsexception.frently.backend.Services.IApplicationUserService;
+import hhu.propra2.illegalskillsexception.frently.backend.User.DTOs.ForeignUserDetailRequest;
+import hhu.propra2.illegalskillsexception.frently.backend.User.DTOs.ForeignUserDetailResponse;
 import hhu.propra2.illegalskillsexception.frently.backend.User.DTOs.UserDetailResponse;
 import hhu.propra2.illegalskillsexception.frently.backend.User.Services.IUserDetailService;
 import lombok.AllArgsConstructor;
@@ -39,14 +41,28 @@ public class UserController {
     }
 
     @GetMapping("/")
-    public FrentlyResponse getUserDetails(Authentication auth){
+    public FrentlyResponse getUserDetails(Authentication auth) {
         FrentlyResponse response = new FrentlyResponse();
-        try{
+        try {
             UserDetailResponse userDetailResponse = userDetailService.getUserDetailService(auth);
             response.setData(userDetailResponse);
-        }catch (FrentlyException exc){
+        } catch (FrentlyException exc) {
             response.setError(new FrentlyError(exc));
-        }catch(Exception e){
+        } catch (Exception e) {
+            response.setError(new FrentlyError(e));
+        }
+        return response;
+    }
+
+    @PostMapping("/")
+    public FrentlyResponse getUserDetails(@RequestBody ForeignUserDetailRequest request) {
+        FrentlyResponse response = new FrentlyResponse();
+        try {
+            ForeignUserDetailResponse foreignUserDetailResponse = userDetailService.getUserDetailService(request.getUsername());
+            response.setData(foreignUserDetailResponse);
+        } catch (FrentlyException exc) {
+            response.setError(new FrentlyError(exc));
+        } catch (Exception e) {
             response.setError(new FrentlyError(e));
         }
         return response;
