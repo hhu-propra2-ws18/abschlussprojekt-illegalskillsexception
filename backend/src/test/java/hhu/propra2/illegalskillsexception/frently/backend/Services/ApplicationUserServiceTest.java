@@ -24,7 +24,7 @@ public class ApplicationUserServiceTest {
     private List<ApplicationUser> userList2;
 
     @Before
-    public void setUp(){
+    public void setUp() {
         Optional<ApplicationUser> user0 = Optional.empty();
         Optional<ApplicationUser> user1 = Optional.of(new ApplicationUser());
         Optional<ApplicationUser> user2 = Optional.of(new ApplicationUser());
@@ -35,7 +35,6 @@ public class ApplicationUserServiceTest {
         ApplicationUser user3 = new ApplicationUser();
         user3.setUsername("ExampleUser");
         user3.setPassword("ExamplePassword");
-        user3.setBankAccount("ExampleBank");
 
         userList2.addAll(Arrays.asList(new ApplicationUser(), new ApplicationUser(), new ApplicationUser(), user3));
         applicationUserRepository = mock(IApplicationUserRepository.class);
@@ -47,21 +46,21 @@ public class ApplicationUserServiceTest {
     }
 
     @Test
-    public void noUserPresent(){
+    public void noUserPresent() {
         ApplicationUser temp = IApplicationUserService.getUserById(0L);
         verify(applicationUserRepository).findById(0L);
         assertNull(temp);
     }
 
     @Test
-    public void userIsPresent(){
+    public void userIsPresent() {
         ApplicationUser temp = IApplicationUserService.getUserById(1L);
         verify(applicationUserRepository).findById(1L);
         assertNotNull(temp);
     }
 
     @Test
-    public void createValidUser(){
+    public void createValidUser() {
         ApplicationUser temp = new ApplicationUser();
         temp.setUsername("TestUser");
         temp.setPassword("TestPassword");
@@ -73,11 +72,10 @@ public class ApplicationUserServiceTest {
     }
 
     @Test(expected = UserAlreadyExistsAuthenticationException.class)
-    public void createInvalidUser(){
+    public void createInvalidUser() {
         ApplicationUser temp = new ApplicationUser();
         temp.setUsername("ExampleUser");
         temp.setPassword("ExamplePassword");
-        temp.setBankAccount("ExampleBank");
         IApplicationUserService.createUser(temp);
 
         verify(applicationUserRepository).existsByUsername("ExampleUser");

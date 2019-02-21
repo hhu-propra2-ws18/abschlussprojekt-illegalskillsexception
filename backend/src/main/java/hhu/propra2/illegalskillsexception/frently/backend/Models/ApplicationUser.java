@@ -24,9 +24,6 @@ public class ApplicationUser {
     @Column(nullable = false)
     private String password;
 
-    @Column(nullable = false)
-    private String bankAccount;
-
     @CreatedDate
     @Column(nullable = false)
     private LocalDateTime timestamp;
@@ -34,6 +31,4 @@ public class ApplicationUser {
     @LastModifiedDate
     @Column(nullable = false)
     private LocalDateTime updated;
-
-
 }

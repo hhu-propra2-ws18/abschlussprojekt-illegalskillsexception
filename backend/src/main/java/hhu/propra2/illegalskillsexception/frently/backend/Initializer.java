@@ -31,7 +31,6 @@ public class Initializer implements ServletContextInitializer {
             u.setUsername(faker.name().username());
             u.setPassword(faker.internet().password());
             u.setEmail(faker.internet().emailAddress(u.getUsername()));
-            u.setBankAccount(u.getUsername());
             return u;
         }).toArray(ApplicationUser[]::new);
 

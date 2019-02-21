@@ -36,7 +36,7 @@ public class InquiryController {
         return fr;
     }
 
-    @GetMapping("/accept")
+    /*@GetMapping("/accept")
     public FrentlyResponse acceptInquiry(Authentication authentication, @RequestParam Long inquiryId) {
         ApplicationUser user = (ApplicationUser) authentication.getPrincipal();
         FrentlyResponse fr = new FrentlyResponse();
@@ -47,7 +47,7 @@ public class InquiryController {
             fr.setError(fe);
         }
         return fr;
-    }
+    }*/
 
     @GetMapping("/decline")
     public FrentlyResponse declineInquiry(Authentication authentication, @RequestParam Long inquiryId) {
