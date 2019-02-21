@@ -7,6 +7,7 @@ import hhu.propra2.illegalskillsexception.frently.backend.ProPay.Models.MoneyTra
 import hhu.propra2.illegalskillsexception.frently.backend.ProPay.Models.ProPayAccount;
 import hhu.propra2.illegalskillsexception.frently.backend.ProPay.Models.Reservation;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
@@ -14,14 +15,15 @@ import java.util.List;
 
 @Service
 public class ProPayService implements IProPayService {
-
-    private final String BASE_URL = "http://localhost:8888/";
+    private String BASE_URL;
     private IMoneyTransferService moneyTransferService;
     private RestTemplate restTemplate = new RestTemplate();
 
+    //service.url takes the url from the application.properties based on the spring-configuration
     @Autowired
-    public ProPayService(IMoneyTransferService moneyTransferService) {
+    public ProPayService(IMoneyTransferService moneyTransferService, @Value("${service.url}") String BASE_URL) {
         this.moneyTransferService = moneyTransferService;
+        this.BASE_URL = BASE_URL;
     }
 
     @Override
@@ -55,7 +57,7 @@ public class ProPayService implements IProPayService {
         return moneyTransferService.getAll(userName);
     }
 
-    private ProPayAccount getProPayAccount(String username) {
+    public ProPayAccount getProPayAccount(String username) {
         final String url = BASE_URL + "account/" + username;
         return restTemplate.getForObject(url, ProPayAccount.class);
     }
@@ -63,11 +65,17 @@ public class ProPayService implements IProPayService {
     @Override
     public boolean hasEnoughMoney(String userName, double amount) {
         ProPayAccount proPayAccount = getProPayAccount(userName);
-        double sum = 0;
-        for (Reservation reservation : proPayAccount.getReservations()) {
-            sum += reservation.getAmount();
+        List<Reservation> reservations = proPayAccount.getReservations();
+        double accountBalance = proPayAccount.getAmount();
+        return amountGreaterThanReservation(reservations, amount, accountBalance);
+    }
+
+    boolean amountGreaterThanReservation(List<Reservation> reservations, double amount, double accountBalance) {
+        double alreadyReserved = 0;
+        for (Reservation reservation : reservations) {
+            alreadyReserved += reservation.getAmount();
         }
-        return proPayAccount.getAmount() >= (amount + sum);
+        return accountBalance >= (amount + alreadyReserved);
     }
 
     @Override
