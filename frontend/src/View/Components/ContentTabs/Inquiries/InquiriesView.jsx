@@ -23,7 +23,7 @@ export class InquiriesView extends React.Component {
             <div className="grid-article-view">
                 {this.props.itemsBorrow.map(dataItem => (
                     <InquiriesViewItem key={dataItem.id} data={dataItem} />
-                ))}{" "}
+                ))}
                 {this.props.itemsLend.map(dataItem => (
                     <InquiriesViewItem key={dataItem.id} data={dataItem} />
                 ))}
@@ -32,9 +32,9 @@ export class InquiriesView extends React.Component {
     }
 }
 
-let inquiryViewEXport = connect(
+let inquiryViewExport = connect(
     mapStateToProps,
     null,
     null
 )(InquiriesView);
-export default inquiryViewEXport;
+export default inquiryViewExport;
