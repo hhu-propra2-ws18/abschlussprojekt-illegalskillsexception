@@ -14,18 +14,18 @@ public class BorrowArticleController {
 
     private final IBorrowArticleService articleService;
 
-    @GetMapping("/")
-    public FrentlyResponse retrieveAllOffers(Long ofUser) {
+    @GetMapping(value = "/")
+    public FrentlyResponse retrieveAllOffers() {
         FrentlyResponse response = new FrentlyResponse();
-
-        if (ofUser == null) {
-            response.setData(articleService.retrieveAll());
-        } else {
-            response.setData(articleService.retrieveAllOfOwner(ofUser));
-        }
-
+        response.setData(articleService.retrieveAll());
         return response;
     }
 
+    @GetMapping(value = "/", params = "ofUser")
+    public FrentlyResponse retrieveAllOffersOfUser(Long ofUser) {
+        FrentlyResponse response = new FrentlyResponse();
+        response.setData(articleService.retrieveAllOfOwner(ofUser));
+        return response;
+    }
 
 }
