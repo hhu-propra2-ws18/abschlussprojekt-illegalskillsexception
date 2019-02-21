@@ -1,6 +1,6 @@
 package hhu.propra2.illegalskillsexception.frently.backend.ProPay.Services;
 
-import hhu.propra2.illegalskillsexception.frently.backend.Models.Transaction;
+import hhu.propra2.illegalskillsexception.frently.backend.Data.Models.Transaction;
 import hhu.propra2.illegalskillsexception.frently.backend.ProPay.IServices.IMoneyTransferService;
 import hhu.propra2.illegalskillsexception.frently.backend.ProPay.IServices.IProPayService;
 import hhu.propra2.illegalskillsexception.frently.backend.ProPay.Models.MoneyTransfer;
