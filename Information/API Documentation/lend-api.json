@@ -68,7 +68,8 @@
                     "isLendingInquiry": "Boolean",
                     "borrower": "String (Optional: If not a isLendingInquiry can be null)",
                     "lender": "String (Optional: If isLendingInquiry can be null",
-                    "status": "String"
+                    "status": "String",
+                    "id":"Number (Snowflake)"
                 }
             ],
             "error": {
