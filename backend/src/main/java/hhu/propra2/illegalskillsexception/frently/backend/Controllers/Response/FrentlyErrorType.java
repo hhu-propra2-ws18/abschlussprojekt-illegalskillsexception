@@ -5,5 +5,8 @@ public enum FrentlyErrorType {
     ACTUAL_EXCEPTION,
     UserNotFound,
     ARTICLE_NOT_AVAILABLE,
-    INQUIRY_NOT_FOUND
+    INQUIRY_NOT_FOUND,
+    INVALID_LENDING_PERIOD,
+    NOT_SUCH_ARTICLE,
+
 }
