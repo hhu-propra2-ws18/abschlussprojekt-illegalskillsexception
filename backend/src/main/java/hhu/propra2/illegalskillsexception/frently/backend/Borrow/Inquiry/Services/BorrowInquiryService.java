@@ -33,19 +33,24 @@ public class BorrowInquiryService implements IBorrowInquiryService {
         if (isInvalidPeriod(dto)) throw new InvalidLendingPeriodException();
         if (hasDateConflict(dto)) throw new ArticleNotAvailableException();
 
+        Inquiry inquiry = buildInquiry(dto);
+        inquiry.setBorrower(currentUser);
+        inquiries.save(inquiry);
+
+        return inquiry;
+    }
+
+    private Inquiry buildInquiry(BorrowInquiryDTO dto) throws NoSuchArticleException {
         Inquiry inquiry = new Inquiry();
 
         Article article = articleService.getArticleById(dto.getArticleId());
 
         inquiry.setArticle(article);
-        inquiry.setBorrower(currentUser);
         inquiry.setLender(article.getOwner());
         inquiry.setStatus(Inquiry.Status.OPEN);
         inquiry.setStartDate(dto.getStartDate());
         inquiry.setEndDate(dto.getEndDate());
 
-
-        inquiries.save(inquiry);
         return inquiry;
     }
 
