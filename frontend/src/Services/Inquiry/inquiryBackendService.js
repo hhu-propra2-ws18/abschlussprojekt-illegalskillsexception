@@ -21,8 +21,6 @@ export async function getAllInquiriesBackend(
             Authorization: token
         }
     });
-    console.log(dataBorrow.data.data);
-    console.log(dataLend.data.data);
     return {
         borrowList: dataBorrow.data.data,
         lendList: dataLend.data.data

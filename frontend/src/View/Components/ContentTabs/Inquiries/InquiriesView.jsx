@@ -22,10 +22,10 @@ export class InquiriesView extends React.Component {
         return (
             <div className="grid-article-view">
                 {this.props.itemsBorrow.map(dataItem => (
-                    <InquiriesViewItem key={dataItem.id} data={dataItem} />
+                    <InquiriesViewItem isLendingInquiry={false} key={dataItem.id} data={dataItem} />
                 ))}
                 {this.props.itemsLend.map(dataItem => (
-                    <InquiriesViewItem key={dataItem.id} data={dataItem} />
+                    <InquiriesViewItem  isLendingInquiry={true} key={dataItem.id} data={dataItem} />
                 ))}
             </div>
         );

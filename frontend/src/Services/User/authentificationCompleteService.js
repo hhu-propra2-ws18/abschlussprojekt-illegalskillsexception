@@ -5,7 +5,8 @@ import { getLoginUserAction } from "../../Store/UserStore/UserActions";
 
 import {
     loginUserBackend,
-    registerUserBackend
+    registerUserBackend,
+    getUserDetailsBackend
 } from "./authentificationBackendService";
 
 export async function registerAndLoginUser(
@@ -23,4 +24,8 @@ export async function loginUser(nameInner, passwordInner) {
 
     let action = getLoginUserAction({ token: token });
     store.dispatch(action);
+}
+
+export async function getUserDetails() {
+    return await getUserDetailsBackend(store.getState().user.token);
 }
