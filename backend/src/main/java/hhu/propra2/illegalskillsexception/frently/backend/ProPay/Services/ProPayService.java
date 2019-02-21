@@ -7,6 +7,7 @@ import hhu.propra2.illegalskillsexception.frently.backend.ProPay.Models.MoneyTra
 import hhu.propra2.illegalskillsexception.frently.backend.ProPay.Models.ProPayAccount;
 import hhu.propra2.illegalskillsexception.frently.backend.ProPay.Models.Reservation;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
@@ -14,13 +15,15 @@ import java.util.List;
 
 @Service
 public class ProPayService implements IProPayService {
-    private final String BASE_URL = "http://propay:8888/";
+    private String BASE_URL;
     private IMoneyTransferService moneyTransferService;
     private RestTemplate restTemplate = new RestTemplate();
 
+    //service.url takes the url from the application.properties based on the spring-configuration
     @Autowired
-    public ProPayService(IMoneyTransferService moneyTransferService) {
+    public ProPayService(IMoneyTransferService moneyTransferService, @Value("${service.url}") String BASE_URL) {
         this.moneyTransferService = moneyTransferService;
+        this.BASE_URL = BASE_URL;
     }
 
     @Override
