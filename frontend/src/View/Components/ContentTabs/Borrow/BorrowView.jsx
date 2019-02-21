@@ -1,7 +1,6 @@
 import React from "react";
 import BorrowItemComponent from "./BorrowItemComponent/BorrowItemComponent";
 
-import ProgressRing from "react-uwp/ProgressRing";
 import ProgressBar from "react-uwp/ProgressBar";
 
 import { connect } from "react-redux";

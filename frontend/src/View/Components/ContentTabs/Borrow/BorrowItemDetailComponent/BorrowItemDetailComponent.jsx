@@ -4,7 +4,6 @@ import DatePicker from "react-uwp/DatePicker";
 import Button from "react-uwp/Button";
 import Dialog from "react-uwp/Dialog";
 import BorrowItemAcceptanceDialog from "../BorrowItemAcceptanceDialog/BorrowItemAcceptanceDialog";
-import { inquiry } from "../../../../../Services/Borrow/borrowBackendService";
 import { borrowItem } from "../../../../../Services/Borrow/borrowCompleteService";
 
 export default class BorrowItemDetailComponent extends React.Component {

@@ -2,9 +2,7 @@ import React from "react";
 import TransactionsItem from "./Transactions/TransactionsItem";
 
 import { connect } from "react-redux";
-import Button from "react-uwp/Button";
 import {
-    createTransactionProblem,
     getAllTransaction
 } from "../../../../Services/Transaction/transactionCompleteService";
 

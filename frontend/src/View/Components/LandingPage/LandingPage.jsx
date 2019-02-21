@@ -27,7 +27,6 @@ export default class LandingPage extends React.Component {
     }
 
     render() {
-        const { theme } = this.context;
         return (
             <div id="greeting-div">
                 <p>Welcome to fRENTly the simple Webapp for renting items.</p>

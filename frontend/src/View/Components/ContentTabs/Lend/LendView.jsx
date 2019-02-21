@@ -7,29 +7,6 @@ import {connect} from "react-redux";
 import "./LendView.css";
 import { getAllLendItems } from "../../../../Services/Lend/lendCompleteService";
 
-const items = [
-    {
-        title: "Der Gerät 9000",
-        dailyRate: "3.50",
-        deposit: "500",
-        location: "Dönerbude um die Ecke",
-        id: 1
-    },
-    {
-        title: "Der Gerät 9000",
-        dailyRate: "3.50",
-        deposit: "500",
-        location: "Dönerbude um die Ecke",
-        id: 2
-    },
-    {
-        title: "Der Gerät 9000",
-        dailyRate: "3.50",
-        deposit: "500",
-        location: "Dönerbude um die Ecke",
-        id: 3
-    }
-];
 const mapStateToProps = state => {
     return { items: state.lendstore };
 };

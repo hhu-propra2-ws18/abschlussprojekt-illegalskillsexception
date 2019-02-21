@@ -13,7 +13,7 @@ export default class TransactionsItem extends React.Component {
                 {
                     this.props.isLender ? 
                     <div>
-                        <Button>Item was returned</Button>
+                        <Button >Item was returned</Button>
                         <Button>
                             Problem occured
                         </Button>
@@ -24,4 +24,6 @@ export default class TransactionsItem extends React.Component {
             </article>
         );
     }
+
+    
 }
