@@ -8,5 +8,5 @@ public enum FrentlyErrorType {
     INQUIRY_NOT_FOUND,
     INVALID_LENDING_PERIOD,
     NOT_SUCH_ARTICLE,
-
+    USER_ALREADY_EXISTING,
 }

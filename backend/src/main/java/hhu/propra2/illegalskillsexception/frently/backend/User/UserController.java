@@ -35,7 +35,7 @@ public class UserController {
 
             response.setData(Collections.singletonList(user));
         } catch (UserAlreadyExistsAuthenticationException e) {
-            response.setError(new FrentlyError(e.getMessage(), FrentlyErrorType.MISC));
+            response.setError(new FrentlyError(e.getMessage(), FrentlyErrorType.USER_ALREADY_EXISTING));
         }
         return response;
     }
