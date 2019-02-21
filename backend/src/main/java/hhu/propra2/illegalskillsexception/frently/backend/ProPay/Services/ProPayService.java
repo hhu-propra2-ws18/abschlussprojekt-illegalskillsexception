@@ -65,11 +65,17 @@ public class ProPayService implements IProPayService {
     @Override
     public boolean hasEnoughMoney(String userName, double amount) {
         ProPayAccount proPayAccount = getProPayAccount(userName);
-        double sum = 0;
-        for (Reservation reservation : proPayAccount.getReservations()) {
-            sum += reservation.getAmount();
+        List<Reservation> reservations = proPayAccount.getReservations();
+        double accountBalance = proPayAccount.getAmount();
+        return amountGreaterThanReservation(reservations, amount, accountBalance);
+    }
+
+    boolean amountGreaterThanReservation(List<Reservation> reservations, double amount, double accountBalance) {
+        double alreadyReserved = 0;
+        for (Reservation reservation : reservations) {
+            alreadyReserved += reservation.getAmount();
         }
-        return proPayAccount.getAmount() >= (amount + sum);
+        return accountBalance >= (amount + alreadyReserved);
     }
 
     @Override
