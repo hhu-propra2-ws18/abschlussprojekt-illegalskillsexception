@@ -3,6 +3,8 @@ package hhu.propra2.illegalskillsexception.frently.backend.Models;
 import lombok.Data;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
+import org.springframework.data.jpa.domain.support.AuditingEntityListener;
+import org.springframework.data.jpa.repository.config.EnableJpaAuditing;
 
 import javax.persistence.*;
 import java.time.LocalDate;
@@ -10,6 +12,7 @@ import java.time.LocalDateTime;
 
 @Data
 @Entity
+@EntityListeners(AuditingEntityListener.class)
 public class Inquiry {
     @Embeddable
     public enum Status {
