@@ -1,10 +1,8 @@
 package hhu.propra2.illegalskillsexception.frently.backend.User.Services;
 
-import hhu.propra2.illegalskillsexception.frently.backend.Exceptions.FrentlyException;
 import hhu.propra2.illegalskillsexception.frently.backend.Models.ApplicationUser;
 import hhu.propra2.illegalskillsexception.frently.backend.Models.Transaction;
 import hhu.propra2.illegalskillsexception.frently.backend.Services.IApplicationUserService;
-import hhu.propra2.illegalskillsexception.frently.backend.Services.TransactionService;
 import hhu.propra2.illegalskillsexception.frently.backend.User.DTOs.ForeignUserDetailResponse;
 import hhu.propra2.illegalskillsexception.frently.backend.User.DTOs.UserDetailResponse;
 import lombok.AllArgsConstructor;
@@ -24,14 +22,14 @@ public class UserDetailService implements IUserDetailService {
     //private final IPropayService propayService
 
     @Override
-    public UserDetailResponse getUserDetailService(Authentication auth) throws FrentlyException {
+    public UserDetailResponse getUserDetailService(Authentication auth) {
 
         UserDetailResponse userDetails = new UserDetailResponse();
 
         ApplicationUser currentUser = applicationUserService.getCurrentUser(auth);
         userDetails.setEmail(currentUser.getEmail());
         userDetails.setUsername(currentUser.getUsername());
-        userDetails.setPropayUsername(currentUser.getBankAccount());
+        //userDetails.setPropayUsername(currentUser.getBankAccount());
 
         List<Transaction> finishedTransaction = userTransactionService.getAllFinishedTransactions(currentUser);
         userDetails.setCompletedTransactions(finishedTransaction);
@@ -45,7 +43,7 @@ public class UserDetailService implements IUserDetailService {
 
 
     @Override
-    public ForeignUserDetailResponse getUserDetailService(String username) throws FrentlyException {
+    public ForeignUserDetailResponse getUserDetailService(String username) {
 
         ForeignUserDetailResponse foreignUserDetailResponse = new ForeignUserDetailResponse();
 
