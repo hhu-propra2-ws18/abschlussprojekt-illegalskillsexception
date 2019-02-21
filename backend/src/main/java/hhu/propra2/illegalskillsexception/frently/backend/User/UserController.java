@@ -44,7 +44,7 @@ public class UserController {
     public FrentlyResponse getUserDetails(Authentication auth) {
         FrentlyResponse response = new FrentlyResponse();
         try {
-            UserDetailResponse userDetailResponse = userDetailService.getUserDetailService(auth);
+            UserDetailResponse userDetailResponse = userDetailService.getUserDetails(auth);
             response.setData(userDetailResponse);
         } catch (FrentlyException exc) {
             response.setError(new FrentlyError(exc));
@@ -58,7 +58,7 @@ public class UserController {
     public FrentlyResponse getUserDetails(@RequestBody ForeignUserDetailRequest request) {
         FrentlyResponse response = new FrentlyResponse();
         try {
-            ForeignUserDetailResponse foreignUserDetailResponse = userDetailService.getUserDetailService(request.getUsername());
+            ForeignUserDetailResponse foreignUserDetailResponse = userDetailService.getForeignUserDetails(request.getUsername());
             response.setData(foreignUserDetailResponse);
         } catch (FrentlyException exc) {
             response.setError(new FrentlyError(exc));

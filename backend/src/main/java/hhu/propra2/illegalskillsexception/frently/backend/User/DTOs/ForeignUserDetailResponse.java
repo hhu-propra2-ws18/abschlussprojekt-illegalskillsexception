@@ -8,7 +8,7 @@ import java.util.List;
 @Data
 public class ForeignUserDetailResponse {
 
-    public String username;
+    private String username;
 
-    public List<Transaction> completedTransactions;
+    private List<Transaction> completedTransactions;
 }

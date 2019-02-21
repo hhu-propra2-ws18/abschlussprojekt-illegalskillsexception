@@ -7,8 +7,8 @@ import org.springframework.security.core.Authentication;
 
 public interface IUserDetailService {
 
-    UserDetailResponse getUserDetailService(Authentication auth) throws FrentlyException;
+    UserDetailResponse getUserDetails(Authentication auth) throws FrentlyException;
 
-    ForeignUserDetailResponse getUserDetailService(String username) throws FrentlyException;
+    ForeignUserDetailResponse getForeignUserDetails(String username) throws FrentlyException;
 
 }

@@ -1,5 +1,7 @@
 package hhu.propra2.illegalskillsexception.frently.backend.User.Services;
 
+import hhu.propra2.illegalskillsexception.frently.backend.Controllers.Response.FrentlyErrorType;
+import hhu.propra2.illegalskillsexception.frently.backend.Exceptions.UserNotFoundException;
 import hhu.propra2.illegalskillsexception.frently.backend.Models.ApplicationUser;
 import hhu.propra2.illegalskillsexception.frently.backend.Models.Transaction;
 import hhu.propra2.illegalskillsexception.frently.backend.Services.IApplicationUserService;
@@ -21,8 +23,7 @@ public class UserDetailService implements IUserDetailService {
 
     //private final IPropayService propayService
 
-    @Override
-    public UserDetailResponse getUserDetailService(Authentication auth) {
+    public UserDetailResponse getUserDetails(Authentication auth) {
 
         UserDetailResponse userDetails = new UserDetailResponse();
 
@@ -42,12 +43,15 @@ public class UserDetailService implements IUserDetailService {
     }
 
 
-    @Override
-    public ForeignUserDetailResponse getUserDetailService(String username) {
+    public ForeignUserDetailResponse getForeignUserDetails(String username) throws UserNotFoundException {
 
         ForeignUserDetailResponse foreignUserDetailResponse = new ForeignUserDetailResponse();
 
         ApplicationUser foreignUser = applicationUserService.getApplicationUserByUsername(username);
+
+        if (foreignUser == null) {
+            throw new UserNotFoundException("User not found", FrentlyErrorType.USER_NOT_FOUND);
+        }
         foreignUserDetailResponse.setUsername(foreignUser.getUsername());
 
         List<Transaction> finishedTransaction = userTransactionService.getAllFinishedTransactions(foreignUser);

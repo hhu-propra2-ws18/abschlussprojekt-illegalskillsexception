@@ -9,11 +9,11 @@ import java.util.List;
 @Data
 public class UserDetailResponse {
 
-    public String username;
-    public String email;
+    private String username;
+    private String email;
 
-    public String propayUsername;
-    public double accountBalance;
+    private String propayUsername;
+    private double accountBalance;
 
-    public List<Transaction> completedTransactions;
+    private List<Transaction> completedTransactions;
 }
