@@ -55,7 +55,9 @@ public class BorrowInquiryService implements IBorrowInquiryService {
     }
 
     private boolean hasDateConflict(BorrowInquiryDTO dto) {
-        List<Inquiry> allConflictingInquiries = inquiries.findAllByArticle_IdAndStartDateLessThanEqualAndEndDateGreaterThanEqual(dto.getArticleId(), dto.getEndDate(), dto.getStartDate());
+        List<Inquiry> allConflictingInquiries =
+                inquiries.findAllByArticle_IdAndStartDateLessThanEqualAndEndDateGreaterThanEqual(
+                        dto.getArticleId(), dto.getEndDate(), dto.getStartDate());
         System.out.println(allConflictingInquiries);
         return !allConflictingInquiries.isEmpty();
     }
