@@ -3,6 +3,8 @@ package hhu.propra2.illegalskillsexception.frently.backend.Lend.Inquiry;
 import hhu.propra2.illegalskillsexception.frently.backend.Controllers.Response.FrentlyError;
 import hhu.propra2.illegalskillsexception.frently.backend.Controllers.Response.FrentlyErrorType;
 import hhu.propra2.illegalskillsexception.frently.backend.Controllers.Response.FrentlyResponse;
+import hhu.propra2.illegalskillsexception.frently.backend.Lend.Inquiry.Services.LendInquiryProcessingService;
+import hhu.propra2.illegalskillsexception.frently.backend.Lend.Inquiry.Services.LendInquiryService;
 import hhu.propra2.illegalskillsexception.frently.backend.Models.ApplicationUser;
 import hhu.propra2.illegalskillsexception.frently.backend.Models.Inquiry;
 import hhu.propra2.illegalskillsexception.frently.backend.Services.ApplicationUserService;

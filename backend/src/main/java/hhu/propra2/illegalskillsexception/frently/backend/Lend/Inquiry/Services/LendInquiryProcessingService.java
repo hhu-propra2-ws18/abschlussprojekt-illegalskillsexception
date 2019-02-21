@@ -1,4 +1,4 @@
-package hhu.propra2.illegalskillsexception.frently.backend.Lend.Inquiry;
+package hhu.propra2.illegalskillsexception.frently.backend.Lend.Inquiry.Services;
 
 import hhu.propra2.illegalskillsexception.frently.backend.Models.Inquiry;
 import hhu.propra2.illegalskillsexception.frently.backend.Repositories.IInquiryRepository;
@@ -16,17 +16,12 @@ public class LendInquiryProcessingService {
 
     private IInquiryRepository inquiryRepository;
 
-    Inquiry declineInquiry(Long inquiryId) throws Exception {
+    public Inquiry declineInquiry(Long inquiryId) throws Exception {
 
         Optional<Inquiry> inquiryOpt = inquiryRepository.findById(inquiryId);
+        final Inquiry inquiry = inquiryOpt.orElseThrow(Exception::new);
 
-        if(!inquiryOpt.isPresent()) {
-            throw new Exception();
-        }
-
-        final Inquiry inquiry = inquiryOpt.get();
         inquiry.setStatus(Inquiry.Status.DECLINED);
-
         return inquiry;
     }
 /*

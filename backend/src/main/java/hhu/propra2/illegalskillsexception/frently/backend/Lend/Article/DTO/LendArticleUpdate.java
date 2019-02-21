@@ -1,9 +1,9 @@
-package hhu.propra2.illegalskillsexception.frently.backend.Lend.Article;
+package hhu.propra2.illegalskillsexception.frently.backend.Lend.Article.DTO;
 
 import lombok.Data;
 
 @Data
-class LendArticleUpdate {
+public class LendArticleUpdate {
     private Long articleId;
     private String title;
     private Double deposit;

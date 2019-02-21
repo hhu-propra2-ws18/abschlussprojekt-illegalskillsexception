@@ -1,5 +1,6 @@
-package hhu.propra2.illegalskillsexception.frently.backend.Lend.Article;
+package hhu.propra2.illegalskillsexception.frently.backend.Lend.Article.IServices;
 
+import hhu.propra2.illegalskillsexception.frently.backend.Lend.Article.DTO.LendArticleUpdate;
 import hhu.propra2.illegalskillsexception.frently.backend.Models.ApplicationUser;
 import hhu.propra2.illegalskillsexception.frently.backend.Models.Article;
 
