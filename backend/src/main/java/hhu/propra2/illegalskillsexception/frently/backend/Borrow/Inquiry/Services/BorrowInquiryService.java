@@ -50,7 +50,8 @@ public class BorrowInquiryService implements IBorrowInquiryService {
 
     @Override
     public List<Inquiry> retrieveAllInquiriesByUser(Authentication auth) {
-        return null;
+        ApplicationUser currentUser = userService.getCurrentUser(auth);
+        return inquiries.findAllByBorrower_Id(currentUser.getId());
     }
 
     private boolean hasDateConflict(BorrowInquiryDTO dto) {
