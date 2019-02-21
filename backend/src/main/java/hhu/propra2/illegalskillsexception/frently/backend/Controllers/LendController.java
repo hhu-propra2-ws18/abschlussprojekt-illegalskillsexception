@@ -5,8 +5,8 @@ import hhu.propra2.illegalskillsexception.frently.backend.Controllers.Response.F
 import hhu.propra2.illegalskillsexception.frently.backend.Controllers.Response.FrentlyResponse;
 import hhu.propra2.illegalskillsexception.frently.backend.Models.ApplicationUser;
 import hhu.propra2.illegalskillsexception.frently.backend.Models.Article;
-import hhu.propra2.illegalskillsexception.frently.backend.Services.ApplicationUserService;
 import hhu.propra2.illegalskillsexception.frently.backend.Services.ArticleService;
+import hhu.propra2.illegalskillsexception.frently.backend.Services.IApplicationUserService;
 import lombok.AllArgsConstructor;
 import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
@@ -18,7 +18,7 @@ import java.util.List;
 @AllArgsConstructor
 public class LendController {
 
-    private final ApplicationUserService userService;
+    private final IApplicationUserService userService;
     private final ArticleService articleService;
 
     @GetMapping("/getAll")

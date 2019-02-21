@@ -1,23 +1,28 @@
 package hhu.propra2.illegalskillsexception.frently.backend.Services;
 
+import hhu.propra2.illegalskillsexception.frently.backend.Controllers.Response.FrentlyError;
+import hhu.propra2.illegalskillsexception.frently.backend.Controllers.Response.FrentlyErrorType;
+import hhu.propra2.illegalskillsexception.frently.backend.Controllers.Response.FrentlyResponse;
+import hhu.propra2.illegalskillsexception.frently.backend.Exceptions.InquiryNotFoundException;
 import hhu.propra2.illegalskillsexception.frently.backend.Models.*;
-import hhu.propra2.illegalskillsexception.frently.backend.Repositories.InquiryRepository;
+import hhu.propra2.illegalskillsexception.frently.backend.Repositories.IInquiryRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
 import java.util.List;
+import java.util.Optional;
 
-import static hhu.propra2.illegalskillsexception.frently.backend.Models.Inquiry.Status.accepted;
+import static hhu.propra2.illegalskillsexception.frently.backend.Models.Inquiry.Status.ACCEPTED;
 
 @Service
 public class InquiryService implements IInquiryService {
 
-    private final InquiryRepository inquiryRepository;
+    private final IInquiryRepository inquiryRepository;
     private ITransactionService transactionservice;
 
     @Autowired
-    public InquiryService(InquiryRepository pInquiryRepository, ITransactionService transactionService) {
+    public InquiryService(IInquiryRepository pInquiryRepository, ITransactionService transactionService) {
         this.inquiryRepository = pInquiryRepository;
         this.transactionservice = transactionService;
     }
@@ -36,11 +41,9 @@ public class InquiryService implements IInquiryService {
         return inquiry;
     }
 
-    public Inquiry getInquiry(Long id) {
-        if (inquiryRepository.existsById(id)) {
-            return inquiryRepository.findById(id).get();
-        }
-        return null;
+    public Inquiry getInquiry(Long id) throws InquiryNotFoundException {
+        Optional<Inquiry> opt = inquiryRepository.findById(id);
+        return opt.orElseThrow(InquiryNotFoundException::new);
     }
 
     public List<Inquiry> getAllInquiries() {
@@ -59,7 +62,8 @@ public class InquiryService implements IInquiryService {
         inquiry.setArticle(article);
         inquiry.setBorrower(borrower);
         inquiry.setLender(lender);
-        inquiry.setDuration(lendingPeriod);
+        inquiry.setStartDate(lendingPeriod.getStartLend());
+        inquiry.setEndDate(lendingPeriod.getEndLend());
         inquiry.setStatus(status);
         return inquiry;
     }
@@ -76,7 +80,7 @@ public class InquiryService implements IInquiryService {
             transactionservice.createTransaction(Transaction.Status.open, inquiry);
             blockMoney(proPayAccountBorrower, accountLender, deposit);
             transferMoney(proPayAccountBorrower, accountLender, prize);
-            inquiry.setStatus(accepted);
+            inquiry.setStatus(ACCEPTED);
         } else throw new Exception();
     }
 
@@ -92,9 +96,16 @@ public class InquiryService implements IInquiryService {
         restTemplate.postForLocation(url, null);
     }
 
-    public void decline(ApplicationUser borrower, Long inquiryId) {
-        Inquiry inquiry = getInquiry(inquiryId);
-        inquiry.setStatus(Inquiry.Status.declined);
+    public FrentlyResponse decline(ApplicationUser borrower, Long inquiryId) {
+        FrentlyResponse response = new FrentlyResponse();
+        try {
+            Inquiry inquiry = getInquiry(inquiryId);
+            inquiry.setStatus(Inquiry.Status.DECLINED);
+            response.setData(inquiry);
+        } catch (InquiryNotFoundException e) {
+            response.setError(new FrentlyError(e.getMessage(), FrentlyErrorType.INQUIRY_NOT_FOUND));
+        }
+        return response;
     }
 
     Boolean hasEnoughMoney(ProPayAccount account, Double requestedMoney) {
@@ -109,9 +120,9 @@ public class InquiryService implements IInquiryService {
     }
 
     Double calculateAccumulatedDailyRate(Inquiry inquiry) {
-        Article article  = inquiry.getArticle();
+        Article article = inquiry.getArticle();
         Double dailyRate = article.getDailyRate();
-        LendingPeriod lendingPeriod = inquiry.getDuration();
+        LendingPeriod lendingPeriod = new LendingPeriod(inquiry.getStartDate(), inquiry.getEndDate());
         Long length = lendingPeriod.getLengthInDays();
 
         return dailyRate * length;

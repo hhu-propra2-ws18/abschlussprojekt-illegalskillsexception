@@ -19,7 +19,7 @@ import static org.mockito.Mockito.*;
 public class ApplicationUserServiceTest {
 
     private IApplicationUserRepository applicationUserRepository;
-    private ApplicationUserService applicationUserService;
+    private IApplicationUserService IApplicationUserService;
     private ArrayList<Optional> userList;
     private List<ApplicationUser> userList2;
 
@@ -43,19 +43,19 @@ public class ApplicationUserServiceTest {
         when(applicationUserRepository.findById(1L)).thenReturn(userList.get(1));
         when(applicationUserRepository.findAll()).thenReturn(userList2);
         when(applicationUserRepository.existsByUsername("ExampleUser")).thenReturn(true);
-        applicationUserService = new ApplicationUserService(applicationUserRepository, new BCryptPasswordEncoder());
+        IApplicationUserService = new ApplicationUserService(applicationUserRepository, new BCryptPasswordEncoder());
     }
 
     @Test
     public void noUserPresent(){
-        ApplicationUser temp = applicationUserService.getUserById(0L);
+        ApplicationUser temp = IApplicationUserService.getUserById(0L);
         verify(applicationUserRepository).findById(0L);
         assertNull(temp);
     }
 
     @Test
     public void userIsPresent(){
-        ApplicationUser temp = applicationUserService.getUserById(1L);
+        ApplicationUser temp = IApplicationUserService.getUserById(1L);
         verify(applicationUserRepository).findById(1L);
         assertNotNull(temp);
     }
@@ -66,7 +66,7 @@ public class ApplicationUserServiceTest {
         temp.setUsername("TestUser");
         temp.setPassword("TestPassword");
         temp.setBankAccount("TestBank");
-        applicationUserService.createUser(temp);
+        IApplicationUserService.createUser(temp);
 
         verify(applicationUserRepository).existsByUsername("TestUser");
         verify(applicationUserRepository).save(temp);
@@ -78,7 +78,7 @@ public class ApplicationUserServiceTest {
         temp.setUsername("ExampleUser");
         temp.setPassword("ExamplePassword");
         temp.setBankAccount("ExampleBank");
-        applicationUserService.createUser(temp);
+        IApplicationUserService.createUser(temp);
 
         verify(applicationUserRepository).existsByUsername("ExampleUser");
 

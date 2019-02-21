@@ -5,6 +5,7 @@ import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
 
 import javax.persistence.*;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 @Data
@@ -12,7 +13,7 @@ import java.time.LocalDateTime;
 public class Inquiry {
     @Embeddable
     public enum Status {
-        open, declined, accepted
+        OPEN, DECLINED, ACCEPTED
     }
 
     @Id
@@ -28,9 +29,10 @@ public class Inquiry {
     @OneToOne
     private ApplicationUser lender;
 
-    @Embedded
     @Column(nullable = false)
-    private LendingPeriod duration;
+    private LocalDate startDate;
+    @Column(nullable = false)
+    private LocalDate endDate;
 
     @Embedded
     private Status status;
