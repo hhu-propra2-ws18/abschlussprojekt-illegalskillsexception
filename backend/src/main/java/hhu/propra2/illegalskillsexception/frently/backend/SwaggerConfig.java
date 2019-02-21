@@ -1,3 +1,4 @@
+/*
 package hhu.propra2.illegalskillsexception.frently.backend;
 
 import com.google.common.base.Predicates;
@@ -27,3 +28,4 @@ public class SwaggerConfig {
 
 
 
+*/

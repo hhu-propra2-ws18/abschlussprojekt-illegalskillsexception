@@ -5,7 +5,7 @@ import hhu.propra2.illegalskillsexception.frently.backend.Models.ApplicationUser
 import hhu.propra2.illegalskillsexception.frently.backend.Models.Article;
 import hhu.propra2.illegalskillsexception.frently.backend.Repositories.IApplicationUserRepository;
 import hhu.propra2.illegalskillsexception.frently.backend.Repositories.IArticleRepository;
-import hhu.propra2.illegalskillsexception.frently.backend.Services.ApplicationUserService;
+import hhu.propra2.illegalskillsexception.frently.backend.Services.IApplicationUserService;
 import lombok.AllArgsConstructor;
 import org.springframework.boot.web.servlet.ServletContextInitializer;
 import org.springframework.stereotype.Component;
@@ -21,7 +21,7 @@ import java.util.stream.IntStream;
 public class Initializer implements ServletContextInitializer {
     private final IArticleRepository articleRepo;
     private final IApplicationUserRepository userRepo;
-    private final ApplicationUserService userService;
+    private final IApplicationUserService userService;
 
     @Override
     public void onStartup(final ServletContext servletContext) throws ServletException {
@@ -55,8 +55,8 @@ public class Initializer implements ServletContextInitializer {
 
             return a;
         }).forEach(a -> {
-            System.out.println(a);
             this.articleRepo.save(a);
+            System.out.println(a);
         });
     }
 }

@@ -15,6 +15,55 @@
             }
         }
     },
+    "/user/": {
+        "method": "get",
+        "sendData": {},
+        "expectedData": {
+            "data": {
+                "accountBalance": "Number",
+                "username": "String",
+                "email": "String",
+                "propayUsername":"String",
+                "completedTransactions":[
+                    {
+                        "isLender": "Boolean",
+                        "title": "String",
+                        "status": "String (Always closed)",
+                        "location": "String",
+                        "returnData": "String",
+                        "id":"Number (Snowflake)"
+                    }
+                ]
+            },
+            "error": {
+                "code": "Number or null",
+                "message": "String or null"
+            }
+        }
+    },
+    "/user/{id}": {
+        "method": "get",
+        "sendData": {},
+        "expectedData": {
+            "data": {
+                "username": "String",
+                "completedTransactions":[
+                    {
+                        "isLender": "Boolean",
+                        "title": "String",
+                        "status": "String (Always closed)",
+                        "location": "String",
+                        "returnData": "String",
+                        "id":"Number (Snowflake)"
+                    }
+                ]
+            },
+            "error": {
+                "code": "Number or null",
+                "message": "String or null"
+            }
+        }
+    },
     "/login": {
         "method": "post",
         "sendData": {
@@ -23,7 +72,7 @@
         },
         "expectedData": {
             "data": {
-                "isSupportService":"Boolean"
+                "isSupportService": "Boolean"
             },
             "error": {
                 "code": "Number or null",

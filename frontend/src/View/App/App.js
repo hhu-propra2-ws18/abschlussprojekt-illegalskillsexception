@@ -67,8 +67,11 @@ export class App extends Component {
         console.log("std");
         if (this.state.theme === "light") {
             this.setState({ theme: "dark" });
+            document.getElementsByTagName("body")[0].className="dark";
         } else {
             this.setState({ theme: "light" });
+            document.getElementsByTagName("body")[0].className="light";
+
         }
     }
 }

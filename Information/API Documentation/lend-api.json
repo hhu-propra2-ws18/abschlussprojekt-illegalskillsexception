@@ -1,5 +1,5 @@
 {
-    "/lend/getAll": {
+    "/lend/article/": {
         "method": "get",
         "sendData": {},
         "expectedData": {
@@ -19,7 +19,7 @@
             }
         }
     },
-    "/lend/create": {
+    "/lend/article/create": {
         "method": "post",
         "sendData": {
             "title": "String",
@@ -30,14 +30,14 @@
             "location": "String"
         },
         "expectedData": {
-            "data": { "id": "Number (Snowflake)" },
+            "data": { "articleId": "Number (Snowflake)" },
             "error": {
                 "code": "Number or null",
                 "message": "String or null"
             }
         }
     },
-    "/lend/update": {
+    "/lend/article/update": {
         "method": "post",
         "sendData": {
             "title": "String",
@@ -46,10 +46,76 @@
             "deposit": "Number",
             "dailyRate": "Number",
             "location": "String",
-            "id": "Number (Snowflake)"
+            "articleId": "Number (Snowflake)"
         },
         "expectedData": {
             "data": {},
+            "error": {
+                "code": "Number or null",
+                "message": "String or null"
+            }
+        }
+    },
+    "/lend/inquiry/": {
+        "method": "get",
+        "sendData": {},
+        "expectedData": {
+            "data": [
+                {
+                    "title": "String",
+                    "description": "String",
+                    "lendTime": "String",
+                    "isLendingInquiry": "Boolean",
+                    "borrower": "String (Optional: If not a isLendingInquiry can be null)",
+                    "lender": "String (Optional: If isLendingInquiry can be null",
+                    "status": "String",
+                    "id":"Number (Snowflake)"
+                }
+            ],
+            "error": {
+                "code": "Number/String or null",
+                "message": "String or null"
+            }
+        }
+    },
+
+    "/lend/inquiry/accept": {
+        "method": "post",
+        "sendData": "Number (Snowflake)",
+        "expectedData": {
+            "data": {},
+            "error": {
+                "code": "Number/String or null",
+                "message": "String or null"
+            }
+        }
+    },
+    "/lend/inquiry/decline": {
+        "method": "post",
+        "sendData": "Number (Snowflake)",
+        "expectedData": {
+            "data": {},
+
+            "error": {
+                "code": "Number/String or null",
+                "message": "String or null"
+            }
+        }
+    },
+
+    "/lend/transaction/update": {
+        "method": "post",
+        "sendData": {
+            "data": [
+                {
+                    "transactionId": "Boolean",
+                    "isFaulty": "Boolean",
+                    "itemReturn": "Boolean (usually true)"
+                }
+            ]
+        },
+        "expectedData": {
+            "data": { "status": "String" },
             "error": {
                 "code": "Number or null",
                 "message": "String or null"
