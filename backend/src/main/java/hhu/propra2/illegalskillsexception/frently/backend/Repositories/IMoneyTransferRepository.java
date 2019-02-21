@@ -1,6 +1,6 @@
 package hhu.propra2.illegalskillsexception.frently.backend.Repositories;
 
-import hhu.propra2.illegalskillsexception.frently.backend.Models.MoneyTransfer;
+import hhu.propra2.illegalskillsexception.frently.backend.ProPay.Models.MoneyTransfer;
 import org.springframework.data.repository.CrudRepository;
 
 import java.util.List;

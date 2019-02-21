@@ -31,6 +31,8 @@ public class BorrowInquiryService implements IBorrowInquiryService {
         ApplicationUser currentUser = userService.getCurrentUser(auth);
 
         if (isInvalidPeriod(dto)) throw new InvalidLendingPeriodException();
+        if (hasDateConflict(dto)) throw new ArticleNotAvailableException();
+
         Inquiry inquiry = new Inquiry();
 
         Article article = articleService.getArticleById(dto.getArticleId());
@@ -42,7 +44,6 @@ public class BorrowInquiryService implements IBorrowInquiryService {
         inquiry.setStartDate(dto.getStartDate());
         inquiry.setEndDate(dto.getEndDate());
 
-        if (hasDateConflict(dto)) throw new ArticleNotAvailableException();
 
         inquiries.save(inquiry);
         return inquiry;
@@ -55,7 +56,9 @@ public class BorrowInquiryService implements IBorrowInquiryService {
     }
 
     private boolean hasDateConflict(BorrowInquiryDTO dto) {
-        List<Inquiry> allConflictingInquiries = inquiries.findAllByArticle_IdAndStartDateLessThanEqualAndEndDateGreaterThanEqual(dto.getArticleId(), dto.getEndDate(), dto.getStartDate());
+        List<Inquiry> allConflictingInquiries =
+                inquiries.findAllByArticle_IdAndStartDateLessThanEqualAndEndDateGreaterThanEqual(
+                        dto.getArticleId(), dto.getEndDate(), dto.getStartDate());
         System.out.println(allConflictingInquiries);
         return !allConflictingInquiries.isEmpty();
     }
