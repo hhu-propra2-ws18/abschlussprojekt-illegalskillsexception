@@ -5,11 +5,13 @@ import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
+import java.util.Optional;
 
 @Repository
 public interface IApplicationUserRepository extends CrudRepository<ApplicationUser, Long> {
     List<ApplicationUser> findAll();
-    ApplicationUser findByUsername(String username);
+
+    Optional<ApplicationUser> findByUsername(String username);
 
     boolean existsByUsername(String username);
 }

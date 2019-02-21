@@ -8,9 +8,13 @@ import java.util.List;
 public interface IArticleService {
 
     void createArticle(ApplicationUser owner, Article article);
+
     List<Article> getAllArticles();
+
     Article getArticleById(Long id);
+
     void updateArticle(Article article);
+
     void deleteArticle(Long id);
 
 }

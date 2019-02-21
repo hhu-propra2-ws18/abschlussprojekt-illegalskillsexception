@@ -1,35 +1,37 @@
 package hhu.propra2.illegalskillsexception.frently.backend.Models;
 
 import lombok.Data;
+import org.hibernate.annotations.NotFound;
+import org.hibernate.annotations.NotFoundAction;
 import org.springframework.data.annotation.CreatedDate;
-import org.springframework.data.annotation.LastModifiedDate;
+import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import javax.persistence.*;
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 @Data
 @Entity
-public class Transaction {
+@EntityListeners(AuditingEntityListener.class)
+public class MoneyTransfer {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
-    @OneToOne
-    private Inquiry inquiry;
-    private LocalDate returnDate;
-    @Embedded
-    private Status status;
-    private long reservationId;
+
+    @ManyToOne
+    @NotFound(action = NotFoundAction.IGNORE)
+    private ApplicationUser applicationUser;
+
+    private String targetUserName;
+    private double amount;
+
     @CreatedDate
     @Column(nullable = false)
     private LocalDateTime timestamp;
+
+    /*
     @LastModifiedDate
     @Column(nullable = false)
     private LocalDateTime updated;
-
-
-    @Embeddable
-    public enum Status {
-        open, closed, conflict
-    }
+    */
 }

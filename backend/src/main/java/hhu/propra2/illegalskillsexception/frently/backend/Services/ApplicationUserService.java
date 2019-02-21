@@ -5,6 +5,7 @@ import hhu.propra2.illegalskillsexception.frently.backend.Models.ApplicationUser
 import hhu.propra2.illegalskillsexception.frently.backend.Repositories.IApplicationUserRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -19,6 +20,14 @@ public class ApplicationUserService implements IApplicationUserService {
     private BCryptPasswordEncoder bCryptPasswordEncoder;
 
     // CRUD
+
+    @Override
+    public ApplicationUser getApplicationUserByUsername(String userName) {
+        Optional<ApplicationUser> optUser = userRepo.findByUsername(userName);
+        if (optUser.isPresent()) return optUser.get();
+        throw new UsernameNotFoundException(userName);
+
+    }
 
     @Override
     public void createUser(ApplicationUser user) {
@@ -65,6 +74,9 @@ public class ApplicationUserService implements IApplicationUserService {
 
     @Override
     public ApplicationUser getCurrentUser(Authentication authentication) {
-        return userRepo.findByUsername((String)(authentication.getPrincipal()));
+        Optional<ApplicationUser> optUser = userRepo.findByUsername((String) (authentication.getPrincipal()));
+        if (optUser.isPresent()) return optUser.get();
+        throw new UsernameNotFoundException((String) authentication.getPrincipal());
+
     }
 }

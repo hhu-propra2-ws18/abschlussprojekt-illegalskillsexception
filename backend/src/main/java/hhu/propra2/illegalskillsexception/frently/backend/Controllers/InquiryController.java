@@ -31,7 +31,7 @@ public class InquiryController {
         FrentlyResponse fr = new FrentlyResponse();
         List<Inquiry> list = inquiryService.getAllInquiries(user.getId());
         fr.setData(list);
-        FrentlyError e = new FrentlyError("",null);
+        FrentlyError e = new FrentlyError("", null);
         fr.setError(e);
         return fr;
     }

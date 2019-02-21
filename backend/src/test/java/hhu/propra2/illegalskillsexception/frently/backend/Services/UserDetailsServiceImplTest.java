@@ -6,6 +6,8 @@ import org.junit.Before;
 import org.junit.Test;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 
+import java.util.Optional;
+
 import static org.mockito.Mockito.*;
 
 public class UserDetailsServiceImplTest {
@@ -16,8 +18,8 @@ public class UserDetailsServiceImplTest {
     @Before
     public void setUp() {
         userRepository = mock(IApplicationUserRepository.class);
-        when(userRepository.findByUsername("Test")).thenReturn(null);
-        when(userRepository.findByUsername("NoName")).thenReturn(new ApplicationUser());
+        when(userRepository.findByUsername("Test")).thenReturn(Optional.empty());
+        when(userRepository.findByUsername("NoName")).thenReturn(Optional.of(new ApplicationUser()));
         userDetailsService = new UserDetailsServiceImpl(userRepository);
     }
 

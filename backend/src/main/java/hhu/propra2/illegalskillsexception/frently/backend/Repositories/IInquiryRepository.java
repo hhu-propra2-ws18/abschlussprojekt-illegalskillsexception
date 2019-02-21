@@ -10,7 +10,9 @@ import java.util.TreeSet;
 
 public interface IInquiryRepository extends CrudRepository<Inquiry, Long> {
     List<Inquiry> findAll();
+
     List<Inquiry> findAllByLender_Id(Long lenderId);
+
     List<Inquiry> findAllByBorrower_Id(Long borrowerId);
 
     List<Inquiry> findAllByArticle_IdAndStartDateLessThanEqualAndEndDateGreaterThanEqual(long articleId, LocalDate startDate, LocalDate endDate);

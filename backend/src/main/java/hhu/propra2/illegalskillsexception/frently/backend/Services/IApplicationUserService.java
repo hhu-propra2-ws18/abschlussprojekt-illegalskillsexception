@@ -6,6 +6,8 @@ import org.springframework.security.core.Authentication;
 import java.util.List;
 
 public interface IApplicationUserService {
+    ApplicationUser getApplicationUserByUsername(String userName);
+
     void createUser(ApplicationUser user);
 
     ApplicationUser getUserById(Long userId);

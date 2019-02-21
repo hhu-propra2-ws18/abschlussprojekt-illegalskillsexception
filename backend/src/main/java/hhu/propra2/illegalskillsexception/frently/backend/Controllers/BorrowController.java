@@ -33,12 +33,12 @@ public class BorrowController {
     }
 
     @GetMapping("/getAll")
-    public FrentlyResponse getAllArticles(Authentication authentication){
+    public FrentlyResponse getAllArticles(Authentication authentication) {
         FrentlyResponse response = new FrentlyResponse();
-        try{
-            List<Article> articleList= articleService.getAllArticles();
+        try {
+            List<Article> articleList = articleService.getAllArticles();
             response.setData(articleList);
-        } catch(Exception e){
+        } catch (Exception e) {
             FrentlyError error = new FrentlyError("Could not find any articles.", FrentlyErrorType.MISC);
             response.setError(error);
         }
@@ -47,15 +47,15 @@ public class BorrowController {
 
     @PostMapping("/inquiry")
     public FrentlyResponse makeInquiry(Authentication authentication, @RequestParam long id,
-                                       @RequestParam LocalDate startDate, @RequestParam LocalDate endDate){
+                                       @RequestParam LocalDate startDate, @RequestParam LocalDate endDate) {
         FrentlyResponse response = new FrentlyResponse();
         ApplicationUser borrower = userService.getCurrentUser(authentication);
-        try{
+        try {
             Article inquiryArticle = articleService.getArticleById(id);
             LendingPeriod period = new LendingPeriod(startDate, endDate);
             long inquiryId = inquiryService.createInquiry(inquiryArticle, borrower, period, Inquiry.Status.OPEN);
             response.setData(inquiryId);
-        } catch(Exception e){
+        } catch (Exception e) {
             FrentlyError error = new FrentlyError("Could not creat new inquiry.", FrentlyErrorType.MISC);
             response.setError(error);
         }
