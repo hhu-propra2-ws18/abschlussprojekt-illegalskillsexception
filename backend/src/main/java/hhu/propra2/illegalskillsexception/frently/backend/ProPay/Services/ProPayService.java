@@ -71,11 +71,14 @@ public class ProPayService implements IProPayService {
     }
 
     @Override
-    public void blockDeposit(String borrower, String lender, double amount, Transaction transaction) {
+    public Long blockDeposit(String borrower, String lender, double amount) throws Exception {
         final String url = BASE_URL + "reservation/reserve/" + borrower + "/" + lender + "?amount=" + amount;
         Reservation reservation = restTemplate.postForObject(url, null, Reservation.class);
-        System.out.println(reservation);
-        transaction.setReservationId(reservation.getId());
+        try {
+            return reservation.getId();
+        } catch (Exception e) {
+            throw new Exception();
+        }
     }
 
     @Override

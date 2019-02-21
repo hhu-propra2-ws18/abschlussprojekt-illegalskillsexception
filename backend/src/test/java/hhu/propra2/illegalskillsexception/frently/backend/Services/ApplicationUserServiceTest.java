@@ -64,7 +64,6 @@ public class ApplicationUserServiceTest {
         ApplicationUser temp = new ApplicationUser();
         temp.setUsername("TestUser");
         temp.setPassword("TestPassword");
-        temp.setBankAccount("TestBank");
         IApplicationUserService.createUser(temp);
 
         verify(applicationUserRepository).existsByUsername("TestUser");

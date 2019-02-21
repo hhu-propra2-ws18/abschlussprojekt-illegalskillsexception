@@ -19,7 +19,7 @@ public interface IProPayService {
 
     boolean hasEnoughMoney(String userName, double amount);
 
-    void blockDeposit(String borrower, String lender, double amount, Transaction transaction);
+    Long blockDeposit(String borrower, String lender, double amount) throws Exception;
 
     void freeDeposit(String borrower, Transaction transaction);
 
