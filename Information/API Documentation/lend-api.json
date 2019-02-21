@@ -30,7 +30,7 @@
             "location": "String"
         },
         "expectedData": {
-            "data": { "id": "Number (Snowflake)" },
+            "data": { "articleId": "Number (Snowflake)" },
             "error": {
                 "code": "Number or null",
                 "message": "String or null"
@@ -46,7 +46,7 @@
             "deposit": "Number",
             "dailyRate": "Number",
             "location": "String",
-            "id": "Number (Snowflake)"
+            "articleId": "Number (Snowflake)"
         },
         "expectedData": {
             "data": {},
@@ -107,7 +107,7 @@
         "sendData": {
             "data": [
                 {
-                    "id": "Boolean",
+                    "transactionId": "Boolean",
                     "isFaulty": "Boolean",
                     "itemReturn": "Boolean (usually true)"
                 }

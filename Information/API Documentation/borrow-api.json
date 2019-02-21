@@ -10,7 +10,7 @@
                     "deposit": "Number",
                     "owner": "String",
                     "location": "String",
-                    "id": "Number (Snowflake)"
+                    "articleId": "Number (Snowflake)"
                 }
             ],
             "error": {
@@ -19,8 +19,11 @@
             }
         }
     },
-    "/borrow/article/{id}": {
+    "/borrow/article/": {
         "method": "get",
+        "params":{
+            "ofPerson":"Number (Snowflake)"
+        },
         "sendData": {},
         "expectedData": {
             "data": [
@@ -30,7 +33,7 @@
                     "deposit": "Number",
                     "owner": "String",
                     "location": "String",
-                    "id": "Number (Snowflake)"
+                    "articleId": "Number (Snowflake)"
                 }
             ],
             "error": {
