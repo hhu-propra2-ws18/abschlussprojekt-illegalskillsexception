@@ -19,9 +19,10 @@ import java.util.TreeSet;
 @AllArgsConstructor
 public class BorrowInquiryService implements IBorrowInquiryService {
 
+    private final IInquiryRepository inquiries;
+
     private final IApplicationUserService userService;
     private final IArticleService articleService;
-    private final IInquiryRepository inquiries;
 
     @Override
     public long createInquiry(Authentication auth, BorrowInquiryDTO dto) throws ArticleNotAvailableException {
@@ -30,10 +31,7 @@ public class BorrowInquiryService implements IBorrowInquiryService {
         Inquiry inquiry = new Inquiry();
 
         Article article = articleService.getArticleById(dto.getArticleId());
-        List<Inquiry> allConflictingInquiries = inquiries.findAllByArticle_IdAndStartDateLessThanEqualAndEndDateGreaterThanEqual(article.getId(), dto.getStartDate(), dto.getEndDate());
-        if (!allConflictingInquiries.isEmpty()) {
-            throw new ArticleNotAvailableException();
-        }
+
 
         inquiry.setArticle(article);
         inquiry.setBorrower(currentUser);
@@ -42,6 +40,8 @@ public class BorrowInquiryService implements IBorrowInquiryService {
         inquiry.setStartDate(dto.getStartDate());
         inquiry.setEndDate(dto.getEndDate());
 
+        if (hasDateConflict(dto)) throw new ArticleNotAvailableException();
+
         inquiries.save(inquiry);
         return inquiry.getId();
     }
@@ -49,5 +49,10 @@ public class BorrowInquiryService implements IBorrowInquiryService {
     @Override
     public List<Inquiry> retrieveAllInquiriesByUser(Authentication auth) {
         return null;
+    }
+
+    private boolean hasDateConflict(BorrowInquiryDTO dto) {
+        List<Inquiry> allConflictingInquiries = inquiries.findAllByArticle_IdAndStartDateLessThanEqualAndEndDateGreaterThanEqual(dto.getArticleId(), dto.getStartDate(), dto.getEndDate());
+        return !allConflictingInquiries.isEmpty();
     }
 }
