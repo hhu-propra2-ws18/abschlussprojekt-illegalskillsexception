@@ -1,7 +1,8 @@
 package hhu.propra2.illegalskillsexception.frently.backend.Borrow.Inquiry.Services;
 
-import hhu.propra2.illegalskillsexception.frently.backend.Borrow.Article.Services.IBorrowArticleService;
+import hhu.propra2.illegalskillsexception.frently.backend.Borrow.Article.IServices.IBorrowArticleService;
 import hhu.propra2.illegalskillsexception.frently.backend.Borrow.Inquiry.DTOs.BorrowInquiryDTO;
+import hhu.propra2.illegalskillsexception.frently.backend.Borrow.Inquiry.IServices.IBorrowInquiryService;
 import hhu.propra2.illegalskillsexception.frently.backend.Exceptions.ArticleNotAvailableException;
 import hhu.propra2.illegalskillsexception.frently.backend.Exceptions.InvalidLendingPeriodException;
 import hhu.propra2.illegalskillsexception.frently.backend.Exceptions.NoSuchArticleException;
@@ -33,19 +34,24 @@ public class BorrowInquiryService implements IBorrowInquiryService {
         if (isInvalidPeriod(dto)) throw new InvalidLendingPeriodException();
         if (hasDateConflict(dto)) throw new ArticleNotAvailableException();
 
+        Inquiry inquiry = buildInquiry(dto);
+        inquiry.setBorrower(currentUser);
+        inquiries.save(inquiry);
+
+        return inquiry;
+    }
+
+    private Inquiry buildInquiry(BorrowInquiryDTO dto) throws NoSuchArticleException {
         Inquiry inquiry = new Inquiry();
 
         Article article = articleService.getArticleById(dto.getArticleId());
 
         inquiry.setArticle(article);
-        inquiry.setBorrower(currentUser);
         inquiry.setLender(article.getOwner());
         inquiry.setStatus(Inquiry.Status.OPEN);
         inquiry.setStartDate(dto.getStartDate());
         inquiry.setEndDate(dto.getEndDate());
 
-
-        inquiries.save(inquiry);
         return inquiry;
     }
 
@@ -59,7 +65,6 @@ public class BorrowInquiryService implements IBorrowInquiryService {
         List<Inquiry> allConflictingInquiries =
                 inquiries.findAllByArticle_IdAndStartDateLessThanEqualAndEndDateGreaterThanEqual(
                         dto.getArticleId(), dto.getEndDate(), dto.getStartDate());
-        System.out.println(allConflictingInquiries);
         return !allConflictingInquiries.isEmpty();
     }
 

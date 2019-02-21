@@ -1,4 +1,4 @@
-package hhu.propra2.illegalskillsexception.frently.backend.Borrow.Transaction.Services;
+package hhu.propra2.illegalskillsexception.frently.backend.Borrow.Transaction.IServices;
 
 import hhu.propra2.illegalskillsexception.frently.backend.Models.Transaction;
 import org.springframework.security.core.Authentication;

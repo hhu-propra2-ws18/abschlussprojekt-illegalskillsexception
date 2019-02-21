@@ -1,8 +1,8 @@
 package hhu.propra2.illegalskillsexception.frently.backend.Lend.Inquiry;
 
 import hhu.propra2.illegalskillsexception.frently.backend.Controllers.Response.FrentlyError;
-import hhu.propra2.illegalskillsexception.frently.backend.Controllers.Response.FrentlyErrorType;
 import hhu.propra2.illegalskillsexception.frently.backend.Controllers.Response.FrentlyResponse;
+import hhu.propra2.illegalskillsexception.frently.backend.Exceptions.FrentlyException;
 import hhu.propra2.illegalskillsexception.frently.backend.Lend.Inquiry.Services.LendInquiryProcessingService;
 import hhu.propra2.illegalskillsexception.frently.backend.Lend.Inquiry.Services.LendInquiryService;
 import hhu.propra2.illegalskillsexception.frently.backend.Models.ApplicationUser;
@@ -34,8 +34,7 @@ public class LendInquiryController {
             final List<Inquiry> inquiryList = lendInquiryService.retrieveInquiriesFromUser(user);
             response.setData(inquiryList);
         } catch (Exception e) {
-            FrentlyError error = new FrentlyError(e.getMessage(), FrentlyErrorType.ACTUAL_EXCEPTION);
-            response.setError(error);
+            response.setError(new FrentlyError(e));
         }
         return response;
     }
@@ -49,8 +48,7 @@ public class LendInquiryController {
             final Inquiry inquiry = lendInquiryProcessingService.declineInquiry(inquiryId);
             response.setData(inquiry);
         } catch (Exception e) {
-            FrentlyError error = new FrentlyError(e.getMessage(), FrentlyErrorType.ACTUAL_EXCEPTION);
-            response.setError(error);
+            response.setError(new FrentlyError(e));
         }
         return response;
     }
@@ -62,9 +60,10 @@ public class LendInquiryController {
         try {
             final Transaction transaction = lendInquiryProcessingService.acceptInquiry(inquiryId);
             response.setData(transaction);
+        } catch (FrentlyException fe) {
+            response.setError(new FrentlyError(fe));
         } catch (Exception e) {
-            FrentlyError error = new FrentlyError(e.getMessage(), FrentlyErrorType.ACTUAL_EXCEPTION);
-            response.setError(error);
+            response.setError(new FrentlyError(e));
         }
         return response;
     }

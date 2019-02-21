@@ -1,6 +1,6 @@
 package hhu.propra2.illegalskillsexception.frently.backend.Borrow.Transaction;
 
-import hhu.propra2.illegalskillsexception.frently.backend.Borrow.Transaction.Services.IBorrowTransactionService;
+import hhu.propra2.illegalskillsexception.frently.backend.Borrow.Transaction.IServices.IBorrowTransactionService;
 import hhu.propra2.illegalskillsexception.frently.backend.Controllers.Response.FrentlyError;
 import hhu.propra2.illegalskillsexception.frently.backend.Controllers.Response.FrentlyResponse;
 import lombok.AllArgsConstructor;

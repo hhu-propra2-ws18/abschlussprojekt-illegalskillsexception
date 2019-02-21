@@ -1,4 +1,4 @@
-package hhu.propra2.illegalskillsexception.frently.backend.Borrow.Inquiry.Services;
+package hhu.propra2.illegalskillsexception.frently.backend.Borrow.Inquiry.IServices;
 
 import hhu.propra2.illegalskillsexception.frently.backend.Borrow.Inquiry.DTOs.BorrowInquiryDTO;
 import hhu.propra2.illegalskillsexception.frently.backend.Exceptions.ArticleNotAvailableException;
