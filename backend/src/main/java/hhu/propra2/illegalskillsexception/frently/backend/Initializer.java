@@ -1,4 +1,4 @@
-package hhu.propra2.illegalskillsexception.frently.backend;
+/*package hhu.propra2.illegalskillsexception.frently.backend;
 
 import com.github.javafaker.Faker;
 import hhu.propra2.illegalskillsexception.frently.backend.Models.ApplicationUser;
@@ -60,3 +60,4 @@ public class Initializer implements ServletContextInitializer {
         });
     }
 }
+*/

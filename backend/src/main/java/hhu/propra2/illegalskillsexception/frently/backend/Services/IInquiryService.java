@@ -16,7 +16,7 @@ public interface IInquiryService {
 
     List<Inquiry> getAllInquiries(Long id);
 
-    void accept(ApplicationUser borrower, Long inquiryId) throws Exception;
+    //void accept(ApplicationUser borrower, Long inquiryId) throws Exception;
 
     void decline(ApplicationUser borrower, Long inquiryId);
 }

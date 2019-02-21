@@ -1,6 +1,10 @@
 package hhu.propra2.illegalskillsexception.frently.backend.Services;
 
-import hhu.propra2.illegalskillsexception.frently.backend.Models.*;
+import hhu.propra2.illegalskillsexception.frently.backend.Models.ApplicationUser;
+import hhu.propra2.illegalskillsexception.frently.backend.Models.Article;
+import hhu.propra2.illegalskillsexception.frently.backend.Models.Inquiry;
+import hhu.propra2.illegalskillsexception.frently.backend.Models.LendingPeriod;
+import hhu.propra2.illegalskillsexception.frently.backend.ProPay.Models.ProPayAccount;
 import hhu.propra2.illegalskillsexception.frently.backend.Repositories.InquiryRepository;
 import org.junit.Before;
 import org.junit.Test;
