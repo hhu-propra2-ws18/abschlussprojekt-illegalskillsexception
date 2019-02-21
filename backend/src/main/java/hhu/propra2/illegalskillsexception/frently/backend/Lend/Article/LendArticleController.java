@@ -3,6 +3,8 @@ package hhu.propra2.illegalskillsexception.frently.backend.Lend.Article;
 import hhu.propra2.illegalskillsexception.frently.backend.Controllers.Response.FrentlyError;
 import hhu.propra2.illegalskillsexception.frently.backend.Controllers.Response.FrentlyErrorType;
 import hhu.propra2.illegalskillsexception.frently.backend.Controllers.Response.FrentlyResponse;
+import hhu.propra2.illegalskillsexception.frently.backend.Lend.Article.DTO.LendArticleUpdate;
+import hhu.propra2.illegalskillsexception.frently.backend.Lend.Article.Services.LendArticleService;
 import hhu.propra2.illegalskillsexception.frently.backend.Models.ApplicationUser;
 import hhu.propra2.illegalskillsexception.frently.backend.Models.Article;
 import hhu.propra2.illegalskillsexception.frently.backend.Services.ApplicationUserService;
@@ -52,8 +54,8 @@ public class LendArticleController {
         return response;
     }
 
-    @PutMapping("/update")
-    public FrentlyResponse createOffer(@RequestBody LendArticleUpdate lendArticle) {
+    @PostMapping("/update")
+    public FrentlyResponse updateLendArticleList(@RequestBody LendArticleUpdate lendArticle) {
         FrentlyResponse response = new FrentlyResponse();
 
         try {
