@@ -1,5 +1,6 @@
 package hhu.propra2.illegalskillsexception.frently.backend.Borrow.Article.Services;
 
+import hhu.propra2.illegalskillsexception.frently.backend.Borrow.Article.IServices.IBorrowArticleService;
 import hhu.propra2.illegalskillsexception.frently.backend.Exceptions.NoSuchArticleException;
 import hhu.propra2.illegalskillsexception.frently.backend.Models.Article;
 import hhu.propra2.illegalskillsexception.frently.backend.Repositories.IArticleRepository;

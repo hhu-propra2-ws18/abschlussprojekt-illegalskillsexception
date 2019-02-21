@@ -1,7 +1,7 @@
 package hhu.propra2.illegalskillsexception.frently.backend.Borrow.Inquiry;
 
 import hhu.propra2.illegalskillsexception.frently.backend.Borrow.Inquiry.DTOs.BorrowInquiryDTO;
-import hhu.propra2.illegalskillsexception.frently.backend.Borrow.Inquiry.Services.IBorrowInquiryService;
+import hhu.propra2.illegalskillsexception.frently.backend.Borrow.Inquiry.IServices.IBorrowInquiryService;
 import hhu.propra2.illegalskillsexception.frently.backend.Controllers.Response.FrentlyError;
 import hhu.propra2.illegalskillsexception.frently.backend.Controllers.Response.FrentlyResponse;
 import hhu.propra2.illegalskillsexception.frently.backend.Exceptions.FrentlyException;

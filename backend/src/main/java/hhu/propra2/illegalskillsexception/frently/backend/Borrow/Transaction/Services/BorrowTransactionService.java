@@ -1,5 +1,6 @@
 package hhu.propra2.illegalskillsexception.frently.backend.Borrow.Transaction.Services;
 
+import hhu.propra2.illegalskillsexception.frently.backend.Borrow.Transaction.IServices.IBorrowTransactionService;
 import hhu.propra2.illegalskillsexception.frently.backend.Models.ApplicationUser;
 import hhu.propra2.illegalskillsexception.frently.backend.Models.Transaction;
 import hhu.propra2.illegalskillsexception.frently.backend.Repositories.ITransactionRepository;

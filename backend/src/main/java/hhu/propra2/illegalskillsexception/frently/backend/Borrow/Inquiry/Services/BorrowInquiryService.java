@@ -1,7 +1,8 @@
 package hhu.propra2.illegalskillsexception.frently.backend.Borrow.Inquiry.Services;
 
-import hhu.propra2.illegalskillsexception.frently.backend.Borrow.Article.Services.IBorrowArticleService;
+import hhu.propra2.illegalskillsexception.frently.backend.Borrow.Article.IServices.IBorrowArticleService;
 import hhu.propra2.illegalskillsexception.frently.backend.Borrow.Inquiry.DTOs.BorrowInquiryDTO;
+import hhu.propra2.illegalskillsexception.frently.backend.Borrow.Inquiry.IServices.IBorrowInquiryService;
 import hhu.propra2.illegalskillsexception.frently.backend.Exceptions.ArticleNotAvailableException;
 import hhu.propra2.illegalskillsexception.frently.backend.Exceptions.InvalidLendingPeriodException;
 import hhu.propra2.illegalskillsexception.frently.backend.Exceptions.NoSuchArticleException;
