@@ -21,8 +21,8 @@ export async function getAllInquiriesBackend(
             Authorization: token
         }
     });
-    console.log(dataBorrow);
-    console.log(dataLend);
+    console.log(dataBorrow.data.data);
+    console.log(dataLend.data.data);
     return {
         borrowList: dataBorrow.data.data,
         lendList: dataLend.data.data
@@ -32,7 +32,7 @@ export async function getAllInquiriesBackend(
 export async function inquiryAcceptBackend(id, token, url = INQUIRY_ACCEPT) {
     let data = await Axios.post(
         url,
-        { id: id },
+        { inquiryId: id },
         {
             headers: {
                 Authorization: token
@@ -46,7 +46,7 @@ export async function inquiryAcceptBackend(id, token, url = INQUIRY_ACCEPT) {
 export async function inquiryDeclineBackend(id, token, url = INQUIRY_DECLINE) {
     let data = await Axios.post(
         url,
-        { id: id },
+        { inquiryId: id },
         {
             headers: {
                 Authorization: token

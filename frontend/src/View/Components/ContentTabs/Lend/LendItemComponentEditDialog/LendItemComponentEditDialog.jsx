@@ -55,7 +55,7 @@ export default class LendItemComponentEditDialog extends React.Component {
 
     async saveChanges() {
         let data = {
-            id: this.props.data.id,
+            articleId: this.props.data.id,
             title: this.titleRef.current.getValue(),
             description: this.descRef.current.getValue(),
             deposit: this.depositRef.current.getValue(),
