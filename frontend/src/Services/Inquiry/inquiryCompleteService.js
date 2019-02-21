@@ -18,25 +18,23 @@ export async function getAllInquiries() {
 }
 
 export async function acceptInquiry(id) {
-    /*let data = await inquiryAcceptBackend(id, store.getState().user.token);
+    let data = await inquiryAcceptBackend(id, store.getState().user.token);
 
     if (data.error) {
         console.log(data);
         return data;
     }
-    */
     let action = getRemoveInquiryItemAction(id);
     store.dispatch(action);
 }
 
 export async function declineInquiry(id) {
-    /*let data = await inquiryDeclineBackend(id, store.getState().user.token);
+    let data = await inquiryDeclineBackend(id, store.getState().user.token);
 
     if (data.error) {
         console.log(data);
         return data;
     }
-    */
     let action = getRemoveInquiryItemAction(id);
     store.dispatch(action);
 }

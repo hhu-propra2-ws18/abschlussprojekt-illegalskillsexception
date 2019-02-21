@@ -1,14 +1,16 @@
 import React from "react";
 import NavigationView from "react-uwp/NavigationView";
+import SplitViewCommand from "react-uwp/SplitViewCommand";
+import Tabs, { Tab } from "react-uwp/Tabs";
 
 import BorrowView from "../ContentTabs/Borrow/BorrowView";
 import LendView from "../ContentTabs/Lend/LendView.jsx";
-import Tabs, { Tab } from "react-uwp/Tabs";
-import SplitViewCommand from "react-uwp/SplitViewCommand";
+import TransactionsView from "../ContentTabs/Transactions/TransactionsView";
 import InquiriesView from "../ContentTabs/Inquiries/InquiriesView";
+import ConflictView from "../ContentTabs/Conflict/ConflictView";
+import UserView from "../ContentTabs/User/UserView";
 
 import "./ContentPage.css";
-import TransactionsView from "../ContentTabs/Transactions/TransactionsView";
 
 export default class ContentPage extends React.Component {
     constructor(props) {
@@ -46,7 +48,11 @@ export default class ContentPage extends React.Component {
                         icon={"\uE9F5"}
                     />
                 ]}
-                navigationBottomNodes={[]}
+                navigationBottomNodes={[<SplitViewCommand
+                    onClick={()=> this.switchTab(5)}
+                    label="Profile"
+                    icon={"Contact"}
+                />]}
                 displayMode="compact"
                 autoResize={false}
             >
@@ -68,6 +74,12 @@ export default class ContentPage extends React.Component {
                     </Tab>
                     <Tab  style={{ width: "100%",height:"100%" }}>
                         <TransactionsView />
+                    </Tab>
+                    <Tab  style={{ width: "100%",height:"100%" }}>
+                        <ConflictView />
+                    </Tab>
+                    <Tab  style={{ width: "100%",height:"100%" }}>
+                        <UserView />
                     </Tab>
                 </Tabs>
             </NavigationView>

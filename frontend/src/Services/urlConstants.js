@@ -4,6 +4,7 @@ export const USER = "user";
 
 export const SIGN_UP = `${BASEURL}users/sign-up`;
 export const LOGINURL = `${BASEURL}login`;
+export const USER_PROFILE = `${BASEURL}${USER}/`;
 
 export const BORROW = "borrow/";
 

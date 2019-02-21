@@ -1,5 +1,5 @@
 import axios from "axios";
-import { SIGN_UP, LOGINURL } from "../urlConstants";
+import { SIGN_UP, LOGINURL, USER_PROFILE } from "../urlConstants";
 
 export const loginUserBackend = async (username, password, url = LOGINURL) => {
     let response = await axios.post(url, {
@@ -22,4 +22,8 @@ export async function registerUserBackend(
         password: passwordInner,
         bankAccount: emailInner
     });
+}
+
+export async function getUserDetailsBackend(token, url = USER_PROFILE) {
+    await axios.get(url, { headers: { Authorization: token } });
 }
