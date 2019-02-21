@@ -14,8 +14,7 @@ import java.util.List;
 
 @Service
 public class ProPayService implements IProPayService {
-
-    private final String BASE_URL = "http://localhost:8888/";
+    private final String BASE_URL = "http://propay:8888/";
     private IMoneyTransferService moneyTransferService;
     private RestTemplate restTemplate = new RestTemplate();
 
@@ -55,7 +54,7 @@ public class ProPayService implements IProPayService {
         return moneyTransferService.getAll(userName);
     }
 
-    private ProPayAccount getProPayAccount(String username) {
+    public ProPayAccount getProPayAccount(String username) {
         final String url = BASE_URL + "account/" + username;
         return restTemplate.getForObject(url, ProPayAccount.class);
     }
