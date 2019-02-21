@@ -63,7 +63,7 @@
     "/borrow/inquiry/create": {
         "method": "post",
         "sendData": {
-            "id": "Number (Snowflake)",
+            "articleId": "Number (Snowflake)",
             "startDate": "Date (Template: yyyy-mm-dd)",
             "endDate": "Date (Template: yyyy-mm-dd)"
         },
