@@ -1,4 +1,4 @@
-package hhu.propra2.illegalskillsexception.frently.backend.Lend.Inquiry;
+package hhu.propra2.illegalskillsexception.frently.backend.Lend.Inquiry.IServices;
 
 import hhu.propra2.illegalskillsexception.frently.backend.Models.ApplicationUser;
 import hhu.propra2.illegalskillsexception.frently.backend.Models.Inquiry;

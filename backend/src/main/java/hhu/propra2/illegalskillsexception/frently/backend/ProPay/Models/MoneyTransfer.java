@@ -1,5 +1,6 @@
-package hhu.propra2.illegalskillsexception.frently.backend.Models;
+package hhu.propra2.illegalskillsexception.frently.backend.ProPay.Models;
 
+import hhu.propra2.illegalskillsexception.frently.backend.Models.ApplicationUser;
 import lombok.Data;
 import org.hibernate.annotations.NotFound;
 import org.hibernate.annotations.NotFoundAction;
@@ -28,10 +29,4 @@ public class MoneyTransfer {
     @CreatedDate
     @Column(nullable = false)
     private LocalDateTime timestamp;
-
-    /*
-    @LastModifiedDate
-    @Column(nullable = false)
-    private LocalDateTime updated;
-    */
 }
