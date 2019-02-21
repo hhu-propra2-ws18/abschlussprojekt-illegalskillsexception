@@ -4,51 +4,27 @@ import InquiriesViewItem from "./InquiriesViewItem/InquiriesViewItem";
 import { connect } from "react-redux";
 import { getAllInquiries } from "../../../../Services/Inquiry/inquiryCompleteService";
 
-const items = [
-    {
-        title: "Jackhammer",
-        borrower: "Antoine",
-        lender: "Jens Bendisposto",
-        isLendingInquirie: true,
-        lendTime: "24.02.2019 - 28.02.2019",
-        status: "open",
-        id: 1
-    },
-    {
-        title: "Text",
-        borrower: "Test",
-        lender: "test",
-        isLendingInquirie: true,
-        lendTime: "dsagusioagdsikafgsa",
-        status: "statsa",
-        id: 2
-    },
-    {
-        title: "Text",
-        borrower: "Test",
-        lender: "test",
-        isLendingInquirie: false,
-        lendTime: "dsagusioagdsikafgsa",
-        status: "statsa",
-        id: 3
-    }
-];
-
 const mapStateToProps = state => {
-    return { items: state.inquirystore };
+    return {
+        itemsBorrow: state.inquirystore.borrowList,
+        itemsLend: state.inquirystore.lendList
+    };
 };
 
 export class InquiriesView extends React.Component {
-    
-    async componentDidMount(){
+    async componentDidMount() {
         await getAllInquiries();
-        console.log(this.props.items);
+        console.log("Inquiry onload list - borrow",this.props.itemsBorrow);
+        console.log("Inquiry onload list - lend",this.props.itemsLend);
     }
-    
+
     render() {
         return (
             <div className="grid-article-view">
-                {this.props.items.map(dataItem => (
+                {this.props.itemsBorrow.map(dataItem => (
+                    <InquiriesViewItem key={dataItem.id} data={dataItem} />
+                ))}{" "}
+                {this.props.itemsLend.map(dataItem => (
                     <InquiriesViewItem key={dataItem.id} data={dataItem} />
                 ))}
             </div>

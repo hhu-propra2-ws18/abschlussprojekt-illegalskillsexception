@@ -63,8 +63,16 @@ main {
 article {
     margin: 10px;
     padding: 10px;
+}
+
+.light article {
     background-color: white;
     border: 1px black solid;
+}
+
+.dark article {
+    background-color: black;
+    border: 1px solid grey;
 }
 
 .acceptance-dialog {

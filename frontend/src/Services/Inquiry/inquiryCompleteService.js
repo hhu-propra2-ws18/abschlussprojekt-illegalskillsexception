@@ -7,6 +7,7 @@ import { getSetTransactionItemListAction } from "../../Store/TransactionStore/Tr
 export async function getAllInquiries() {
     let data = await getAllInquiriesBackend(store.getState().user.token);
 
-    let action = getSetTransactionItemListAction(data);
+    let action = getSetTransactionItemListAction(data.borrowList,data.lendList);
+    console.log(action);
     store.dispatch(action);
 }

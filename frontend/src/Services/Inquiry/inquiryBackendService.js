@@ -1,17 +1,32 @@
 import Axios from "axios";
 import {
-    INQUIRY_GETALL,
+    INQUIRY_GETALL_BORROW,
+    INQUIRY_GETALL_LEND,
     INQUIRY_ACCEPT,
-    INQUIRY_DECLINE
+    INQUIRY_DECLINE,
 } from "../urlConstants";
 
-export async function getAllInquiriesBackend(token, url = INQUIRY_GETALL) {
-    let data = await Axios.get(url, {
+export async function getAllInquiriesBackend(
+    token,
+    urlBorrow = INQUIRY_GETALL_BORROW,
+    urlLend = INQUIRY_GETALL_LEND
+) {
+    let dataBorrow = await Axios.get(urlBorrow, {
         headers: {
             Authorization: token
         }
     });
-    return data.data.data;
+    let dataLend = await Axios.get(urlLend, {
+        headers: {
+            Authorization: token
+        }
+    });
+    console.log(dataBorrow);
+    console.log(dataLend);
+    return {
+        borrowList: dataBorrow.data.data,
+        lendList: dataLend.data.data
+    };
 }
 
 export async function inquiryAcceptBackendd(id, token, url = INQUIRY_ACCEPT) {
@@ -27,7 +42,6 @@ export async function inquiryAcceptBackendd(id, token, url = INQUIRY_ACCEPT) {
 
     return data;
 }
-
 
 export async function inquiryDeclineBackend(id, token, url = INQUIRY_DECLINE) {
     let data = await Axios.post(

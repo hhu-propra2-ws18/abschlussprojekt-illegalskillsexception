@@ -14,8 +14,8 @@ export default function user(state = { isLoggedIn: false }, action) {
                 token: ""
             };
         }
-        default: {
-            return state
-        };
+        default:{
+            return state;
+        }
     }
 }
