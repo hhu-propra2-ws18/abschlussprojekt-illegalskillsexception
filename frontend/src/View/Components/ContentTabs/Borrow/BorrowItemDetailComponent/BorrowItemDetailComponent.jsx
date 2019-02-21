@@ -51,7 +51,7 @@ export default class BorrowItemDetailComponent extends React.Component {
 
     createInquiry() {
         let data = {
-            id: this.props.data.id,
+            articleId: this.props.data.id,
             startDate: {
                 day: this.startRef.current.dateIndex,
                 month: this.startRef.current.monthIndex,

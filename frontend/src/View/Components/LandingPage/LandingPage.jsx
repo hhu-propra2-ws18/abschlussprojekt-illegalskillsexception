@@ -6,8 +6,10 @@ import Dialog from "react-uwp/Dialog";
 import * as PropTypes from "prop-types";
 
 import "./LandingPage.css";
-import { registerUser, loginUser as loginUserService} from "../../../Services/Authentication/userApi";
-
+import {
+    registerAndLoginUser,
+    loginUser
+} from "../../../Services/User/authentificationCompleteService";
 
 export default class LandingPage extends React.Component {
     static contextTypes = { theme: PropTypes.object };
@@ -52,11 +54,17 @@ export default class LandingPage extends React.Component {
                 >
                     <div className="dialog-container">
                         <label>Username:</label>
-                        <TextBox value="user" ref={this.nameRegister} />
+                        <TextBox defaultValue="user" ref={this.nameRegister} />
                         <label>Email:</label>
-                        <TextBox value="idiot@frently.com" ref={this.emailRegister} />
+                        <TextBox
+                            defaultValue="idiot@frently.com"
+                            ref={this.emailRegister}
+                        />
                         <label>Password:</label>
-                        <PasswordBox value="password" ref={this.passwordRegister} />
+                        <PasswordBox
+                            defaultValue="password"
+                            ref={this.passwordRegister}
+                        />
                         <div className="dialog-buttons-div">
                             <Button onClick={() => this.hideRegister()}>
                                 Cancel
@@ -74,9 +82,12 @@ export default class LandingPage extends React.Component {
                 >
                     <div className="dialog-container">
                         <label>Username:</label>
-                        <TextBox value="user" ref={this.nameLogin} />
+                        <TextBox defaultValue="user" ref={this.nameLogin} />
                         <label>Password:</label>
-                        <PasswordBox value="password" ref={this.passwordLogin} />
+                        <PasswordBox
+                            defaultValue="password"
+                            ref={this.passwordLogin}
+                        />
                         <div className="dialog-buttons-div">
                             <Button onClick={() => this.hideLogin()}>
                                 Cancel
@@ -115,7 +126,12 @@ export default class LandingPage extends React.Component {
             ? passwordPassed
             : this.passwordLogin.current.getValue();
 
-        loginUserService(nameInner, passwordInner);
+        try {
+            loginUser(nameInner, passwordInner);
+            this.setState({ login: false });
+        } catch (exception) {
+            console.log(exception);
+        }
     }
 
     async registerUser() {
@@ -123,8 +139,7 @@ export default class LandingPage extends React.Component {
         let emailInner = this.emailRegister.current.getValue();
         let passwordInner = this.passwordRegister.current.getValue();
 
-        await registerUser(nameInner, emailInner, passwordInner);
-        this.loginUser(nameInner, passwordInner);
+        await registerAndLoginUser(nameInner, emailInner, passwordInner);
         this.setState({ register: false });
     }
 }

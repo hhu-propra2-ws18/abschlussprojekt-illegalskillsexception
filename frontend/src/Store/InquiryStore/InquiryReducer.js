@@ -1,6 +1,13 @@
-import { ADD_INQUIRY_ITEM, SET_INQUIRY_ITEMS, UPDATE_INQUIRY_ITEM } from "./InquiryActions";
+import {
+    ADD_INQUIRY_ITEM,
+    SET_INQUIRY_ITEMS,
+    UPDATE_INQUIRY_ITEM
+} from "./InquiryActions";
 
-export default function inquirystore(state = [], action) {
+export default function inquirystore(
+    state = { borrowList: [], lendList: [] },
+    action
+) {
     switch (action.type) {
         case ADD_INQUIRY_ITEM: {
             return [...state, action.data];
@@ -18,7 +25,7 @@ export default function inquirystore(state = [], action) {
             return copy;
         }
         default: {
-            return [];
+            return state;
         }
     }
 }

@@ -14,13 +14,17 @@ const mapStateToProps = state => {
 export class InquiriesView extends React.Component {
     async componentDidMount() {
         await getAllInquiries();
-        console.log(this.props.items);
+        console.log("Inquiry onload list - borrow",this.props.itemsBorrow);
+        console.log("Inquiry onload list - lend",this.props.itemsLend);
     }
 
     render() {
         return (
             <div className="grid-article-view">
-                {this.props.items.map(dataItem => (
+                {this.props.itemsBorrow.map(dataItem => (
+                    <InquiriesViewItem key={dataItem.id} data={dataItem} />
+                ))}{" "}
+                {this.props.itemsLend.map(dataItem => (
                     <InquiriesViewItem key={dataItem.id} data={dataItem} />
                 ))}
             </div>

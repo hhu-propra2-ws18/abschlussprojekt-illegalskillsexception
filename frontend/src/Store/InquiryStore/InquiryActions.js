@@ -9,10 +9,11 @@ export function getAddInquiryItemAction(item) {
     };
 }
 
-export function getSetInquiryItemListAction(list) {
+export function getSetInquiryItemListAction(borrowList, lendList) {
     return {
         type: SET_INQUIRY_ITEMS,
-        list: list
+        borrowList,
+        lendList
     };
 }
 
