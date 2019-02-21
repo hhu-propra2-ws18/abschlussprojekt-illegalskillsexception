@@ -29,7 +29,7 @@ export async function getAllInquiriesBackend(
     };
 }
 
-export async function inquiryAcceptBackendd(id, token, url = INQUIRY_ACCEPT) {
+export async function inquiryAcceptBackend(id, token, url = INQUIRY_ACCEPT) {
     let data = await Axios.post(
         url,
         { id: id },
