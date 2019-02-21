@@ -1,5 +1,6 @@
 package hhu.propra2.illegalskillsexception.frently.backend.Lend.Inquiry.Services;
 
+import hhu.propra2.illegalskillsexception.frently.backend.Lend.Inquiry.Exceptions.LendBorrowerHasNotEnoughMoneyException;
 import hhu.propra2.illegalskillsexception.frently.backend.Models.Inquiry;
 import hhu.propra2.illegalskillsexception.frently.backend.Models.Transaction;
 import hhu.propra2.illegalskillsexception.frently.backend.Repositories.IInquiryRepository;
@@ -28,12 +29,18 @@ public class LendInquiryProcessingService {
         return inquiry;
     }
 
-    Transaction processAcceptInquiry(Long inquiryId) throws Exception {
+    public Transaction acceptInquiry(Long inquiryId) throws Exception {
         // TODO Add ProPay
         // Check, if lender has enough money, block deposit and transfer fee.
+
         long reservationId = 3; //Todo payInMoney()
 
-        Inquiry inquiry = acceptInquiry(inquiryId);
+        Inquiry inquiry = processAcceptedInquiry(inquiryId);
+        double fee = calculateFee(inquiry.getStartDate(), inquiry.getEndDate(), inquiry.getArticle().getDailyRate());
+
+        if (false) { // Todo !hasEnoughMoney(...)
+            throw new LendBorrowerHasNotEnoughMoneyException();
+        }
 
         return createTransactionFromInquiry(inquiry, reservationId);
     }
@@ -42,7 +49,7 @@ public class LendInquiryProcessingService {
         return (start.until(end).getDays() + 1) * dailyRate;
     }
 
-    private Inquiry acceptInquiry(Long inquiryId) throws Exception {
+    private Inquiry processAcceptedInquiry(Long inquiryId) throws Exception {
         Inquiry inquiry = inquiryRepository.findById(inquiryId).orElseThrow(Exception::new);
         inquiry.setStatus(Inquiry.Status.ACCEPTED);
         return inquiryRepository.save(inquiry);
