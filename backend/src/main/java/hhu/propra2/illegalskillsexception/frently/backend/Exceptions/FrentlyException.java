@@ -5,7 +5,7 @@ import hhu.propra2.illegalskillsexception.frently.backend.Controllers.Response.F
 public class FrentlyException extends Exception {
     private final FrentlyErrorType type;
 
-    FrentlyException(String msg, FrentlyErrorType type) {
+    public FrentlyException(String msg, FrentlyErrorType type) {
         super(msg);
         this.type = type;
     }

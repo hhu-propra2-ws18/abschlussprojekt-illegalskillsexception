@@ -1,7 +1,6 @@
 package hhu.propra2.illegalskillsexception.frently.backend.Lend.Article;
 
 import hhu.propra2.illegalskillsexception.frently.backend.Controllers.Response.FrentlyError;
-import hhu.propra2.illegalskillsexception.frently.backend.Controllers.Response.FrentlyErrorType;
 import hhu.propra2.illegalskillsexception.frently.backend.Controllers.Response.FrentlyResponse;
 import hhu.propra2.illegalskillsexception.frently.backend.Lend.Article.DTO.LendArticleUpdate;
 import hhu.propra2.illegalskillsexception.frently.backend.Lend.Article.Services.LendArticleService;
@@ -33,7 +32,7 @@ public class LendArticleController {
             final Article changedArticle = lendArticleService.createArticle(article, user);
             response.setData(changedArticle);
         } catch (Exception e) {
-            FrentlyError error = new FrentlyError("Article could not be created", FrentlyErrorType.MISC);
+            FrentlyError error = new FrentlyError(e);
             response.setError(error);
         }
         return response;
@@ -48,7 +47,7 @@ public class LendArticleController {
             final List<Article> articleList = lendArticleService.retrieveArticleList(user);
             response.setData(articleList);
         } catch (Exception e) {
-            FrentlyError error = new FrentlyError(e.getMessage(), FrentlyErrorType.ACTUAL_EXCEPTION);
+            FrentlyError error = new FrentlyError(e);
             response.setError(error);
         }
         return response;
@@ -62,7 +61,7 @@ public class LendArticleController {
             final Article article = lendArticleService.updateArticle(lendArticle);
             response.setData(article);
         } catch (Exception e) {
-            FrentlyError error = new FrentlyError(e.getMessage(), FrentlyErrorType.ACTUAL_EXCEPTION);
+            FrentlyError error = new FrentlyError(e);
             response.setError(error);
         }
 
