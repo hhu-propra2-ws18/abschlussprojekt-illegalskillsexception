@@ -59,7 +59,6 @@ public class BorrowInquiryService implements IBorrowInquiryService {
         List<Inquiry> allConflictingInquiries =
                 inquiries.findAllByArticle_IdAndStartDateLessThanEqualAndEndDateGreaterThanEqual(
                         dto.getArticleId(), dto.getEndDate(), dto.getStartDate());
-        System.out.println(allConflictingInquiries);
         return !allConflictingInquiries.isEmpty();
     }
 
