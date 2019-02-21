@@ -1,16 +1,14 @@
 package hhu.propra2.illegalskillsexception.frently.backend.Services;
 
-import hhu.propra2.illegalskillsexception.frently.backend.Models.ApplicationUser;
-import hhu.propra2.illegalskillsexception.frently.backend.Models.Article;
-import hhu.propra2.illegalskillsexception.frently.backend.Models.Inquiry;
-import hhu.propra2.illegalskillsexception.frently.backend.Models.LendingPeriod;
-import hhu.propra2.illegalskillsexception.frently.backend.ProPay.Models.ProPayAccount;
+import hhu.propra2.illegalskillsexception.frently.backend.Models.*;
 import hhu.propra2.illegalskillsexception.frently.backend.Repositories.InquiryRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
 import java.util.List;
+
+import static hhu.propra2.illegalskillsexception.frently.backend.Models.Inquiry.Status.accepted;
 
 @Service
 public class InquiryService implements IInquiryService {
@@ -66,13 +64,13 @@ public class InquiryService implements IInquiryService {
         return inquiry;
     }
 
-    /*public void accept(ApplicationUser borrower, Long inquiryId) throws Exception {
+    public void accept(ApplicationUser borrower, Long inquiryId) throws Exception {
         Inquiry inquiry = getInquiry(inquiryId);
 
         Double prize = calculateAccumulatedDailyRate(inquiry);
         Double deposit = inquiry.getArticle().getDeposit();
-        //ProPayAccount proPayAccountBorrower = getProPayAccount(borrower.getBankAccount());
-        //String accountLender = inquiry.getLender().getBankAccount();
+        ProPayAccount proPayAccountBorrower = getProPayAccount(borrower.getBankAccount());
+        String accountLender = inquiry.getLender().getBankAccount();
 
         if (hasEnoughMoney(proPayAccountBorrower, prize + deposit)) {
             transactionservice.createTransaction(Transaction.Status.open, inquiry);
@@ -80,7 +78,7 @@ public class InquiryService implements IInquiryService {
             transferMoney(proPayAccountBorrower, accountLender, prize);
             inquiry.setStatus(accepted);
         } else throw new Exception();
-    }*/
+    }
 
     private void transferMoney(ProPayAccount borrower, String lender, Double prize) {
         final String url = "http://localhost:8080/Propay/account/" + borrower.getAccount() + "/transfer/" + lender + "?amount=" + prize;
