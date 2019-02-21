@@ -21,8 +21,12 @@ public class BorrowInquiryController {
     @GetMapping("/")
     public FrentlyResponse retrieveAllMyInquiries(Authentication auth) {
         FrentlyResponse response = new FrentlyResponse();
-        List<Inquiry> inquiries = inquiryService.retrieveAllInquiriesByUser(auth);
-        response.setData(inquiries);
+        try {
+            List<Inquiry> inquiries = inquiryService.retrieveAllInquiriesByUser(auth);
+            response.setData(inquiries);
+        } catch (Exception e) {
+            response.setError(new FrentlyError(e));
+        }
         return response;
     }
 
