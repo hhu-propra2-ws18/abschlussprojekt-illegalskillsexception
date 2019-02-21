@@ -1,4 +1,4 @@
-package hhu.propra2.illegalskillsexception.frently.backend.Models;
+package hhu.propra2.illegalskillsexception.frently.backend.ProPay.Models;
 
 import lombok.Data;
 
@@ -8,5 +8,5 @@ import java.util.List;
 public class ProPayAccount {
     private String account;
     private Double amount;
-    private List<ProPayReservation> reservations;
+    private List<Reservation> reservations;
 }

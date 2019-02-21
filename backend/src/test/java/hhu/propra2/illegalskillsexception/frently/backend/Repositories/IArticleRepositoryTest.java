@@ -34,7 +34,6 @@ public class IArticleRepositoryTest {
         ApplicationUser owner = new ApplicationUser();
         owner.setId(1L);
         owner.setUsername("Hans");
-        owner.setBankAccount("300");
         owner.setEmail("test@mail");
         owner.setPassword("123");
         owner.setTimestamp(LocalDateTime.of(2013, 12, 18, 14, 30));
@@ -69,7 +68,6 @@ public class IArticleRepositoryTest {
     public void OwnerHasTwoArticleTest() {
         ApplicationUser owner = new ApplicationUser();
         owner.setUsername("Johann");
-        owner.setBankAccount("300");
         owner.setEmail("Johann@mail");
         owner.setPassword("321");
         owner.setTimestamp(LocalDateTime.of(2013, 12, 18, 14, 30));

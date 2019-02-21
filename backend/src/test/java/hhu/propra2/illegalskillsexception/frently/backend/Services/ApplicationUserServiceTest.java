@@ -35,7 +35,6 @@ public class ApplicationUserServiceTest {
         ApplicationUser user3 = new ApplicationUser();
         user3.setUsername("ExampleUser");
         user3.setPassword("ExamplePassword");
-        user3.setBankAccount("ExampleBank");
 
         userList2.addAll(Arrays.asList(new ApplicationUser(), new ApplicationUser(), new ApplicationUser(), user3));
         applicationUserRepository = mock(IApplicationUserRepository.class);
@@ -65,7 +64,6 @@ public class ApplicationUserServiceTest {
         ApplicationUser temp = new ApplicationUser();
         temp.setUsername("TestUser");
         temp.setPassword("TestPassword");
-        temp.setBankAccount("TestBank");
         applicationUserService.createUser(temp);
 
         verify(applicationUserRepository).existsByUsername("TestUser");
@@ -77,7 +75,6 @@ public class ApplicationUserServiceTest {
         ApplicationUser temp = new ApplicationUser();
         temp.setUsername("ExampleUser");
         temp.setPassword("ExamplePassword");
-        temp.setBankAccount("ExampleBank");
         applicationUserService.createUser(temp);
 
         verify(applicationUserRepository).existsByUsername("ExampleUser");

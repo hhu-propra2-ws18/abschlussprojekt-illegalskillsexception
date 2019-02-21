@@ -1,6 +1,6 @@
-package hhu.propra2.illegalskillsexception.frently.backend.Services;
+package hhu.propra2.illegalskillsexception.frently.backend.ProPay.IServices;
 
-import hhu.propra2.illegalskillsexception.frently.backend.Models.MoneyTransfer;
+import hhu.propra2.illegalskillsexception.frently.backend.ProPay.Models.MoneyTransfer;
 
 import java.util.List;
 
