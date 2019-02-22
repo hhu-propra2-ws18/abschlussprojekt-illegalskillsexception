@@ -16,20 +16,12 @@ export default function inquirystore(
             return { borrowList: action.borrowList, lendList: action.lendList };
         }
         case REMOVE_INQUIRY_ITEM: {
-            let copyBorrow = Object.assign([], state.borrowList);
-            copyBorrow.splice(
-                copyBorrow.findIndex(function(i) {
-                    return i.inquiryId === action.inquiryId;
-                }),
-                1
+            let copyBorrow = state.borrowList.filter(
+                element => element.id !== action.inquiryId
             );
 
-            let copyLend = Object.assign([], state.lendList);
-            copyLend.splice(
-                copyLend.findIndex(function(i) {
-                    return i.inquiryId === action.inquiryId;
-                }),
-                1
+            let copyLend = state.lendList.filter(
+                element => element.id !== action.inquiryId
             );
 
             return { borrowList: copyBorrow, lendList: copyLend };

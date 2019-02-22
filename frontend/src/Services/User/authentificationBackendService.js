@@ -25,5 +25,5 @@ export async function registerUserBackend(
 }
 
 export async function getUserDetailsBackend(token, url = USER_PROFILE) {
-    await axios.get(url, { headers: { Authorization: token } });
+    return await axios.get(url, { headers: { Authorization: token } });
 }
