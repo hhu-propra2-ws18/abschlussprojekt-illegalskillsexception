@@ -5,6 +5,7 @@ import hhu.propra2.illegalskillsexception.frently.backend.Controller.Response.Fr
 import hhu.propra2.illegalskillsexception.frently.backend.Controller.Response.FrentlyErrorType;
 import hhu.propra2.illegalskillsexception.frently.backend.Controller.Response.FrentlyResponse;
 import hhu.propra2.illegalskillsexception.frently.backend.Controller.Response.FrentlyException;
+import hhu.propra2.illegalskillsexception.frently.backend.Controller.User.DTOs.ChargeAmountDTO;
 import hhu.propra2.illegalskillsexception.frently.backend.Controller.User.Exceptions.UserAlreadyExistsAuthenticationException;
 import hhu.propra2.illegalskillsexception.frently.backend.Data.Models.ApplicationUser;
 import hhu.propra2.illegalskillsexception.frently.backend.Controller.User.IServices.IApplicationUserService;
@@ -12,6 +13,7 @@ import hhu.propra2.illegalskillsexception.frently.backend.Controller.User.DTOs.F
 import hhu.propra2.illegalskillsexception.frently.backend.Controller.User.DTOs.ForeignUserDetailResponse;
 import hhu.propra2.illegalskillsexception.frently.backend.Controller.User.DTOs.UserDetailResponse;
 import hhu.propra2.illegalskillsexception.frently.backend.Controller.User.IServices.IUserDetailService;
+import hhu.propra2.illegalskillsexception.frently.backend.ProPay.IServices.IProPayService;
 import lombok.AllArgsConstructor;
 import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
@@ -25,6 +27,7 @@ public class UserController {
 
     private IApplicationUserService userService;
     private IUserDetailService userDetailService;
+    private IProPayService proPayService;
 
     @PostMapping("/sign-up")
     public FrentlyResponse signUp(@RequestBody ApplicationUser user) {
@@ -32,6 +35,8 @@ public class UserController {
         userService.encryptPassword(user);
         try {
             userService.createUser(user);
+
+            proPayService.createAccount(user.getUsername(),0);
 
             response.setData(Collections.singletonList(user));
         } catch (UserAlreadyExistsAuthenticationException e) {
@@ -66,6 +71,14 @@ public class UserController {
             response.setError(new FrentlyError(e));
         }
         return response;
+    }
+
+    @PostMapping("/charge")
+    public FrentlyResponse chargeCredit(Authentication auth, @RequestBody ChargeAmountDTO amount){
+        FrentlyResponse fr = new FrentlyResponse();
+        String userName = (String)auth.getPrincipal();
+        proPayService.payInMoney(userName,amount.getAmount());
+        return fr;
     }
 
 
