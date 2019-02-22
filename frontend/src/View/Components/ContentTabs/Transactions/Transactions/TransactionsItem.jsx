@@ -14,8 +14,8 @@ export default class TransactionsItem extends React.Component {
                 {
                     this.props.isLender ? 
                     <div>
-                        <Button onClick={()=> transactionItemReturned()}>Item was returned</Button>
-                        <Button onClick={()=>createTransactionProblem()}>
+                        <Button onClick={()=> transactionItemReturned(this.props.data.id)}>Item was returned</Button>
+                        <Button onClick={()=>createTransactionProblem(this.props.data.id)}>
                             Problem occured
                         </Button>
                     </div> : null

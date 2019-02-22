@@ -14,8 +14,11 @@ export async function getAllTransaction() {
     store.dispatch(action);
 }
 
-export async function transactionItemReturned() {
-    return await postTransactionFinishedBackend();
+export async function transactionItemReturned(id) {
+    return await postTransactionFinishedBackend(
+        id,
+        store.getState().user.token
+    );
 }
 
 export async function createTransactionProblem(id) {
