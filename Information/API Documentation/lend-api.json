@@ -69,7 +69,7 @@
                     "borrower": "String (Optional: If not a isLendingInquiry can be null)",
                     "lender": "String (Optional: If isLendingInquiry can be null",
                     "status": "String",
-                    "id":"Number (Snowflake)"
+                    "id": "Number (Snowflake)"
                 }
             ],
             "error": {
@@ -102,7 +102,25 @@
             }
         }
     },
-
+    "/lend/transaction/": {
+        "method": "get",
+        "sendData": null,
+        "expectedData": {
+            "data": [
+                {
+                    "isLender": "Boolean",
+                    "title": "String",
+                    "status": "String",
+                    "location": "String",
+                    "returnData": "String"
+                }
+            ],
+            "error": {
+                "code": "Number or null",
+                "message": "String or null"
+            }
+        }
+    },
     "/lend/transaction/update": {
         "method": "post",
         "sendData": {

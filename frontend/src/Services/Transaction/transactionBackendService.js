@@ -1,5 +1,5 @@
 import Axios from "axios";
-import { TRANSACTION_GETALL, TRANSACTION_PROBLEM } from "../urlConstants";
+import { TRANSACTION_GETALL, TRANSACTION_PROBLEM, TRANSACTION_FINISHED } from "../urlConstants";
 
 export async function getAllTransactionsBackend(
     token,
@@ -13,7 +13,7 @@ export async function getAllTransactionsBackend(
     return data.data.data;
 }
 
-export async function postTransactionFinishedBackend(id, token) {
+export async function postTransactionFinishedBackend(id, token,url=TRANSACTION_FINISHED) {
     let data = await Axios.post(
         url,
         {
