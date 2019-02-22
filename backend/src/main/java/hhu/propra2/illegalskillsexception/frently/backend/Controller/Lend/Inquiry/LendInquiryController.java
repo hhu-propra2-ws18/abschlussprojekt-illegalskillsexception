@@ -64,6 +64,7 @@ public class LendInquiryController {
         } catch (FrentlyException fe) {
             response.setError(new FrentlyError(fe));
         } catch (Exception e) {
+            e.printStackTrace();
             response.setError(new FrentlyError(e));
         }
         return response;

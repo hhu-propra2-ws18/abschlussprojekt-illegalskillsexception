@@ -19,7 +19,6 @@ import java.time.LocalDate;
 import java.util.Optional;
 
 @Service
-@NoArgsConstructor
 @AllArgsConstructor
 public class LendInquiryProcessingService implements ILendInquiryProcessingService {
 

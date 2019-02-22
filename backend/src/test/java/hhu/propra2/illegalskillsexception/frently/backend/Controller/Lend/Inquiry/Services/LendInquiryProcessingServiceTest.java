@@ -1,4 +1,5 @@
 package hhu.propra2.illegalskillsexception.frently.backend.Controller.Lend.Inquiry.Services;
+
 import org.junit.Test;
 
 import java.time.LocalDate;
@@ -7,7 +8,7 @@ import static org.junit.Assert.assertEquals;
 
 public class LendInquiryProcessingServiceTest {
 
-    private final LendInquiryProcessingService lendInquiryProcessingService = new LendInquiryProcessingService();
+    private final LendInquiryProcessingService lendInquiryProcessingService = new LendInquiryProcessingService(null, null, null);
 
     @Test
     public void calculateFeeForOneDay() {

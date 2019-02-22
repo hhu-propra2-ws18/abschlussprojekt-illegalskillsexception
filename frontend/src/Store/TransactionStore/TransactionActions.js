@@ -9,10 +9,11 @@ export function getAddTransactionItemAction(item) {
     };
 }
 
-export function getSetTransactionItemListAction(list) {
+export function getSetTransactionItemListAction(listBorrow, listLend) {
     return {
         type: SET_TRANSACTION_ITEMS,
-        list: list
+        borrow: listBorrow,
+        lend: listLend
     };
 }
 

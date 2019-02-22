@@ -1,19 +1,35 @@
 import Axios from "axios";
-import { TRANSACTION_GETALL, TRANSACTION_PROBLEM, TRANSACTION_FINISHED } from "../urlConstants";
+import {
+    TRANSACTION_GETALL_BORROW,
+    TRANSACTION_GETALL_LEND,
+    TRANSACTION_PROBLEM,
+    TRANSACTION_FINISHED
+} from "../urlConstants";
 
 export async function getAllTransactionsBackend(
     token,
-    url = TRANSACTION_GETALL
+    urlBorrow = TRANSACTION_GETALL_BORROW,
+    urlLend = TRANSACTION_GETALL_LEND
 ) {
-    let data = await Axios.get(url, {
+    let dataBorrow = await Axios.get(urlBorrow, {
         headers: {
             Authorization: token
         }
     });
-    return data.data.data;
+
+    let dataLend = await Axios.get(urlLend, {
+        headers: {
+            Authorization: token
+        }
+    });
+    return { borrow: dataBorrow.data.data, lend: dataLend.data.data };
 }
 
-export async function postTransactionFinishedBackend(id, token,url=TRANSACTION_FINISHED) {
+export async function postTransactionFinishedBackend(
+    id,
+    token,
+    url = TRANSACTION_FINISHED
+) {
     let data = await Axios.post(
         url,
         {

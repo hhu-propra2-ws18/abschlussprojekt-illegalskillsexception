@@ -10,7 +10,7 @@ import { getSetTransactionItemListAction } from "../../Store/TransactionStore/Tr
 export async function getAllTransaction() {
     let data = await getAllTransactionsBackend(store.getState().user.token);
 
-    let action = getSetTransactionItemListAction(data);
+    let action = getSetTransactionItemListAction(data.borrow, data.lend);
     store.dispatch(action);
 }
 
@@ -19,7 +19,10 @@ export async function transactionItemReturned() {
 }
 
 export async function createTransactionProblem(id) {
-    let result = await postTransactionProblemBackend(id, store.getState().user.token);
+    let result = await postTransactionProblemBackend(
+        id,
+        store.getState().user.token
+    );
 
     return result;
 }

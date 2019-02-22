@@ -4,25 +4,27 @@ import {
     UPDATE_TRANSACTION_ITEM
 } from "./TransactionActions";
 
-export default function transactionstore(state = [], action) {
+export default function transactionstore(
+    state = { borrowList: [], lendList: [] },
+    action
+) {
     switch (action.type) {
-        case ADD_TRANSACTION_ITEM: {
-            return [...state, action.data];
-        }
         case SET_TRANSACTION_ITEMS: {
-            return action["list"];
+            return { borrowList: action.borrow, lendList: action.lend };
         }
         case UPDATE_TRANSACTION_ITEM: {
-            let copy = Object.assign([], state);
-            copy.forEach(item => {
-                if (item.id === action.data.id) {
-                    Object.assign(item, action.data);
-                }
-            });
-            return copy;
+            let copyBorrow = state.borrowList.filter(
+                element => element.id !== action.inquiryId
+            );
+
+            let copyLend = state.lendList.filter(
+                element => element.id !== action.inquiryId
+            );
+
+            return { borrowList: copyBorrow, lendList: copyLend };
         }
         default: {
-            return [];
+            return state;
         }
     }
 }
