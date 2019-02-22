@@ -1,6 +1,5 @@
-package hhu.propra2.illegalskillsexception.frently.backend.Controller.Exceptions;
+package hhu.propra2.illegalskillsexception.frently.backend.Controller.Response;
 
-import hhu.propra2.illegalskillsexception.frently.backend.Controller.Response.FrentlyErrorType;
 
 public class FrentlyException extends Exception {
     private final FrentlyErrorType type;

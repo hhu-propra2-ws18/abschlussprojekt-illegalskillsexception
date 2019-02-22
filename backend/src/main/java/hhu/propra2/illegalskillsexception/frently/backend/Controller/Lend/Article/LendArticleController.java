@@ -6,7 +6,7 @@ import hhu.propra2.illegalskillsexception.frently.backend.Controller.Lend.Articl
 import hhu.propra2.illegalskillsexception.frently.backend.Controller.Lend.Article.Services.LendArticleService;
 import hhu.propra2.illegalskillsexception.frently.backend.Data.Models.ApplicationUser;
 import hhu.propra2.illegalskillsexception.frently.backend.Data.Models.Article;
-import hhu.propra2.illegalskillsexception.frently.backend.Controller.Services.ApplicationUserService;
+import hhu.propra2.illegalskillsexception.frently.backend.Controller.User.Services.ApplicationUserService;
 import lombok.AllArgsConstructor;
 import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;

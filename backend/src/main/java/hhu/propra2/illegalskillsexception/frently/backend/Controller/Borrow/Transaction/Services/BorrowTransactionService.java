@@ -4,7 +4,7 @@ import hhu.propra2.illegalskillsexception.frently.backend.Controller.Borrow.Tran
 import hhu.propra2.illegalskillsexception.frently.backend.Data.Models.ApplicationUser;
 import hhu.propra2.illegalskillsexception.frently.backend.Data.Models.Transaction;
 import hhu.propra2.illegalskillsexception.frently.backend.Data.Repositories.ITransactionRepository;
-import hhu.propra2.illegalskillsexception.frently.backend.Controller.Services.IApplicationUserService;
+import hhu.propra2.illegalskillsexception.frently.backend.Controller.User.IServices.IApplicationUserService;
 import lombok.AllArgsConstructor;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Service;

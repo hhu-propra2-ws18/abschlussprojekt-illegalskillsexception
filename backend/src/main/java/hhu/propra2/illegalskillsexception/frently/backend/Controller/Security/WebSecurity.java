@@ -1,6 +1,6 @@
 package hhu.propra2.illegalskillsexception.frently.backend.Controller.Security;
 
-import hhu.propra2.illegalskillsexception.frently.backend.Controller.Services.UserDetailsServiceImpl;
+import hhu.propra2.illegalskillsexception.frently.backend.Controller.User.Services.UserDetailsServiceImpl;
 import org.springframework.context.annotation.Bean;
 import org.springframework.http.HttpMethod;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;

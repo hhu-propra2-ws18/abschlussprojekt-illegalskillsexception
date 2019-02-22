@@ -1,12 +1,12 @@
 package hhu.propra2.illegalskillsexception.frently.backend.Controller.User.Services;
 
 import hhu.propra2.illegalskillsexception.frently.backend.Controller.Response.FrentlyErrorType;
-import hhu.propra2.illegalskillsexception.frently.backend.Controller.Exceptions.UserNotFoundException;
+import hhu.propra2.illegalskillsexception.frently.backend.Controller.User.Exceptions.UserNotFoundException;
 import hhu.propra2.illegalskillsexception.frently.backend.Controller.User.IServices.IUserDetailService;
 import hhu.propra2.illegalskillsexception.frently.backend.Controller.User.IServices.IUserTransactionService;
 import hhu.propra2.illegalskillsexception.frently.backend.Data.Models.ApplicationUser;
 import hhu.propra2.illegalskillsexception.frently.backend.Data.Models.Transaction;
-import hhu.propra2.illegalskillsexception.frently.backend.Controller.Services.IApplicationUserService;
+import hhu.propra2.illegalskillsexception.frently.backend.Controller.User.IServices.IApplicationUserService;
 import hhu.propra2.illegalskillsexception.frently.backend.Controller.User.DTOs.ForeignUserDetailResponse;
 import hhu.propra2.illegalskillsexception.frently.backend.Controller.User.DTOs.UserDetailResponse;
 import lombok.AllArgsConstructor;

@@ -1,11 +1,11 @@
-/*package hhu.propra2.illegalskillsexception.frently.backend;
+package hhu.propra2.illegalskillsexception.frently.backend;
 
 import com.github.javafaker.Faker;
 import hhu.propra2.illegalskillsexception.frently.backend.Data.Models.ApplicationUser;
 import hhu.propra2.illegalskillsexception.frently.backend.Data.Models.Article;
 import hhu.propra2.illegalskillsexception.frently.backend.Data.Repositories.IApplicationUserRepository;
 import hhu.propra2.illegalskillsexception.frently.backend.Data.Repositories.IArticleRepository;
-import hhu.propra2.illegalskillsexception.frently.backend.Controller.Services.IApplicationUserService;
+import hhu.propra2.illegalskillsexception.frently.backend.Controller.User.IServices.IApplicationUserService;
 import lombok.AllArgsConstructor;
 import org.springframework.boot.web.servlet.ServletContextInitializer;
 import org.springframework.stereotype.Component;
@@ -60,4 +60,3 @@ public class Initializer implements ServletContextInitializer {
         });
     }
 }
-*/

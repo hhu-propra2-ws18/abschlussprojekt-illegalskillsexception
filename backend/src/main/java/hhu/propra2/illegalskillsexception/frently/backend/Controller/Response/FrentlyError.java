@@ -1,6 +1,5 @@
 package hhu.propra2.illegalskillsexception.frently.backend.Controller.Response;
 
-import hhu.propra2.illegalskillsexception.frently.backend.Controller.Exceptions.FrentlyException;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 

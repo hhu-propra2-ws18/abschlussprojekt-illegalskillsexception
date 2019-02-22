@@ -4,7 +4,7 @@ import hhu.propra2.illegalskillsexception.frently.backend.Controller.Borrow.Inqu
 import hhu.propra2.illegalskillsexception.frently.backend.Controller.Borrow.Inquiry.IServices.IBorrowInquiryService;
 import hhu.propra2.illegalskillsexception.frently.backend.Controller.Response.FrentlyError;
 import hhu.propra2.illegalskillsexception.frently.backend.Controller.Response.FrentlyResponse;
-import hhu.propra2.illegalskillsexception.frently.backend.Controller.Exceptions.FrentlyException;
+import hhu.propra2.illegalskillsexception.frently.backend.Controller.Response.FrentlyException;
 import hhu.propra2.illegalskillsexception.frently.backend.Data.Models.Inquiry;
 import lombok.AllArgsConstructor;
 import org.springframework.security.core.Authentication;

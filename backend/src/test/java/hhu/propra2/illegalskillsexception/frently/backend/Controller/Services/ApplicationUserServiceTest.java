@@ -1,6 +1,7 @@
 package hhu.propra2.illegalskillsexception.frently.backend.Controller.Services;
 
-import hhu.propra2.illegalskillsexception.frently.backend.Controller.Exceptions.UserAlreadyExistsAuthenticationException;
+import hhu.propra2.illegalskillsexception.frently.backend.Controller.User.Exceptions.UserAlreadyExistsAuthenticationException;
+import hhu.propra2.illegalskillsexception.frently.backend.Controller.User.Services.ApplicationUserService;
 import hhu.propra2.illegalskillsexception.frently.backend.Data.Models.ApplicationUser;
 import hhu.propra2.illegalskillsexception.frently.backend.Data.Repositories.IApplicationUserRepository;
 import org.junit.Before;
@@ -19,7 +20,7 @@ import static org.mockito.Mockito.*;
 public class ApplicationUserServiceTest {
 
     private IApplicationUserRepository applicationUserRepository;
-    private IApplicationUserService IApplicationUserService;
+    private hhu.propra2.illegalskillsexception.frently.backend.Controller.User.IServices.IApplicationUserService IApplicationUserService;
     private ArrayList<Optional> userList;
     private List<ApplicationUser> userList2;
 

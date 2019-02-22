@@ -1,5 +1,6 @@
-package hhu.propra2.illegalskillsexception.frently.backend.Controller.Exceptions;
+package hhu.propra2.illegalskillsexception.frently.backend.Controller.User.Exceptions;
 
+import hhu.propra2.illegalskillsexception.frently.backend.Controller.Response.FrentlyException;
 import hhu.propra2.illegalskillsexception.frently.backend.Controller.Response.FrentlyErrorType;
 
 public class UserNotFoundException extends FrentlyException {

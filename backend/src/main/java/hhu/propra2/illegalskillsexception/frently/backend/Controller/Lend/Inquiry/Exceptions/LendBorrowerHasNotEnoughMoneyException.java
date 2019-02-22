@@ -1,7 +1,7 @@
 package hhu.propra2.illegalskillsexception.frently.backend.Controller.Lend.Inquiry.Exceptions;
 
 import hhu.propra2.illegalskillsexception.frently.backend.Controller.Response.FrentlyErrorType;
-import hhu.propra2.illegalskillsexception.frently.backend.Controller.Exceptions.FrentlyException;
+import hhu.propra2.illegalskillsexception.frently.backend.Controller.Response.FrentlyException;
 
 public class LendBorrowerHasNotEnoughMoneyException extends FrentlyException {
     public LendBorrowerHasNotEnoughMoneyException() {

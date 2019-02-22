@@ -1,6 +1,7 @@
-package hhu.propra2.illegalskillsexception.frently.backend.Controller.Exceptions;
+package hhu.propra2.illegalskillsexception.frently.backend.Controller.Borrow.Inquiry.Exceptions;
 
 import hhu.propra2.illegalskillsexception.frently.backend.Controller.Response.FrentlyErrorType;
+import hhu.propra2.illegalskillsexception.frently.backend.Controller.Response.FrentlyException;
 
 public class InquiryNotFoundException extends FrentlyException {
     public InquiryNotFoundException() {

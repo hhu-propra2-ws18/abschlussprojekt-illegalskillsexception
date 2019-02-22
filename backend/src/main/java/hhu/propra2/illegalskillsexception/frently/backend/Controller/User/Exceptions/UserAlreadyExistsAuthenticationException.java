@@ -1,4 +1,4 @@
-package hhu.propra2.illegalskillsexception.frently.backend.Controller.Exceptions;
+package hhu.propra2.illegalskillsexception.frently.backend.Controller.User.Exceptions;
 
 import org.springframework.security.core.AuthenticationException;
 
