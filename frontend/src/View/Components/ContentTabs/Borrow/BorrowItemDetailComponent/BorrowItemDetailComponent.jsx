@@ -88,7 +88,7 @@ export default class BorrowItemDetailComponent extends React.Component {
         return `${date.getFullYear()}-${mo}-${da}`;
     };
 
-    createInquiry = () => {
+    createInquiry = async () => {
         let startString = this.transformDate(this.state.startDate);
         let endString = this.transformDate(this.state.endDate);
 
@@ -98,11 +98,13 @@ export default class BorrowItemDetailComponent extends React.Component {
             endDate: endString,
         };
 
-        let result = borrowItem(data);
-        if (!result.error) {
+        let result = await borrowItem(data);
+        console.log("Result: ", result); //TODO Remove log
+        if (!result.data.error) {
             this.hideBorrowDialog();
             this.props.close();
         } else {
+
         }
     };
 

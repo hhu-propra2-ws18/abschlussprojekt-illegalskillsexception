@@ -14,5 +14,5 @@ export async function getAllBorrowItems(){
 }
 
 export async function borrowItem(data){
-    await borrowItemBackend(data,store.getState().user.token);
+    return await borrowItemBackend(data, store.getState().user.token);
 }
