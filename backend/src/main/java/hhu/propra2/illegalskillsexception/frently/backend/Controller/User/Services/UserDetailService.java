@@ -9,6 +9,7 @@ import hhu.propra2.illegalskillsexception.frently.backend.Data.Models.Transactio
 import hhu.propra2.illegalskillsexception.frently.backend.Controller.User.IServices.IApplicationUserService;
 import hhu.propra2.illegalskillsexception.frently.backend.Controller.User.DTOs.ForeignUserDetailResponse;
 import hhu.propra2.illegalskillsexception.frently.backend.Controller.User.DTOs.UserDetailResponse;
+import hhu.propra2.illegalskillsexception.frently.backend.ProPay.IServices.IProPayService;
 import lombok.AllArgsConstructor;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Service;
@@ -23,6 +24,7 @@ public class UserDetailService implements IUserDetailService {
 
     private final IUserTransactionService userTransactionService;
 
+    private final IProPayService proPayService;
     //private final IPropayService propayService
 
     public UserDetailResponse getUserDetails(Authentication auth) {
@@ -37,9 +39,8 @@ public class UserDetailService implements IUserDetailService {
         List<Transaction> finishedTransaction = userTransactionService.getAllFinishedTransactions(currentUser);
         userDetails.setCompletedTransactions(finishedTransaction);
 
-        //@TODO Deal with propay account
-        //double accountBalance = propayService.getCurrentBalance(currentUser);
-        //userDetails.setAccountBalance(accountBalance);
+        double accountBalance = proPayService.getAccountBalance(currentUser.getUsername());
+        userDetails.setAccountBalance(accountBalance);
 
         return userDetails;
     }

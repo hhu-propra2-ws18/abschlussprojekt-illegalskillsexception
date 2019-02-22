@@ -46,19 +46,22 @@ export default class BorrowItemDetailComponent extends React.Component {
                         accept={() => this.createInquiry()}
                         data={this.props.data}
                     />
-                </Dialog>{" "}
+                </Dialog>
                 <Dialog
                     defaultShow={this.state.showError}
                     style={{ zIndex: 400 }}
-                    onCloseDialog={() => this.setState({ showDialog: false })}
+                    onCloseDialog={() => this.setState({ showError: false })}
                 >
-                    {this.state.errorMessage}
+                    <article>
+                        <h5>An error occured:</h5>
+                        <p>{this.state.errorMessage}</p>
+                    </article>
                 </Dialog>
             </article>
         );
     }
 
-    createInquiry() {
+    async createInquiry() {
         let startString =
             this.startRef.current.yearIndex +
             1969 +
@@ -86,11 +89,16 @@ export default class BorrowItemDetailComponent extends React.Component {
         };
         console.log(data);
 
-        let result = borrowItem(data);
+        let result = await borrowItem(data);
+        console.log(result);
         if (!result.error) {
             this.hideBorrowDialog();
             this.props.close();
         } else {
+            this.setState({
+                showError: true,
+                errorMessage: result.error.errorMessage
+            });
         }
     }
 
