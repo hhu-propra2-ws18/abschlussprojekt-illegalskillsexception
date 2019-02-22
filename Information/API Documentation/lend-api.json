@@ -127,9 +127,8 @@
         "sendData": {
             "data": [
                 {
-                    "transactionId": "Boolean",
-                    "isFaulty": "Boolean",
-                    "itemReturn": "Boolean (usually true)"
+                    "transactionId": "Number (Snowflake)",
+                    "isFaulty": "Boolean"
                 }
             ]
         },
