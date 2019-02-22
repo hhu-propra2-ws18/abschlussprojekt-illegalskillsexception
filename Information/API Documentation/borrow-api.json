@@ -80,5 +80,24 @@
                 "message": "String or null"
             }
         }
+    },
+    "/borrow/transaction/": {
+        "method": "get",
+        "sendData": null,
+        "expectedData": {
+            "data": [
+                {
+                    "isLender": "Boolean",
+                    "title": "String",
+                    "status": "String",
+                    "location": "String",
+                    "returnData": "String"
+                }
+            ],
+            "error": {
+                "code": "Number or null",
+                "message": "String or null"
+            }
+        }
     }
 }

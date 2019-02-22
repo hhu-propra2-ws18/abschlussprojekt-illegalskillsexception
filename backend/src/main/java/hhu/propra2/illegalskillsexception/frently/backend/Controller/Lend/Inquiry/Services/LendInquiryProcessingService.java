@@ -1,14 +1,16 @@
 package hhu.propra2.illegalskillsexception.frently.backend.Controller.Lend.Inquiry.Services;
 
-import hhu.propra2.illegalskillsexception.frently.backend.Controller.Lend.Inquiry.Exceptions.LendBorrowerHasNotEnoughMoneyException;
+import hhu.propra2.illegalskillsexception.frently.backend.Controller.Lend.Inquiry.Exceptions.BorrowerHasNotEnoughMoneyException;
 import hhu.propra2.illegalskillsexception.frently.backend.Controller.Lend.Inquiry.IServices.ILendInquiryProcessingService;
+import hhu.propra2.illegalskillsexception.frently.backend.Data.Exceptions.NoSuchInquiryException;
 import hhu.propra2.illegalskillsexception.frently.backend.Data.Models.ApplicationUser;
 import hhu.propra2.illegalskillsexception.frently.backend.Data.Models.Article;
 import hhu.propra2.illegalskillsexception.frently.backend.Data.Models.Inquiry;
 import hhu.propra2.illegalskillsexception.frently.backend.Data.Models.Transaction;
-import hhu.propra2.illegalskillsexception.frently.backend.ProPay.IServices.IProPayService;
 import hhu.propra2.illegalskillsexception.frently.backend.Data.Repositories.IInquiryRepository;
 import hhu.propra2.illegalskillsexception.frently.backend.Data.Repositories.ITransactionRepository;
+import hhu.propra2.illegalskillsexception.frently.backend.ProPay.Exceptions.ProPayException;
+import hhu.propra2.illegalskillsexception.frently.backend.ProPay.IServices.IProPayService;
 import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -26,17 +28,18 @@ public class LendInquiryProcessingService implements ILendInquiryProcessingServi
     private IProPayService proPayService;
 
     @Override
-    public Inquiry declineInquiry(Long inquiryId) throws Exception {
+    public Inquiry declineInquiry(Long inquiryId) throws NoSuchInquiryException {
 
         Optional<Inquiry> inquiryOpt = inquiryRepository.findById(inquiryId);
-        final Inquiry inquiry = inquiryOpt.orElseThrow(Exception::new);
+        final Inquiry inquiry = inquiryOpt.orElseThrow(NoSuchInquiryException::new);
 
         inquiry.setStatus(Inquiry.Status.DECLINED);
         return inquiry;
     }
 
     @Override
-    public Transaction acceptInquiry(Long inquiryId) throws Exception {
+    public Transaction acceptInquiry(Long inquiryId)
+            throws NoSuchInquiryException, BorrowerHasNotEnoughMoneyException, ProPayException {
 
         Inquiry inquiry = processAcceptedInquiry(inquiryId);
         Article article = inquiry.getArticle();
@@ -46,7 +49,7 @@ public class LendInquiryProcessingService implements ILendInquiryProcessingServi
                 inquiry.getLender().getUsername(), fee+article.getDeposit());
 
         if(!hasEnoughMoney) {
-            throw new LendBorrowerHasNotEnoughMoneyException();
+            throw new BorrowerHasNotEnoughMoneyException();
         }
 
         long reservationId = processPayment(
@@ -63,8 +66,8 @@ public class LendInquiryProcessingService implements ILendInquiryProcessingServi
         return (start.until(end).getDays() + 1) * dailyRate;
     }
 
-    private Inquiry processAcceptedInquiry(Long inquiryId) throws Exception {
-        Inquiry inquiry = inquiryRepository.findById(inquiryId).orElseThrow(Exception::new);
+    private Inquiry processAcceptedInquiry(Long inquiryId) throws NoSuchInquiryException {
+        Inquiry inquiry = inquiryRepository.findById(inquiryId).orElseThrow(NoSuchInquiryException::new);
         inquiry.setStatus(Inquiry.Status.ACCEPTED);
         return inquiryRepository.save(inquiry);
     }
@@ -78,7 +81,7 @@ public class LendInquiryProcessingService implements ILendInquiryProcessingServi
     }
 
     private Long processPayment(ApplicationUser borrower, ApplicationUser lender, double deposit, double fee)
-            throws Exception {
+            throws ProPayException {
         String borrowerName = borrower.getUsername();
         String lenderName = lender.getUsername();
 

@@ -1,8 +1,9 @@
-FROM openjdk:8-jdk-alpine AS frentlyapi
+FROM gradle:4.10.2-jdk8-alpine AS frentlyapi
 WORKDIR /app
 USER root
 COPY . .
-RUN ./gradlew --no-daemon --stacktrace clean bootJar
+USER root
+RUN gradle --no-daemon --stacktrace clean bootJar
 
 FROM openjdk:8-jre-alpine
 RUN apk add --no-cache bash

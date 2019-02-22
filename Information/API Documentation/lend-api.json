@@ -102,6 +102,7 @@
             }
         }
     },
+
     "/lend/transaction/": {
         "method": "get",
         "sendData": null,
@@ -120,15 +121,14 @@
                 "message": "String or null"
             }
         }
-    },
+    } ,
     "/lend/transaction/update": {
         "method": "post",
         "sendData": {
             "data": [
                 {
-                    "transactionId": "Boolean",
-                    "isFaulty": "Boolean",
-                    "itemReturn": "Boolean (usually true)"
+                    "transactionId": "Number (Snowflake)",
+                    "isFaulty": "Boolean"
                 }
             ]
         },

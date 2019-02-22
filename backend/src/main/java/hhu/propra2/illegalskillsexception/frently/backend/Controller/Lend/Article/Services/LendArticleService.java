@@ -2,6 +2,7 @@ package hhu.propra2.illegalskillsexception.frently.backend.Controller.Lend.Artic
 
 import hhu.propra2.illegalskillsexception.frently.backend.Controller.Lend.Article.DTOs.LendArticleUpdate;
 import hhu.propra2.illegalskillsexception.frently.backend.Controller.Lend.Article.IServices.ILendArticleService;
+import hhu.propra2.illegalskillsexception.frently.backend.Data.Exceptions.NoSuchArticleException;
 import hhu.propra2.illegalskillsexception.frently.backend.Data.Models.ApplicationUser;
 import hhu.propra2.illegalskillsexception.frently.backend.Data.Models.Article;
 import hhu.propra2.illegalskillsexception.frently.backend.Data.Repositories.IArticleRepository;
@@ -30,10 +31,10 @@ public class LendArticleService implements ILendArticleService {
     }
 
     @Override
-    public Article updateArticle(LendArticleUpdate lendArticle) throws Exception {
+    public Article updateArticle(LendArticleUpdate lendArticle) throws NoSuchArticleException {
 
         Optional<Article> articleOpt = articleRepo.findById(lendArticle.getArticleId());
-        Article article = articleOpt.orElseThrow(Exception::new);
+        Article article = articleOpt.orElseThrow(NoSuchArticleException::new);
 
         article.setTitle(lendArticle.getTitle());
         article.setDeposit(lendArticle.getDeposit());

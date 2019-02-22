@@ -24,7 +24,7 @@ public class UserDetailServiceTest {
 
     @Test
     public void getUserDetailServiceTest_One() {
-        UserDetailService service = new UserDetailService(mockApplicationUserService, mockUserTransactionService);
+        UserDetailService service = new UserDetailService(mockApplicationUserService, mockUserTransactionService,null);
 
         UserDetailResponse response = service.getUserDetails(null);
 
@@ -36,7 +36,7 @@ public class UserDetailServiceTest {
 
     @Test
     public void getForeignUserDetailServiceTest_One() throws UserNotFoundException {
-        UserDetailService service = new UserDetailService(mockApplicationUserService, mockUserTransactionService);
+        UserDetailService service = new UserDetailService(mockApplicationUserService, mockUserTransactionService,null);
 
         ForeignUserDetailResponse response = service.getForeignUserDetails("dude");
 
@@ -46,7 +46,7 @@ public class UserDetailServiceTest {
 
     @Test(expected = UserNotFoundException.class)
     public void getForeignUserDetailServiceTest_NotFound() throws UserNotFoundException {
-        UserDetailService service = new UserDetailService(mockApplicationUserService, mockUserTransactionService);
+        UserDetailService service = new UserDetailService(mockApplicationUserService, mockUserTransactionService,null);
 
         ForeignUserDetailResponse response = service.getForeignUserDetails("no dude");
     }
