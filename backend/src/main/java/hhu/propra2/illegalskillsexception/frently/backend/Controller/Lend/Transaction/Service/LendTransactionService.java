@@ -14,6 +14,7 @@ import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
+import java.util.List;
 
 @Service
 @AllArgsConstructor
@@ -62,5 +63,11 @@ public class LendTransactionService implements ILendTransactionService {
 
     private double calculateFee(LocalDate start, Double dailyRate) {
         return (start.until(LocalDate.now()).getDays() + 1) * dailyRate;
+    }
+
+    @Override
+    public List<Transaction> retrieveAllOfCurrentUser(Authentication auth) {
+        ApplicationUser currentUser = userService.getCurrentUser(auth);
+        return transactionRepository.findAllByInquiry_Borrower_Id(currentUser.getId());
     }
 }
