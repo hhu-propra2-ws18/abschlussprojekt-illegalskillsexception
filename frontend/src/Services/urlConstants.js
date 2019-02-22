@@ -2,7 +2,7 @@ export const BASEURL = "http://localhost:8080/";
 
 export const USER = "user";
 
-export const SIGN_UP = `${BASEURL}users/sign-up`;
+export const SIGN_UP = `${BASEURL}user/sign-up`;
 export const LOGINURL = `${BASEURL}login`;
 export const USER_PROFILE = `${BASEURL}${USER}/`;
 
