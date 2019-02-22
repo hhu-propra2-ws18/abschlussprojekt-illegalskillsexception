@@ -4,6 +4,7 @@ import DatePicker from "react-uwp/DatePicker";
 import Button from "react-uwp/Button";
 import Dialog from "react-uwp/Dialog";
 import BorrowItemAcceptanceDialog from "../BorrowItemAcceptanceDialog/BorrowItemAcceptanceDialog";
+import BorrowItemErrorDialog from "../BorrowItemErrorDialog/BorrowItemErrorDialog";
 import { borrowItem } from "../../../../../Services/Borrow/borrowCompleteService";
 
 export default class BorrowItemDetailComponent extends React.Component {
@@ -12,7 +13,10 @@ export default class BorrowItemDetailComponent extends React.Component {
         this.state = {
             showDialog: false,
             showError: false,
-            errorMessage: "",
+            error: {
+                errorType : "",
+                errorMessage : ""
+            },
             startDate: new Date(),
             endDate: new Date(),
         };
@@ -68,7 +72,7 @@ export default class BorrowItemDetailComponent extends React.Component {
                     style={{ zIndex: 400 }}
                     onCloseDialog={() => this.setState({ showDialog: false })}
                 >
-                    {this.state.errorMessage}
+                    <BorrowItemErrorDialog error={this.state.error}/>
                 </Dialog>
             </article>
         );
@@ -104,7 +108,11 @@ export default class BorrowItemDetailComponent extends React.Component {
             this.hideBorrowDialog();
             this.props.close();
         } else {
-
+            this.setState({
+                showError:true,
+                error:result.data.error
+                }
+            )
         }
     };
 
