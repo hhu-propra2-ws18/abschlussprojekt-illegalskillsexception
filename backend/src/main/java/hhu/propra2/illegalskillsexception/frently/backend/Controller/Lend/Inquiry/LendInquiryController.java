@@ -1,6 +1,5 @@
 package hhu.propra2.illegalskillsexception.frently.backend.Controller.Lend.Inquiry;
 
-import hhu.propra2.illegalskillsexception.frently.backend.Controller.Lend.Inquiry.DTOs.InquiryIDRequest;
 import hhu.propra2.illegalskillsexception.frently.backend.Controller.Response.FrentlyError;
 import hhu.propra2.illegalskillsexception.frently.backend.Controller.Response.FrentlyResponse;
 import hhu.propra2.illegalskillsexception.frently.backend.Controller.Response.FrentlyException;
@@ -41,7 +40,7 @@ public class LendInquiryController {
     }
 
     @PostMapping("/decline")
-    public FrentlyResponse declineLendInquiry(@RequestBody InquiryIDRequest inquiryId) {
+    public FrentlyResponse declineLendInquiry(@RequestBody InquiryChangeStatusDTO inquiryId) {
 
         FrentlyResponse response = new FrentlyResponse();
 
@@ -55,7 +54,7 @@ public class LendInquiryController {
     }
 
     @PostMapping("/accept")
-    public FrentlyResponse accept(@RequestBody InquiryIDRequest inquiryId) {
+    public FrentlyResponse accept(@RequestBody InquiryChangeStatusDTO inquiryId) {
         FrentlyResponse response = new FrentlyResponse();
 
         try {

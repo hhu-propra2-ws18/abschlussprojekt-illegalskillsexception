@@ -81,7 +81,7 @@
 
     "/lend/inquiry/accept": {
         "method": "post",
-        "sendData": "Number (Snowflake)",
+        "sendData": { "inquiryId": "Number (Snowflake)" },
         "expectedData": {
             "data": {},
             "error": {
@@ -92,7 +92,7 @@
     },
     "/lend/inquiry/decline": {
         "method": "post",
-        "sendData": "Number (Snowflake)",
+        "sendData": { "inquiryId": "Number (Snowflake)" },
         "expectedData": {
             "data": {},
 

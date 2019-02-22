@@ -1,4 +1,4 @@
-export const BASEURL = "http://localhost:8080/api/";
+export const BASEURL = "http://localhost:8080/";
 
 export const USER = "user";
 
@@ -25,23 +25,5 @@ export const INQUIRY_ACCEPT = `${BASEURL}${LEND}inquiry/accept`;
 export const INQUIRY_DECLINE = `${BASEURL}${LEND}inquiry/decline`;
 
 export const TRANSACTION_GETALL = `${BASEURL}${LEND}transaction/getAll`;
-export const TRANSACTION_PROBLEM = `${BASEURL}transaction/problem`;
-
-/*
-
-export const BASEURL = "http://localhost:8080/api/";
-
-export const USER_PROFILE = `${BASEURL}${USER}/`;
-export const SIGN_UP = `${BASEURL}${USER}/sign-up`;
-export const LOGINURL = `http://localhost:8080/login`;
-
-export const INQUIRY_GETALL_BORROW = `${BASEURL}${BORROW}inquiry/`;
-
-export const TRANSACTION_GETALL = `${BASEURL}${BORROW}transaction/`;
-
-export const INQUIRY_ACCEPT = `${BASEURL}${LEND}inquiry/accept`;
-export const INQUIRY_DECLINE = `${BASEURL}${LEND}inquiry/decline`;
-
-export const TRANSACTION_GETALL = `${BASEURL}${LEND}transaction/`;
 export const TRANSACTION_FINISHED = `${BASEURL}${LEND}transaction/update`
-export const TRANSACTION_PROBLEM = `${BASEURL}${LEND}transaction/update`;
+export const TRANSACTION_PROBLEM = `${BASEURL}${LEND}transaction/problem`;

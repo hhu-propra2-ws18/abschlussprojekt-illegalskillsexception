@@ -68,6 +68,6 @@ public class LendTransactionService implements ILendTransactionService {
     @Override
     public List<Transaction> retrieveAllOfCurrentUser(Authentication auth) {
         ApplicationUser currentUser = userService.getCurrentUser(auth);
-        return transactionRepository.findAllByInquiry_Borrower_Id(currentUser.getId());
+        return transactionRepository.findAllByInquiry_Lender_Id(currentUser.getId());
     }
 }
