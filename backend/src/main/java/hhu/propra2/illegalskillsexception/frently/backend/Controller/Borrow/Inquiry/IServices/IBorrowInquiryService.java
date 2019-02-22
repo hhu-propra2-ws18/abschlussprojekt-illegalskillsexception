@@ -3,7 +3,7 @@ package hhu.propra2.illegalskillsexception.frently.backend.Controller.Borrow.Inq
 import hhu.propra2.illegalskillsexception.frently.backend.Controller.Borrow.Inquiry.DTOs.BorrowInquiryDTO;
 import hhu.propra2.illegalskillsexception.frently.backend.Controller.Borrow.Inquiry.Exceptions.ArticleNotAvailableException;
 import hhu.propra2.illegalskillsexception.frently.backend.Controller.Borrow.Inquiry.Exceptions.InvalidLendingPeriodException;
-import hhu.propra2.illegalskillsexception.frently.backend.Controller.Borrow.Article.Exceptions.NoSuchArticleException;
+import hhu.propra2.illegalskillsexception.frently.backend.Data.Exceptions.NoSuchArticleException;
 import hhu.propra2.illegalskillsexception.frently.backend.Data.Models.Inquiry;
 import org.springframework.security.core.Authentication;
 
