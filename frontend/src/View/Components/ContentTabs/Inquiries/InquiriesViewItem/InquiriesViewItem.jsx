@@ -8,16 +8,17 @@ import {
 
 export default class InquiriesViewItem extends React.Component {
     render() {
+
         return (
             <article>
-                <h3>{this.props.data.title}</h3>
-                <p>{this.props.data.description}</p>
+                <h3><span>{this.props.data.article.title} </span></h3>
+                <p><span>{this.props.data.article.description} </span> </p>
                 <h5>Lendtime:</h5>
-                <p>{this.props.data.startDate} to {this.props.data.endDate}</p>
+                <p>{this.props.data.startDate} to {this.props.data.endDate} </p>
                 {this.props.isLendingInquiry ? (
                     <div>
                         <h5>Borrower:</h5>
-                        <p>{this.props.data.borrower.username}</p>
+                        <p>{this.props.data.borrower.username} </p>
                         <div className="dialog-buttons-div">
                             <Button onClick={() => this.accept()}>
                                 Accept
@@ -30,9 +31,9 @@ export default class InquiriesViewItem extends React.Component {
                 ) : (
                     <div>
                         <h5>Lender:</h5>
-                        <p>{this.props.data.lender.username}</p>
+                        <p>{this.props.data.article.owner.username} </p>
                         <h5>Status: </h5>
-                        <p>{this.props.data.status}</p>
+                        <p>{this.props.data.status} </p>
                     </div>
                 )}
             </article>

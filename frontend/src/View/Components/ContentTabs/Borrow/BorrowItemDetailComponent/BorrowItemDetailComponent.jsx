@@ -84,7 +84,7 @@ export default class BorrowItemDetailComponent extends React.Component {
             startDate: startString,
             endDate: endString
         };
-        console.log(data);
+        console.log(data);  //TODO remove log
 
         let result = borrowItem(data);
         if (!result.error) {

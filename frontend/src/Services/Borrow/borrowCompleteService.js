@@ -14,9 +14,8 @@ export async function getAllBorrowItems(){
     let data = await getAllBorrowItemsBackend(store.getState().user.token);
 
     let list = data.data.data;
-    console.log("Borrow onload list",list);
 
-    let action = getSetBorrowListAction(list)
+    let action = getSetBorrowListAction(list);
     store.dispatch(action);
 }
 
