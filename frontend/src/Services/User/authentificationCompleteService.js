@@ -1,5 +1,3 @@
-import axios from "axios";
-
 import { store } from "../../Store/reduxInit";
 import { getLoginUserAction } from "../../Store/UserStore/UserActions";
 

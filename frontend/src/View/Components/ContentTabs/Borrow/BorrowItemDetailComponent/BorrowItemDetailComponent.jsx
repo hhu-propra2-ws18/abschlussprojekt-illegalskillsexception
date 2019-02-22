@@ -9,7 +9,13 @@ import { borrowItem } from "../../../../../Services/Borrow/borrowCompleteService
 export default class BorrowItemDetailComponent extends React.Component {
     constructor(props) {
         super(props);
-        this.state = { showDialog: false, showError: false, errorMessage: "" };
+        this.state = {
+            showDialog: false,
+            showError: false,
+            errorMessage: "",
+            startDate: new Date(),
+            endDate: new Date(),
+        };
 
         this.startRef = React.createRef();
         this.endRef = React.createRef();
@@ -23,9 +29,17 @@ export default class BorrowItemDetailComponent extends React.Component {
                 <h5>Location:</h5>
                 <p>{this.props.data.location}</p>
                 <h5>Start date:</h5>
-                <DatePicker ref={this.startRef} />
+                <DatePicker
+                    ref={this.startRef}
+                    onChangeDate={this.setStartDate}
+                    defaultDate={this.state.startDate}
+                />
                 <h5>End date:</h5>
-                <DatePicker ref={this.endRef} />
+                <DatePicker
+                    ref={this.endRef}
+                    onChangeDate={this.setEndDate}
+                    defaultDate={this.state.endDate}
+                />
                 <h5>Daily rate:</h5>
                 <p>{this.props.data.dailyRate}</p>
                 <h5>Safety deposit:</h5>
@@ -45,6 +59,8 @@ export default class BorrowItemDetailComponent extends React.Component {
                         close={() => this.hideBorrowDialog()}
                         accept={() => this.createInquiry()}
                         data={this.props.data}
+                        startDate={this.transformDate(this.state.startDate)}
+                        endDate={this.transformDate(this.state.endDate)}
                     />
                 </Dialog>{" "}
                 <Dialog
@@ -58,33 +74,29 @@ export default class BorrowItemDetailComponent extends React.Component {
         );
     }
 
-    createInquiry() {
-        let startString =
-            this.startRef.current.yearIndex +
-            1969 +
-            "-" +
-            (this.startRef.current.monthIndex < 10 ? "0" : "") +
-            this.startRef.current.monthIndex +
-            "-" +
-            (this.startRef.current.dateIndex < 10 ? "0" : "") +
-            this.startRef.current.dateIndex;
+    setStartDate = () => {
+        this.setState({startDate: this.startRef.current.state.currDate})
+    };
 
-        let endString =
-            this.endRef.current.yearIndex +
-            1969 +
-            "-" +
-            (this.endRef.current.monthIndex < 10 ? "0" : "") +
-            this.endRef.current.monthIndex +
-            "-" +
-            (this.endRef.current.dateIndex < 10 ? "0" : "") +
-            this.endRef.current.dateIndex;
+    setEndDate = () => {
+        this.setState({endDate: this.endRef.current.state.currDate})
+    };
+
+    transformDate = (date) => {
+        const da = `${(date.getDate()) < 10 ? "0" : ""}${date.getDate()}`;
+        const mo = `${(date.getMonth() + 1) < 10 ? "0" : ""}${date.getMonth() + 1}`;
+        return `${date.getFullYear()}-${mo}-${da}`;
+    };
+
+    createInquiry = () => {
+        let startString = this.transformDate(this.state.startDate);
+        let endString = this.transformDate(this.state.endDate);
 
         let data = {
             articleId: this.props.data.id,
             startDate: startString,
-            endDate: endString
+            endDate: endString,
         };
-        console.log(data);  //TODO remove log
 
         let result = borrowItem(data);
         if (!result.error) {
@@ -92,7 +104,7 @@ export default class BorrowItemDetailComponent extends React.Component {
             this.props.close();
         } else {
         }
-    }
+    };
 
     hideBorrowDialog() {
         this.setState({ showDialog: false });
