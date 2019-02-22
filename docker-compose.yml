@@ -19,7 +19,7 @@ services:
     container_name: frentlydb
     restart: always
     volumes:
-      - .mysql:/var/lib/mysql
+      - ./mysql:/var/lib/mysql
     environment:
       MYSQL_ROOT_PASSWORD: secret
       MYSQL_DATABASE: frentlydb
