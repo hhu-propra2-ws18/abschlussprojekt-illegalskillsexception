@@ -13,14 +13,36 @@ export async function getAllTransactionsBackend(
     return data.data.data;
 }
 
-export async function postTransactionProblem(
+export async function postTransactionFinishedBackend(id, token) {
+    let data = await Axios.post(
+        url,
+        {
+            transactionId: id,
+            isFaulty: false,
+            itemReturn: true
+        },
+        {
+            headers: {
+                Authorization: token
+            }
+        }
+    );
+
+    return data;
+}
+
+export async function postTransactionProblemBackend(
     id,
     token,
     url = TRANSACTION_PROBLEM
 ) {
     let data = await Axios.post(
         url,
-        { id: id },
+        {
+            transactionId: id,
+            isFaulty: true,
+            itemReturn: true
+        },
         {
             headers: {
                 Authorization: token

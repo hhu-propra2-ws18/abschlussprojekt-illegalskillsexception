@@ -21,6 +21,17 @@ public class LendTransactionController {
 
     private final ILendTransactionService transactionService;
 
+    @RequestMapping("/")
+    public FrentlyResponse retrieveAllOfUser(Authentication auth) {
+        FrentlyResponse response = new FrentlyResponse();
+        try {
+            response.setData(transactionService.retrieveAllOfCurrentUser(auth));
+        } catch (Exception e) {
+            response.setError(new FrentlyError(e));
+        }
+        return response;
+    }
+
     @PostMapping("/update")
     public FrentlyResponse updateTransaction(Authentication auth, @RequestBody LendTransactionUpdate updateDTO){
         FrentlyResponse response = new FrentlyResponse();

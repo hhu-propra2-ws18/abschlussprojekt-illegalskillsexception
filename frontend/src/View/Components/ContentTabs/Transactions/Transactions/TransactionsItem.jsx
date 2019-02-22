@@ -1,5 +1,6 @@
 import React from "react";
 import Button from "react-uwp/Button";
+import { transactionItemReturned, createTransactionProblem } from "../../../../../Services/Transaction/transactionCompleteService";
 
 export default class TransactionsItem extends React.Component {
     render() {
@@ -13,13 +14,11 @@ export default class TransactionsItem extends React.Component {
                 {
                     this.props.isLender ? 
                     <div>
-                        <Button >Item was returned</Button>
-                        <Button>
+                        <Button onClick={()=> transactionItemReturned()}>Item was returned</Button>
+                        <Button onClick={()=>createTransactionProblem()}>
                             Problem occured
                         </Button>
-                    </div> : <div>
-                        <Button>Item returned</Button>
-                    </div>
+                    </div> : null
                 }{this.props.data.returnDate}</p>
             </article>
         );

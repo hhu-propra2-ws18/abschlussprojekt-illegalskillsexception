@@ -1,4 +1,9 @@
-import { getAllTransactionsBackend, postTransactionProblem } from "./transactionBackendService";
+import {
+    getAllTransactionsBackend,
+    postTransactionProblem,
+    postTransactionFinishedBackend,
+    postTransactionProblemBackend
+} from "./transactionBackendService";
 import { store } from "../../Store/reduxInit";
 import { getSetTransactionItemListAction } from "../../Store/TransactionStore/TransactionActions";
 
@@ -9,9 +14,12 @@ export async function getAllTransaction() {
     store.dispatch(action);
 }
 
+export async function transactionItemReturned() {
+    return await postTransactionFinishedBackend();
+}
 
-export async function createTransactionProblem(id){
-    let result = await postTransactionProblem(id,store.getState().user.token);
+export async function createTransactionProblem(id) {
+    let result = await postTransactionProblemBackend(id, store.getState().user.token);
 
     return result;
 }
