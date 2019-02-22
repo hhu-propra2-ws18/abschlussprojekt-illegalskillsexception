@@ -1,7 +1,7 @@
-package hhu.propra2.illegalskillsexception.frently.backend.Controller.Borrow.Article.Exceptions;
+package hhu.propra2.illegalskillsexception.frently.backend.Data.Exceptions;
 
-import hhu.propra2.illegalskillsexception.frently.backend.Controller.Response.FrentlyException;
 import hhu.propra2.illegalskillsexception.frently.backend.Controller.Response.FrentlyErrorType;
+import hhu.propra2.illegalskillsexception.frently.backend.Controller.Response.FrentlyException;
 
 public class NoSuchArticleException extends FrentlyException {
     public NoSuchArticleException() {

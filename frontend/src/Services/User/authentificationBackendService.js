@@ -1,5 +1,10 @@
 import axios from "axios";
-import { SIGN_UP, LOGINURL, USER_PROFILE } from "../urlConstants";
+import {
+    SIGN_UP,
+    LOGINURL,
+    USER_PROFILE,
+    CHARGE_AMOUNT
+} from "../urlConstants";
 
 export const loginUserBackend = async (username, password, url = LOGINURL) => {
     let response = await axios.post(url, {
@@ -25,5 +30,13 @@ export async function registerUserBackend(
 }
 
 export async function getUserDetailsBackend(token, url = USER_PROFILE) {
-    await axios.get(url, { headers: { Authorization: token } });
+    return await axios.get(url, { headers: { Authorization: token } });
+}
+
+export async function chargeAmountBackend(token, url = CHARGE_AMOUNT) {
+    return await axios.post(
+        url,
+        { amount: 50 },
+        { headers: { Authorization: token } }
+    );
 }

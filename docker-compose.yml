@@ -1,8 +1,5 @@
 version: "3.1"
 
-volumes:
-  mysql:
-
 services:
 
   proxy:
@@ -19,10 +16,10 @@ services:
 
   frentlydb:
     image: mysql:5.7.24
-    container_name: mysql
+    container_name: frentlydb
     restart: always
     volumes:
-      - mysql:/var/lib/mysql
+      - ./mysql:/var/lib/mysql
     environment:
       MYSQL_ROOT_PASSWORD: secret
       MYSQL_DATABASE: frentlydb

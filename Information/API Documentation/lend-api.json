@@ -102,15 +102,33 @@
             }
         }
     },
-
+   
+    "/lend/transaction/": {
+        "method": "get",
+        "sendData": null,
+        "expectedData": {
+            "data": [
+                {
+                    "isLender": "Boolean",
+                    "title": "String",
+                    "status": "String",
+                    "location": "String",
+                    "returnData": "String"
+                }
+            ],
+            "error": {
+                "code": "Number or null",
+                "message": "String or null"
+            }
+        }
+    } ,
     "/lend/transaction/update": {
         "method": "post",
         "sendData": {
             "data": [
                 {
-                    "transactionId": "Boolean",
-                    "isFaulty": "Boolean",
-                    "itemReturn": "Boolean (usually true)"
+                    "transactionId": "Number (Snowflake)",
+                    "isFaulty": "Boolean"
                 }
             ]
         },
