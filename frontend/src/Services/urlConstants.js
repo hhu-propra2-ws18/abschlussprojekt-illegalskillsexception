@@ -6,6 +6,7 @@ export const SIGN_UP = `${BASEURL}${USER}/sign-up`;
 export const LOGINURL = `${BASEURL}login`;
 export const USER_PROFILE = `${BASEURL}${USER}/`;
 export const CHARGE_AMOUNT = `${BASEURL}${USER}/charge`;
+export const OVERDUE_NOTIFICATION = `${BASEURL}${USER}/notification`;
 
 export const BORROW = "borrow/";
 

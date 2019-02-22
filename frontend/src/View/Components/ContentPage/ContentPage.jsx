@@ -3,6 +3,7 @@ import NavigationView from "react-uwp/NavigationView";
 import SplitViewCommand from "react-uwp/SplitViewCommand";
 import Tabs, { Tab } from "react-uwp/Tabs";
 
+import { store } from "../../../Store/reduxInit";
 import BorrowView from "../ContentTabs/Borrow/BorrowView";
 import LendView from "../ContentTabs/Lend/LendView.jsx";
 import TransactionsView from "../ContentTabs/Transactions/TransactionsView";
@@ -11,6 +12,7 @@ import ConflictView from "../ContentTabs/Conflict/ConflictView";
 import UserView from "../ContentTabs/User/UserView";
 
 import "./ContentPage.css";
+import {getAllOverdueTransactions} from "../../../Services/User/userNotificationService";
 
 export default class ContentPage extends React.Component {
     constructor(props) {
@@ -20,6 +22,14 @@ export default class ContentPage extends React.Component {
         this.navigation = React.createRef();
     }
 
+    async componentDidMount(){
+        let data = await getAllOverdueTransactions(store.getState().user.token);
+        let list = data.data.data;
+        if (list.length === 0){
+            window.alert("TEST")
+        }
+        //TODO write else
+    }
     render() {
         return (
             <NavigationView

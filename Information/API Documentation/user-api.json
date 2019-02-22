@@ -72,7 +72,14 @@
         },
         "expectedData": {
             "data": {
-                "isSupportService": "Boolean"
+                "isSupportService": "Boolean",
+                "listOfDelayedArticles": [
+                    {
+                        "title": "String",
+                        "owner": "String",
+                        "endDate": "Date (Template: yyyy-mm-dd)"
+                    }
+                ]
             },
             "error": {
                 "code": "Number or null",
