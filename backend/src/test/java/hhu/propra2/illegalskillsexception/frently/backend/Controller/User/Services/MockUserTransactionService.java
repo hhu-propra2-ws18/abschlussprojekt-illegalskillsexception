@@ -14,4 +14,9 @@ public class MockUserTransactionService implements IUserTransactionService {
         list.add(new Transaction());
         return list;
     }
+
+    @Override
+    public List<Transaction> allOverdueTransactions(long userId) {
+        return null;
+    }
 }
