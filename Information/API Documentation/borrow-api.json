@@ -81,7 +81,7 @@
             }
         }
     },
-    "borrow/transaction/": {
+    "/borrow/transaction/": {
         "method": "get",
         "sendData": null,
         "expectedData": {
