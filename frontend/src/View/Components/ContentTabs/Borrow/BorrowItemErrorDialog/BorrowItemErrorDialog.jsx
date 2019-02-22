@@ -1,5 +1,6 @@
 import React from "react";
 
+import Button from "react-uwp/Button";
 import "./BorrowItemErrorDialog.css";
 
 export default class BorrowItemAcceptanceDialog extends React.Component {
@@ -18,6 +19,7 @@ export default class BorrowItemAcceptanceDialog extends React.Component {
                             Error message: {this.props.error.errorMessage}
                         </span>
                     </div>
+                    <Button onClick={this.props.closeDialog}>Cancel</Button>
                 </div>
             </article>
         );
