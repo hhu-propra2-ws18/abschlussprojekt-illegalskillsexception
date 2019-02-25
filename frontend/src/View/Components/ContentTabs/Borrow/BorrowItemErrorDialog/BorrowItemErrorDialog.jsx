@@ -11,12 +11,7 @@ export default class BorrowItemAcceptanceDialog extends React.Component {
                 <div>
                     <div>
                         <span>
-                            Error type: {this.props.error.errorType}
-                        </span>
-                    </div>
-                    <div>
-                        <span>
-                            Error message: {this.props.error.errorMessage}
+                            {this.props.errorMessage}
                         </span>
                     </div>
                     <Button onClick={this.props.closeDialog}>Cancel</Button>
