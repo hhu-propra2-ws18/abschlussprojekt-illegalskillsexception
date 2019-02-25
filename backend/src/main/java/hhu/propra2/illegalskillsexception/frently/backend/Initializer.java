@@ -2,10 +2,9 @@ package hhu.propra2.illegalskillsexception.frently.backend;
 
 import com.github.javafaker.Faker;
 import hhu.propra2.illegalskillsexception.frently.backend.Controller.User.IServices.IApplicationUserService;
-import hhu.propra2.illegalskillsexception.frently.backend.Data.Models.ApplicationUser;
-import hhu.propra2.illegalskillsexception.frently.backend.Data.Models.Article;
-import hhu.propra2.illegalskillsexception.frently.backend.Data.Repositories.IApplicationUserRepository;
-import hhu.propra2.illegalskillsexception.frently.backend.Data.Repositories.IArticleRepository;
+import hhu.propra2.illegalskillsexception.frently.backend.Data.Models.*;
+import hhu.propra2.illegalskillsexception.frently.backend.Data.Repositories.*;
+import hhu.propra2.illegalskillsexception.frently.backend.ProPay.Models.MoneyTransfer;
 import lombok.AllArgsConstructor;
 import org.springframework.boot.web.servlet.ServletContextInitializer;
 import org.springframework.stereotype.Component;
@@ -36,7 +35,7 @@ public class Initializer implements ServletContextInitializer {
         final Faker faker = new Faker(Locale.ENGLISH);
 
         // Create Roles
-        String[] names = {"Admin"};
+        String[] names = {"ADMIN"};
         List<Role> roles = Arrays.stream(names).map(value -> {
             Role r = new Role();
             r.setName(value);
@@ -44,7 +43,6 @@ public class Initializer implements ServletContextInitializer {
             return r;
         }).collect(Collectors.toList());
         roles.forEach(this.roleRepository::save);
-        System.out.println(roles);
 
 
         // Create Users

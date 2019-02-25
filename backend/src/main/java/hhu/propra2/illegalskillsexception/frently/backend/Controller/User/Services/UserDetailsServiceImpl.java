@@ -37,11 +37,10 @@ public class UserDetailsServiceImpl implements UserDetailsService {
 
     private Set getAuthority(ApplicationUser user) {
         Set authorities = new HashSet<>();
-        /*
+
         user.getRoles().forEach(role -> {
             authorities.add(new SimpleGrantedAuthority("ROLE_" + role.getName()));
         });
-        */
         return authorities;
     }
 }
