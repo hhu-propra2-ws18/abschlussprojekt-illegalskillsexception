@@ -1,9 +1,9 @@
 package hhu.propra2.illegalskillsexception.frently.backend.Controller.User.Services;
 
-import hhu.propra2.illegalskillsexception.frently.backend.Controller.User.Exceptions.UserNotFoundException;
-import hhu.propra2.illegalskillsexception.frently.backend.Data.Models.ApplicationUser;
 import hhu.propra2.illegalskillsexception.frently.backend.Controller.User.DTOs.ForeignUserDetailResponse;
 import hhu.propra2.illegalskillsexception.frently.backend.Controller.User.DTOs.UserDetailResponse;
+import hhu.propra2.illegalskillsexception.frently.backend.Controller.User.Exceptions.UserNotFoundException;
+import hhu.propra2.illegalskillsexception.frently.backend.Data.Models.ApplicationUser;
 import hhu.propra2.illegalskillsexception.frently.backend.ProPay.Services.ProPayService;
 import org.junit.Assert;
 import org.junit.Before;
@@ -29,7 +29,7 @@ public class UserDetailServiceTest {
 
     @Test
     public void getUserDetailServiceTest_One() {
-        UserDetailService service = new UserDetailService(mockApplicationUserService, mockUserTransactionService,mockPropay);
+        UserDetailService service = new UserDetailService(mockApplicationUserService, mockUserTransactionService, mockPropay);
 
         UserDetailResponse response = service.getUserDetails(null);
 
@@ -41,7 +41,7 @@ public class UserDetailServiceTest {
 
     @Test
     public void getForeignUserDetailServiceTest_One() throws UserNotFoundException {
-        UserDetailService service = new UserDetailService(mockApplicationUserService, mockUserTransactionService,null);
+        UserDetailService service = new UserDetailService(mockApplicationUserService, mockUserTransactionService, null);
 
         ForeignUserDetailResponse response = service.getForeignUserDetails("dude");
 
@@ -51,7 +51,7 @@ public class UserDetailServiceTest {
 
     @Test(expected = UserNotFoundException.class)
     public void getForeignUserDetailServiceTest_NotFound() throws UserNotFoundException {
-        UserDetailService service = new UserDetailService(mockApplicationUserService, mockUserTransactionService,null);
+        UserDetailService service = new UserDetailService(mockApplicationUserService, mockUserTransactionService, null);
 
         ForeignUserDetailResponse response = service.getForeignUserDetails("no dude");
     }

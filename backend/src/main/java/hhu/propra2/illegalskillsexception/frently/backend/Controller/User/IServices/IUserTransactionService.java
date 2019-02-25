@@ -3,7 +3,6 @@ package hhu.propra2.illegalskillsexception.frently.backend.Controller.User.IServ
 import hhu.propra2.illegalskillsexception.frently.backend.Controller.User.DTOs.MoneyTransferDTO;
 import hhu.propra2.illegalskillsexception.frently.backend.Data.Models.ApplicationUser;
 import hhu.propra2.illegalskillsexception.frently.backend.Data.Models.Transaction;
-import hhu.propra2.illegalskillsexception.frently.backend.ProPay.Models.MoneyTransfer;
 
 import java.util.List;
 

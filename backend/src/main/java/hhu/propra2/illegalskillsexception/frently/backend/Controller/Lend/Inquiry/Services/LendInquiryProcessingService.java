@@ -44,9 +44,9 @@ public class LendInquiryProcessingService implements ILendInquiryProcessingServi
 
         double fee = calculateFee(inquiry.getStartDate(), inquiry.getEndDate(), article.getDailyRate());
         boolean hasEnoughMoney = proPayService.hasEnoughMoney(
-                inquiry.getLender().getUsername(), fee+article.getDeposit());
+                inquiry.getLender().getUsername(), fee + article.getDeposit());
 
-        if(!hasEnoughMoney) {
+        if (!hasEnoughMoney) {
             throw new BorrowerHasNotEnoughMoneyException();
         }
 

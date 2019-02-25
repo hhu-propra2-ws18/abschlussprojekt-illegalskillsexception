@@ -11,11 +11,9 @@ import org.springframework.stereotype.Component;
 
 import javax.servlet.ServletContext;
 import java.time.LocalDate;
-import java.util.Arrays;
-import java.util.Locale;
-import java.util.stream.IntStream;
 import java.util.*;
 import java.util.stream.Collectors;
+import java.util.stream.IntStream;
 
 @Component
 @AllArgsConstructor
@@ -76,7 +74,7 @@ public class Initializer implements ServletContextInitializer {
             });
 
             // Create Articles
-            Article standardZeroArticle= new Article();
+            Article standardZeroArticle = new Article();
             standardZeroArticle.setTitle("A painting");
             standardZeroArticle.setDescription("Some famous painting ending in isa");
             standardZeroArticle.setDailyRate(0.0);
@@ -85,7 +83,7 @@ public class Initializer implements ServletContextInitializer {
             standardZeroArticle.setOwner(standardUser);
             this.articleRepo.save(standardZeroArticle);
 
-            Article standardNotZeroArticle= new Article();
+            Article standardNotZeroArticle = new Article();
             standardNotZeroArticle.setTitle("Another painting");
             standardNotZeroArticle.setDescription("Some famous painting ending in isa");
             standardNotZeroArticle.setDailyRate(20.0);
@@ -99,8 +97,8 @@ public class Initializer implements ServletContextInitializer {
             inquiryZeroArticle.setStatus(Inquiry.Status.ACCEPTED);
             inquiryZeroArticle.setLender(standardUser);
             inquiryZeroArticle.setBorrower(standardUserBorrow);
-            inquiryZeroArticle.setStartDate(LocalDate.of(2019,1,12));
-            inquiryZeroArticle.setEndDate(LocalDate.of(2019,1,22));
+            inquiryZeroArticle.setStartDate(LocalDate.of(2019, 1, 12));
+            inquiryZeroArticle.setEndDate(LocalDate.of(2019, 1, 22));
             this.inquiryRepo.save(inquiryZeroArticle);
 
             Inquiry inquiryNotZeroArticle = new Inquiry();
@@ -108,8 +106,8 @@ public class Initializer implements ServletContextInitializer {
             inquiryNotZeroArticle.setStatus(Inquiry.Status.OPEN);
             inquiryNotZeroArticle.setLender(standardUser);
             inquiryNotZeroArticle.setBorrower(standardUserBorrow);
-            inquiryNotZeroArticle.setStartDate(LocalDate.of(2019,2,12));
-            inquiryNotZeroArticle.setEndDate(LocalDate.of(2019,1,22));
+            inquiryNotZeroArticle.setStartDate(LocalDate.of(2019, 2, 12));
+            inquiryNotZeroArticle.setEndDate(LocalDate.of(2019, 1, 22));
             this.inquiryRepo.save(inquiryNotZeroArticle);
 
             Transaction transactionFromInquiryZeroArticle = new Transaction();

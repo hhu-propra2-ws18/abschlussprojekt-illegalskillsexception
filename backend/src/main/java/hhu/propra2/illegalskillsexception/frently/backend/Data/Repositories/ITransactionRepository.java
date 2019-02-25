@@ -6,7 +6,7 @@ import org.springframework.data.repository.CrudRepository;
 import java.time.LocalDate;
 import java.util.List;
 
-public interface ITransactionRepository extends CrudRepository <Transaction, Long> {
+public interface ITransactionRepository extends CrudRepository<Transaction, Long> {
     List<Transaction> findAll();
 
     List<Transaction> findAllByInquiry_Borrower_Id(long id);

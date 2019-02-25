@@ -3,7 +3,6 @@ package hhu.propra2.illegalskillsexception.frently.backend.Controller.Conflict;
 import hhu.propra2.illegalskillsexception.frently.backend.Controller.Conflict.Services.ConflictService;
 import hhu.propra2.illegalskillsexception.frently.backend.Controller.Response.FrentlyError;
 import hhu.propra2.illegalskillsexception.frently.backend.Controller.Response.FrentlyResponse;
-import hhu.propra2.illegalskillsexception.frently.backend.Data.Models.Article;
 import hhu.propra2.illegalskillsexception.frently.backend.Data.Models.Transaction;
 import lombok.AllArgsConstructor;
 import org.apache.tomcat.util.net.openssl.ciphers.Authentication;

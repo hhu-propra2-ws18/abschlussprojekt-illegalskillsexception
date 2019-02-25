@@ -1,12 +1,12 @@
 package hhu.propra2.illegalskillsexception.frently.backend.Controller.Lend.Article;
 
-import hhu.propra2.illegalskillsexception.frently.backend.Controller.Response.FrentlyError;
-import hhu.propra2.illegalskillsexception.frently.backend.Controller.Response.FrentlyResponse;
 import hhu.propra2.illegalskillsexception.frently.backend.Controller.Lend.Article.DTOs.LendArticleUpdate;
 import hhu.propra2.illegalskillsexception.frently.backend.Controller.Lend.Article.Services.LendArticleService;
+import hhu.propra2.illegalskillsexception.frently.backend.Controller.Response.FrentlyError;
+import hhu.propra2.illegalskillsexception.frently.backend.Controller.Response.FrentlyResponse;
+import hhu.propra2.illegalskillsexception.frently.backend.Controller.User.Services.ApplicationUserService;
 import hhu.propra2.illegalskillsexception.frently.backend.Data.Models.ApplicationUser;
 import hhu.propra2.illegalskillsexception.frently.backend.Data.Models.Article;
-import hhu.propra2.illegalskillsexception.frently.backend.Controller.User.Services.ApplicationUserService;
 import lombok.AllArgsConstructor;
 import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;

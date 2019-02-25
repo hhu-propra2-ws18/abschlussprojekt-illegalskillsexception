@@ -43,7 +43,7 @@ public class UserController {
         try {
             userService.createUser(user);
 
-            proPayService.createAccount(user.getUsername(),0);
+            proPayService.createAccount(user.getUsername(), 0);
 
             response.setData(Collections.singletonList(user));
         } catch (UserAlreadyExistsAuthenticationException e) {
@@ -81,10 +81,10 @@ public class UserController {
     }
 
     @PostMapping("/charge")
-    public FrentlyResponse chargeCredit(Authentication auth, @RequestBody ChargeAmountDTO amount){
+    public FrentlyResponse chargeCredit(Authentication auth, @RequestBody ChargeAmountDTO amount) {
         FrentlyResponse fr = new FrentlyResponse();
-        String userName = (String)auth.getPrincipal();
-        proPayService.payInMoney(userName,amount.getAmount());
+        String userName = (String) auth.getPrincipal();
+        proPayService.payInMoney(userName, amount.getAmount());
         return fr;
     }
 
