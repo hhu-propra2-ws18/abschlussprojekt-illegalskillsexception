@@ -2,7 +2,6 @@ package hhu.propra2.illegalskillsexception.frently.backend.Controller.Security;
 
 import com.auth0.jwt.JWT;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import hhu.propra2.illegalskillsexception.frently.backend.Data.Models.ApplicationUser;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
@@ -33,8 +32,8 @@ public class JWTAuthenticationFilter extends UsernamePasswordAuthenticationFilte
     public Authentication attemptAuthentication(HttpServletRequest req,
                                                 HttpServletResponse res) throws AuthenticationException {
         try {
-            ApplicationUser creds = new ObjectMapper()
-                    .readValue(req.getInputStream(), ApplicationUser.class);
+             ApplicationUserDTO creds = new ObjectMapper()
+                    .readValue(req.getInputStream(), ApplicationUserDTO.class);
 
             return authenticationManager.authenticate(
                     new UsernamePasswordAuthenticationToken(
