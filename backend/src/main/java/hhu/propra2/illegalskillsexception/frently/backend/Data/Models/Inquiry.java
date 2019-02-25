@@ -13,7 +13,6 @@ import java.time.LocalDateTime;
 @Entity
 @EntityListeners(AuditingEntityListener.class)
 public class Inquiry {
-    @Embeddable
     public enum Status {
         OPEN, DECLINED, ACCEPTED
     }
@@ -36,7 +35,7 @@ public class Inquiry {
     @Column(nullable = false)
     private LocalDate endDate;
 
-    @Embedded
+    @Enumerated(EnumType.ORDINAL)
     private Status status;
 
     @CreatedDate
