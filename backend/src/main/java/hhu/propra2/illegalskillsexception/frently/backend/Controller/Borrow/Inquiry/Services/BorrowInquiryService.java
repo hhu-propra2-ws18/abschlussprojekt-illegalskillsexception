@@ -2,6 +2,7 @@ package hhu.propra2.illegalskillsexception.frently.backend.Controller.Borrow.Inq
 
 import hhu.propra2.illegalskillsexception.frently.backend.Controller.Borrow.Article.IServices.IBorrowArticleService;
 import hhu.propra2.illegalskillsexception.frently.backend.Controller.Borrow.Inquiry.DTOs.BorrowInquiryDTO;
+import hhu.propra2.illegalskillsexception.frently.backend.Controller.Borrow.Inquiry.DTOs.BorrowInquiryResponseDTO;
 import hhu.propra2.illegalskillsexception.frently.backend.Controller.Borrow.Inquiry.Exceptions.ArticleNotAvailableException;
 import hhu.propra2.illegalskillsexception.frently.backend.Controller.Borrow.Inquiry.Exceptions.InvalidLendingPeriodException;
 import hhu.propra2.illegalskillsexception.frently.backend.Controller.Borrow.Inquiry.IServices.IBorrowInquiryService;
@@ -15,6 +16,7 @@ import lombok.AllArgsConstructor;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -56,9 +58,17 @@ public class BorrowInquiryService implements IBorrowInquiryService {
     }
 
     @Override
-    public List<Inquiry> retrieveAllInquiriesByUser(Authentication auth) {
-        ApplicationUser currentUser = userService.getCurrentUser(auth);
-        return inquiries.findAllByBorrower_Id(currentUser.getId());
+    public List<BorrowInquiryResponseDTO> retrieveAllInquiriesByUser(ApplicationUser user) {
+
+        List<Inquiry> inquiryList = inquiries.findAllByBorrower_Id(user.getId());
+        List<BorrowInquiryResponseDTO> responseDTOs = new ArrayList<>();
+
+        for (Inquiry inquiry : inquiryList) {
+            BorrowInquiryResponseDTO dto = new BorrowInquiryResponseDTO(inquiry);
+            responseDTOs.add(dto);
+        }
+
+        return responseDTOs;
     }
 
     private boolean hasDateConflict(BorrowInquiryDTO dto) {
