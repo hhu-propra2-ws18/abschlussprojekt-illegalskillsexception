@@ -6,9 +6,13 @@ import hhu.propra2.illegalskillsexception.frently.backend.Data.Models.Inquiry;
 import hhu.propra2.illegalskillsexception.frently.backend.Data.Models.Transaction;
 import org.springframework.security.core.Authentication;
 
+import java.util.List;
+
 public interface ILendTransactionService {
     Transaction updateTransaction(Authentication auth, LendTransactionUpdate update)
             throws NoSuchTransactionException;
 
     Transaction createTransaction(Inquiry inquiry);
+
+    List<Transaction> retrieveAllOfCurrentUser(Authentication authentication);
 }

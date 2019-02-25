@@ -1,5 +1,6 @@
 FROM gradle:4.10.2-jdk8-alpine AS frentlyapi
 WORKDIR /app
+USER root
 COPY . .
 USER root
 RUN gradle --no-daemon --stacktrace clean bootJar

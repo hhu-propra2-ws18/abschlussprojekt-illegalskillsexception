@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @AllArgsConstructor
-@RequestMapping("/borrow/transacton")
+@RequestMapping("/borrow/transaction")
 public class BorrowTransactionController {
 
     IBorrowTransactionService transactionService;

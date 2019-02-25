@@ -12,4 +12,6 @@ public interface ITransactionRepository extends CrudRepository <Transaction, Lon
     List<Transaction> findAllByInquiry_Borrower_Id(long id);
 
     List<Transaction> findAllByInquiry_Borrower_IdAndInquiry_EndDateGreaterThan(long userId, LocalDate nowDate);
+
+    List<Transaction> findAllByInquiry_Lender_Id(long id);
 }
