@@ -6,10 +6,9 @@ import hhu.propra2.illegalskillsexception.frently.backend.Data.Models.Applicatio
 import hhu.propra2.illegalskillsexception.frently.backend.Data.Models.Article;
 import hhu.propra2.illegalskillsexception.frently.backend.Data.Models.Inquiry;
 import hhu.propra2.illegalskillsexception.frently.backend.Data.Models.Transaction;
-import hhu.propra2.illegalskillsexception.frently.backend.Data.Repositories.IApplicationUserRepository;
-import hhu.propra2.illegalskillsexception.frently.backend.Data.Repositories.IArticleRepository;
-import hhu.propra2.illegalskillsexception.frently.backend.Data.Repositories.IInquiryRepository;
-import hhu.propra2.illegalskillsexception.frently.backend.Data.Repositories.ITransactionRepository;
+import hhu.propra2.illegalskillsexception.frently.backend.Data.Repositories.*;
+import hhu.propra2.illegalskillsexception.frently.backend.ProPay.IServices.IProPayService;
+import hhu.propra2.illegalskillsexception.frently.backend.ProPay.Models.MoneyTransfer;
 import lombok.AllArgsConstructor;
 import org.springframework.boot.web.servlet.ServletContextInitializer;
 import org.springframework.stereotype.Component;
@@ -28,6 +27,7 @@ public class Initializer implements ServletContextInitializer {
     private final ITransactionRepository transactionRepo;
     private final IApplicationUserRepository userRepo;
     private final IApplicationUserService userService;
+    private final IMoneyTransferRepository moneyTransferRepo;
 
     @Override
     public void onStartup(final ServletContext servletContext) {
@@ -91,7 +91,7 @@ public class Initializer implements ServletContextInitializer {
             this.inquiryRepo.save(inquiryNotZeroArticle);
 
             Transaction transactionFromInquiryZeroArticle = new Transaction();
-            transactionFromInquiryZeroArticle.setStatus(Transaction.Status.OPEN);
+            transactionFromInquiryZeroArticle.setStatus(Transaction.Status.CLOSED);
             transactionFromInquiryZeroArticle.setInquiry(inquiryNotZeroArticle);
             transactionFromInquiryZeroArticle.setReservationId(-1);
             transactionFromInquiryZeroArticle.setReturnDate(inquiryNotZeroArticle.getEndDate());
@@ -112,6 +112,44 @@ public class Initializer implements ServletContextInitializer {
                 this.articleRepo.save(a);
                 System.out.println(a);
             });
+
+            MoneyTransfer firstTransfer = new MoneyTransfer();
+            firstTransfer.setSender(standardUser);
+            firstTransfer.setReceiver(standardUserBorrow);
+            firstTransfer.setAmount(100);
+
+            MoneyTransfer secondTransfer = new MoneyTransfer();
+            secondTransfer.setSender(standardUser);
+            secondTransfer.setReceiver(standardUserBorrow);
+            secondTransfer.setAmount(3);
+
+            MoneyTransfer thirdTransfer = new MoneyTransfer();
+            thirdTransfer.setSender(standardUser);
+            thirdTransfer.setReceiver(standardUserBorrow);
+            thirdTransfer.setAmount(60);
+
+            MoneyTransfer fourthTransfer = new MoneyTransfer();
+            fourthTransfer.setSender(standardUser);
+            fourthTransfer.setReceiver(fakeUsers[20]);
+            fourthTransfer.setAmount(-1);
+
+            MoneyTransfer fifthTransfer = new MoneyTransfer();
+            fifthTransfer.setSender(fakeUsers[24]);
+            fifthTransfer.setReceiver(standardUserBorrow);
+            fifthTransfer.setAmount(999999);
+
+            MoneyTransfer sixthTransfer = new MoneyTransfer();
+            sixthTransfer.setSender(standardUser);
+            sixthTransfer.setReceiver(standardUserBorrow);
+            sixthTransfer.setAmount(0);
+
+            moneyTransferRepo.save(firstTransfer);
+            moneyTransferRepo.save(secondTransfer);
+            moneyTransferRepo.save(thirdTransfer);
+            moneyTransferRepo.save(fourthTransfer);
+            moneyTransferRepo.save(fifthTransfer);
+            moneyTransferRepo.save(sixthTransfer);
+
         }
     }
 }
