@@ -1,6 +1,7 @@
 package hhu.propra2.illegalskillsexception.frently.backend.Controller.Lend.Article.IServices;
 
 import hhu.propra2.illegalskillsexception.frently.backend.Controller.Lend.Article.DTOs.LendArticleUpdate;
+import hhu.propra2.illegalskillsexception.frently.backend.Data.Exceptions.NoSuchArticleException;
 import hhu.propra2.illegalskillsexception.frently.backend.Data.Models.ApplicationUser;
 import hhu.propra2.illegalskillsexception.frently.backend.Data.Models.Article;
 
@@ -11,5 +12,5 @@ public interface ILendArticleService {
 
     List<Article> retrieveArticleList(ApplicationUser owner);
 
-    Article updateArticle(LendArticleUpdate lendArticle) throws Exception;
+    Article updateArticle(LendArticleUpdate lendArticle) throws NoSuchArticleException;
 }

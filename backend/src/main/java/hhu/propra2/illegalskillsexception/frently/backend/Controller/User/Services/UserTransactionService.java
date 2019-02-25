@@ -7,6 +7,7 @@ import hhu.propra2.illegalskillsexception.frently.backend.Data.Repositories.ITra
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -41,5 +42,9 @@ public class UserTransactionService implements IUserTransactionService {
             }
         }
         return filteredRelatedToUserAndClosed;
+    }
+
+    public List<Transaction> allOverdueTransactions(long userId) {
+        return transactionRepository.findAllByInquiry_Borrower_IdAndInquiry_EndDateGreaterThan(userId, LocalDate.now());
     }
 }

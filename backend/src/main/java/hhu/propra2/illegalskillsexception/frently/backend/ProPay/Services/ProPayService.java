@@ -1,6 +1,7 @@
 package hhu.propra2.illegalskillsexception.frently.backend.ProPay.Services;
 
 import hhu.propra2.illegalskillsexception.frently.backend.Data.Models.Transaction;
+import hhu.propra2.illegalskillsexception.frently.backend.ProPay.Exceptions.ProPayException;
 import hhu.propra2.illegalskillsexception.frently.backend.ProPay.IServices.IMoneyTransferService;
 import hhu.propra2.illegalskillsexception.frently.backend.ProPay.IServices.IProPayService;
 import hhu.propra2.illegalskillsexception.frently.backend.ProPay.Models.MoneyTransfer;
@@ -57,6 +58,7 @@ public class ProPayService implements IProPayService {
         return moneyTransferService.getAll(userName);
     }
 
+    @Override
     public ProPayAccount getProPayAccount(String username) {
         final String url = BASE_URL + "account/" + username;
         return restTemplate.getForObject(url, ProPayAccount.class);
@@ -70,7 +72,8 @@ public class ProPayService implements IProPayService {
         return amountGreaterThanReservation(reservations, amount, accountBalance);
     }
 
-    boolean amountGreaterThanReservation(List<Reservation> reservations, double amount, double accountBalance) {
+    @Override
+    public boolean amountGreaterThanReservation(List<Reservation> reservations, double amount, double accountBalance) {
         double alreadyReserved = 0;
         for (Reservation reservation : reservations) {
             alreadyReserved += reservation.getAmount();
@@ -79,14 +82,14 @@ public class ProPayService implements IProPayService {
     }
 
     @Override
-    public Long blockDeposit(String borrower, String lender, double amount) throws Exception {
+    public Long blockDeposit(String borrower, String lender, double amount) throws ProPayException {
         final String url = BASE_URL + "reservation/reserve/" + borrower + "/" + lender + "?amount=" + amount;
         Reservation reservation = restTemplate.postForObject(url, null, Reservation.class);
-        try {
-            return reservation.getId();
-        } catch (Exception e) {
-            throw new Exception();
+
+        if (reservation == null) {
+            throw new ProPayException();
         }
+        return reservation.getId();
     }
 
     @Override

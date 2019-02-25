@@ -9,4 +9,5 @@ public interface IUserTransactionService {
 
     List<Transaction> getAllFinishedTransactions(ApplicationUser user);
 
+    List<Transaction> allOverdueTransactions(long userId);
 }

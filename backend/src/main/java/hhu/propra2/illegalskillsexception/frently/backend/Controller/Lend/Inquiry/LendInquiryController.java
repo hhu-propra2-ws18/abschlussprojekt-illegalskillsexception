@@ -1,5 +1,6 @@
 package hhu.propra2.illegalskillsexception.frently.backend.Controller.Lend.Inquiry;
 
+import hhu.propra2.illegalskillsexception.frently.backend.Controller.Lend.Inquiry.DTOs.InquiryChangeStatusDTO;
 import hhu.propra2.illegalskillsexception.frently.backend.Controller.Response.FrentlyError;
 import hhu.propra2.illegalskillsexception.frently.backend.Controller.Response.FrentlyResponse;
 import hhu.propra2.illegalskillsexception.frently.backend.Controller.Response.FrentlyException;
@@ -40,12 +41,12 @@ public class LendInquiryController {
     }
 
     @PostMapping("/decline")
-    public FrentlyResponse declineLendInquiry(@RequestBody Long inquiryId) {
+    public FrentlyResponse declineLendInquiry(@RequestBody InquiryChangeStatusDTO inquiryId) {
 
         FrentlyResponse response = new FrentlyResponse();
 
         try {
-            final Inquiry inquiry = lendInquiryProcessingService.declineInquiry(inquiryId);
+            final Inquiry inquiry = lendInquiryProcessingService.declineInquiry(inquiryId.getInquiryId());
             response.setData(inquiry);
         } catch (Exception e) {
             response.setError(new FrentlyError(e));
@@ -54,15 +55,16 @@ public class LendInquiryController {
     }
 
     @PostMapping("/accept")
-    public FrentlyResponse accept(@RequestBody Long inquiryId) {
+    public FrentlyResponse accept(@RequestBody InquiryChangeStatusDTO inquiryId) {
         FrentlyResponse response = new FrentlyResponse();
 
         try {
-            final Transaction transaction = lendInquiryProcessingService.acceptInquiry(inquiryId);
+            final Transaction transaction = lendInquiryProcessingService.acceptInquiry(inquiryId.getInquiryId());
             response.setData(transaction);
         } catch (FrentlyException fe) {
             response.setError(new FrentlyError(fe));
         } catch (Exception e) {
+            e.printStackTrace();
             response.setError(new FrentlyError(e));
         }
         return response;

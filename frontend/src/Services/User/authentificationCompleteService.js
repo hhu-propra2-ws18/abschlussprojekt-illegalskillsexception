@@ -4,7 +4,8 @@ import { getLoginUserAction } from "../../Store/UserStore/UserActions";
 import {
     loginUserBackend,
     registerUserBackend,
-    getUserDetailsBackend
+    getUserDetailsBackend,
+    chargeAmountBackend
 } from "./authentificationBackendService";
 
 export async function registerAndLoginUser(
@@ -25,5 +26,9 @@ export async function loginUser(nameInner, passwordInner) {
 }
 
 export async function getUserDetails() {
-    return await getUserDetailsBackend(store.getState().user.token);
+    return (await getUserDetailsBackend(store.getState().user.token)).data;
+}
+
+export async function chargeUserAccount(){
+    return await chargeAmountBackend(store.getState().user.token);
 }
