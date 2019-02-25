@@ -45,6 +45,6 @@ public class UserTransactionService implements IUserTransactionService {
     }
 
     public List<Transaction> allOverdueTransactions(long userId) {
-        return transactionRepository.findAllByInquiry_Borrower_IdAndInquiry_EndDateGreaterThan(userId, LocalDate.now());
+        return transactionRepository.findAllByInquiry_Borrower_IdAndInquiry_EndDateLessThan(userId, LocalDate.now());
     }
 }
