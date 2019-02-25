@@ -14,7 +14,8 @@ import UserView from "../ContentTabs/User/UserView";
 import Toast from "react-uwp/Toast";
 
 import "./ContentPage.css";
-import {getAllOverdueTransactions} from "../../../Services/User/userNotificationService.js";
+import {getAllOverdueTransactions} from "../../../Services/User/authentificationCompleteService.js";
+import {logOutUser} from "../../../Services/User/authentificationCompleteService";
 
 export default class ContentPage extends React.Component {
     constructor(props) {
@@ -75,7 +76,11 @@ export default class ContentPage extends React.Component {
                         onClick={() => this.switchTab(5)}
                         label="Profile"
                         icon={"Contact"}
-                    />]}
+                    />,<SplitViewCommand
+                        onClick={() => logOutUser()}
+                        label="LogOut"
+                        icon={"PowerButton"}
+                        />]}
                     displayMode="compact"
                     autoResize={false}
                 >
