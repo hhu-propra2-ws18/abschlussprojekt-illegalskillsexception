@@ -26,6 +26,10 @@ export default class BorrowItemDetailComponent extends React.Component {
         return (
             <article>
                 <h1>{this.props.data.title}</h1>
+                <h5>Lender:</h5>
+                <p>Username: {this.props.data.owner.username}</p>
+                <p>Email: {this.props.data.owner.email}</p>
+                <h5>Description:</h5>
                 <p>{this.props.data.description}</p>
                 <h5>Location:</h5>
                 <p>{this.props.data.location}</p>
