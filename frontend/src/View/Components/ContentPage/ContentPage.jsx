@@ -29,6 +29,7 @@ export default class ContentPage extends React.Component {
     async componentDidMount() {
         let data = await getAllOverdueTransactions(store.getState().user.token);
         let list = data.data.data;
+        console.log(data);
         if (list.length !== 0) {
             this.setState({showNotifToast: true})
         }
