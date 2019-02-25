@@ -2,14 +2,9 @@ package hhu.propra2.illegalskillsexception.frently.backend;
 
 import com.github.javafaker.Faker;
 import hhu.propra2.illegalskillsexception.frently.backend.Controller.User.IServices.IApplicationUserService;
-import hhu.propra2.illegalskillsexception.frently.backend.Data.Models.ApplicationUser;
-import hhu.propra2.illegalskillsexception.frently.backend.Data.Models.Article;
-import hhu.propra2.illegalskillsexception.frently.backend.Data.Models.Inquiry;
-import hhu.propra2.illegalskillsexception.frently.backend.Data.Models.Transaction;
-import hhu.propra2.illegalskillsexception.frently.backend.Data.Repositories.IApplicationUserRepository;
-import hhu.propra2.illegalskillsexception.frently.backend.Data.Repositories.IArticleRepository;
-import hhu.propra2.illegalskillsexception.frently.backend.Data.Repositories.IInquiryRepository;
-import hhu.propra2.illegalskillsexception.frently.backend.Data.Repositories.ITransactionRepository;
+import hhu.propra2.illegalskillsexception.frently.backend.Data.Models.*;
+import hhu.propra2.illegalskillsexception.frently.backend.Data.Repositories.*;
+import hhu.propra2.illegalskillsexception.frently.backend.ProPay.Models.MoneyTransfer;
 import lombok.AllArgsConstructor;
 import org.springframework.boot.web.servlet.ServletContextInitializer;
 import org.springframework.stereotype.Component;
@@ -19,6 +14,8 @@ import java.time.LocalDate;
 import java.util.Arrays;
 import java.util.Locale;
 import java.util.stream.IntStream;
+import java.util.*;
+import java.util.stream.Collectors;
 
 @Component
 @AllArgsConstructor
@@ -28,11 +25,30 @@ public class Initializer implements ServletContextInitializer {
     private final ITransactionRepository transactionRepo;
     private final IApplicationUserRepository userRepo;
     private final IApplicationUserService userService;
+    private final IRoleRepository roleRepository;
+    private final IMoneyTransferRepository moneyTransferRepo;
+
 
     @Override
     public void onStartup(final ServletContext servletContext) {
+
         final Faker faker = new Faker(Locale.ENGLISH);
+
+        // Create Roles
+        String[] names = {"ADMIN"};
+        List<Role> roles = Arrays.stream(names).map(value -> {
+            Role r = new Role();
+            r.setName(value);
+            r.setDescription(value);
+            return r;
+        }).collect(Collectors.toList());
+        roles.forEach(this.roleRepository::save);
+
+
+        // Create Users
         if (userRepo.findAll().isEmpty()) {
+
+
             ApplicationUser[] fakeUsers = IntStream.range(0, 99).mapToObj(value -> {
                 ApplicationUser u = new ApplicationUser();
                 u.setUsername(faker.name().username());
@@ -41,19 +57,25 @@ public class Initializer implements ServletContextInitializer {
                 return u;
             }).toArray(ApplicationUser[]::new);
 
+            // Set std user
             ApplicationUser standardUser = fakeUsers[0];
             standardUser.setUsername("user");
             standardUser.setPassword("password");
+
+            Set<Role> userRoles = Collections.singleton(roles.get(0));
+            standardUser.setRoles(userRoles);
 
             ApplicationUser standardUserBorrow = fakeUsers[1];
             standardUserBorrow.setUsername("user1");
             standardUserBorrow.setPassword("password");
 
+            // Encrypt password
             Arrays.stream(fakeUsers).forEach(user -> {
                 this.userService.encryptPassword(user);
                 this.userRepo.save(user);
             });
 
+            // Create Articles
             Article standardZeroArticle= new Article();
             standardZeroArticle.setTitle("A painting");
             standardZeroArticle.setDescription("Some famous painting ending in isa");
@@ -91,7 +113,7 @@ public class Initializer implements ServletContextInitializer {
             this.inquiryRepo.save(inquiryNotZeroArticle);
 
             Transaction transactionFromInquiryZeroArticle = new Transaction();
-            transactionFromInquiryZeroArticle.setStatus(Transaction.Status.OPEN);
+            transactionFromInquiryZeroArticle.setStatus(Transaction.Status.CLOSED);
             transactionFromInquiryZeroArticle.setInquiry(inquiryNotZeroArticle);
             transactionFromInquiryZeroArticle.setReservationId(-1);
             transactionFromInquiryZeroArticle.setReturnDate(inquiryNotZeroArticle.getEndDate());
@@ -112,6 +134,44 @@ public class Initializer implements ServletContextInitializer {
                 this.articleRepo.save(a);
                 System.out.println(a);
             });
+
+            MoneyTransfer firstTransfer = new MoneyTransfer();
+            firstTransfer.setSender(standardUser);
+            firstTransfer.setReceiver(standardUserBorrow);
+            firstTransfer.setAmount(100);
+
+            MoneyTransfer secondTransfer = new MoneyTransfer();
+            secondTransfer.setSender(standardUser);
+            secondTransfer.setReceiver(standardUserBorrow);
+            secondTransfer.setAmount(3);
+
+            MoneyTransfer thirdTransfer = new MoneyTransfer();
+            thirdTransfer.setSender(standardUser);
+            thirdTransfer.setReceiver(standardUserBorrow);
+            thirdTransfer.setAmount(60);
+
+            MoneyTransfer fourthTransfer = new MoneyTransfer();
+            fourthTransfer.setSender(standardUser);
+            fourthTransfer.setReceiver(fakeUsers[20]);
+            fourthTransfer.setAmount(-1);
+
+            MoneyTransfer fifthTransfer = new MoneyTransfer();
+            fifthTransfer.setSender(fakeUsers[24]);
+            fifthTransfer.setReceiver(standardUserBorrow);
+            fifthTransfer.setAmount(999999);
+
+            MoneyTransfer sixthTransfer = new MoneyTransfer();
+            sixthTransfer.setSender(standardUser);
+            sixthTransfer.setReceiver(standardUserBorrow);
+            sixthTransfer.setAmount(0);
+
+            moneyTransferRepo.save(firstTransfer);
+            moneyTransferRepo.save(secondTransfer);
+            moneyTransferRepo.save(thirdTransfer);
+            moneyTransferRepo.save(fourthTransfer);
+            moneyTransferRepo.save(fifthTransfer);
+            moneyTransferRepo.save(sixthTransfer);
+
         }
     }
 }

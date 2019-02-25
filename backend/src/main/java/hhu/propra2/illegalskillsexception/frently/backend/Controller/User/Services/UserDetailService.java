@@ -1,6 +1,7 @@
 package hhu.propra2.illegalskillsexception.frently.backend.Controller.User.Services;
 
 import hhu.propra2.illegalskillsexception.frently.backend.Controller.Response.FrentlyErrorType;
+import hhu.propra2.illegalskillsexception.frently.backend.Controller.User.DTOs.MoneyTransferDTO;
 import hhu.propra2.illegalskillsexception.frently.backend.Controller.User.Exceptions.UserNotFoundException;
 import hhu.propra2.illegalskillsexception.frently.backend.Controller.User.IServices.IUserDetailService;
 import hhu.propra2.illegalskillsexception.frently.backend.Controller.User.IServices.IUserTransactionService;
@@ -10,6 +11,7 @@ import hhu.propra2.illegalskillsexception.frently.backend.Controller.User.IServi
 import hhu.propra2.illegalskillsexception.frently.backend.Controller.User.DTOs.ForeignUserDetailResponse;
 import hhu.propra2.illegalskillsexception.frently.backend.Controller.User.DTOs.UserDetailResponse;
 import hhu.propra2.illegalskillsexception.frently.backend.ProPay.IServices.IProPayService;
+import hhu.propra2.illegalskillsexception.frently.backend.ProPay.Models.MoneyTransfer;
 import lombok.AllArgsConstructor;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Service;
@@ -36,7 +38,7 @@ public class UserDetailService implements IUserDetailService {
         userDetails.setUsername(currentUser.getUsername());
         //userDetails.setPropayUsername(currentUser.getBankAccount());
 
-        List<Transaction> finishedTransaction = userTransactionService.getAllFinishedTransactions(currentUser);
+        List<MoneyTransferDTO> finishedTransaction = userTransactionService.getAllFinishedTransactions(currentUser);
         userDetails.setCompletedTransactions(finishedTransaction);
 
         double accountBalance = proPayService.getAccountBalance(currentUser.getUsername());
@@ -57,7 +59,7 @@ public class UserDetailService implements IUserDetailService {
         }
         foreignUserDetailResponse.setUsername(foreignUser.getUsername());
 
-        List<Transaction> finishedTransaction = userTransactionService.getAllFinishedTransactions(foreignUser);
+        List<MoneyTransferDTO> finishedTransaction = userTransactionService.getAllFinishedTransactions(foreignUser);
         foreignUserDetailResponse.setCompletedTransactions(finishedTransaction);
 
         //@TODO Deal with propay account

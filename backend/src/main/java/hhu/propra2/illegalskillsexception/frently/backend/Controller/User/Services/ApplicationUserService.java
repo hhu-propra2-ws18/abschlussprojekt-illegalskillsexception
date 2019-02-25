@@ -3,6 +3,7 @@ package hhu.propra2.illegalskillsexception.frently.backend.Controller.User.Servi
 import hhu.propra2.illegalskillsexception.frently.backend.Controller.User.Exceptions.UserAlreadyExistsAuthenticationException;
 import hhu.propra2.illegalskillsexception.frently.backend.Controller.User.IServices.IApplicationUserService;
 import hhu.propra2.illegalskillsexception.frently.backend.Data.Models.ApplicationUser;
+import hhu.propra2.illegalskillsexception.frently.backend.Data.Models.Role;
 import hhu.propra2.illegalskillsexception.frently.backend.Data.Repositories.IApplicationUserRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.security.core.Authentication;
@@ -10,8 +11,10 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
+import java.util.Set;
 
 @Service
 @AllArgsConstructor
@@ -42,11 +45,7 @@ public class ApplicationUserService implements IApplicationUserService {
     @Override
     public ApplicationUser getUserById(Long userId) {
         Optional<ApplicationUser> userOpt = userRepo.findById(userId);
-
-        if (userOpt.isPresent()) {
-            return userOpt.get();
-        }
-        return null;
+        return userOpt.orElse(null);
     }
 
     @Override

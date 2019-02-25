@@ -19,7 +19,7 @@ public class Transaction {
     @OneToOne
     private Inquiry inquiry;
     private LocalDate returnDate;
-    @Embedded
+    @Enumerated(EnumType.ORDINAL)
     private Status status;
     private long reservationId;
     @CreatedDate
@@ -29,8 +29,6 @@ public class Transaction {
     @Column(nullable = false)
     private LocalDateTime updated;
 
-
-    @Embeddable
     public enum Status {
         OPEN, CLOSED, CONFLICT, PENDING_PAYMENT
     }

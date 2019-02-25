@@ -2,6 +2,7 @@ package hhu.propra2.illegalskillsexception.frently.backend.Controller.User.DTOs;
 
 
 import hhu.propra2.illegalskillsexception.frently.backend.Data.Models.Transaction;
+import hhu.propra2.illegalskillsexception.frently.backend.ProPay.Models.MoneyTransfer;
 import lombok.Data;
 
 import java.util.List;
@@ -15,5 +16,5 @@ public class UserDetailResponse {
     private String propayUsername;
     private double accountBalance;
 
-    private List<Transaction> completedTransactions;
+    private List<MoneyTransferDTO> completedTransactions;
 }

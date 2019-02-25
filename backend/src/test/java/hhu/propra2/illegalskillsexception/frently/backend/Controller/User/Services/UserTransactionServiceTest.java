@@ -1,5 +1,7 @@
+/*
 package hhu.propra2.illegalskillsexception.frently.backend.Controller.User.Services;
 
+import hhu.propra2.illegalskillsexception.frently.backend.Controller.User.DTOs.MoneyTransferDTO;
 import hhu.propra2.illegalskillsexception.frently.backend.Data.Models.ApplicationUser;
 import hhu.propra2.illegalskillsexception.frently.backend.Data.Models.Inquiry;
 import hhu.propra2.illegalskillsexception.frently.backend.Data.Models.Transaction;
@@ -66,28 +68,29 @@ public class UserTransactionServiceTest {
 
     @Test
     public void getAllFinishedTransactions_IdOne() {
-        UserTransactionService service = new UserTransactionService(repository);
+        UserTransactionService service = new UserTransactionService(repository,null);
 
-        List<Transaction> result = service.getAllFinishedTransactions(createUser(1));
+        List<MoneyTransferDTO> result = service.getAllFinishedTransactions(createUser(1));
 
         Assert.assertEquals(result, idOneSolution);
     }
 
     @Test
     public void getAllFinishedTransactions_IdZero() {
-        UserTransactionService service = new UserTransactionService(repository);
+        UserTransactionService service = new UserTransactionService(repository,null);
 
-        List<Transaction> result = service.getAllFinishedTransactions(createUser(0));
+        List<MoneyTransferDTO> result = service.getAllFinishedTransactions(createUser(0));
 
         Assert.assertEquals(result, idZeroSolution);
     }
 
     @Test
     public void getAllFinishedTransactions_IdNotFound() {
-        UserTransactionService service = new UserTransactionService(repository);
+        UserTransactionService service = new UserTransactionService(repository,null);
 
-        List<Transaction> result = service.getAllFinishedTransactions(createUser(-1));
+        List<MoneyTransferDTO> result = service.getAllFinishedTransactions(createUser(-1));
 
         Assert.assertEquals(result, idNotFoundSolution);
     }
 }
+*/

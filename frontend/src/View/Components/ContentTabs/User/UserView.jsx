@@ -11,14 +11,23 @@ export default class UserView extends React.Component {
         this.state = {
             profile: {
                 accountBalance: "Number",
-                username: "String"
+                username: "String",
+                completedTransactions: [
+                    { sender: "null", receiver: "null", amount: 0 }
+                ]
             }
         };
     }
 
     async loadProfile() {
         this.setState({
-            profile: { username: "loading", accountBalance: "loading" }
+            profile: {
+                accountBalance: "Number",
+                username: "String",
+                completedTransactions: [
+                    { sender: "null", receiver: "null", amount: 0 }
+                ]
+            }
         });
         let data = await getUserDetails();
         this.setState({ profile: data.data });
@@ -29,6 +38,7 @@ export default class UserView extends React.Component {
     }
 
     render() {
+        console.log(this.state.profile.completedTransactions);
         return (
             <article>
                 <h3>Username</h3>
@@ -44,6 +54,26 @@ export default class UserView extends React.Component {
                 >
                     Charge 50€
                 </Button>
+                <div>
+                    {this.state.profile.completedTransactions.map(element => (
+                        <div
+                            key={this.state.profile.completedTransactions.indexOf(
+                                element
+                            )}
+                        >
+                            <h5>
+                                Transaction #
+                                {this.state.profile.completedTransactions.indexOf(
+                                    element
+                                )}
+                            </h5>
+                            <p>Sender: {element.sender}</p>
+                            <p>Receiver: {element.receiver}</p>
+
+                            <p>Amount: {element.amount}</p>
+                        </div>
+                    ))}
+                </div>
             </article>
         );
     }
