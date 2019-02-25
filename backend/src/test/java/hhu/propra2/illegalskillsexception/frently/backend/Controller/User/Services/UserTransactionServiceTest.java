@@ -9,6 +9,7 @@ import org.junit.Before;
 import org.junit.Test;
 
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 
 import static org.mockito.Mockito.mock;
@@ -49,18 +50,18 @@ public class UserTransactionServiceTest {
     public void setup() {
         repository = mock(ITransactionRepository.class);
 
-        Transaction first = createTransaction(0, 1, Transaction.Status.closed, 1);
-        Transaction second = createTransaction(1321, 1, Transaction.Status.closed, 2);
-        Transaction third = createTransaction(4, 0, Transaction.Status.open, 3);
-        Transaction fourth = createTransaction(1, 2, Transaction.Status.conflict, 4);
+        Transaction first = createTransaction(0, 1, Transaction.Status.CLOSED, 1);
+        Transaction second = createTransaction(1321, 1, Transaction.Status.CLOSED, 2);
+        Transaction third = createTransaction(4, 0, Transaction.Status.OPEN, 3);
+        Transaction fourth = createTransaction(1, 2, Transaction.Status.CONFLICT, 4);
 
         when(repository.findAll()).thenReturn(
                 Arrays.asList(first, second, third, fourth)
         );
 
-        idZeroSolution = Arrays.asList(first);
+        idZeroSolution = Collections.singletonList(first);
         idOneSolution = Arrays.asList(first, second);
-        idNotFoundSolution = Arrays.asList();
+        idNotFoundSolution = Collections.emptyList();
     }
 
     @Test

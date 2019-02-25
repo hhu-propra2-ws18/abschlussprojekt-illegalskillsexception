@@ -12,7 +12,6 @@ import hhu.propra2.illegalskillsexception.frently.backend.Data.Repositories.ITra
 import hhu.propra2.illegalskillsexception.frently.backend.ProPay.Exceptions.ProPayException;
 import hhu.propra2.illegalskillsexception.frently.backend.ProPay.IServices.IProPayService;
 import lombok.AllArgsConstructor;
-import lombok.NoArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
@@ -74,7 +73,7 @@ public class LendInquiryProcessingService implements ILendInquiryProcessingServi
     private Transaction createTransactionFromInquiry(Inquiry inquiry, long reservationId) {
         Transaction transaction = new Transaction();
         transaction.setInquiry(inquiry);
-        transaction.setStatus(Transaction.Status.open);
+        transaction.setStatus(Transaction.Status.OPEN);
         transaction.setReservationId(reservationId);
         return transactionRepository.save(transaction);
     }

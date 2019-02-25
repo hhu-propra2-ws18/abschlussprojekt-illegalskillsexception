@@ -43,18 +43,19 @@ public class Initializer implements ServletContextInitializer {
                 this.userRepo.save(user);
             });
 
-            IntStream.range(0, 99).mapToObj(value -> {
-                Article a = new Article();
-                a.setTitle(faker.commerce().productName());
-                a.setDeposit(faker.number().randomDouble(2, 10, 300));
-                a.setDailyRate(faker.number().randomDouble(2, 1, 100));
-                int randomIndex = faker.number().numberBetween(0, 99);
-                a.setOwner(fakeUsers[randomIndex]);
-                a.setDescription(faker.lorem().paragraph(3));
-                a.setLocation(faker.rickAndMorty().location());
+            IntStream.range(0, 99)
+                    .mapToObj(value -> {
+                        Article a = new Article();
+                        a.setTitle(faker.commerce().productName());
+                        a.setDeposit(faker.number().randomDouble(2, 10, 300));
+                        a.setDailyRate(faker.number().randomDouble(2, 1, 100));
+                        int randomIndex = faker.number().numberBetween(0, 99);
+                        a.setOwner(fakeUsers[randomIndex]);
+                        a.setDescription(faker.lorem().paragraph(3));
+                        a.setLocation(faker.rickAndMorty().location());
 
-                return a;
-            }).forEach(a -> {
+                        return a;
+                    }).forEach(a -> {
                 this.articleRepo.save(a);
                 System.out.println(a);
             });

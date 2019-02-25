@@ -24,9 +24,9 @@ public class UserTransactionService implements IUserTransactionService {
         List<Transaction> filteredRelatedToUserAndClosed = new ArrayList<>();
         for(Transaction transaction : allTransactions){
 
-            //Check if closed
-            if(transaction.getStatus() != Transaction.Status.closed){
-                //Not closed, ignore transaction
+            //Check if CLOSED
+            if (transaction.getStatus() != Transaction.Status.CLOSED) {
+                //Not CLOSED, ignore transaction
                 continue;
             }
             //Check if current user is the lender
