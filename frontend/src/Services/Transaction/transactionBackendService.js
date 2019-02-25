@@ -34,8 +34,7 @@ export async function postTransactionFinishedBackend(
         url,
         {
             transactionId: id,
-            isFaulty: false,
-            itemReturn: true
+            isFaulty: false
         },
         {
             headers: {
@@ -56,8 +55,7 @@ export async function postTransactionProblemBackend(
         url,
         {
             transactionId: id,
-            isFaulty: true,
-            itemReturn: true
+            isFaulty: true
         },
         {
             headers: {

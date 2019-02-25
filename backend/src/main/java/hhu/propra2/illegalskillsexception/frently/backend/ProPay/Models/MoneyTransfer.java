@@ -21,9 +21,12 @@ public class MoneyTransfer {
 
     @ManyToOne
     @NotFound(action = NotFoundAction.IGNORE)
-    private ApplicationUser applicationUser;
+    private ApplicationUser sender;
 
-    private String targetUserName;
+    @ManyToOne
+    @NotFound(action = NotFoundAction.IGNORE)
+    private ApplicationUser receiver;
+
     private double amount;
 
     @CreatedDate

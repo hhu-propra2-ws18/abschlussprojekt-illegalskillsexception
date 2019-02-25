@@ -1,7 +1,7 @@
 package hhu.propra2.illegalskillsexception.frently.backend.Controller.Lend.Transaction;
 
-import hhu.propra2.illegalskillsexception.frently.backend.Controller.Lend.Transaction.DTOs.LendTransactionUpdate;
-import hhu.propra2.illegalskillsexception.frently.backend.Controller.Lend.Transaction.DTOs.transactionUpdateResponseDTO;
+import hhu.propra2.illegalskillsexception.frently.backend.Controller.Lend.Transaction.DTOs.TransactionUpdateRequestDTO;
+import hhu.propra2.illegalskillsexception.frently.backend.Controller.Lend.Transaction.DTOs.TransactionUpdateResponseDTO;
 import hhu.propra2.illegalskillsexception.frently.backend.Controller.Lend.Transaction.IService.ILendTransactionService;
 import hhu.propra2.illegalskillsexception.frently.backend.Controller.Response.FrentlyError;
 import hhu.propra2.illegalskillsexception.frently.backend.Controller.Response.FrentlyException;
@@ -33,11 +33,11 @@ public class LendTransactionController {
     }
 
     @PostMapping("/update")
-    public FrentlyResponse updateTransaction(Authentication auth, @RequestBody LendTransactionUpdate updateDTO){
+    public FrentlyResponse updateTransaction(@RequestBody TransactionUpdateRequestDTO updateDTO) {
         FrentlyResponse response = new FrentlyResponse();
         try{
-            Transaction temp = transactionService.updateTransaction(auth, updateDTO);
-            response.setData(new transactionUpdateResponseDTO(temp.getStatus()));
+            Transaction transaction = transactionService.updateTransaction(updateDTO);
+            response.setData(new TransactionUpdateResponseDTO(transaction.getStatus()));
         } catch (FrentlyException fe) {
             response.setError(new FrentlyError(fe));
         }

@@ -1,6 +1,6 @@
 package hhu.propra2.illegalskillsexception.frently.backend.Controller.Lend.Transaction.Service;
 
-import hhu.propra2.illegalskillsexception.frently.backend.Controller.Lend.Transaction.DTOs.LendTransactionUpdate;
+import hhu.propra2.illegalskillsexception.frently.backend.Controller.Lend.Transaction.DTOs.TransactionUpdateRequestDTO;
 import hhu.propra2.illegalskillsexception.frently.backend.Controller.Lend.Transaction.Exceptions.NoSuchTransactionException;
 import hhu.propra2.illegalskillsexception.frently.backend.Controller.Lend.Transaction.IService.ILendTransactionService;
 import hhu.propra2.illegalskillsexception.frently.backend.Controller.User.IServices.IApplicationUserService;
@@ -24,50 +24,53 @@ public class LendTransactionService implements ILendTransactionService {
     private final IProPayService proPayService;
     private final IApplicationUserService userService;
 
+    @Override
     public Transaction createTransaction(Inquiry inquiry) {
         Transaction transaction = new Transaction();
         transaction.setInquiry(inquiry);
-        transaction.setStatus(Transaction.Status.open);
+        transaction.setStatus(Transaction.Status.OPEN);
         return transactionRepository.save(transaction);
-    }
-
-    public Transaction updateTransaction(Authentication auth, LendTransactionUpdate update) throws NoSuchTransactionException {
-        ApplicationUser currentUser = userService.getCurrentUser(auth);
-        Transaction temp = transactionRepository.findById(update.getTransactionId()).orElseThrow(NoSuchTransactionException::new);
-
-        if(couldWithdrawRent(temp, currentUser.getUsername())){
-            temp.setStatus(update.isFaulty() ? Transaction.Status.conflict : Transaction.Status.closed);
-        } else {
-            temp.setStatus(Transaction.Status.MONEY_CONFLICT);
-        }
-
-        temp.setReturnDate(LocalDate.now());
-        transactionRepository.save(temp);
-        return temp;
-
-    }
-
-    private boolean couldWithdrawRent(Transaction transaction, String lender) {
-        double amount = calculateFee(transaction.getInquiry().getStartDate(),
-                transaction.getInquiry().getArticle().getDailyRate());
-
-        String borrower = transaction.getInquiry().getBorrower().getUsername();
-
-        if (proPayService.hasEnoughMoney(borrower, amount)) {
-            proPayService.transferMoney(borrower, lender, amount);
-            return true;
-        } else {
-            return false;
-        }
-    }
-
-    private double calculateFee(LocalDate start, Double dailyRate) {
-        return (start.until(LocalDate.now()).getDays() + 1) * dailyRate;
     }
 
     @Override
     public List<Transaction> retrieveAllOfCurrentUser(Authentication auth) {
         ApplicationUser currentUser = userService.getCurrentUser(auth);
         return transactionRepository.findAllByInquiry_Lender_Id(currentUser.getId());
+    }
+
+    @Override
+    public Transaction updateTransaction(TransactionUpdateRequestDTO update) throws NoSuchTransactionException {
+        Transaction transaction = transactionRepository.findById(update.getTransactionId()).orElseThrow(NoSuchTransactionException::new);
+
+        if (couldWithdrawRent(transaction)) {
+            transaction.setStatus(update.isFaulty() ? Transaction.Status.CONFLICT : Transaction.Status.CLOSED);
+        } else {
+            transaction.setStatus(Transaction.Status.PENDING_PAYMENT);
+        }
+
+        transaction.setReturnDate(LocalDate.now());
+        transactionRepository.save(transaction);
+        return transaction;
+
+    }
+
+    private boolean couldWithdrawRent(Transaction transaction) {
+        LocalDate startDate = transaction.getInquiry().getStartDate();
+        Double dailyRate = transaction.getInquiry().getArticle().getDailyRate();
+        double fee = calculateFee(startDate, dailyRate);
+
+        String borrower = transaction.getInquiry().getBorrower().getUsername();
+        String lender = transaction.getInquiry().getLender().getUsername();
+
+        if (proPayService.hasEnoughMoney(borrower, fee)) {
+            proPayService.transferMoney(borrower, lender, fee);
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    private double calculateFee(LocalDate startDate, Double dailyRate) {
+        return (startDate.until(LocalDate.now()).getDays() + 1) * dailyRate;
     }
 }

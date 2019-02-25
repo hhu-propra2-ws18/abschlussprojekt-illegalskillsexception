@@ -1,15 +1,15 @@
 package hhu.propra2.illegalskillsexception.frently.backend.Controller.Lend.Inquiry;
 
 import hhu.propra2.illegalskillsexception.frently.backend.Controller.Lend.Inquiry.DTOs.InquiryChangeStatusDTO;
+import hhu.propra2.illegalskillsexception.frently.backend.Controller.Lend.Inquiry.IServices.ILendInquiryProcessingService;
+import hhu.propra2.illegalskillsexception.frently.backend.Controller.Lend.Inquiry.IServices.ILendInquiryService;
 import hhu.propra2.illegalskillsexception.frently.backend.Controller.Response.FrentlyError;
-import hhu.propra2.illegalskillsexception.frently.backend.Controller.Response.FrentlyResponse;
 import hhu.propra2.illegalskillsexception.frently.backend.Controller.Response.FrentlyException;
-import hhu.propra2.illegalskillsexception.frently.backend.Controller.Lend.Inquiry.Services.LendInquiryProcessingService;
-import hhu.propra2.illegalskillsexception.frently.backend.Controller.Lend.Inquiry.Services.LendInquiryService;
+import hhu.propra2.illegalskillsexception.frently.backend.Controller.Response.FrentlyResponse;
+import hhu.propra2.illegalskillsexception.frently.backend.Controller.User.IServices.IApplicationUserService;
 import hhu.propra2.illegalskillsexception.frently.backend.Data.Models.ApplicationUser;
 import hhu.propra2.illegalskillsexception.frently.backend.Data.Models.Inquiry;
 import hhu.propra2.illegalskillsexception.frently.backend.Data.Models.Transaction;
-import hhu.propra2.illegalskillsexception.frently.backend.Controller.User.Services.ApplicationUserService;
 import lombok.AllArgsConstructor;
 import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
@@ -21,9 +21,9 @@ import java.util.List;
 @AllArgsConstructor
 public class LendInquiryController {
 
-    private final LendInquiryService lendInquiryService;
-    private final LendInquiryProcessingService lendInquiryProcessingService;
-    private final ApplicationUserService userService;
+    private final ILendInquiryService lendInquiryService;
+    private final ILendInquiryProcessingService lendInquiryProcessingService;
+    private final IApplicationUserService userService;
 
     @GetMapping("/")
     public FrentlyResponse retrieveLendInquiry(Authentication authentication) {

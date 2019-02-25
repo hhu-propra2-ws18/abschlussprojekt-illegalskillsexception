@@ -4,10 +4,10 @@ import hhu.propra2.illegalskillsexception.frently.backend.Data.Models.Transactio
 import lombok.Data;
 
 @Data
-public class transactionUpdateResponseDTO {
+public class TransactionUpdateResponseDTO {
     String status;
 
-    public transactionUpdateResponseDTO(Transaction.Status type){
+    public TransactionUpdateResponseDTO(Transaction.Status type) {
         this.status = type.toString();
     }
 }

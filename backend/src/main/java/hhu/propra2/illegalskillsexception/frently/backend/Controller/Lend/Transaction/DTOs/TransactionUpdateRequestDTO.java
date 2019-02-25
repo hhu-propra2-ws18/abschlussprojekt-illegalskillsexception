@@ -3,7 +3,7 @@ package hhu.propra2.illegalskillsexception.frently.backend.Controller.Lend.Trans
 import lombok.Data;
 
 @Data
-public class LendTransactionUpdate {
+public class TransactionUpdateRequestDTO {
 
     private long transactionId;
     private boolean isFaulty;
