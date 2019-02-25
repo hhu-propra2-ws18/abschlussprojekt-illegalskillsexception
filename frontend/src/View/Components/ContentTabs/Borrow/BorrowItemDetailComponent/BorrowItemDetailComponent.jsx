@@ -13,10 +13,7 @@ export default class BorrowItemDetailComponent extends React.Component {
         this.state = {
             showDialog: false,
             showError: false,
-            error: {
-                errorType : "",
-                errorMessage : ""
-            },
+            errorMessage: "",
             startDate: new Date(),
             endDate: new Date(),
         };
@@ -72,7 +69,7 @@ export default class BorrowItemDetailComponent extends React.Component {
                     style={{ zIndex: 400 }}
                     onCloseDialog={() => this.setState({ showDialog: false })}
                 >
-                    <BorrowItemErrorDialog error={this.state.error} closeDialog={this.closeErrorDialog}/>
+                    <BorrowItemErrorDialog errorMessage={this.state.errorMessage} closeDialog={this.closeErrorDialog}/>
                 </Dialog>
             </article>
         );
@@ -114,7 +111,7 @@ export default class BorrowItemDetailComponent extends React.Component {
         } else {
             this.setState({
                 showError:true,
-                error:result.data.error
+                errorMessage: result.data.error.errorMessage
                 }
             )
         }
