@@ -3,7 +3,8 @@ import {
     TRANSACTION_GETALL_BORROW,
     TRANSACTION_GETALL_LEND,
     TRANSACTION_PROBLEM,
-    TRANSACTION_FINISHED
+    TRANSACTION_FINISHED_LENDER,
+    TRANSACTION_FINISHED_BORROWER
 } from "../urlConstants";
 
 export async function getAllTransactionsBackend(
@@ -28,13 +29,33 @@ export async function getAllTransactionsBackend(
 export async function postTransactionFinishedBackend(
     id,
     token,
-    url = TRANSACTION_FINISHED
+    url = TRANSACTION_FINISHED_LENDER
 ) {
     let data = await Axios.post(
         url,
         {
             transactionId: id,
             isFaulty: false
+        },
+        {
+            headers: {
+                Authorization: token
+            }
+        }
+    );
+
+    return data;
+}
+
+export async function transactionItemReturnedBorrowerBackend(
+    id,
+    token,
+    url = TRANSACTION_FINISHED_BORROWER
+) {
+    let data = await Axios.post(
+        url,
+        {
+            transactionId: id
         },
         {
             headers: {

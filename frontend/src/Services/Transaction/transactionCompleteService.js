@@ -2,7 +2,8 @@ import {
     getAllTransactionsBackend,
     postTransactionProblem,
     postTransactionFinishedBackend,
-    postTransactionProblemBackend
+    postTransactionProblemBackend,
+    transactionItemReturnedBorrowerBackend
 } from "./transactionBackendService";
 import { store } from "../../Store/reduxInit";
 import { getSetTransactionItemListAction } from "../../Store/TransactionStore/TransactionActions";
@@ -14,7 +15,11 @@ export async function getAllTransaction() {
     store.dispatch(action);
 }
 
-export async function transactionItemReturned(id) {
+export async function transactionItemReturnedBorrower(id){
+    return await transactionItemReturnedBorrowerBackend(id,store.getState().user.token);
+}
+
+export async function transactionItemReturnedLender(id) {
     return await postTransactionFinishedBackend(
         id,
         store.getState().user.token
