@@ -32,6 +32,6 @@ public class Transaction {
 
     @Embeddable
     public enum Status {
-        OPEN, CLOSED, CONFLICT, RETURNED, PENDING_PAYMENT
+        OPEN, CLOSED, CONFLICT, RETURNED
     }
 }
