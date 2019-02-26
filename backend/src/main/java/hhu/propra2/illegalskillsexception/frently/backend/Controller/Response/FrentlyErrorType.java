@@ -12,4 +12,5 @@ public enum FrentlyErrorType {
     PROPAY_CONNECTION,
     NO_SUCH_TRANSACTION,
     NOT_ENOUGH_MONEY,
+    USER_IS_NOT_ADMIN,
 }
