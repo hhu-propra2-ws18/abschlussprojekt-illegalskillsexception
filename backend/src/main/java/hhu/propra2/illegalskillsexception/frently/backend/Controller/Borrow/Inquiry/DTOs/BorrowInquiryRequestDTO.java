@@ -5,7 +5,7 @@ import lombok.Data;
 import java.time.LocalDate;
 
 @Data
-public class BorrowInquiryDTO {
+public class BorrowInquiryRequestDTO {
     private long articleId;
     private LocalDate startDate;
     private LocalDate endDate;

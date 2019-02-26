@@ -1,7 +1,7 @@
 package hhu.propra2.illegalskillsexception.frently.backend.Controller.Borrow.Inquiry.Services;
 
 import hhu.propra2.illegalskillsexception.frently.backend.Controller.Borrow.Article.IServices.IBorrowArticleService;
-import hhu.propra2.illegalskillsexception.frently.backend.Controller.Borrow.Inquiry.DTOs.BorrowInquiryDTO;
+import hhu.propra2.illegalskillsexception.frently.backend.Controller.Borrow.Inquiry.DTOs.BorrowInquiryRequestDTO;
 import hhu.propra2.illegalskillsexception.frently.backend.Controller.Borrow.Inquiry.DTOs.BorrowInquiryResponseDTO;
 import hhu.propra2.illegalskillsexception.frently.backend.Controller.Borrow.Inquiry.Exceptions.ArticleNotAvailableException;
 import hhu.propra2.illegalskillsexception.frently.backend.Controller.Borrow.Inquiry.Exceptions.InvalidLendingPeriodException;
@@ -29,7 +29,7 @@ public class BorrowInquiryService implements IBorrowInquiryService {
     private final IBorrowArticleService articleService;
 
     @Override
-    public Inquiry createInquiry(Authentication auth, BorrowInquiryDTO dto)
+    public Inquiry createInquiry(Authentication auth, BorrowInquiryRequestDTO dto)
             throws ArticleNotAvailableException, InvalidLendingPeriodException, NoSuchArticleException {
         ApplicationUser currentUser = userService.getCurrentUser(auth);
 
@@ -43,7 +43,7 @@ public class BorrowInquiryService implements IBorrowInquiryService {
         return inquiry;
     }
 
-    private Inquiry buildInquiry(BorrowInquiryDTO dto) throws NoSuchArticleException {
+    private Inquiry buildInquiry(BorrowInquiryRequestDTO dto) throws NoSuchArticleException {
         Inquiry inquiry = new Inquiry();
 
         Article article = articleService.getArticleById(dto.getArticleId());
@@ -71,14 +71,14 @@ public class BorrowInquiryService implements IBorrowInquiryService {
         return responseDTOs;
     }
 
-    private boolean hasDateConflict(BorrowInquiryDTO dto) {
+    private boolean hasDateConflict(BorrowInquiryRequestDTO dto) {
         List<Inquiry> allConflictingInquiries =
                 inquiries.findAllByArticle_IdAndStartDateLessThanEqualAndEndDateGreaterThanEqual(
                         dto.getArticleId(), dto.getEndDate(), dto.getStartDate());
         return !allConflictingInquiries.isEmpty();
     }
 
-    private boolean isInvalidPeriod(BorrowInquiryDTO dto) {
+    private boolean isInvalidPeriod(BorrowInquiryRequestDTO dto) {
         return dto.getEndDate().isBefore(dto.getStartDate());
     }
 }
