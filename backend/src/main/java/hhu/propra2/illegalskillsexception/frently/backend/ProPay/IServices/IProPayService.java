@@ -10,11 +10,11 @@ import hhu.propra2.illegalskillsexception.frently.backend.ProPay.Models.Reservat
 import java.util.List;
 
 public interface IProPayService {
-    ProPayAccount createAccount(String userName, double amount);
+    ProPayAccount createAccount(String userName, double amount) throws ProPayConnectionException;
 
     double getAccountBalance(String username) throws ProPayConnectionException;
 
-    void payInMoney(String userName, double amount);
+    void payInMoney(String userName, double amount) throws ProPayConnectionException;
 
     void transferMoney(String borrower, String lender, double amount) throws InsuffientFundsException, ProPayConnectionException;
 
@@ -26,7 +26,7 @@ public interface IProPayService {
 
     Long blockDeposit(String borrower, String lender, double amount) throws ProPayConnectionException, InsuffientFundsException;
 
-    void freeDeposit(String borrower, Transaction transaction);
+    void freeDeposit(String borrower, Transaction transaction) throws ProPayConnectionException;
 
-    void punishUser(String borrower, Transaction transaction);
+    void punishUser(String borrower, Transaction transaction) throws ProPayConnectionException;
 }

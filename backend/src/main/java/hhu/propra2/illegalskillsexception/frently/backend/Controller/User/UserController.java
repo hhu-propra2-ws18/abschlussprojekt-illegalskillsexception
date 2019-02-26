@@ -15,6 +15,7 @@ import hhu.propra2.illegalskillsexception.frently.backend.Controller.User.IServi
 import hhu.propra2.illegalskillsexception.frently.backend.Controller.User.IServices.IUserDetailService;
 import hhu.propra2.illegalskillsexception.frently.backend.Controller.User.IServices.IUserTransactionService;
 import hhu.propra2.illegalskillsexception.frently.backend.Data.Models.ApplicationUser;
+import hhu.propra2.illegalskillsexception.frently.backend.ProPay.Exceptions.ProPayConnectionException;
 import hhu.propra2.illegalskillsexception.frently.backend.ProPay.IServices.IProPayService;
 import lombok.AllArgsConstructor;
 import org.springframework.security.core.Authentication;
@@ -46,8 +47,8 @@ public class UserController {
             proPayService.createAccount(user.getUsername(), 0);
 
             response.setData(Collections.singletonList(user));
-        } catch (UserAlreadyExistsAuthenticationException e) {
-            response.setError(new FrentlyError(e.getMessage(), FrentlyErrorType.USER_ALREADY_EXISTING));
+        } catch (ProPayConnectionException | UserAlreadyExistsAuthenticationException fe) {
+            response.setError(new FrentlyError(fe));
         }
         return response;
     }
@@ -84,7 +85,11 @@ public class UserController {
     public FrentlyResponse chargeCredit(Authentication auth, @RequestBody ChargeAmountDTO amount) {
         FrentlyResponse fr = new FrentlyResponse();
         String userName = (String) auth.getPrincipal();
-        proPayService.payInMoney(userName, amount.getAmount());
+        try {
+            proPayService.payInMoney(userName, amount.getAmount());
+        } catch (ProPayConnectionException e) {
+            fr.setError(new FrentlyError(e));
+        }
         return fr;
     }
 

@@ -11,6 +11,7 @@ import hhu.propra2.illegalskillsexception.frently.backend.Data.Repositories.ITra
 import hhu.propra2.illegalskillsexception.frently.backend.ProPay.Exceptions.ProPayConnectionException;
 import hhu.propra2.illegalskillsexception.frently.backend.ProPay.IServices.IProPayService;
 import lombok.AllArgsConstructor;
+import org.springframework.retry.ExhaustedRetryException;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Service;
 
@@ -57,7 +58,12 @@ public class BorrowTransactionService implements IBorrowTransactionService {
         String borrower = transaction.getInquiry().getBorrower().getUsername();
         String lender = transaction.getInquiry().getLender().getUsername();
 
-        proPayService.transferMoney(borrower, lender, fee);
+        //Is checked here instead of inside ProPayService because transferMoney is a void
+        try {
+            proPayService.transferMoney(borrower, lender, fee);
+        } catch (ExhaustedRetryException e){
+            throw new ProPayConnectionException();
+        }
     }
 
     double calculateFee(LocalDate startDate, LocalDate endDate, Double dailyRate) {
