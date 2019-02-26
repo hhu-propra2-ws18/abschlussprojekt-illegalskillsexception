@@ -4,13 +4,15 @@ import borrowstore from "./BorrowStore/BorrowReducer";
 import lendstore from "./LendStore/LendReducer";
 import inquirystore from "./InquiryStore/InquiryReducer";
 import transactionstore from "./TransactionStore/TransactionReducer";
+import conflictstore from "./ConflictStore/ConflictReducer";
 
 export const reducers = combineReducers({
     user,
     borrowstore,
     lendstore,
     inquirystore,
-    transactionstore
+    transactionstore,
+    conflictstore
 });
 
 export function getDevtoolsExtension(object) {

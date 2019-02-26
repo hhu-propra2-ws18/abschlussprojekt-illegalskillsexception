@@ -7,7 +7,7 @@ import * as serviceWorker from "./serviceWorker";
 import "./Store/reduxInit";
 import { store } from "./Store/reduxInit";
 import { Provider } from "react-redux";
-import {getAllConflicts} from "./Services/Conflict/conflictService";
+import {getAllConflicts} from "./Services/Conflict/conflictBackendService";
 
 
 
@@ -22,6 +22,3 @@ ReactDOM.render(
 // unregister() to register() below. Note this comes with some pitfalls.
 // Learn more about service workers: http://bit.ly/CRA-PWA
 serviceWorker.unregister();
-
-
-//setInterval(getAllConflicts, 5000);

@@ -35,6 +35,11 @@ export default class ContentPage extends React.Component {
             this.setState({showNotifToast: true})
         }
     }
+
+    renderNavigation() {
+
+    }
+
     render() {
         return (
             <>
