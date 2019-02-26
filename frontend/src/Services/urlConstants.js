@@ -5,7 +5,7 @@ export const USER = "user";
 export const SIGN_UP = `${BASEURL}${USER}/sign-up`;
 export const LOGINURL = `${BASEURL}login`;
 export const USER_PROFILE = `${BASEURL}${USER}/`;
-export const CHARGE_AMOUNT = `${BASEURL}${USER}/charge`;
+export const ADD_AMOUNT= `${BASEURL}${USER}/charge`;
 export const OVERDUE_NOTIFICATION = `${BASEURL}${USER}/notifications`;
 
 export const BORROW = "borrow/";
@@ -27,5 +27,6 @@ export const INQUIRY_DECLINE = `${BASEURL}${LEND}inquiry/decline`;
 
 export const TRANSACTION_GETALL_BORROW = `${BASEURL}${BORROW}transaction/`;
 export const TRANSACTION_GETALL_LEND = `${BASEURL}${LEND}transaction/`;
-export const TRANSACTION_FINISHED = `${BASEURL}${LEND}transaction/update`;
+export const TRANSACTION_FINISHED_BORROWER = `${BASEURL}${BORROW}transaction/return`;
+export const TRANSACTION_FINISHED_LENDER = `${BASEURL}${LEND}transaction/update`;
 export const TRANSACTION_PROBLEM = `${BASEURL}${LEND}transaction/problem`;
