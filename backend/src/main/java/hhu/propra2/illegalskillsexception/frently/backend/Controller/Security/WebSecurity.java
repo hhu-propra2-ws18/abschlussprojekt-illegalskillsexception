@@ -1,6 +1,6 @@
 package hhu.propra2.illegalskillsexception.frently.backend.Controller.Security;
 
-import hhu.propra2.illegalskillsexception.frently.backend.Controller.User.Services.UserDetailsServiceImpl;
+import hhu.propra2.illegalskillsexception.frently.backend.Controller.User.Services.SecurityUserService;
 import org.springframework.context.annotation.Bean;
 import org.springframework.http.HttpMethod;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
@@ -18,10 +18,10 @@ import static hhu.propra2.illegalskillsexception.frently.backend.Controller.Secu
 
 @EnableWebSecurity
 public class WebSecurity extends WebSecurityConfigurerAdapter {
-    private UserDetailsServiceImpl userDetailsService;
+    private SecurityUserService userDetailsService;
     private BCryptPasswordEncoder bCryptPasswordEncoder;
 
-    public WebSecurity(UserDetailsServiceImpl userDetailsService, BCryptPasswordEncoder bCryptPasswordEncoder) {
+    public WebSecurity(SecurityUserService userDetailsService, BCryptPasswordEncoder bCryptPasswordEncoder) {
         this.userDetailsService = userDetailsService;
         this.bCryptPasswordEncoder = bCryptPasswordEncoder;
     }

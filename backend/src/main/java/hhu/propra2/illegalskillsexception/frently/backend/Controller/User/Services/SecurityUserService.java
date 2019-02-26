@@ -14,11 +14,11 @@ import java.util.Optional;
 import static java.util.Collections.emptyList;
 
 @Service
-public class UserDetailsServiceImpl implements UserDetailsService {
+public class SecurityUserService implements UserDetailsService {
     private IApplicationUserRepository applicationUserRepository;
 
     @Autowired
-    public UserDetailsServiceImpl(IApplicationUserRepository applicationUserRepository) {
+    public SecurityUserService(IApplicationUserRepository applicationUserRepository) {
         this.applicationUserRepository = applicationUserRepository;
     }
 

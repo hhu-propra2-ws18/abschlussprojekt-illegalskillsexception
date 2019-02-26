@@ -3,8 +3,8 @@ package hhu.propra2.illegalskillsexception.frently.backend.Controller.Lend.Trans
 import hhu.propra2.illegalskillsexception.frently.backend.Controller.Response.FrentlyErrorType;
 import hhu.propra2.illegalskillsexception.frently.backend.Controller.Response.FrentlyException;
 
-public class BorrowerNotEnoughMoneyException extends FrentlyException {
-    public BorrowerNotEnoughMoneyException() {
-        super("The borrower currently has not enough money.", FrentlyErrorType.NOT_ENOUGH_MONEY);
+public class InsuffientFundsException extends FrentlyException {
+    public InsuffientFundsException() {
+        super("The borrower currently has not enough money.", FrentlyErrorType.INSUFFICIENT_FUNDS);
     }
 }

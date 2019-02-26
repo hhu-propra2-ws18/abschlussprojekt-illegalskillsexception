@@ -1,6 +1,6 @@
 package hhu.propra2.illegalskillsexception.frently.backend.Controller.Lend.Transaction;
 
-import hhu.propra2.illegalskillsexception.frently.backend.Controller.Lend.Transaction.DTOs.TransactionUpdateRequestDTO;
+import hhu.propra2.illegalskillsexception.frently.backend.Controller.Lend.Transaction.DTOs.AcceptReturnedItemRequestDTO;
 import hhu.propra2.illegalskillsexception.frently.backend.Controller.Lend.Transaction.DTOs.TransactionUpdateResponseDTO;
 import hhu.propra2.illegalskillsexception.frently.backend.Controller.Lend.Transaction.IService.ILendTransactionService;
 import hhu.propra2.illegalskillsexception.frently.backend.Controller.Response.FrentlyError;
@@ -33,7 +33,7 @@ public class LendTransactionController {
     }
 
     @PostMapping("/update")
-    public FrentlyResponse updateTransaction(@RequestBody TransactionUpdateRequestDTO updateDTO) {
+    public FrentlyResponse updateTransaction(@RequestBody AcceptReturnedItemRequestDTO updateDTO) {
         FrentlyResponse response = new FrentlyResponse();
         try{
             Transaction transaction = transactionService.updateTransaction(updateDTO);

@@ -55,11 +55,11 @@ public class LendInquiryController {
     }
 
     @PostMapping("/accept")
-    public FrentlyResponse accept(@RequestBody InquiryChangeStatusDTO inquiryId) {
+    public FrentlyResponse accept(@RequestBody InquiryChangeStatusDTO dto) {
         FrentlyResponse response = new FrentlyResponse();
 
         try {
-            final Transaction transaction = lendInquiryProcessingService.acceptInquiry(inquiryId.getInquiryId());
+            final Transaction transaction = lendInquiryProcessingService.acceptInquiry(dto.getInquiryId());
             response.setData(transaction);
         } catch (FrentlyException fe) {
             response.setError(new FrentlyError(fe));

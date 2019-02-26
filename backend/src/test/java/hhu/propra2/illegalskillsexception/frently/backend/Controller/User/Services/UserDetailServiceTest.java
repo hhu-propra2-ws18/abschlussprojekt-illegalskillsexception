@@ -1,9 +1,10 @@
 package hhu.propra2.illegalskillsexception.frently.backend.Controller.User.Services;
 
-import hhu.propra2.illegalskillsexception.frently.backend.Controller.User.Exceptions.UserNotFoundException;
-import hhu.propra2.illegalskillsexception.frently.backend.Data.Models.ApplicationUser;
 import hhu.propra2.illegalskillsexception.frently.backend.Controller.User.DTOs.ForeignUserDetailResponse;
 import hhu.propra2.illegalskillsexception.frently.backend.Controller.User.DTOs.UserDetailResponse;
+import hhu.propra2.illegalskillsexception.frently.backend.Controller.User.Exceptions.UserNotFoundException;
+import hhu.propra2.illegalskillsexception.frently.backend.Data.Models.ApplicationUser;
+import hhu.propra2.illegalskillsexception.frently.backend.ProPay.Exceptions.ProPayConnectionException;
 import hhu.propra2.illegalskillsexception.frently.backend.ProPay.Services.ProPayService;
 import org.junit.Assert;
 import org.junit.Before;
@@ -28,7 +29,7 @@ public class UserDetailServiceTest {
     }
 
     @Test
-    public void getUserDetailServiceTest_One() {
+    public void getUserDetailServiceTest_One() throws ProPayConnectionException {
         UserDetailService service = new UserDetailService(mockApplicationUserService, mockUserTransactionService,mockPropay);
 
         UserDetailResponse response = service.getUserDetails(null);

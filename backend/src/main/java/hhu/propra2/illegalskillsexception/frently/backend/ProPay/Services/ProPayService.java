@@ -1,7 +1,8 @@
 package hhu.propra2.illegalskillsexception.frently.backend.ProPay.Services;
 
+import hhu.propra2.illegalskillsexception.frently.backend.Controller.Lend.Transaction.Exceptions.InsuffientFundsException;
 import hhu.propra2.illegalskillsexception.frently.backend.Data.Models.Transaction;
-import hhu.propra2.illegalskillsexception.frently.backend.ProPay.Exceptions.ProPayException;
+import hhu.propra2.illegalskillsexception.frently.backend.ProPay.Exceptions.ProPayConnectionException;
 import hhu.propra2.illegalskillsexception.frently.backend.ProPay.IServices.IMoneyTransferService;
 import hhu.propra2.illegalskillsexception.frently.backend.ProPay.IServices.IProPayService;
 import hhu.propra2.illegalskillsexception.frently.backend.ProPay.Models.MoneyTransfer;
@@ -36,7 +37,7 @@ public class ProPayService implements IProPayService {
     }
 
     @Override
-    public double getAccountBalance(String username) {
+    public double getAccountBalance(String username) throws ProPayConnectionException {
         ProPayAccount proPayAccount = getProPayAccount(username);
         return proPayAccount.getAmount();
     }
@@ -47,9 +48,14 @@ public class ProPayService implements IProPayService {
     }
 
     @Override
-    public void transferMoney(String borrower, String lender, double amount) {
+    public void transferMoney(String borrower, String lender, double amount) throws InsuffientFundsException, ProPayConnectionException {
+        checkFunds(borrower, amount);
         final String url = BASE_URL + "account/" + borrower + "/transfer/" + lender + "?amount=" + amount;
-        restTemplate.postForLocation(url, null);
+        try {
+            restTemplate.postForLocation(url, null); //TODO: timeout
+        } catch (Exception e) {
+            throw new ProPayConnectionException();
+        }
         moneyTransferService.createMoneyTransfer(borrower, lender, amount);
     }
 
@@ -59,17 +65,13 @@ public class ProPayService implements IProPayService {
     }
 
     @Override
-    public ProPayAccount getProPayAccount(String username) {
+    public ProPayAccount getProPayAccount(String username) throws ProPayConnectionException {
         final String url = BASE_URL + "account/" + username;
-        return restTemplate.getForObject(url, ProPayAccount.class);
-    }
-
-    @Override
-    public boolean hasEnoughMoney(String userName, double amount) {
-        ProPayAccount proPayAccount = getProPayAccount(userName);
-        List<Reservation> reservations = proPayAccount.getReservations();
-        double accountBalance = proPayAccount.getAmount();
-        return amountGreaterThanReservation(reservations, amount, accountBalance);
+        try {
+            return restTemplate.getForObject(url, ProPayAccount.class);
+        } catch (Exception e) {
+            throw new ProPayConnectionException();
+        }
     }
 
     @Override
@@ -82,14 +84,17 @@ public class ProPayService implements IProPayService {
     }
 
     @Override
-    public Long blockDeposit(String borrower, String lender, double amount) throws ProPayException {
-        final String url = BASE_URL + "reservation/reserve/" + borrower + "/" + lender + "?amount=" + amount;
-        Reservation reservation = restTemplate.postForObject(url, null, Reservation.class);
+    public Long blockDeposit(String borrower, String lender, double amount)
+            throws ProPayConnectionException, InsuffientFundsException {
+        checkFunds(borrower, amount);
 
-        if (reservation == null) {
-            throw new ProPayException();
+        final String url = BASE_URL + "reservation/reserve/" + borrower + "/" + lender + "?amount=" + amount;
+        try {
+            Reservation reservation = restTemplate.postForObject(url, null, Reservation.class); //TODO: timeout
+            return reservation.getId();
+        } catch (Exception e) {
+            throw new ProPayConnectionException();
         }
-        return reservation.getId();
     }
 
     @Override
@@ -107,4 +112,10 @@ public class ProPayService implements IProPayService {
         moneyTransferService.createMoneyTransfer(borrower, transaction.getInquiry().getLender().getUsername(), transaction.getInquiry().getArticle().getDeposit());
     }
 
+    private void checkFunds(String userName, double amount) throws InsuffientFundsException, ProPayConnectionException {
+        ProPayAccount proPayAccount = getProPayAccount(userName);
+        List<Reservation> reservations = proPayAccount.getReservations();
+        double accountBalance = proPayAccount.getAmount();
+        if (!amountGreaterThanReservation(reservations, amount, accountBalance)) throw new InsuffientFundsException();
+    }
 }
