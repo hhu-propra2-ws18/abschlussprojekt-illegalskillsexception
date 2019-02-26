@@ -30,16 +30,6 @@ public class LendInquiryResponseDTO {
         this.timestamp = inquiry.getTimestamp();
         this.updated = inquiry.getUpdated();
 
-        switch (inquiry.getStatus()) {
-            case ACCEPTED:
-                this.status = "accepted";
-                break;
-            case DECLINED:
-                this.status = "declined";
-                break;
-            case OPEN:
-            default:
-                this.status = "open";
-        }
+        this.status = inquiry.getStatus().toString();
     }
 }
