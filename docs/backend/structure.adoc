@@ -1,10 +1,35 @@
 === Backend structure
 
-==== Repositories
+==== Package 'Controller'
+* *Borrow*
+//TODO
+* *Conflict*
+//TODO
+* *Lend*
+//TODO
+* *Response*
+//TODO
+* *Security*
+//TODO
+* *User*
+//TODO
+
+==== Package 'Data'
+* *Config*
+//TODO
+* *Exceptions*
+//TODO
+* *Models*
+//TODO
+* *Repositories*
 Our backend uses CRUD-Repositories to access and update our dataobjects in the database. We havent made many changes to the repository interfaces, mostly to return lists with a specific type.
 
-==== Security
-//TODO write documentation for the security package JWTAuthentication for the frontend.
-
-==== Services
-For almost each model, there is a service handling the business logic and saving the output into the database and/ or returning an dataobject. Each service is providing the opportunity to create, retrieve, update and to delete data from the database. Several services offer even more functionality. Overall we decided to use only the repository based on the usage of the given service within the service. We prefered to use constructor based dependency injection in our services, because it is being suggested by the Spring Team. All methods of the services are tested thoroughly, except for very simple oneliners, which don't contain major logical operations.
+==== Package 'ProPay'
+* *Exceptions*
+//TODO
+* *IServices*
+//TODO
+* *Models*
+//TODO
+* *Services*
+//TODO
