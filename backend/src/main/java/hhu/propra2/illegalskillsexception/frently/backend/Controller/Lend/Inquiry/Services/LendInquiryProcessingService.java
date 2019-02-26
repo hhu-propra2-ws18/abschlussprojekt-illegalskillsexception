@@ -45,10 +45,7 @@ public class LendInquiryProcessingService implements ILendInquiryProcessingServi
         long reservationId = blockDeposit(borrower, lender, deposit);
 
         flagAsAccepted(inquiry);
-
-        Transaction transaction = createTransactionFromInquiry(inquiry, reservationId);
-
-        return transaction;
+        return createTransactionFromInquiry(inquiry, reservationId);
     }
 
     private Transaction createTransactionFromInquiry(Inquiry inquiry, long reservationId) {
