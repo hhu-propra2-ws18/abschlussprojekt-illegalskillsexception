@@ -1,7 +1,7 @@
 import React from "react";
 import {
     getUserDetails,
-    chargeUserAccount
+    addMoneyBalanceToUserAccount
 } from "../../../../Services/User/authentificationCompleteService";
 import Button from "react-uwp/Button";
 
@@ -45,14 +45,14 @@ export default class UserView extends React.Component {
                 <p>{this.state.profile.username}</p>
                 <h3>Balance</h3>
                 <p>{this.state.profile.accountBalance}</p>
-                <h3>Charge credit</h3>
+                <h3>Add credit</h3>
                 <Button
                     onClick={async () => {
-                        chargeUserAccount();
+                        addMoneyBalanceToUserAccount();
                         await this.loadProfile();
                     }}
                 >
-                    Charge 50€
+                    Add 250€
                 </Button>
                 <div>
                     {this.state.profile.completedTransactions.map(element => (

@@ -1,28 +1,83 @@
 import React from "react";
 import Button from "react-uwp/Button";
-import { transactionItemReturned, createTransactionProblem } from "../../../../../Services/Transaction/transactionCompleteService";
+import {
+    transactionItemReturnedLender,
+    transactionItemReturnedBorrower,
+    createTransactionProblem
+} from "../../../../../Services/Transaction/transactionCompleteService";
+import Dialog from "react-uwp/Dialog";
 
 export default class TransactionsItem extends React.Component {
+    constructor(props) {
+        super(props);
+
+        this.getButtons = this.getButtons.bind(this);
+
+        this.state = { showError: false };
+    }
+
     render() {
         return (
             <article>
+                <h2>Title</h2>
+                <p>{this.props.data.title}</p>
                 <h3>{this.props.data.title}</h3>
                 <h5>Status</h5>
                 <p> {this.props.data.status}</p>
                 <h5>Return Date</h5>
-                <p> 
+                <p>
                 {
-                    this.props.isLender ? 
-                    <div>
-                        <Button onClick={()=> transactionItemReturned(this.props.data.id)}>Item was returned</Button>
-                        <Button onClick={()=>createTransactionProblem(this.props.data.id)}>
-                            Problem occured
-                        </Button>
-                    </div> : null
-                }{this.props.data.returnDate}</p>
+                    this.props.data.status === "OPEN" ? this.getButtons() : null
+                }
+                
+                {this.props.data.returnDate}
+                </p>
+                {this.state.showError ? (
+                    <Dialog
+                        defaultShow={this.state.showError}
+                        onCloseDialog={() =>
+                            this.setState({ showError: false })
+                        }
+                    >
+                        <h4>Sorry, an error occured</h4>
+                        <p>{this.state.error.errorMessage}</p>
+                    </Dialog>
+                ) : null}
             </article>
         );
     }
 
-    
+    getButtons() {
+        return this.props.isLender ? (
+            <div>
+                <Button
+                    onClick={() =>
+                        transactionItemReturnedLender(this.props.data.id)
+                    }
+                >
+                    Item was returned in good condition
+                </Button>
+                <Button
+                    onClick={() => createTransactionProblem(this.props.data.id)}
+                >
+                    Item was returned in bad condition
+                </Button>
+            </div>
+        ) : (
+            <div>
+                <Button onClick={() => this.returnItemBorrower()}>
+                    Item returned
+                </Button>
+            </div>
+        );
+    }
+
+    async returnItemBorrower() {
+        let data = await transactionItemReturnedBorrower(this.props.data.id);
+
+        console.log(data);
+        if (data.data.error) {
+            this.setState({ showError: true, error: data.data.error });
+        }
+    }
 }

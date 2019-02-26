@@ -68,7 +68,7 @@ export default class ContentPage extends React.Component {
                         />,
                         <SplitViewCommand
                             onClick={() => this.switchTab(3)}
-                            label="Processes"
+                            label="Transactions"
                             icon={"\uE9F5"}
                         />
                     ]}

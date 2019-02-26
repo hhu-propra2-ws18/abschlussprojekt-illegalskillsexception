@@ -20,12 +20,27 @@ public class LendInquiryService implements ILendInquiryService {
     @Override
     public List<LendInquiryResponseDTO> retrieveInquiriesFromUser(ApplicationUser user) {
         List<Inquiry> inquiryList = IInquiryRepository.findAllByLender_Id(user.getId());
+        List<Inquiry> openInquiries = getOpenInquiries(inquiryList);
+
         List<LendInquiryResponseDTO> responseDTOs = new ArrayList<>();
-        for (Inquiry inquiry : inquiryList) {
+        for (Inquiry inquiry : openInquiries) {
             LendInquiryResponseDTO dto = new LendInquiryResponseDTO(inquiry);
             responseDTOs.add(dto);
         }
         return responseDTOs;
+    }
+
+    public List<Inquiry> getOpenInquiries(List<Inquiry> inquiryList) {
+        List<Inquiry> openInquiries = new ArrayList<>();
+
+        for (Inquiry inquiry : inquiryList) {
+            Inquiry.Status status = inquiry.getStatus();
+            if (status == Inquiry.Status.OPEN) {
+                openInquiries.add(inquiry);
+            }
+        }
+
+        return openInquiries;
     }
 
 }

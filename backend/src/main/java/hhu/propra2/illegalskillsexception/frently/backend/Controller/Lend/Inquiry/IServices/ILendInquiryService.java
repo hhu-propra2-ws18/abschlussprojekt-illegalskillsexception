@@ -2,9 +2,12 @@ package hhu.propra2.illegalskillsexception.frently.backend.Controller.Lend.Inqui
 
 import hhu.propra2.illegalskillsexception.frently.backend.Controller.Lend.Inquiry.DTOs.LendInquiryResponseDTO;
 import hhu.propra2.illegalskillsexception.frently.backend.Data.Models.ApplicationUser;
+import hhu.propra2.illegalskillsexception.frently.backend.Data.Models.Inquiry;
 
 import java.util.List;
 
 public interface ILendInquiryService {
     List<LendInquiryResponseDTO> retrieveInquiriesFromUser(ApplicationUser user);
+
+    List<Inquiry> getOpenInquiries(List<Inquiry> inquiryList);
 }

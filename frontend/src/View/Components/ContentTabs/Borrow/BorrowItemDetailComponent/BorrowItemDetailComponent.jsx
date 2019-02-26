@@ -108,7 +108,6 @@ export default class BorrowItemDetailComponent extends React.Component {
         };
 
         let result = await borrowItem(data);
-        console.log("Result: ", result); //TODO Remove log
         if (!result.data.error) {
             this.hideBorrowDialog();
             this.props.close();

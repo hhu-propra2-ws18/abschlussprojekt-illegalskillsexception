@@ -2,7 +2,7 @@ import {store} from "../../Store/reduxInit";
 import {getLoginUserAction, getLogOutUserAction} from "../../Store/UserStore/UserActions";
 
 import {
-    chargeAmountBackend,
+    addAmountBackend,
     getUserDetailsBackend,
     loginUserBackend,
     registerUserBackend
@@ -31,8 +31,8 @@ export async function getUserDetails() {
     return (await getUserDetailsBackend(store.getState().user.token)).data;
 }
 
-export async function chargeUserAccount(){
-    return await chargeAmountBackend(store.getState().user.token);
+export async function addMoneyBalanceToUserAccount(){
+    return await addAmountBackend(store.getState().user.token);
 }
 
 export async function logOutUser(){

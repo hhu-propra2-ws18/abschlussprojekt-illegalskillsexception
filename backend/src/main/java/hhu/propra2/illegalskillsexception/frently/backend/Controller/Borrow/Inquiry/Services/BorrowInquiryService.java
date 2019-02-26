@@ -1,7 +1,7 @@
 package hhu.propra2.illegalskillsexception.frently.backend.Controller.Borrow.Inquiry.Services;
 
 import hhu.propra2.illegalskillsexception.frently.backend.Controller.Borrow.Article.IServices.IBorrowArticleService;
-import hhu.propra2.illegalskillsexception.frently.backend.Controller.Borrow.Inquiry.DTOs.BorrowInquiryDTO;
+import hhu.propra2.illegalskillsexception.frently.backend.Controller.Borrow.Inquiry.DTOs.BorrowInquiryRequestDTO;
 import hhu.propra2.illegalskillsexception.frently.backend.Controller.Borrow.Inquiry.DTOs.BorrowInquiryResponseDTO;
 import hhu.propra2.illegalskillsexception.frently.backend.Controller.Borrow.Inquiry.Exceptions.ArticleNotAvailableException;
 import hhu.propra2.illegalskillsexception.frently.backend.Controller.Borrow.Inquiry.Exceptions.InvalidLendingPeriodException;
@@ -16,8 +16,10 @@ import lombok.AllArgsConstructor;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 @AllArgsConstructor
@@ -29,7 +31,7 @@ public class BorrowInquiryService implements IBorrowInquiryService {
     private final IBorrowArticleService articleService;
 
     @Override
-    public Inquiry createInquiry(Authentication auth, BorrowInquiryDTO dto)
+    public Inquiry createInquiry(Authentication auth, BorrowInquiryRequestDTO dto)
             throws ArticleNotAvailableException, InvalidLendingPeriodException, NoSuchArticleException {
         ApplicationUser currentUser = userService.getCurrentUser(auth);
 
@@ -43,7 +45,25 @@ public class BorrowInquiryService implements IBorrowInquiryService {
         return inquiry;
     }
 
-    private Inquiry buildInquiry(BorrowInquiryDTO dto) throws NoSuchArticleException {
+    @Override
+    public List<BorrowInquiryResponseDTO> retrieveAllInquiriesByUser(ApplicationUser user) {
+        List<Inquiry> inquiryList = inquiries.findAllByBorrower_Id(user.getId());
+
+        return inquiryList.stream()
+                .map(BorrowInquiryResponseDTO::new)
+                .collect(Collectors.toList());
+    }
+
+    @Override
+    public List<BorrowInquiryResponseDTO> retrieveAllUnacceptedInquiriesByUser(ApplicationUser user) {
+        List<Inquiry> inquiryList = inquiries.findAllByBorrower_IdAndStatusNot(user.getId(), Inquiry.Status.ACCEPTED);
+
+        return inquiryList.stream()
+                .map(BorrowInquiryResponseDTO::new)
+                .collect(Collectors.toList());
+    }
+
+    private Inquiry buildInquiry(BorrowInquiryRequestDTO dto) throws NoSuchArticleException {
         Inquiry inquiry = new Inquiry();
 
         Article article = articleService.getArticleById(dto.getArticleId());
@@ -57,28 +77,31 @@ public class BorrowInquiryService implements IBorrowInquiryService {
         return inquiry;
     }
 
-    @Override
-    public List<BorrowInquiryResponseDTO> retrieveAllInquiriesByUser(ApplicationUser user) {
-
-        List<Inquiry> inquiryList = inquiries.findAllByBorrower_Id(user.getId());
-        List<BorrowInquiryResponseDTO> responseDTOs = new ArrayList<>();
-
-        for (Inquiry inquiry : inquiryList) {
-            BorrowInquiryResponseDTO dto = new BorrowInquiryResponseDTO(inquiry);
-            responseDTOs.add(dto);
-        }
-
-        return responseDTOs;
-    }
-
-    private boolean hasDateConflict(BorrowInquiryDTO dto) {
+    private boolean hasDateConflict(BorrowInquiryRequestDTO dto) {
         List<Inquiry> allConflictingInquiries =
                 inquiries.findAllByArticle_IdAndStartDateLessThanEqualAndEndDateGreaterThanEqual(
                         dto.getArticleId(), dto.getEndDate(), dto.getStartDate());
-        return !allConflictingInquiries.isEmpty();
+        List<Inquiry> openOrAcceptedInquiries = getOpenAndAcceptedInquiries(allConflictingInquiries);
+        return !openOrAcceptedInquiries.isEmpty();
     }
 
-    private boolean isInvalidPeriod(BorrowInquiryDTO dto) {
-        return dto.getEndDate().isBefore(dto.getStartDate());
+    private boolean isInvalidPeriod(BorrowInquiryRequestDTO dto) {
+        boolean endBeforeStart = dto.getEndDate().isBefore(dto.getStartDate());
+        boolean startInPast = dto.getStartDate().isBefore(LocalDate.now());
+        return endBeforeStart || startInPast;
     }
+
+    public List<Inquiry> getOpenAndAcceptedInquiries(List<Inquiry> inquiryList) {
+        List<Inquiry> openAcceptedInquiries = new ArrayList<>();
+
+        for (Inquiry inquiry : inquiryList) {
+            Inquiry.Status status = inquiry.getStatus();
+            if (status == Inquiry.Status.OPEN || status == Inquiry.Status.ACCEPTED) {
+                openAcceptedInquiries.add(inquiry);
+            }
+        }
+        return openAcceptedInquiries;
+
+    }
+
 }
