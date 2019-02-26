@@ -120,7 +120,7 @@ public class Initializer implements ServletContextInitializer {
             this.inquiryRepo.save(inquiryNotZeroArticle);
 
             Transaction transactionFromInquiryZeroArticle = new Transaction();
-            transactionFromInquiryZeroArticle.setStatus(Transaction.Status.CLOSED);
+            transactionFromInquiryZeroArticle.setStatus(Transaction.Status.OPEN);
             transactionFromInquiryZeroArticle.setInquiry(inquiryNotZeroArticle);
             transactionFromInquiryZeroArticle.setReservationId(-1);
             transactionFromInquiryZeroArticle.setReturnDate(inquiryNotZeroArticle.getEndDate());

@@ -36,7 +36,7 @@ export async function getUserDetailsBackend(token, url = USER_PROFILE) {
 export async function addAmountBackend(token, url = ADD_AMOUNT) {
     return await axios.post(
         url,
-        { amount: 50 },
+        { amount: 250 },
         { headers: { Authorization: token } }
     );
 }
