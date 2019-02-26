@@ -46,58 +46,91 @@ export default class LandingPage extends React.Component {
                         Login
                     </Button>
                 </div>
-
-                <Dialog
-                    defaultShow={this.state.register}
-                    style={{ zIndex: 400 }}
-                    onCloseDialog={() => this.setState({ register: false })}
-                >
-                    <div className="dialog-container">
-                        <label>Username:</label>
-                        <TextBox defaultValue="user" ref={this.nameRegister} />
-                        <label>Email:</label>
-                        <TextBox
-                            defaultValue="idiot@frently.com"
-                            ref={this.emailRegister}
-                        />
-                        <label>Password:</label>
-                        <PasswordBox
-                            defaultValue="password"
-                            ref={this.passwordRegister}
-                        />
-                        <div className="dialog-buttons-div">
-                            <Button onClick={() => this.hideRegister()}>
-                                Cancel
-                            </Button>
-                            <Button onClick={() => this.registerUser()}>
-                                Register
-                            </Button>
-                        </div>
-                    </div>
-                </Dialog>
-                <Dialog
-                    defaultShow={this.state.login}
-                    style={{ zIndex: 400 }}
-                    onCloseDialog={() => this.setState({ login: false })}
-                >
-                    <div className="dialog-container">
-                        <label>Username:</label>
-                        <TextBox defaultValue="user" ref={this.nameLogin} />
-                        <label>Password:</label>
-                        <PasswordBox
-                            defaultValue="password"
-                            ref={this.passwordLogin}
-                        />
-                        <div className="dialog-buttons-div">
-                            <Button onClick={() => this.hideLogin()}>
-                                Cancel
-                            </Button>
-                            <Button onClick={() => this.loginUser()}>
-                                Login
-                            </Button>
-                        </div>
-                    </div>
-                </Dialog>
+                {this.state.register ? (
+                    <Dialog
+                        defaultShow={this.state.register}
+                        style={{ zIndex: 400 }}
+                        onCloseDialog={() => this.setState({ register: false })}
+                    >
+                        <form
+                            onSubmit={e => {
+                                e.preventDefault();
+                                this.registerUser();
+                            }}
+                        >
+                            <div className="dialog-container">
+                                <label>Username:</label>
+                                <TextBox
+                                    required={true}
+                                    defaultValue="user"
+                                    ref={this.nameRegister}
+                                />
+                                <label>Email:</label>
+                                <TextBox
+                                    required={true}
+                                    defaultValue="idiot@frently.com"
+                                    ref={this.emailRegister}
+                                />
+                                <label>Password:</label>
+                                <PasswordBox
+                                    required={true}
+                                    defaultValue="password"
+                                    ref={this.passwordRegister}
+                                />
+                                <div className="dialog-buttons-div">
+                                    <Button onClick={() => this.hideRegister()}>
+                                        Cancel
+                                    </Button>
+                                    <Button
+                                        onClick={() => this.registerUser()}
+                                        type="submit"
+                                    >
+                                        Register
+                                    </Button>
+                                </div>
+                            </div>
+                        </form>
+                    </Dialog>
+                ) : null}
+                {this.state.login ? (
+                    <Dialog
+                        defaultShow={this.state.login}
+                        style={{ zIndex: 400 }}
+                        onCloseDialog={() => this.setState({ login: false })}
+                    >
+                        <form
+                            onSubmit={e => {
+                                e.preventDefault();
+                                this.loginUser();
+                            }}
+                        >
+                            <div className="dialog-container">
+                                <label>Username:</label>
+                                <TextBox
+                                    defaultValue="user"
+                                    ref={this.nameLogin}
+                                    required={true}
+                                />
+                                <label>Password:</label>
+                                <PasswordBox
+                                    defaultValue="password"
+                                    ref={this.passwordLogin}
+                                    required={true}
+                                />
+                                <div className="dialog-buttons-div">
+                                    <Button onClick={() => this.hideLogin()}>
+                                        Cancel
+                                    </Button>
+                                    <Button
+                                        type="submit"
+                                    >
+                                        Login
+                                    </Button>
+                                </div>
+                            </div>
+                        </form>
+                    </Dialog>
+                ) : null}
             </div>
         );
     }
