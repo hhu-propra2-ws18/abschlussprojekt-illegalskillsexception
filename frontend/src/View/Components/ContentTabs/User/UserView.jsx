@@ -52,7 +52,7 @@ export default class UserView extends React.Component {
                         await this.loadProfile();
                     }}
                 >
-                    Add 50€
+                    Add 250€
                 </Button>
                 <div>
                     {this.state.profile.completedTransactions.map(element => (

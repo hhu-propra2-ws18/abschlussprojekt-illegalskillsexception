@@ -11,6 +11,8 @@ export default class TransactionsItem extends React.Component {
     constructor(props) {
         super(props);
 
+        this.getButtons = this.getButtons.bind(this);
+
         this.state = { showError: false };
     }
 
@@ -24,33 +26,11 @@ export default class TransactionsItem extends React.Component {
                 <p> {this.props.data.status}</p>
                 <h5>Return Date</h5>
                 <p>
-                    {this.props.isLender ? (
-                        <div>
-                            <Button
-                                onClick={() =>
-                                    transactionItemReturnedLender(
-                                        this.props.data.id
-                                    )
-                                }
-                            >
-                                Item was returned in good condition
-                            </Button>
-                            <Button
-                                onClick={() =>
-                                    createTransactionProblem(this.props.data.id)
-                                }
-                            >
-                                Item was returned in bad condition
-                            </Button>
-                        </div>
-                    ) : (
-                        <div>
-                            <Button onClick={() => this.returnItemBorrower()}>
-                                Item returned
-                            </Button>
-                        </div>
-                    )}
-                    {this.props.data.returnDate}
+                {
+                    this.props.data.status === "OPEN" ? this.getButtons() : null
+                }
+                
+                {this.props.data.returnDate}
                 </p>
                 {this.state.showError ? (
                     <Dialog
@@ -59,22 +39,36 @@ export default class TransactionsItem extends React.Component {
                             this.setState({ showError: false })
                         }
                     >
-                        <article>
-                            <h4>
-                                Sorry, an error occured
-                            </h4>
-                            <p>{this.state.error.errorMessage}</p>
-                            <Button
-                                onClick={() =>
-                                    this.setState({ showError: false })
-                                }
-                            >
-                                Close
-                            </Button>
-                        </article>
+                        <h4>Sorry, an error occured</h4>
+                        <p>{this.state.error.errorMessage}</p>
                     </Dialog>
                 ) : null}
             </article>
+        );
+    }
+
+    getButtons() {
+        return this.props.isLender ? (
+            <div>
+                <Button
+                    onClick={() =>
+                        transactionItemReturnedLender(this.props.data.id)
+                    }
+                >
+                    Item was returned in good condition
+                </Button>
+                <Button
+                    onClick={() => createTransactionProblem(this.props.data.id)}
+                >
+                    Item was returned in bad condition
+                </Button>
+            </div>
+        ) : (
+            <div>
+                <Button onClick={() => this.returnItemBorrower()}>
+                    Item returned
+                </Button>
+            </div>
         );
     }
 
