@@ -1,6 +1,9 @@
 import {LOGIN_USER, LOGOUT_USER, SET_ADMIN} from "./UserActions";
 
-export default function user(state = { isLoggedIn: false }, action) {
+export default function user(state = {
+    isLoggedIn: false,
+    admin: false,
+    }, action) {
     switch (action.type) {
         case LOGIN_USER: {
             return {
@@ -20,7 +23,7 @@ export default function user(state = { isLoggedIn: false }, action) {
             return {
                 isLoggedIn: state.isLoggedIn,
                 token: state.token,
-                admin: action.admin
+                admin: action.admin,
             };
         }
         default:{

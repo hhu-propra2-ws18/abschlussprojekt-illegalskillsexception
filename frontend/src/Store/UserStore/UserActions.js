@@ -10,10 +10,10 @@ export function getLoginUserAction(userData, admin = false) {
     };
 }
 
-export function setAdmin() {
+export function setAdminStore(admin=true) {
     return {
         type: SET_ADMIN,
-        admin: true,
+        admin,
     };
 }
 

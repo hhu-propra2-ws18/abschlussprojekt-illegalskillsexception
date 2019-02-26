@@ -10,11 +10,31 @@ export const getAllConflictsBackend = async (token, url = CONFLICT_GETALL) => {
     });
 };
 
-export const checkIfAdmin = async (token, url = CONFLICT_GETALL) => {
+export const checkIfAdmin = async (token=store.getState().user.token) => {
 
-    const data = getAllConflictsBackend(token);
-    console.log("data", data);
+    const data = await getAllConflictsBackend(token);
     const err = data.data.error;
-
     return !err;
+};
+
+export const punishConflict = async (id) => {
+    const url = "punish";
+    return solveConflictBackend(id)
+};
+
+export const resolveConflict = async (id) => {
+    const url = "resolve";
+    return solveConflictBackend(id)
+};
+
+const solveConflictBackend = async (id,url,token=store.getState().user.token) => {
+    return await axios.post(
+        url, {
+        transactionId: id,
+        isFaulty: false
+    },{
+        headers: {
+            Authorization: token
+        }
+    });
 };

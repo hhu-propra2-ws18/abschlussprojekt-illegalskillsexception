@@ -16,8 +16,10 @@ import Toast from "react-uwp/Toast";
 import "./ContentPage.css";
 import {getAllOverdueTransactions} from "../../../Services/User/authentificationCompleteService.js";
 import {logOutUser} from "../../../Services/User/authentificationCompleteService";
+import {setAdmin} from "../../../Services/Conflict/conflictCompleteService";
+import {connect} from "react-redux";
 
-export default class ContentPage extends React.Component {
+class ContentPage extends React.Component {
     constructor(props) {
         super(props);
 
@@ -28,16 +30,27 @@ export default class ContentPage extends React.Component {
     }
 
     async componentDidMount() {
+
+        setAdmin();
+
         let data = await getAllOverdueTransactions(store.getState().user.token);
         let list = data.data.data;
-        console.log(data);
         if (list.length !== 0) {
             this.setState({showNotifToast: true})
         }
     }
 
     renderNavigation() {
-
+        console.log(this.props.user.admin);
+        if (this.props.user.admin){
+            return (
+                <SplitViewCommand
+                    onClick={() => logOutUser()}
+                    label="Fuck"
+                    icon={"PowerButton"}
+                />)
+        }
+        return <div/>;
     }
 
     render() {
@@ -75,7 +88,8 @@ export default class ContentPage extends React.Component {
                             onClick={() => this.switchTab(3)}
                             label="Processes"
                             icon={"\uE9F5"}
-                        />
+                        />,
+                        (<div> {this.renderNavigation()}</div>)
                     ]}
                     navigationBottomNodes={[<SplitViewCommand
                         onClick={() => this.switchTab(5)}
@@ -125,3 +139,10 @@ export default class ContentPage extends React.Component {
         this.tabs.current.setState({ tabFocusIndex: index });
     }
 }
+
+// start of code change
+const mapStateToProps = (state) => {
+    return { user: state.user };
+};
+
+export default connect(mapStateToProps)(ContentPage);
