@@ -16,8 +16,8 @@ import lombok.AllArgsConstructor;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 @AllArgsConstructor
@@ -43,6 +43,24 @@ public class BorrowInquiryService implements IBorrowInquiryService {
         return inquiry;
     }
 
+    @Override
+    public List<BorrowInquiryResponseDTO> retrieveAllInquiriesByUser(ApplicationUser user) {
+        List<Inquiry> inquiryList = inquiries.findAllByBorrower_Id(user.getId());
+
+        return inquiryList.stream()
+                .map(BorrowInquiryResponseDTO::new)
+                .collect(Collectors.toList());
+    }
+
+    @Override
+    public List<BorrowInquiryResponseDTO> retrieveAllUnacceptedInquiriesByUser(ApplicationUser user) {
+        List<Inquiry> inquiryList = inquiries.findAllByBorrower_IdAndStatusNot(user.getId(), Inquiry.Status.ACCEPTED);
+
+        return inquiryList.stream()
+                .map(BorrowInquiryResponseDTO::new)
+                .collect(Collectors.toList());
+    }
+
     private Inquiry buildInquiry(BorrowInquiryRequestDTO dto) throws NoSuchArticleException {
         Inquiry inquiry = new Inquiry();
 
@@ -55,20 +73,6 @@ public class BorrowInquiryService implements IBorrowInquiryService {
         inquiry.setEndDate(dto.getEndDate());
 
         return inquiry;
-    }
-
-    @Override
-    public List<BorrowInquiryResponseDTO> retrieveAllInquiriesByUser(ApplicationUser user) {
-
-        List<Inquiry> inquiryList = inquiries.findAllByBorrower_Id(user.getId());
-        List<BorrowInquiryResponseDTO> responseDTOs = new ArrayList<>();
-
-        for (Inquiry inquiry : inquiryList) {
-            BorrowInquiryResponseDTO dto = new BorrowInquiryResponseDTO(inquiry);
-            responseDTOs.add(dto);
-        }
-
-        return responseDTOs;
     }
 
     private boolean hasDateConflict(BorrowInquiryRequestDTO dto) {

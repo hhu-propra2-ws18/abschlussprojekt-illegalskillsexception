@@ -28,7 +28,7 @@ public class BorrowInquiryController {
 
         FrentlyResponse response = new FrentlyResponse();
         try {
-            final List<BorrowInquiryResponseDTO> inquiryList = inquiryService.retrieveAllInquiriesByUser(user);
+            final List<BorrowInquiryResponseDTO> inquiryList = inquiryService.retrieveAllUnacceptedInquiriesByUser(user);
             response.setData(inquiryList);
         } catch (Exception e) {
             response.setError(new FrentlyError(e));

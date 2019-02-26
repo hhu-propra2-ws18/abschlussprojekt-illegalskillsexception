@@ -42,7 +42,7 @@ public class LendInquiryProcessingService implements ILendInquiryProcessingServi
         ApplicationUser lender = article.getOwner();
         Double deposit = article.getDeposit();
 
-        long reservationId = processPayment(borrower, lender, deposit);
+        long reservationId = blockDeposit(borrower, lender, deposit);
 
         flagAsAccepted(inquiry);
 
@@ -59,7 +59,7 @@ public class LendInquiryProcessingService implements ILendInquiryProcessingServi
         return transactionRepository.save(transaction);
     }
 
-    private Long processPayment(ApplicationUser borrower, ApplicationUser lender, double deposit)
+    private Long blockDeposit(ApplicationUser borrower, ApplicationUser lender, double deposit)
             throws ProPayConnectionException, InsuffientFundsException {
         String borrowerName = borrower.getUsername();
         String lenderName = lender.getUsername();

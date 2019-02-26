@@ -16,4 +16,6 @@ public interface IBorrowInquiryService {
             throws ArticleNotAvailableException, NoSuchArticleException, InvalidLendingPeriodException;
 
     List<BorrowInquiryResponseDTO> retrieveAllInquiriesByUser(ApplicationUser user);
+
+    List<BorrowInquiryResponseDTO> retrieveAllUnacceptedInquiriesByUser(ApplicationUser user);
 }
