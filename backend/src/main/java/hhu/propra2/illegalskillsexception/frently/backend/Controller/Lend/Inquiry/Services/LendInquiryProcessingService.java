@@ -65,7 +65,6 @@ public class LendInquiryProcessingService implements ILendInquiryProcessingServi
         String lenderName = lender.getUsername();
 
         Long reservationId = proPayService.blockDeposit(borrowerName, lenderName, deposit);
-
         return reservationId;
     }
 

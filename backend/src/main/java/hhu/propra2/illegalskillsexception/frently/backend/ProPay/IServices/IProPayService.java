@@ -6,15 +6,16 @@ import hhu.propra2.illegalskillsexception.frently.backend.ProPay.Exceptions.ProP
 import hhu.propra2.illegalskillsexception.frently.backend.ProPay.Models.MoneyTransfer;
 import hhu.propra2.illegalskillsexception.frently.backend.ProPay.Models.ProPayAccount;
 import hhu.propra2.illegalskillsexception.frently.backend.ProPay.Models.Reservation;
+import org.springframework.retry.ExhaustedRetryException;
 
 import java.util.List;
 
 public interface IProPayService {
-    ProPayAccount createAccount(String userName, double amount) throws ProPayConnectionException;
+    ProPayAccount createAccount(String userName, double amount) throws ProPayConnectionException, ExhaustedRetryException;
 
-    double getAccountBalance(String username) throws ProPayConnectionException;
+    double getAccountBalance(String username) throws ProPayConnectionException, ExhaustedRetryException;
 
-    void payInMoney(String userName, double amount) throws ProPayConnectionException;
+    void payInMoney(String userName, double amount) throws ProPayConnectionException, ExhaustedRetryException;
 
     void transferMoney(String borrower, String lender, double amount) throws InsuffientFundsException, ProPayConnectionException;
 
@@ -24,7 +25,7 @@ public interface IProPayService {
 
     boolean amountGreaterThanReservation(List<Reservation> reservations, double amount, double accountBalance);
 
-    Long blockDeposit(String borrower, String lender, double amount) throws ProPayConnectionException, InsuffientFundsException;
+    Long blockDeposit(String borrower, String lender, double amount) throws ProPayConnectionException, InsuffientFundsException, ExhaustedRetryException;
 
     void freeDeposit(String borrower, Transaction transaction) throws ProPayConnectionException;
 

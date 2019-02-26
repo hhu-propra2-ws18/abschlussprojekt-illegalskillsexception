@@ -10,8 +10,8 @@ import hhu.propra2.illegalskillsexception.frently.backend.ProPay.Models.ProPayAc
 import hhu.propra2.illegalskillsexception.frently.backend.ProPay.Models.Reservation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.retry.ExhaustedRetryException;
 import org.springframework.retry.annotation.Backoff;
-import org.springframework.retry.annotation.Recover;
 import org.springframework.retry.annotation.Retryable;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
@@ -32,8 +32,8 @@ public class ProPayService implements IProPayService {
     }
 
     @Override
-    @Retryable(value = {ProPayConnectionException.class}, maxAttempts = 2, backoff = @Backoff(delay = 2000))
-    public ProPayAccount createAccount(String userName, double amount) throws ProPayConnectionException {
+    @Retryable(value = {ProPayConnectionException.class}, maxAttempts = 2, backoff = @Backoff(delay = 1000))
+    public ProPayAccount createAccount(String userName, double amount) throws ProPayConnectionException, ExhaustedRetryException {
         String url = BASE_URL + "account/" + userName + "?amount=" + amount;
         ProPayAccount newAccount;
         try {
@@ -41,34 +41,38 @@ public class ProPayService implements IProPayService {
         } catch (Exception e) {
             throw new ProPayConnectionException();
         }
-        if (newAccount == null) {
-            throw new ProPayConnectionException();
-        }
         moneyTransferService.createMoneyTransfer(userName, userName, amount);
         return newAccount;
     }
 
     @Override
-    public double getAccountBalance(String username) throws ProPayConnectionException {
+    public double getAccountBalance(String username) throws ProPayConnectionException, ExhaustedRetryException {
         ProPayAccount proPayAccount = getProPayAccount(username);
         return proPayAccount.getAmount();
     }
 
     @Override
-    public void payInMoney(String userName, double amount) throws ProPayConnectionException {
+    public void payInMoney(String userName, double amount) throws ProPayConnectionException, ExhaustedRetryException {
         createAccount(userName, amount);
     }
 
     @Override
-    @Retryable(value = {ProPayConnectionException.class}, maxAttempts = 2, backoff = @Backoff(delay = 2000))
+    @Retryable(value = {ProPayConnectionException.class}, maxAttempts = 2, backoff = @Backoff(delay = 1000))
     public void transferMoney(String borrower, String lender, double amount) throws InsuffientFundsException, ProPayConnectionException {
-        checkFunds(borrower, amount);
         final String url = BASE_URL + "account/" + borrower + "/transfer/" + lender + "?amount=" + amount;
+
+        try {
+            checkFunds(borrower, amount);
+        } catch (ExhaustedRetryException e) {
+            throw new ProPayConnectionException();
+        }
+
         try {
             restTemplate.postForLocation(url, null);
         } catch (Exception e) {
             throw new ProPayConnectionException();
         }
+
         moneyTransferService.createMoneyTransfer(borrower, lender, amount);
     }
 
@@ -78,16 +82,13 @@ public class ProPayService implements IProPayService {
     }
 
     @Override
-    @Retryable(value = {ProPayConnectionException.class}, maxAttempts = 2, backoff = @Backoff(delay = 2000))
+    @Retryable(value = {ProPayConnectionException.class}, maxAttempts = 2, backoff = @Backoff(delay = 1000))
     public ProPayAccount getProPayAccount(String username) throws ProPayConnectionException {
         final String url = BASE_URL + "account/" + username;
         ProPayAccount account;
         try {
             account = restTemplate.getForObject(url, ProPayAccount.class);
         } catch (Exception e) {
-            throw new ProPayConnectionException();
-        }
-        if (account == null) {
             throw new ProPayConnectionException();
         }
         return account;
@@ -104,64 +105,61 @@ public class ProPayService implements IProPayService {
 
     @Override
     public Long blockDeposit(String borrower, String lender, double amount) throws ProPayConnectionException, InsuffientFundsException {
-        checkFunds(borrower, amount);
         final String url = BASE_URL + "reservation/reserve/" + borrower + "/" + lender + "?amount=" + amount;
-        Reservation reservation = postForReservation(url);
+        Reservation reservation;
+        try {
+            checkFunds(borrower, amount);
+            reservation = postForReservation(url);
+        } catch (ExhaustedRetryException e) {
+            throw new ProPayConnectionException();
+        }
         return reservation.getId();
     }
 
-    @Retryable(value = {ProPayConnectionException.class}, maxAttempts = 2, backoff = @Backoff(delay = 2000))
-    private Reservation postForReservation(String url) throws ProPayConnectionException {
+    @Retryable(value = {ProPayConnectionException.class}, maxAttempts = 2, backoff = @Backoff(delay = 1000))
+    private Reservation postForReservation(String url) throws ProPayConnectionException, ExhaustedRetryException {
         Reservation reservation;
         try {
             reservation = restTemplate.postForObject(url, null, Reservation.class);
         } catch (Exception e) {
             throw new ProPayConnectionException();
         }
-        if (reservation == null) {
-            throw new ProPayConnectionException();
-        }
         return reservation;
     }
 
     @Override
-    @Retryable(value = {ProPayConnectionException.class}, maxAttempts = 2, backoff = @Backoff(delay = 2000))
     public void freeDeposit(String borrower, Transaction transaction) throws ProPayConnectionException {
         long reservationId = transaction.getReservationId();
         final String url = BASE_URL + "reservation/release/" + borrower + "?reservationId=" + reservationId;
-        postForReservation(url);
+        try {
+            postForReservation(url);
+        } catch (ExhaustedRetryException e) {
+            throw new ProPayConnectionException();
+        }
     }
 
     @Override
-    @Retryable(value = {ProPayConnectionException.class}, maxAttempts = 2, backoff = @Backoff(delay = 2000))
     public void punishUser(String borrower, Transaction transaction) throws ProPayConnectionException {
         long reservationId = transaction.getReservationId();
         final String url = BASE_URL + "reservation/punish/" + borrower + "?reservationId=" + reservationId;
-        postForReservation(url);
+        try {
+            postForReservation(url);
+        } catch (ExhaustedRetryException e) {
+            throw new ProPayConnectionException();
+        }
         moneyTransferService.createMoneyTransfer(borrower, transaction.getInquiry().getLender().getUsername(), transaction.getInquiry().getArticle().getDeposit());
     }
 
-    @Retryable(value = {ProPayConnectionException.class}, maxAttempts = 2, backoff = @Backoff(delay = 2000))
+    @Retryable(value = {ProPayConnectionException.class}, maxAttempts = 2, backoff = @Backoff(delay = 1000))
     private void checkFunds(String userName, double amount) throws InsuffientFundsException, ProPayConnectionException {
-        ProPayAccount proPayAccount = getProPayAccount(userName);
+        ProPayAccount proPayAccount;
+        try {
+            proPayAccount = getProPayAccount(userName);
+        } catch (ExhaustedRetryException e) {
+            throw new ProPayConnectionException();
+        }
         List<Reservation> reservations = proPayAccount.getReservations();
         double accountBalance = proPayAccount.getAmount();
         if (!amountGreaterThanReservation(reservations, amount, accountBalance)) throw new InsuffientFundsException();
-    }
-
-    //Recover Methods for Retryable
-    @Recover
-    private Reservation recoverPostForReservation(ProPayConnectionException e, String url) {
-        return null;
-    }
-
-    @Recover
-    private ProPayAccount recoverGetProPayAccount(ProPayConnectionException e, String userName) {
-        return null;
-    }
-
-    @Recover
-    private ProPayAccount recoverCreateAccount(ProPayConnectionException e, String userName, double amount) {
-        return null;
     }
 }

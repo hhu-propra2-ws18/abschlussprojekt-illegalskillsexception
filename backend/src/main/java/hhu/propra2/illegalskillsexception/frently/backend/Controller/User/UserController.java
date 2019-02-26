@@ -18,6 +18,7 @@ import hhu.propra2.illegalskillsexception.frently.backend.Data.Models.Applicatio
 import hhu.propra2.illegalskillsexception.frently.backend.ProPay.Exceptions.ProPayConnectionException;
 import hhu.propra2.illegalskillsexception.frently.backend.ProPay.IServices.IProPayService;
 import lombok.AllArgsConstructor;
+import org.springframework.retry.ExhaustedRetryException;
 import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
 
@@ -47,6 +48,8 @@ public class UserController {
             proPayService.createAccount(user.getUsername(), 0);
 
             response.setData(Collections.singletonList(user));
+        } catch (ExhaustedRetryException e) {
+            response.setError(new FrentlyError(new ProPayConnectionException()));
         } catch (ProPayConnectionException | UserAlreadyExistsAuthenticationException fe) {
             response.setError(new FrentlyError(fe));
         }
@@ -83,14 +86,16 @@ public class UserController {
 
     @PostMapping("/charge")
     public FrentlyResponse chargeCredit(Authentication auth, @RequestBody ChargeAmountDTO amount) {
-        FrentlyResponse fr = new FrentlyResponse();
+        FrentlyResponse response = new FrentlyResponse();
         String userName = (String) auth.getPrincipal();
         try {
             proPayService.payInMoney(userName, amount.getAmount());
+        } catch (ExhaustedRetryException e) {
+            response.setError(new FrentlyError(new ProPayConnectionException()));
         } catch (ProPayConnectionException e) {
-            fr.setError(new FrentlyError(e));
+            response.setError(new FrentlyError(e));
         }
-        return fr;
+        return response;
     }
 
     @GetMapping("/notifications")

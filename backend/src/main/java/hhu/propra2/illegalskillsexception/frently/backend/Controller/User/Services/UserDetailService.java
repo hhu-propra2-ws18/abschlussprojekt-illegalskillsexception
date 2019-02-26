@@ -12,6 +12,7 @@ import hhu.propra2.illegalskillsexception.frently.backend.Data.Models.Applicatio
 import hhu.propra2.illegalskillsexception.frently.backend.ProPay.Exceptions.ProPayConnectionException;
 import hhu.propra2.illegalskillsexception.frently.backend.ProPay.IServices.IProPayService;
 import lombok.AllArgsConstructor;
+import org.springframework.retry.ExhaustedRetryException;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Service;
 
@@ -38,7 +39,12 @@ public class UserDetailService implements IUserDetailService {
         List<MoneyTransferDTO> finishedTransaction = userTransactionService.getAllFinishedTransactions(currentUser);
         userDetails.setCompletedTransactions(finishedTransaction);
 
-        double accountBalance = proPayService.getAccountBalance(currentUser.getUsername());
+        double accountBalance;
+        try {
+            accountBalance = proPayService.getAccountBalance(currentUser.getUsername());
+        } catch (ExhaustedRetryException e) {
+            throw new ProPayConnectionException();
+        }
         userDetails.setAccountBalance(accountBalance);
 
         return userDetails;
