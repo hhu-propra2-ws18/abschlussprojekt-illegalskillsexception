@@ -21,7 +21,7 @@ export async function acceptInquiry(id) {
     let data = await inquiryAcceptBackend(id, store.getState().user.token);
     
     console.log(data);
-    if (data.error) {
+    if (data.data.error) {
         return data;
     }
     let action = getRemoveInquiryItemAction(id);
