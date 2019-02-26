@@ -27,5 +27,5 @@ export const INQUIRY_DECLINE = `${BASEURL}${LEND}inquiry/decline`;
 
 export const TRANSACTION_GETALL_BORROW = `${BASEURL}${BORROW}transaction/`;
 export const TRANSACTION_GETALL_LEND = `${BASEURL}${LEND}transaction/`;
-export const TRANSACTION_FINISHED = `${BASEURL}${LEND}transaction/update`
+export const TRANSACTION_FINISHED = `${BASEURL}${LEND}transaction/update`;
 export const TRANSACTION_PROBLEM = `${BASEURL}${LEND}transaction/problem`;
