@@ -4,6 +4,8 @@ import com.github.javafaker.Faker;
 import hhu.propra2.illegalskillsexception.frently.backend.Controller.User.IServices.IApplicationUserService;
 import hhu.propra2.illegalskillsexception.frently.backend.Data.Models.*;
 import hhu.propra2.illegalskillsexception.frently.backend.Data.Repositories.*;
+import hhu.propra2.illegalskillsexception.frently.backend.ProPay.Exceptions.ProPayConnectionException;
+import hhu.propra2.illegalskillsexception.frently.backend.ProPay.IServices.IProPayService;
 import hhu.propra2.illegalskillsexception.frently.backend.ProPay.Models.MoneyTransfer;
 import lombok.AllArgsConstructor;
 import org.springframework.boot.web.servlet.ServletContextInitializer;
@@ -25,7 +27,7 @@ public class Initializer implements ServletContextInitializer {
     private final IApplicationUserService userService;
     private final IRoleRepository roleRepository;
     private final IMoneyTransferRepository moneyTransferRepo;
-
+    private final IProPayService proPayService;
 
     @Override
     public void onStartup(final ServletContext servletContext) {
@@ -67,12 +69,19 @@ public class Initializer implements ServletContextInitializer {
             standardUserBorrow.setUsername("user1");
             standardUserBorrow.setPassword("password");
 
+
             // Encrypt password
             Arrays.stream(fakeUsers).forEach(user -> {
                 this.userService.encryptPassword(user);
                 this.userRepo.save(user);
             });
-
+            try {
+                proPayService.createAccount("user", 100000);
+                proPayService.createAccount("user1", 0);
+            }catch(Exception exc){
+                System.out.println("Propay not found");
+                exc.printStackTrace();
+            }
             // Create Articles
             Article standardZeroArticle = new Article();
             standardZeroArticle.setTitle("A painting");
@@ -106,8 +115,8 @@ public class Initializer implements ServletContextInitializer {
             inquiryNotZeroArticle.setStatus(Inquiry.Status.OPEN);
             inquiryNotZeroArticle.setLender(standardUser);
             inquiryNotZeroArticle.setBorrower(standardUserBorrow);
-            inquiryNotZeroArticle.setStartDate(LocalDate.of(2019, 2, 12));
-            inquiryNotZeroArticle.setEndDate(LocalDate.of(2019, 1, 22));
+            inquiryNotZeroArticle.setStartDate(LocalDate.of(2019, 1, 12));
+            inquiryNotZeroArticle.setEndDate(LocalDate.of(2019, 2, 22));
             this.inquiryRepo.save(inquiryNotZeroArticle);
 
             Transaction transactionFromInquiryZeroArticle = new Transaction();
