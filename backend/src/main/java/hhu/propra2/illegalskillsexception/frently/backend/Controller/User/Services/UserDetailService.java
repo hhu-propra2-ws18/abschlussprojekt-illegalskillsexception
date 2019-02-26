@@ -1,14 +1,13 @@
 package hhu.propra2.illegalskillsexception.frently.backend.Controller.User.Services;
 
 import hhu.propra2.illegalskillsexception.frently.backend.Controller.Response.FrentlyErrorType;
-import hhu.propra2.illegalskillsexception.frently.backend.Controller.User.DTOs.ForeignUserDetailResponse;
-import hhu.propra2.illegalskillsexception.frently.backend.Controller.User.DTOs.UserDetailResponse;
 import hhu.propra2.illegalskillsexception.frently.backend.Controller.User.Exceptions.UserNotFoundException;
 import hhu.propra2.illegalskillsexception.frently.backend.Controller.User.IServices.IApplicationUserService;
 import hhu.propra2.illegalskillsexception.frently.backend.Controller.User.IServices.IUserDetailService;
 import hhu.propra2.illegalskillsexception.frently.backend.Controller.User.IServices.IUserTransactionService;
 import hhu.propra2.illegalskillsexception.frently.backend.Data.Models.ApplicationUser;
-import hhu.propra2.illegalskillsexception.frently.backend.Data.Models.Transaction;
+import hhu.propra2.illegalskillsexception.frently.backend.Controller.User.DTOs.ForeignUserDetailResponse;
+import hhu.propra2.illegalskillsexception.frently.backend.Controller.User.DTOs.UserDetailResponse;
 import hhu.propra2.illegalskillsexception.frently.backend.ProPay.Exceptions.ProPayConnectionException;
 import hhu.propra2.illegalskillsexception.frently.backend.ProPay.IServices.IProPayService;
 import lombok.AllArgsConstructor;
@@ -35,7 +34,7 @@ public class UserDetailService implements IUserDetailService {
         userDetails.setEmail(currentUser.getEmail());
         userDetails.setUsername(currentUser.getUsername());
 
-        List<Transaction> finishedTransaction = userTransactionService.getAllFinishedTransactions(currentUser);
+        List<MoneyTransferDTO> finishedTransaction = userTransactionService.getAllFinishedTransactions(currentUser);
         userDetails.setCompletedTransactions(finishedTransaction);
 
         double accountBalance = proPayService.getAccountBalance(currentUser.getUsername());
@@ -56,7 +55,7 @@ public class UserDetailService implements IUserDetailService {
         }
         foreignUserDetailResponse.setUsername(foreignUser.getUsername());
 
-        List<Transaction> finishedTransaction = userTransactionService.getAllFinishedTransactions(foreignUser);
+        List<MoneyTransferDTO> finishedTransaction = userTransactionService.getAllFinishedTransactions(foreignUser);
         foreignUserDetailResponse.setCompletedTransactions(finishedTransaction);
 
         //@TODO Deal with propay account

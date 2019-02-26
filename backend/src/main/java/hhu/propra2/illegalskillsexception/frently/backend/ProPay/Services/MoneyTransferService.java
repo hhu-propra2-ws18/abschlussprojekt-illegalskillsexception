@@ -1,10 +1,10 @@
 package hhu.propra2.illegalskillsexception.frently.backend.ProPay.Services;
 
 import hhu.propra2.illegalskillsexception.frently.backend.Data.Models.ApplicationUser;
+import hhu.propra2.illegalskillsexception.frently.backend.Data.Repositories.IMoneyTransferRepository;
 import hhu.propra2.illegalskillsexception.frently.backend.ProPay.IServices.IMoneyTransferService;
 import hhu.propra2.illegalskillsexception.frently.backend.ProPay.IServices.IProPayApplicationUserService;
 import hhu.propra2.illegalskillsexception.frently.backend.ProPay.Models.MoneyTransfer;
-import hhu.propra2.illegalskillsexception.frently.backend.Data.Repositories.IMoneyTransferRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -24,14 +24,15 @@ public class MoneyTransferService implements IMoneyTransferService {
     @Override
     public void createMoneyTransfer(String source, String target, Double amount) {
         MoneyTransfer moneyTransfer = new MoneyTransfer();
-        ApplicationUser user = applicationUserService.getApplicationUserByUsername(source);
-        moneyTransfer.setApplicationUser(user);
+        ApplicationUser senderUser = applicationUserService.getApplicationUserByUsername(source);
+        moneyTransfer.setSender(senderUser);
         moneyTransfer.setAmount(amount);
-        moneyTransfer.setTargetUserName(target);
+        ApplicationUser receiver = applicationUserService.getApplicationUserByUsername(target);
+        moneyTransfer.setReceiver(receiver);
         moneyTransferRepository.save(moneyTransfer);
     }
 
     public List<MoneyTransfer> getAll(String userName) {
-        return moneyTransferRepository.findAllByApplicationUser_Username(userName);
+        return moneyTransferRepository.findAllBySender_UsernameOrReceiver_Username(userName, userName);
     }
 }

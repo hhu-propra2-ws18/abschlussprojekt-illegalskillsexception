@@ -5,6 +5,7 @@ import hhu.propra2.illegalskillsexception.frently.backend.Controller.Response.Fr
 import hhu.propra2.illegalskillsexception.frently.backend.Controller.Response.FrentlyErrorType;
 import hhu.propra2.illegalskillsexception.frently.backend.Controller.Response.FrentlyException;
 import hhu.propra2.illegalskillsexception.frently.backend.Controller.Response.FrentlyResponse;
+import hhu.propra2.illegalskillsexception.frently.backend.Controller.Security.ApplicationUserDTO;
 import hhu.propra2.illegalskillsexception.frently.backend.Controller.User.DTOs.ChargeAmountDTO;
 import hhu.propra2.illegalskillsexception.frently.backend.Controller.User.DTOs.ForeignUserDetailRequest;
 import hhu.propra2.illegalskillsexception.frently.backend.Controller.User.DTOs.ForeignUserDetailResponse;
@@ -32,13 +33,17 @@ public class UserController {
     private IProPayService proPayService;
 
     @PostMapping("/sign-up")
-    public FrentlyResponse signUp(@RequestBody ApplicationUser user) {
+    public FrentlyResponse signUp(@RequestBody ApplicationUserDTO dtoUser) {
         FrentlyResponse response = new FrentlyResponse();
+        ApplicationUser user = new ApplicationUser();
+        user.setPassword(dtoUser.getPassword());
+        user.setUsername(dtoUser.getUsername());
+        user.setEmail(dtoUser.getEmail());
         userService.encryptPassword(user);
         try {
             userService.createUser(user);
 
-            proPayService.createAccount(user.getUsername(),0);
+            proPayService.createAccount(user.getUsername(), 0);
 
             response.setData(Collections.singletonList(user));
         } catch (UserAlreadyExistsAuthenticationException e) {
@@ -76,10 +81,10 @@ public class UserController {
     }
 
     @PostMapping("/charge")
-    public FrentlyResponse chargeCredit(Authentication auth, @RequestBody ChargeAmountDTO amount){
+    public FrentlyResponse chargeCredit(Authentication auth, @RequestBody ChargeAmountDTO amount) {
         FrentlyResponse fr = new FrentlyResponse();
-        String userName = (String)auth.getPrincipal();
-        proPayService.payInMoney(userName,amount.getAmount());
+        String userName = (String) auth.getPrincipal();
+        proPayService.payInMoney(userName, amount.getAmount());
         return fr;
     }
 

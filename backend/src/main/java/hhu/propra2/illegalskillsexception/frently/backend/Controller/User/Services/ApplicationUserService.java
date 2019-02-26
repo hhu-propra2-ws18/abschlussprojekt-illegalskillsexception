@@ -42,11 +42,7 @@ public class ApplicationUserService implements IApplicationUserService {
     @Override
     public ApplicationUser getUserById(Long userId) {
         Optional<ApplicationUser> userOpt = userRepo.findById(userId);
-
-        if (userOpt.isPresent()) {
-            return userOpt.get();
-        }
-        return null;
+        return userOpt.orElse(null);
     }
 
     @Override

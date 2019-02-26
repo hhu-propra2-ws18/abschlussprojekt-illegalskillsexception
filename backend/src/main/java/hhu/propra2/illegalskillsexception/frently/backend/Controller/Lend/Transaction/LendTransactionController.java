@@ -35,7 +35,7 @@ public class LendTransactionController {
     @PostMapping("/update")
     public FrentlyResponse updateTransaction(@RequestBody AcceptReturnedItemRequestDTO updateDTO) {
         FrentlyResponse response = new FrentlyResponse();
-        try{
+        try {
             Transaction transaction = transactionService.updateTransaction(updateDTO);
             response.setData(new TransactionUpdateResponseDTO(transaction.getStatus()));
         } catch (FrentlyException fe) {

@@ -1,6 +1,5 @@
 package hhu.propra2.illegalskillsexception.frently.backend.Controller.User.DTOs;
 
-import hhu.propra2.illegalskillsexception.frently.backend.Data.Models.Transaction;
 import lombok.Data;
 
 import java.util.List;
@@ -10,5 +9,5 @@ public class ForeignUserDetailResponse {
 
     private String username;
 
-    private List<Transaction> completedTransactions;
+    private List<MoneyTransferDTO> completedTransactions;
 }

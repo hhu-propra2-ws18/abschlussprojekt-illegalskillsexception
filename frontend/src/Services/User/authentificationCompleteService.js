@@ -1,12 +1,14 @@
-import { store } from "../../Store/reduxInit";
-import { getLoginUserAction } from "../../Store/UserStore/UserActions";
+import {store} from "../../Store/reduxInit";
+import {getLoginUserAction, getLogOutUserAction} from "../../Store/UserStore/UserActions";
 
 import {
-    loginUserBackend,
-    registerUserBackend,
+    chargeAmountBackend,
     getUserDetailsBackend,
-    chargeAmountBackend
+    loginUserBackend,
+    registerUserBackend
 } from "./authentificationBackendService";
+import {OVERDUE_NOTIFICATION} from "../urlConstants";
+import axios from "axios";
 
 export async function registerAndLoginUser(
     nameInner,
@@ -31,4 +33,17 @@ export async function getUserDetails() {
 
 export async function chargeUserAccount(){
     return await chargeAmountBackend(store.getState().user.token);
+}
+
+export async function logOutUser(){
+    let action = getLogOutUserAction();
+    store.dispatch(action);
+}
+
+export async function getAllOverdueTransactions(token, url = OVERDUE_NOTIFICATION) {
+    return await axios.get(url, {
+        headers: {
+            Authorization: token
+        }
+    });
 }

@@ -1,10 +1,13 @@
 package hhu.propra2.illegalskillsexception.frently.backend.Controller.Borrow.Inquiry;
 
 import hhu.propra2.illegalskillsexception.frently.backend.Controller.Borrow.Inquiry.DTOs.BorrowInquiryDTO;
+import hhu.propra2.illegalskillsexception.frently.backend.Controller.Borrow.Inquiry.DTOs.BorrowInquiryResponseDTO;
 import hhu.propra2.illegalskillsexception.frently.backend.Controller.Borrow.Inquiry.IServices.IBorrowInquiryService;
 import hhu.propra2.illegalskillsexception.frently.backend.Controller.Response.FrentlyError;
-import hhu.propra2.illegalskillsexception.frently.backend.Controller.Response.FrentlyResponse;
 import hhu.propra2.illegalskillsexception.frently.backend.Controller.Response.FrentlyException;
+import hhu.propra2.illegalskillsexception.frently.backend.Controller.Response.FrentlyResponse;
+import hhu.propra2.illegalskillsexception.frently.backend.Controller.User.Services.ApplicationUserService;
+import hhu.propra2.illegalskillsexception.frently.backend.Data.Models.ApplicationUser;
 import hhu.propra2.illegalskillsexception.frently.backend.Data.Models.Inquiry;
 import lombok.AllArgsConstructor;
 import org.springframework.security.core.Authentication;
@@ -17,13 +20,16 @@ import java.util.List;
 @RequestMapping("/borrow/inquiry")
 public class BorrowInquiryController {
     private final IBorrowInquiryService inquiryService;
+    private final ApplicationUserService userService;
 
     @GetMapping("/")
     public FrentlyResponse retrieveAllMyInquiries(Authentication auth) {
+        ApplicationUser user = userService.getCurrentUser(auth);
+
         FrentlyResponse response = new FrentlyResponse();
         try {
-            List<Inquiry> inquiries = inquiryService.retrieveAllInquiriesByUser(auth);
-            response.setData(inquiries);
+            final List<BorrowInquiryResponseDTO> inquiryList = inquiryService.retrieveAllInquiriesByUser(user);
+            response.setData(inquiryList);
         } catch (Exception e) {
             response.setError(new FrentlyError(e));
         }
