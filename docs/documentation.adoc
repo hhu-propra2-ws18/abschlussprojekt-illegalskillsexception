@@ -58,7 +58,8 @@ include::interface/structure.adoc[]
 We had problems with the /api mapping to the "frentlyapi" backend container caused by spring-security component
 and nginx domain.conf. Nginx maps to /api to a spring-boot app without adding the /api in the spring-boot app, if a "/"
 is added to the proxy_pass url in the domain.conf. But that results in a error in spring security because it produces a url with a
-"//" and that is by default not allowed in spring security. The solution was to tell nginx to remove the /api.
+"//" and that is by default not allowed in spring security. The solution was to tell nginx to remove the /api. We used the solution
+provided by https://github.com/bendisposto-propra[Jens Bendisposto] in https://github.com/hhu-propra2/abschlussprojekt-illegalskillsexception/issues/1[Issue #1]
 
 === Timeout / Retry Issues
 There were problems using the spring-boot retry package for timeouts and retries. We use our own exceptions to let the frontend know

@@ -1,6 +1,10 @@
 === Backend structure
+We use three main packages to differentiate between the Controller and Services that provide
+the REST API, the Data that holds no logic and the Service that links the ProPay API to our application.
 
 ==== Package 'Controller'
+The Controller package holds packages for each major task that needs to be handled by our API.
+
 * *Borrow*
 //TODO
 * *Conflict*
@@ -15,21 +19,68 @@
 //TODO
 
 ==== Package 'Data'
+The Data package holds all Classes with no logic off itself.
+
 * *Config*
-//TODO
+holds only one class, the Config class which has a annotation that enables
+database objects to automatically set the timestamp and updated variables.
+
 * *Exceptions*
-//TODO
+holds the NoSuchArticleException and NoSuchInquiryException which both extend
+the FrentlyException. These are used in the Controller Package to tell the
+frontend that something in the backend went wrong.
+
 * *Models*
-//TODO
+holds all Entities that saved in our database.
+- ApplicationUser
+- Article
+- Inquiry
+- LendingPeriod
+- Role
+- Transaction
+- TransactionResponseExport
+
 * *Repositories*
-Our backend uses CRUD-Repositories to access and update our dataobjects in the database. We havent made many changes to the repository interfaces, mostly to return lists with a specific type.
+Our backend uses CRUD-Repositories to access and update our dataobjects
+in the database. We havent made many changes to the repository interfaces,
+mostly to return lists with a specific type.
 
 ==== Package 'ProPay'
+The ProPay Package holds everything that is related to interfacing with the ProPay API.
+
 * *Exceptions*
-//TODO
+holds the ProPayConnectionException which extends
+FrentlyException and is thrown by the ProPayService if the ProPay
+API is not found or the responds come to slow.
+
 * *IServices*
-//TODO
+holds the interfaces of all the services that are defined in the Services
+package. These are used for dependency inversion in all controllers that use
+these services.
+
 * *Models*
-//TODO
+holds the data objects that our application receives from ProPay and are used
+by the ProPayService.
+- MoneyTransfer objects are saved in a repository and are used to list all money transfers that are made.
+- ProPayAccount objects are only used for the API calls and needed information is pulled from those
+- Reservation objects are like the ProPayAccount objects only used to get information from the ProPay API
+
 * *Services*
-//TODO
+holds all the services that are used to interface with the ProPay API. That is mainly the ProPayService
+which does all the API calls.
+- ProPayService uses RestTemplates to interface with the ProPay API. The Base-URL that is used stands in
+the application.properties and though depend on whether the develop configuration is on or not. Whenever
+Money is transferred the
+- MoneyTransferService is used to create and save MoneyTransfers in the database.
+- ProPayApplicationUserService is used in the MoneyTransferService to set the sender and receiver
+in the MoneyTransfer objects.
+
+==== FrentlyBackendApplication
+Starts our SpringBootApplication and declares the BCryptPasswordEncoder Bean for Spring-Security
+
+==== Initializer
+Fills the database with test data.
+
+==== SwaggerConfig
+Generates a Swagger API documentation reachable under http://localhost:8080/swagger-ui.html#/[Swagger-UI]
+when the application runs.
