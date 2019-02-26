@@ -9,5 +9,5 @@ import java.util.List;
 public interface ILendInquiryService {
     List<LendInquiryResponseDTO> retrieveInquiriesFromUser(ApplicationUser user);
 
-    List<Inquiry> filterOpenInquiries(List<Inquiry> inquiryList);
+    List<Inquiry> getOpenInquiries(List<Inquiry> inquiryList);
 }

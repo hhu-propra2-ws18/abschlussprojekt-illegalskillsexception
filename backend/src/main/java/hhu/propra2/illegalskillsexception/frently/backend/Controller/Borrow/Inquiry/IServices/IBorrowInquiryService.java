@@ -18,4 +18,6 @@ public interface IBorrowInquiryService {
     List<BorrowInquiryResponseDTO> retrieveAllInquiriesByUser(ApplicationUser user);
 
     List<BorrowInquiryResponseDTO> retrieveAllUnacceptedInquiriesByUser(ApplicationUser user);
+
+    List<Inquiry> getOpenAndAcceptedInquiries(List<Inquiry> inquiryList);
 }
