@@ -36,4 +36,9 @@ In the user interface, the following methods exist:
 * *`/user/sign-up`:* Creates a new user. This does however not log in the user
 * *`/login`:* Logs a user in. This method returns a JWT Auth token, which is used for the authorization.
 
+==== Interace 'conflict'
+In the conflict interface the following methods exist:
 
+* *'/conflict/':* Returns all conflicts which need to be resolved by an admin
+* *'/conflict/release':* Updates a conflicting Transaction and releases the Transaction for the Borrower
+* *'/conflict/punish':* Updates a conflicting Transaction and transfers the money to the Lender 
