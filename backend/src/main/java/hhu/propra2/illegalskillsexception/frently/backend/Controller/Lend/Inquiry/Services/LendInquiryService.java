@@ -20,7 +20,7 @@ public class LendInquiryService implements ILendInquiryService {
     @Override
     public List<LendInquiryResponseDTO> retrieveInquiriesFromUser(ApplicationUser user) {
         List<Inquiry> inquiryList = IInquiryRepository.findAllByLender_Id(user.getId());
-        List<Inquiry> openInquiries = filterOpenInquiries(inquiryList);
+        List<Inquiry> openInquiries = getOpenInquiries(inquiryList);
 
         List<LendInquiryResponseDTO> responseDTOs = new ArrayList<>();
         for (Inquiry inquiry : openInquiries) {
@@ -30,7 +30,7 @@ public class LendInquiryService implements ILendInquiryService {
         return responseDTOs;
     }
 
-    public List<Inquiry> filterOpenInquiries(List<Inquiry> inquiryList) {
+    public List<Inquiry> getOpenInquiries(List<Inquiry> inquiryList) {
         List<Inquiry> openInquiries = new ArrayList<>();
 
         for (Inquiry inquiry : inquiryList) {

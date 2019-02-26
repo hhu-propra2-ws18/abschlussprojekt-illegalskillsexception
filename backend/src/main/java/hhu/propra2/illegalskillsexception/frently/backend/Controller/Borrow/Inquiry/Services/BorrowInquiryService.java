@@ -16,6 +16,7 @@ import lombok.AllArgsConstructor;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -79,10 +80,25 @@ public class BorrowInquiryService implements IBorrowInquiryService {
         List<Inquiry> allConflictingInquiries =
                 inquiries.findAllByArticle_IdAndStartDateLessThanEqualAndEndDateGreaterThanEqual(
                         dto.getArticleId(), dto.getEndDate(), dto.getStartDate());
-        return !allConflictingInquiries.isEmpty();
+        List<Inquiry> openOrAcceptedInquiries = getOpenAndAcceptedInquiries(allConflictingInquiries);
+        return !openOrAcceptedInquiries.isEmpty();
     }
 
     private boolean isInvalidPeriod(BorrowInquiryRequestDTO dto) {
         return dto.getEndDate().isBefore(dto.getStartDate());
     }
+
+    public List<Inquiry> getOpenAndAcceptedInquiries(List<Inquiry> inquiryList) {
+        List<Inquiry> openAcceptedInquiries = new ArrayList<>();
+
+        for (Inquiry inquiry : inquiryList) {
+            Inquiry.Status status = inquiry.getStatus();
+            if (status == Inquiry.Status.OPEN || status == Inquiry.Status.ACCEPTED) {
+                openAcceptedInquiries.add(inquiry);
+            }
+        }
+        return openAcceptedInquiries;
+
+    }
+
 }

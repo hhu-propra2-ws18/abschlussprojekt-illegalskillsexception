@@ -30,7 +30,7 @@ public class LendInquiryServiceTest {
         inquiry1.setStatus(Inquiry.Status.DECLINED);
         List<Inquiry> inquiryList = Arrays.asList(inquiry0, inquiry1);
 
-        List<Inquiry> openInquiries = inquiryService.filterOpenInquiries(inquiryList);
+        List<Inquiry> openInquiries = inquiryService.getOpenInquiries(inquiryList);
 
         assertEquals(0, openInquiries.size());
     }
@@ -45,7 +45,7 @@ public class LendInquiryServiceTest {
         inquiry2.setStatus(Inquiry.Status.ACCEPTED);
         List<Inquiry> inquiryList = Arrays.asList(inquiry0, inquiry1, inquiry2);
 
-        List<Inquiry> openInquiries = inquiryService.filterOpenInquiries(inquiryList);
+        List<Inquiry> openInquiries = inquiryService.getOpenInquiries(inquiryList);
 
         assertEquals(1, openInquiries.size());
         assertEquals(Inquiry.Status.OPEN, openInquiries.get(0).getStatus());
@@ -63,7 +63,7 @@ public class LendInquiryServiceTest {
         inquiry3.setStatus(Inquiry.Status.OPEN);
         List<Inquiry> inquiryList = Arrays.asList(inquiry0, inquiry1, inquiry2, inquiry3);
 
-        List<Inquiry> openInquiries = inquiryService.filterOpenInquiries(inquiryList);
+        List<Inquiry> openInquiries = inquiryService.getOpenInquiries(inquiryList);
 
         assertEquals(2, openInquiries.size());
         assertEquals(Inquiry.Status.OPEN, openInquiries.get(0).getStatus());
