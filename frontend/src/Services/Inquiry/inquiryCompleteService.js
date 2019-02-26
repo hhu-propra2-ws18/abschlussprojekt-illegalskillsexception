@@ -19,14 +19,13 @@ export async function getAllInquiries() {
 
 export async function acceptInquiry(id) {
     let data = await inquiryAcceptBackend(id, store.getState().user.token);
-
-    if (data.data.error) {
-        console.log(data);
+    
+    console.log(data);
+    if (data.error) {
         return data;
     }
     let action = getRemoveInquiryItemAction(id);
     store.dispatch(action);
-    return data;
 }
 
 export async function declineInquiry(id) {
@@ -34,8 +33,7 @@ export async function declineInquiry(id) {
 
     if (data.data.error) {
         console.log(data);
-        return data;
+        let action = getRemoveInquiryItemAction(id);
+        store.dispatch(action);
     }
-    let action = getRemoveInquiryItemAction(id);
-    store.dispatch(action);
 }

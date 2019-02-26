@@ -24,7 +24,7 @@ export default class InquiriesViewItem extends React.Component {
             <article>
                 <h3><span>{this.props.data.article.title} </span></h3>
                 <p><span>{this.props.data.article.description} </span> </p>
-                <h5>Lendtime:</h5>
+                <h5>Lending period:</h5>
                 <p>{this.props.data.startDate} to {this.props.data.endDate} </p>
                 {this.props.isLendingInquiry ? (
                     <div>

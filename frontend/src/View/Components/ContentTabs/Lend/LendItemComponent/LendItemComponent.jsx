@@ -14,7 +14,7 @@ export default class LendItemComponent extends React.Component {
         return (
             <article>
                 <h3>{this.props.data.title}</h3>
-                <h5>location:</h5>
+                <h5>Location:</h5>
                 <p>{this.props.data.location}</p>
                 <h5>Daily rate:</h5>
                 <p>{this.props.data.dailyRate}</p>

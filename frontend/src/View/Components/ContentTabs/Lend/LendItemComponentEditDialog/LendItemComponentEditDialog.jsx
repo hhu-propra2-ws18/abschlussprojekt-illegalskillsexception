@@ -24,9 +24,10 @@ export default class LendItemComponentEditDialog extends React.Component {
                     defaultValue={this.props.data.title}
                 />
                 <label>Description</label>
-                <TextBox
+                <TextBox acceptsReturn={true}
                     ref={this.descRef}
                     defaultValue={this.props.data.description}
+                    height=""
                 />
                 <label>Safety Deposit</label>
                 <TextBox
