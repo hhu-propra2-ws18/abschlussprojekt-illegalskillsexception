@@ -5,7 +5,6 @@ import {
 } from "./SellActions";
 
 export default function sellstore(state = [], action) {
-    console.log(action,state);
     switch (action.type) {
         case SET_SELL_ACTIONS: {
             return action["list"];

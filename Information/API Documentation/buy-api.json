@@ -1,0 +1,38 @@
+{
+    "/buy/": {
+        "method": "get",
+        "sendData": {},
+        "expectedData": {
+            "data": [
+                {
+                    "id": "Number (Snowflake)",
+                    "title": "String",
+                    "price": "Number",
+                    "description": "String",
+                    "location": "String"
+                }
+            ],
+            "error": {
+                "errorMessage": "String",
+                "errorType": "String"
+            }
+        }
+    },
+    "/buy/buyItem": {
+        "method": "post",
+        "sendData": { "buyArticleId": "Number (Snowflake)" },
+        "expectData": {
+            "data": {
+                "id": "Number (Snowflake)",
+                "title": "String",
+                "price": "Number",
+                "description": "String",
+                "location": "String"
+            },
+            "error": {
+                "errorMessage": "String",
+                "errorType": "String"
+            }
+        }
+    }
+}

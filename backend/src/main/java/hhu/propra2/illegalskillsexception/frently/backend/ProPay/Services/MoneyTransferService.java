@@ -1,5 +1,6 @@
 package hhu.propra2.illegalskillsexception.frently.backend.ProPay.Services;
 
+import hhu.propra2.illegalskillsexception.frently.backend.Controller.User.Exceptions.UserNotFoundException;
 import hhu.propra2.illegalskillsexception.frently.backend.Data.Models.ApplicationUser;
 import hhu.propra2.illegalskillsexception.frently.backend.Data.Repositories.IMoneyTransferRepository;
 import hhu.propra2.illegalskillsexception.frently.backend.ProPay.IServices.IMoneyTransferService;
@@ -22,13 +23,13 @@ public class MoneyTransferService implements IMoneyTransferService {
     }
 
     @Override
-    public void createMoneyTransfer(String source, String target, Double amount) {
+    public void createMoneyTransfer(String source, String target, Double amount) throws UserNotFoundException {
         MoneyTransfer moneyTransfer = new MoneyTransfer();
         ApplicationUser senderUser = applicationUserService.getApplicationUserByUsername(source);
         moneyTransfer.setSender(senderUser);
         moneyTransfer.setAmount(amount);
-        ApplicationUser receiver = applicationUserService.getApplicationUserByUsername(target);
-        moneyTransfer.setReceiver(receiver);
+        ApplicationUser receiverUser = applicationUserService.getApplicationUserByUsername(target);
+        moneyTransfer.setReceiver(receiverUser);
         moneyTransferRepository.save(moneyTransfer);
     }
 

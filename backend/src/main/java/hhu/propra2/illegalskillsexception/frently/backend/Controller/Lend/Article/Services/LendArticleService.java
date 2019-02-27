@@ -1,12 +1,10 @@
 package hhu.propra2.illegalskillsexception.frently.backend.Controller.Lend.Article.Services;
 
 import hhu.propra2.illegalskillsexception.frently.backend.Controller.Lend.Article.DTOs.LendArticleUpdate;
-import hhu.propra2.illegalskillsexception.frently.backend.Controller.Lend.Article.Exceptions.PendingInquiryException;
 import hhu.propra2.illegalskillsexception.frently.backend.Controller.Lend.Article.IServices.ILendArticleService;
 import hhu.propra2.illegalskillsexception.frently.backend.Data.Exceptions.NoSuchArticleException;
 import hhu.propra2.illegalskillsexception.frently.backend.Data.Models.ApplicationUser;
 import hhu.propra2.illegalskillsexception.frently.backend.Data.Models.BorrowArticle;
-import hhu.propra2.illegalskillsexception.frently.backend.Data.Models.Inquiry;
 import hhu.propra2.illegalskillsexception.frently.backend.Data.Repositories.IBorrowArticleRepository;
 import hhu.propra2.illegalskillsexception.frently.backend.Data.Repositories.IInquiryRepository;
 import lombok.AllArgsConstructor;

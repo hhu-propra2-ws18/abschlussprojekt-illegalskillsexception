@@ -15,17 +15,20 @@ export default class InquiriesViewItem extends React.Component {
         this.state = {
             showDialog: false,
             showError: false,
-            errorMessage: "",
+            errorMessage: ""
         };
     }
 
     render() {
         return (
             <article>
-                <h3><span>{this.props.data.article.title} </span></h3>
-                <p><span>{this.props.data.article.description} </span> </p>
+                <h3>
+                    <span>{this.props.data.borrowArticle.title} </span>
+                </h3>
                 <h5>Lending period:</h5>
-                <p>{this.props.data.startDate} to {this.props.data.endDate} </p>
+                <p>
+                    {this.props.data.startDate} to {this.props.data.endDate}{" "}
+                </p>
                 {this.props.isLendingInquiry ? (
                     <div>
                         <h5>Borrower:</h5>
@@ -39,10 +42,10 @@ export default class InquiriesViewItem extends React.Component {
                             </Button>
                         </div>
                     </div>
-                    ) : (
+                ) : (
                     <div>
                         <h5>Lender:</h5>
-                        <p>{this.props.data.article.owner.username} </p>
+                        <p>{this.props.data.borrowArticle.owner.username} </p>
                         <h5>Status:</h5>
                         <p>{this.props.data.status} </p>
                     </div>
@@ -52,9 +55,11 @@ export default class InquiriesViewItem extends React.Component {
                     style={{ zIndex: 400 }}
                     onCloseDialog={() => this.setState({ showDialog: false })}
                 >
-                    <InquiryItemErrorDialog errorMessage={this.state.errorMessage} closeDialog={this.closeErrorDialog}/>
+                    <InquiryItemErrorDialog
+                        errorMessage={this.state.errorMessage}
+                        closeDialog={this.closeErrorDialog}
+                    />
                 </Dialog>
-
             </article>
         );
     }
@@ -62,10 +67,10 @@ export default class InquiriesViewItem extends React.Component {
     async accept() {
         let result = await acceptInquiry(this.props.data.id);
         if (result.data.error) {
-            this.setState( {
-                showError:true,
+            this.setState({
+                showError: true,
                 errorMessage: result.data.error.errorMessage
-            })
+            });
         }
     }
 
@@ -74,7 +79,6 @@ export default class InquiriesViewItem extends React.Component {
     }
 
     closeErrorDialog = () => {
-        this.setState({showError: false, showDialog: false});
+        this.setState({ showError: false, showDialog: false });
     };
-
 }

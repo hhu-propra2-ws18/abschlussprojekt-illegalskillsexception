@@ -4,7 +4,6 @@ import com.github.javafaker.Faker;
 import hhu.propra2.illegalskillsexception.frently.backend.Controller.User.IServices.IApplicationUserService;
 import hhu.propra2.illegalskillsexception.frently.backend.Data.Models.*;
 import hhu.propra2.illegalskillsexception.frently.backend.Data.Repositories.*;
-import hhu.propra2.illegalskillsexception.frently.backend.ProPay.Exceptions.ProPayConnectionException;
 import hhu.propra2.illegalskillsexception.frently.backend.ProPay.IServices.IProPayService;
 import hhu.propra2.illegalskillsexception.frently.backend.ProPay.Models.MoneyTransfer;
 import lombok.AllArgsConstructor;
@@ -20,7 +19,7 @@ import java.util.stream.IntStream;
 @Component
 @AllArgsConstructor
 public class Initializer implements ServletContextInitializer {
-    private final IArticleRepository articleRepo;
+    private final IBorrowArticleRepository articleRepo;
     private final IInquiryRepository inquiryRepo;
     private final ITransactionRepository transactionRepo;
     private final IApplicationUserRepository userRepo;
@@ -28,6 +27,7 @@ public class Initializer implements ServletContextInitializer {
     private final IRoleRepository roleRepository;
     private final IMoneyTransferRepository moneyTransferRepo;
     private final IProPayService proPayService;
+    private final IBuyArticleRepository buyArticleRepo;
 
     @Override
     public void onStartup(final ServletContext servletContext) {
@@ -35,7 +35,7 @@ public class Initializer implements ServletContextInitializer {
         final Faker faker = new Faker(Locale.ENGLISH);
 
         // Create Roles
-        String[] names = {"ADMIN"};
+        String[] names = {"ADMIN", "USER"};
         List<Role> roles = Arrays.stream(names).map(value -> {
             Role r = new Role();
             r.setName(value);
@@ -82,27 +82,46 @@ public class Initializer implements ServletContextInitializer {
                 System.out.println("Propay not found");
                 exc.printStackTrace();
             }
-            // Create Articles
-            Article standardZeroArticle = new Article();
-            standardZeroArticle.setTitle("A painting");
-            standardZeroArticle.setDescription("Some famous painting ending in isa");
-            standardZeroArticle.setDailyRate(0.0);
-            standardZeroArticle.setDeposit(0.0);
-            standardZeroArticle.setLocation("Le Louvre");
-            standardZeroArticle.setOwner(standardUser);
-            this.articleRepo.save(standardZeroArticle);
 
-            Article standardNotZeroArticle = new Article();
-            standardNotZeroArticle.setTitle("Another painting");
-            standardNotZeroArticle.setDescription("Some famous painting ending in isa");
-            standardNotZeroArticle.setDailyRate(20.0);
-            standardNotZeroArticle.setDeposit(100.0);
-            standardNotZeroArticle.setLocation("Le Louvre");
-            standardNotZeroArticle.setOwner(standardUser);
-            this.articleRepo.save(standardNotZeroArticle);
+            //Create buyable articles
+            BuyArticle first = new BuyArticle();
+            first.setOwner(standardUserBorrow);
+            first.setLocation("Le louvre");
+            first.setPrice(100.0);
+            first.setTitle("Some Davinci painting");
+            first.setDescription("Some stuff");
+            buyArticleRepo.save(first);
+
+            BuyArticle second = new BuyArticle();
+            second.setOwner(standardUser);
+            second.setLocation("Le louvre");
+            second.setPrice(10000.0);
+            second.setTitle("Some dude looking at fog");
+            second.setDescription("I thinks it's a painting by some guy called Casper David Friedrich");
+            buyArticleRepo.save(second);
+
+
+            // Create borrowable articles (please dont kill me for that word)
+            BorrowArticle standardZeroBorrowArticle = new BorrowArticle();
+            standardZeroBorrowArticle.setTitle("A painting");
+            standardZeroBorrowArticle.setDescription("Some famous painting ending in isa");
+            standardZeroBorrowArticle.setDailyRate(0.0);
+            standardZeroBorrowArticle.setDeposit(0.0);
+            standardZeroBorrowArticle.setLocation("Le Louvre");
+            standardZeroBorrowArticle.setOwner(standardUser);
+            this.articleRepo.save(standardZeroBorrowArticle);
+
+            BorrowArticle standardNotZeroBorrowArticle = new BorrowArticle();
+            standardNotZeroBorrowArticle.setTitle("Another painting");
+            standardNotZeroBorrowArticle.setDescription("Some famous painting ending in isa");
+            standardNotZeroBorrowArticle.setDailyRate(20.0);
+            standardNotZeroBorrowArticle.setDeposit(100.0);
+            standardNotZeroBorrowArticle.setLocation("Le Louvre");
+            standardNotZeroBorrowArticle.setOwner(standardUser);
+            this.articleRepo.save(standardNotZeroBorrowArticle);
 
             Inquiry inquiryZeroArticle = new Inquiry();
-            inquiryZeroArticle.setArticle(standardZeroArticle);
+            inquiryZeroArticle.setBorrowArticle(standardZeroBorrowArticle);
             inquiryZeroArticle.setStatus(Inquiry.Status.ACCEPTED);
             inquiryZeroArticle.setLender(standardUser);
             inquiryZeroArticle.setBorrower(standardUserBorrow);
@@ -111,7 +130,7 @@ public class Initializer implements ServletContextInitializer {
             this.inquiryRepo.save(inquiryZeroArticle);
 
             Inquiry inquiryNotZeroArticle = new Inquiry();
-            inquiryNotZeroArticle.setArticle(standardNotZeroArticle);
+            inquiryNotZeroArticle.setBorrowArticle(standardNotZeroBorrowArticle);
             inquiryNotZeroArticle.setStatus(Inquiry.Status.OPEN);
             inquiryNotZeroArticle.setLender(standardUser);
             inquiryNotZeroArticle.setBorrower(standardUserBorrow);
@@ -126,8 +145,15 @@ public class Initializer implements ServletContextInitializer {
             transactionFromInquiryZeroArticle.setReturnDate(inquiryNotZeroArticle.getEndDate());
             this.transactionRepo.save(transactionFromInquiryZeroArticle);
 
+            Transaction transactionConflict = new Transaction();
+            transactionConflict.setStatus(Transaction.Status.CONFLICT);
+            transactionConflict.setInquiry(inquiryNotZeroArticle);
+            transactionConflict.setReservationId(-1);
+            transactionConflict.setReturnDate(inquiryNotZeroArticle.getEndDate());
+            this.transactionRepo.save(transactionConflict);
+
             IntStream.range(0, 99).mapToObj(value -> {
-                Article a = new Article();
+                BorrowArticle a = new BorrowArticle();
                 a.setTitle(faker.commerce().productName());
                 a.setDeposit(faker.number().randomDouble(2, 10, 300));
                 a.setDailyRate(faker.number().randomDouble(2, 1, 100));

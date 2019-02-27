@@ -14,8 +14,8 @@
                 }
             ],
             "error": {
-                "code": "Number or null",
-                "message": "String or null"
+                "errorType": "Number or null",
+                "errorMessage": "String or null"
             }
         }
     },
@@ -32,8 +32,8 @@
         "expectedData": {
             "data": { "articleId": "Number (Snowflake)" },
             "error": {
-                "code": "Number or null",
-                "message": "String or null"
+                "errorType": "Number or null",
+                "errorMessage": "String or null"
             }
         }
     },
@@ -51,8 +51,8 @@
         "expectedData": {
             "data": {},
             "error": {
-                "code": "Number or null",
-                "message": "String or null"
+                "errorType": "Number or null",
+                "errorMessage": "String or null"
             }
         }
     },
@@ -73,8 +73,8 @@
                 }
             ],
             "error": {
-                "code": "Number/String or null",
-                "message": "String or null"
+                "errorType": "Number/String or null",
+                "errorMessage": "String or null"
             }
         }
     },
@@ -85,8 +85,8 @@
         "expectedData": {
             "data": {},
             "error": {
-                "code": "Number/String or null",
-                "message": "String or null"
+                "errorType": "Number/String or null",
+                "errorMessage": "String or null"
             }
         }
     },
@@ -97,8 +97,8 @@
             "data": {},
 
             "error": {
-                "code": "Number/String or null",
-                "message": "String or null"
+                "errorType": "Number/String or null",
+                "errorMessage": "String or null"
             }
         }
     },
@@ -117,8 +117,8 @@
                 }
             ],
             "error": {
-                "code": "Number or null",
-                "message": "String or null"
+                "errorType": "Number or null",
+                "errorMessage": "String or null"
             }
         }
     } ,
@@ -135,8 +135,8 @@
         "expectedData": {
             "data": { "status": "String" },
             "error": {
-                "code": "Number or null",
-                "message": "String or null"
+                "errorType": "Number or null",
+                "errorMessage": "String or null"
             }
         }
     }

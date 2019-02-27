@@ -1,7 +1,50 @@
 import React from "react"
+import {connect} from "react-redux";
+import {getAllConflicts, punishConflict, resolveConflict} from "../../../../Services/Conflict/conflictCompleteService";
+import ConflictDetailView from "./ConflictDetailView";
 
-export default class ConflictView extends React.Component {
+class ConflictView extends React.Component {
+
+    componentWillMount() {
+        getAllConflicts();
+    }
+
+    punishConf = async (id) => {
+        await punishConflict(id);
+        await getAllConflicts();
+    };
+
+    resolveConf = async (id) => {
+        await resolveConflict(id);
+        await getAllConflicts();
+    };
+
+    renderConflictList() {
+        return this.props.conflictList.map(conf =>
+            <ConflictDetailView
+                key={conf.id}
+                conflict={conf}
+                article={conf.inquiry.borrowArticle}
+                lender={conf.inquiry.borrowArticle.owner}
+                borrower={conf.inquiry.borrower}
+                getAllConflicts={this.getAllConflicts}
+                resolveConflict={this.resolveConf}
+                punishConflict={this.punishConf}
+            />
+        );
+    }
+
     render() {
-        return <div />;
+        console.log("conflictList: ",this.props.conflictList);
+        return (
+            <>
+                {this.renderConflictList()}
+            </>
+        )
     }
 }
+const mapStateToProps = (state) => {
+    return { conflictList: state.conflictstore.conflictList };
+};
+
+export default connect(mapStateToProps)(ConflictView);

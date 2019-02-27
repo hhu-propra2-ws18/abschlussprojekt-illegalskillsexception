@@ -1,6 +1,7 @@
 package hhu.propra2.illegalskillsexception.frently.backend.ProPay.IServices;
 
 import hhu.propra2.illegalskillsexception.frently.backend.Controller.Lend.Transaction.Exceptions.InsuffientFundsException;
+import hhu.propra2.illegalskillsexception.frently.backend.Controller.User.Exceptions.UserNotFoundException;
 import hhu.propra2.illegalskillsexception.frently.backend.Data.Models.Transaction;
 import hhu.propra2.illegalskillsexception.frently.backend.ProPay.Exceptions.ProPayConnectionException;
 import hhu.propra2.illegalskillsexception.frently.backend.ProPay.Models.MoneyTransfer;
@@ -11,17 +12,17 @@ import org.springframework.retry.ExhaustedRetryException;
 import java.util.List;
 
 public interface IProPayService {
-    ProPayAccount createAccount(String userName, double amount) throws ProPayConnectionException, ExhaustedRetryException;
+    ProPayAccount createAccount(String userName, double amount) throws ProPayConnectionException, ExhaustedRetryException, UserNotFoundException;
 
     double getAccountBalance(String username) throws ProPayConnectionException, ExhaustedRetryException;
 
-    void payInMoney(String userName, double amount) throws ProPayConnectionException, ExhaustedRetryException;
+    void payInMoney(String userName, double amount) throws ProPayConnectionException, ExhaustedRetryException, UserNotFoundException;
 
-    void transferMoney(String borrower, String lender, double amount) throws InsuffientFundsException, ProPayConnectionException;
+    void transferMoney(String borrower, String lender, double amount) throws InsuffientFundsException, ProPayConnectionException, ExhaustedRetryException, UserNotFoundException;
 
     List<MoneyTransfer> getAllMoneyTransfers(String userName);
 
-    ProPayAccount getProPayAccount(String username) throws ProPayConnectionException;
+    ProPayAccount getProPayAccount(String username) throws ProPayConnectionException, ExhaustedRetryException;
 
     boolean amountGreaterThanReservation(List<Reservation> reservations, double amount, double accountBalance);
 
@@ -29,5 +30,5 @@ public interface IProPayService {
 
     void freeDeposit(String borrower, Transaction transaction) throws ProPayConnectionException;
 
-    void punishUser(String borrower, Transaction transaction) throws ProPayConnectionException;
+    void punishUser(String borrower, Transaction transaction) throws ProPayConnectionException, UserNotFoundException;
 }

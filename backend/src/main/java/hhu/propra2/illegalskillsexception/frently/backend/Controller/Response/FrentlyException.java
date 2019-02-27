@@ -6,10 +6,11 @@ public class FrentlyException extends Exception {
 
     public FrentlyException(String msg, FrentlyErrorType type) {
         super(msg);
+        System.err.println(msg);
         this.type = type;
     }
 
-    public FrentlyErrorType getType() {
+    FrentlyErrorType getType() {
         return this.type;
     }
 }

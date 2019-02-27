@@ -1,6 +1,7 @@
 package hhu.propra2.illegalskillsexception.frently.backend.Data.Repositories;
 
 import hhu.propra2.illegalskillsexception.frently.backend.Data.Models.Transaction;
+import org.springframework.data.jpa.domain.Specification;
 import org.springframework.data.repository.CrudRepository;
 
 import java.time.LocalDate;
@@ -14,4 +15,5 @@ public interface ITransactionRepository extends CrudRepository<Transaction, Long
     List<Transaction> findAllByInquiry_Borrower_IdAndInquiry_EndDateLessThan(long userId, LocalDate nowDate);
 
     List<Transaction> findAllByInquiry_Lender_Id(long id);
+
 }
