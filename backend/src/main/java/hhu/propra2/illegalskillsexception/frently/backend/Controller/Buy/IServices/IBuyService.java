@@ -12,6 +12,6 @@ public interface IBuyService {
 
     List<BuyArticle> getAllBuyableArticles();
 
-    Long buyItem(Long sellArticleID, ApplicationUser buyer) throws NoSuchBuyArticleException, ProPayConnectionException, InsuffientFundsException;
+    void buyItem(Long sellArticleID, ApplicationUser buyer) throws NoSuchBuyArticleException, ProPayConnectionException, InsuffientFundsException;
 
 }

@@ -28,16 +28,14 @@ public class BuyService implements IBuyService {
     }
 
     @Override
-    public Long buyItem(Long sellArticleID, ApplicationUser buyer) throws NoSuchBuyArticleException, ProPayConnectionException, InsuffientFundsException {
+    public void buyItem(Long sellArticleID, ApplicationUser buyer) throws NoSuchBuyArticleException, ProPayConnectionException, InsuffientFundsException {
         BuyArticle article = buyArticleRepository.findById(sellArticleID).orElseThrow(NoSuchBuyArticleException::new);
 
         ApplicationUser owner = article.getOwner();
 
-        long reservationId = proPayService.transferMoney(buyer.getUsername(), owner.getUsername(), article.getPrice());
+        proPayService.transferMoney(buyer.getUsername(), owner.getUsername(), article.getPrice());
 
         buyArticleRepository.delete(article);
-
-        return reservationId;
     }
 
 
