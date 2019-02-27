@@ -4,12 +4,14 @@ import hhu.propra2.illegalskillsexception.frently.backend.Controller.Buy.Excepti
 import hhu.propra2.illegalskillsexception.frently.backend.Controller.Buy.IServices.IBuyService;
 import hhu.propra2.illegalskillsexception.frently.backend.Controller.Lend.Transaction.Exceptions.InsuffientFundsException;
 import hhu.propra2.illegalskillsexception.frently.backend.Controller.User.Exceptions.UserNotFoundException;
+import hhu.propra2.illegalskillsexception.frently.backend.Controller.User.IServices.IApplicationUserService;
 import hhu.propra2.illegalskillsexception.frently.backend.Data.Models.ApplicationUser;
 import hhu.propra2.illegalskillsexception.frently.backend.Data.Models.BuyArticle;
 import hhu.propra2.illegalskillsexception.frently.backend.Data.Repositories.IBuyArticleRepository;
 import hhu.propra2.illegalskillsexception.frently.backend.ProPay.Exceptions.ProPayConnectionException;
 import hhu.propra2.illegalskillsexception.frently.backend.ProPay.IServices.IProPayService;
 import lombok.AllArgsConstructor;
+import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -21,11 +23,13 @@ public class BuyService implements IBuyService {
 
     private final IBuyArticleRepository buyArticleRepository;
     private final IProPayService proPayService;
+    private final IApplicationUserService userService;
 
 
     @Override
-    public List<BuyArticle> getAllBuyableArticles() {
-        return buyArticleRepository.findAll();
+    public List<BuyArticle> getAllBuyableArticlesButOwn(Authentication auth) {
+        long currentUserId = userService.getCurrentUser(auth).getId();
+        return buyArticleRepository.findAllByOwner_IdNot(currentUserId);
     }
 
     @Override
