@@ -43,6 +43,4 @@ export default class LendItemComponent extends React.Component {
         this.setState({ showDialog: false });
     }
 }
-/*
 
-*/
