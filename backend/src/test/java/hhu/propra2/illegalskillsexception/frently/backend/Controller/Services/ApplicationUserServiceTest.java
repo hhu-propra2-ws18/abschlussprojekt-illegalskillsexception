@@ -3,6 +3,7 @@ package hhu.propra2.illegalskillsexception.frently.backend.Controller.Services;
 import hhu.propra2.illegalskillsexception.frently.backend.Controller.User.Exceptions.UserAlreadyExistsAuthenticationException;
 import hhu.propra2.illegalskillsexception.frently.backend.Controller.User.Services.ApplicationUserService;
 import hhu.propra2.illegalskillsexception.frently.backend.Data.Models.ApplicationUser;
+import hhu.propra2.illegalskillsexception.frently.backend.Data.Models.Role;
 import hhu.propra2.illegalskillsexception.frently.backend.Data.Repositories.IApplicationUserRepository;
 import hhu.propra2.illegalskillsexception.frently.backend.Data.Repositories.IRoleRepository;
 import org.junit.Before;
@@ -26,7 +27,7 @@ public class ApplicationUserServiceTest {
     private ArrayList<Optional> userList;
     private List<ApplicationUser> userList2;
 
-/*    @Before
+    @Before
     public void setUp() {
         Optional<ApplicationUser> user0 = Optional.empty();
         Optional<ApplicationUser> user1 = Optional.of(new ApplicationUser());
@@ -39,13 +40,16 @@ public class ApplicationUserServiceTest {
         user3.setUsername("ExampleUser");
         user3.setPassword("ExamplePassword");
 
+        roleRepository = mock(IRoleRepository.class);
+        when(roleRepository.findById(2L)).thenReturn(Optional.of(new Role()));
+
         userList2.addAll(Arrays.asList(new ApplicationUser(), new ApplicationUser(), new ApplicationUser(), user3));
         applicationUserRepository = mock(IApplicationUserRepository.class);
         when(applicationUserRepository.findById(0L)).thenReturn(userList.get(0));
         when(applicationUserRepository.findById(1L)).thenReturn(userList.get(1));
         when(applicationUserRepository.findAll()).thenReturn(userList2);
         when(applicationUserRepository.existsByUsername("ExampleUser")).thenReturn(true);
-        IApplicationUserService = new ApplicationUserService(roleRepository, applicationUserRepository, new BCryptPasswordEncoder());
+        IApplicationUserService = new ApplicationUserService(applicationUserRepository, new BCryptPasswordEncoder(), roleRepository);
     }
 
     @Test
@@ -83,4 +87,4 @@ public class ApplicationUserServiceTest {
         verify(applicationUserRepository).existsByUsername("ExampleUser");
 
     }
-*/}
+}
