@@ -3,6 +3,7 @@ package hhu.propra2.illegalskillsexception.frently.backend.Controller.User.Servi
 import hhu.propra2.illegalskillsexception.frently.backend.Controller.User.Exceptions.UserAlreadyExistsAuthenticationException;
 import hhu.propra2.illegalskillsexception.frently.backend.Controller.User.IServices.IApplicationUserService;
 import hhu.propra2.illegalskillsexception.frently.backend.Data.Models.ApplicationUser;
+import hhu.propra2.illegalskillsexception.frently.backend.Data.Models.Role;
 import hhu.propra2.illegalskillsexception.frently.backend.Data.Repositories.IApplicationUserRepository;
 import hhu.propra2.illegalskillsexception.frently.backend.Data.Repositories.IRoleRepository;
 import lombok.AllArgsConstructor;
@@ -11,6 +12,7 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 

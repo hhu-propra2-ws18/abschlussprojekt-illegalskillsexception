@@ -24,8 +24,8 @@ class ConflictView extends React.Component {
             <ConflictDetailView
                 key={conf.id}
                 conflict={conf}
-                article={conf.inquiry.article}
-                lender={conf.inquiry.article.owner}
+                article={conf.inquiry.borrowArticle}
+                lender={conf.inquiry.borrowArticle.owner}
                 borrower={conf.inquiry.borrower}
                 getAllConflicts={this.getAllConflicts}
                 resolveConflict={this.resolveConf}

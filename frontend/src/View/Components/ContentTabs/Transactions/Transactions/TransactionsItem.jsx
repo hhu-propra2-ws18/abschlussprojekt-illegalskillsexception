@@ -19,9 +19,9 @@ export default class TransactionsItem extends React.Component {
     render() {
         return (
             <article>
-                <h2>{this.props.data.inquiry.article.title}</h2>
+                <h2>{this.props.data.inquiry.borrowArticle.title}</h2>
                 <h5>Descriptiom</h5>
-                <p>{this.props.data.inquiry.article.description}</p>
+                <p>{this.props.data.inquiry.borrowArticle.description}</p>
                 <h5>Status</h5>
                 <p> {this.props.data.status}</p>
                 <h5>Return Date</h5>
