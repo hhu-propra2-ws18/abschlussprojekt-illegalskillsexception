@@ -9,12 +9,16 @@ handled by our API.
 
 * *Borrow*
 //TODO
+* *Buy*
+//-Deals with buying of buyable items 
 * *Conflict*
 //TODO
 * *Lend*
 //TODO
 * *Response*
 //TODO
+* *Sell*
+//-Deals with selling of items
 * *Security*
 //TODO
 * *User*

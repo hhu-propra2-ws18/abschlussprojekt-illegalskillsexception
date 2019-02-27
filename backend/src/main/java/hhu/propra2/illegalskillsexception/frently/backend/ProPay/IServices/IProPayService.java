@@ -17,7 +17,7 @@ public interface IProPayService {
 
     void payInMoney(String userName, double amount) throws ProPayConnectionException, ExhaustedRetryException;
 
-    void transferMoney(String borrower, String lender, double amount) throws InsuffientFundsException, ProPayConnectionException;
+    long transferMoney(String borrower, String lender, double amount) throws InsuffientFundsException, ProPayConnectionException;
 
     List<MoneyTransfer> getAllMoneyTransfers(String userName);
 

@@ -4,7 +4,7 @@ import hhu.propra2.illegalskillsexception.frently.backend.Controller.Lend.Inquir
 import hhu.propra2.illegalskillsexception.frently.backend.Controller.Lend.Transaction.Exceptions.InsuffientFundsException;
 import hhu.propra2.illegalskillsexception.frently.backend.Data.Exceptions.NoSuchInquiryException;
 import hhu.propra2.illegalskillsexception.frently.backend.Data.Models.ApplicationUser;
-import hhu.propra2.illegalskillsexception.frently.backend.Data.Models.Article;
+import hhu.propra2.illegalskillsexception.frently.backend.Data.Models.BorrowArticle;
 import hhu.propra2.illegalskillsexception.frently.backend.Data.Models.Inquiry;
 import hhu.propra2.illegalskillsexception.frently.backend.Data.Models.Transaction;
 import hhu.propra2.illegalskillsexception.frently.backend.Data.Repositories.IInquiryRepository;
@@ -36,11 +36,11 @@ public class LendInquiryProcessingService implements ILendInquiryProcessingServi
             throws NoSuchInquiryException, ProPayConnectionException, InsuffientFundsException {
 
         Inquiry inquiry = inquiryRepository.findById(inquiryId).orElseThrow(NoSuchInquiryException::new);
-        Article article = inquiry.getArticle();
+        BorrowArticle borrowArticle = inquiry.getBorrowArticle();
 
         ApplicationUser borrower = inquiry.getBorrower();
-        ApplicationUser lender = article.getOwner();
-        Double deposit = article.getDeposit();
+        ApplicationUser lender = borrowArticle.getOwner();
+        Double deposit = borrowArticle.getDeposit();
 
         long reservationId = blockDeposit(borrower, lender, deposit);
 

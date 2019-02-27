@@ -51,7 +51,7 @@ public class BorrowTransactionService implements IBorrowTransactionService {
     private void transferFee(Transaction transaction) throws InsuffientFundsException, ProPayConnectionException {
         LocalDate startDate = transaction.getInquiry().getStartDate();
         LocalDate endDate = transaction.getInquiry().getEndDate();
-        Double dailyRate = transaction.getInquiry().getArticle().getDailyRate();
+        Double dailyRate = transaction.getInquiry().getBorrowArticle().getDailyRate();
 
         double fee = calculateFee(startDate, endDate, dailyRate);
 

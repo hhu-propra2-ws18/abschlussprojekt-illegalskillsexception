@@ -1,46 +1,46 @@
 package hhu.propra2.illegalskillsexception.frently.backend.Controller.Lend.Article.Services;
 
 import hhu.propra2.illegalskillsexception.frently.backend.Controller.Lend.Article.DTOs.LendArticleUpdate;
-import hhu.propra2.illegalskillsexception.frently.backend.Controller.Lend.Article.Exceptions.PendingInquiryException;
 import hhu.propra2.illegalskillsexception.frently.backend.Controller.Lend.Article.IServices.ILendArticleService;
 import hhu.propra2.illegalskillsexception.frently.backend.Data.Exceptions.NoSuchArticleException;
 import hhu.propra2.illegalskillsexception.frently.backend.Data.Models.ApplicationUser;
-import hhu.propra2.illegalskillsexception.frently.backend.Data.Models.Article;
-import hhu.propra2.illegalskillsexception.frently.backend.Data.Models.Inquiry;
-import hhu.propra2.illegalskillsexception.frently.backend.Data.Repositories.IArticleRepository;
-import hhu.propra2.illegalskillsexception.frently.backend.Data.Repositories.IInquiryRepository;
+import hhu.propra2.illegalskillsexception.frently.backend.Data.Models.BorrowArticle;
+import hhu.propra2.illegalskillsexception.frently.backend.Data.Repositories.IBorrowArticleRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
-import java.util.stream.Collectors;
 
 @Service
 @AllArgsConstructor
 public class LendArticleService implements ILendArticleService {
 
+    private IBorrowArticleRepository articleRepo;
     private IArticleRepository articleRepo;
     private IInquiryRepository inquiryRepository;
 
     @Override
-    public Article createArticle(Article article, ApplicationUser user) {
-        article.setOwner(user);
-        articleRepo.save(article);
-        return article;
+    public BorrowArticle createArticle(BorrowArticle borrowArticle, ApplicationUser user) {
+        borrowArticle.setOwner(user);
+        articleRepo.save(borrowArticle);
+        return borrowArticle;
     }
 
     @Override
-    public List<Article> retrieveArticleList(ApplicationUser owner) {
+    public List<BorrowArticle> retrieveArticleList(ApplicationUser owner) {
         return articleRepo.findAllByOwner_Id(owner.getId());
     }
 
     @Override
     public Article updateArticle(LendArticleUpdate lendArticle) throws NoSuchArticleException, PendingInquiryException {
+    public BorrowArticle updateArticle(LendArticleUpdate lendArticle) throws NoSuchArticleException {
 
         Optional<Article> articleOpt = articleRepo.findById(lendArticle.getArticleId());
         Article article = articleOpt.orElseThrow(NoSuchArticleException::new);
         if (!noPendingInquiries(article)) throw new PendingInquiryException();
+        Optional<BorrowArticle> articleOpt = articleRepo.findById(lendArticle.getArticleId());
+        BorrowArticle article = articleOpt.orElseThrow(NoSuchArticleException::new);
 
         article.setTitle(lendArticle.getTitle());
         article.setDeposit(lendArticle.getDeposit());

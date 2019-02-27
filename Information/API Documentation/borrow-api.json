@@ -14,8 +14,8 @@
                 }
             ],
             "error": {
-                "code": "Number or null",
-                "message": "String or null"
+                "errorType": "Number or null",
+                "errorMessage": "String or null"
             }
         }
     },
@@ -36,8 +36,8 @@
                 }
             ],
             "error": {
-                "code": "Number/String or null",
-                "message": "String or null"
+                "errorType": "Number/String or null",
+                "errorMessage": "String or null"
             }
         }
     },
@@ -53,8 +53,8 @@
                 "inquiryId": "Number (Snowflake)"
             },
             "error": {
-                "code": "Number or null",
-                "message": "String or null"
+                "errorType": "Number or null",
+                "errorMessage": "String or null"
             }
         }
     },
@@ -72,8 +72,8 @@
                 }
             ],
             "error": {
-                "code": "Number or null",
-                "message": "String or null"
+                "errorType": "Number or null",
+                "errorMessage": "String or null"
             }
         }
     },
@@ -87,8 +87,8 @@
                 "transactionStatus": "String"
             },
             "error": {
-                "code": "Number or null",
-                "message": "String or null"
+                "errorType": "Number or null",
+                "errorMessage": "String or null"
             }
         }
     }
