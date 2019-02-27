@@ -4,6 +4,7 @@ import hhu.propra2.illegalskillsexception.frently.backend.Controller.Borrow.Arti
 import hhu.propra2.illegalskillsexception.frently.backend.Controller.Response.FrentlyError;
 import hhu.propra2.illegalskillsexception.frently.backend.Controller.Response.FrentlyResponse;
 import lombok.AllArgsConstructor;
+import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -16,10 +17,10 @@ public class BorrowArticleController {
     private final IBorrowArticleService articleService;
 
     @GetMapping(value = "/")
-    public FrentlyResponse retrieveAllOffers() {
+    public FrentlyResponse retrieveAllOffersButOwn(Authentication auth) {
         FrentlyResponse response = new FrentlyResponse();
         try {
-            response.setData(articleService.retrieveAll());
+            response.setData(articleService.retrieveAllButOwn(auth));
         } catch (Exception e) {
             response.setError(new FrentlyError(e));
         }
