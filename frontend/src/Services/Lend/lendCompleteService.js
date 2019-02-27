@@ -28,8 +28,9 @@ export async function getAllLendItems() {
 }
 
 export async function updateLendItem(item) {
-    await updateLendBackend(item, store.getState().user.token);
+    let result = await updateLendBackend(item, store.getState().user.token);
 
     let updateLendItemAction = getUpdateLendItemAction(item);
     store.dispatch(updateLendItemAction);
+    return result
 }

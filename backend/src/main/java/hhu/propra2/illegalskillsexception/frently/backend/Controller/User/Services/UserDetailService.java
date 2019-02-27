@@ -1,6 +1,5 @@
 package hhu.propra2.illegalskillsexception.frently.backend.Controller.User.Services;
 
-import hhu.propra2.illegalskillsexception.frently.backend.Controller.Response.FrentlyErrorType;
 import hhu.propra2.illegalskillsexception.frently.backend.Controller.User.DTOs.ForeignUserDetailResponse;
 import hhu.propra2.illegalskillsexception.frently.backend.Controller.User.DTOs.MoneyTransferDTO;
 import hhu.propra2.illegalskillsexception.frently.backend.Controller.User.DTOs.UserDetailResponse;
@@ -58,7 +57,7 @@ public class UserDetailService implements IUserDetailService {
         ApplicationUser foreignUser = applicationUserService.getApplicationUserByUsername(username);
 
         if (foreignUser == null) {
-            throw new UserNotFoundException("User not found", FrentlyErrorType.USER_NOT_FOUND);
+            throw new UserNotFoundException();
         }
         foreignUserDetailResponse.setUsername(foreignUser.getUsername());
 

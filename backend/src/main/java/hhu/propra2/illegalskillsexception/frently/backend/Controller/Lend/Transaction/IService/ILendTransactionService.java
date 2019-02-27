@@ -1,6 +1,7 @@
 package hhu.propra2.illegalskillsexception.frently.backend.Controller.Lend.Transaction.IService;
 
 import hhu.propra2.illegalskillsexception.frently.backend.Controller.Lend.Transaction.DTOs.AcceptReturnedItemRequestDTO;
+import hhu.propra2.illegalskillsexception.frently.backend.Controller.Lend.Transaction.Exceptions.ArticleNotReturnedException;
 import hhu.propra2.illegalskillsexception.frently.backend.Controller.Lend.Transaction.Exceptions.NoSuchTransactionException;
 import hhu.propra2.illegalskillsexception.frently.backend.Data.Models.Inquiry;
 import hhu.propra2.illegalskillsexception.frently.backend.Data.Models.Transaction;
@@ -14,5 +15,5 @@ public interface ILendTransactionService {
     List<Transaction> retrieveAllOfCurrentUser(Authentication authentication);
 
     Transaction updateTransaction(AcceptReturnedItemRequestDTO update)
-            throws NoSuchTransactionException;
+            throws ArticleNotReturnedException, NoSuchTransactionException;
 }

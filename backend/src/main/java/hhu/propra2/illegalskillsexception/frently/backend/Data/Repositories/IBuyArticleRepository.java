@@ -7,7 +7,7 @@ import java.util.List;
 
 public interface IBuyArticleRepository extends CrudRepository<BuyArticle, Long> {
 
-    List<BuyArticle> findAll();
+    List<BuyArticle> findAllByOwner_IdNot(long ownerId);
 
     List<BuyArticle> findAllByOwner_Username(String username);
 }

@@ -6,6 +6,7 @@ import lendstore from "./LendStore/LendReducer";
 import inquirystore from "./InquiryStore/InquiryReducer";
 import sellstore from "./SellStore/SellReducer";
 import transactionstore from "./TransactionStore/TransactionReducer";
+import conflictstore from "./ConflictStore/ConflictReducer";
 
 export const reducers = combineReducers({
     borrowstore,
@@ -14,6 +15,7 @@ export const reducers = combineReducers({
     inquirystore,
     sellstore,
     transactionstore,
+    conflictstore,
     user
 });
 

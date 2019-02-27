@@ -35,7 +35,7 @@ public class Initializer implements ServletContextInitializer {
         final Faker faker = new Faker(Locale.ENGLISH);
 
         // Create Roles
-        String[] names = {"ADMIN"};
+        String[] names = {"ADMIN", "USER"};
         List<Role> roles = Arrays.stream(names).map(value -> {
             Role r = new Role();
             r.setName(value);
@@ -144,6 +144,13 @@ public class Initializer implements ServletContextInitializer {
             transactionFromInquiryZeroArticle.setReservationId(-1);
             transactionFromInquiryZeroArticle.setReturnDate(inquiryNotZeroArticle.getEndDate());
             this.transactionRepo.save(transactionFromInquiryZeroArticle);
+
+            Transaction transactionConflict = new Transaction();
+            transactionConflict.setStatus(Transaction.Status.CONFLICT);
+            transactionConflict.setInquiry(inquiryNotZeroArticle);
+            transactionConflict.setReservationId(-1);
+            transactionConflict.setReturnDate(inquiryNotZeroArticle.getEndDate());
+            this.transactionRepo.save(transactionConflict);
 
             IntStream.range(0, 99).mapToObj(value -> {
                 BorrowArticle a = new BorrowArticle();

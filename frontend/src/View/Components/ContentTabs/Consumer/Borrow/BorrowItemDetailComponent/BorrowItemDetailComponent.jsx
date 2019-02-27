@@ -23,6 +23,7 @@ export default class BorrowItemDetailComponent extends React.Component {
     }
 
     render() {
+
         return (
             <article>
                 <h1>{this.props.data.title}</h1>

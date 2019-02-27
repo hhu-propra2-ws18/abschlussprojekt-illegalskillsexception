@@ -1,6 +1,7 @@
 package hhu.propra2.illegalskillsexception.frently.backend.ProPay.Services;
 
 import hhu.propra2.illegalskillsexception.frently.backend.Controller.Lend.Transaction.Exceptions.InsuffientFundsException;
+import hhu.propra2.illegalskillsexception.frently.backend.Controller.User.Exceptions.UserNotFoundException;
 import hhu.propra2.illegalskillsexception.frently.backend.Data.Models.Transaction;
 import hhu.propra2.illegalskillsexception.frently.backend.ProPay.Exceptions.ProPayConnectionException;
 import hhu.propra2.illegalskillsexception.frently.backend.ProPay.IServices.IMoneyTransferService;
@@ -33,7 +34,8 @@ public class ProPayService implements IProPayService {
 
     @Override
     @Retryable(value = {ProPayConnectionException.class}, maxAttempts = 2, backoff = @Backoff(delay = 1000))
-    public ProPayAccount createAccount(String userName, double amount) throws ProPayConnectionException, ExhaustedRetryException {
+    public ProPayAccount createAccount(String userName, double amount)
+            throws ProPayConnectionException, ExhaustedRetryException, UserNotFoundException {
         String url = BASE_URL + "account/" + userName + "?amount=" + amount;
         ProPayAccount newAccount;
         try {
@@ -52,13 +54,15 @@ public class ProPayService implements IProPayService {
     }
 
     @Override
-    public void payInMoney(String userName, double amount) throws ProPayConnectionException, ExhaustedRetryException {
+    public void payInMoney(String userName, double amount)
+            throws ProPayConnectionException, ExhaustedRetryException, UserNotFoundException {
         createAccount(userName, amount);
     }
 
     @Override
     @Retryable(value = {ProPayConnectionException.class}, maxAttempts = 2, backoff = @Backoff(delay = 1000))
-    public void transferMoney(String borrower, String lender, double amount) throws InsuffientFundsException, ProPayConnectionException, ExhaustedRetryException {
+    public void transferMoney(String borrower, String lender, double amount)
+            throws InsuffientFundsException, ProPayConnectionException, ExhaustedRetryException, UserNotFoundException {
         final String url = BASE_URL + "account/" + borrower + "/transfer/" + lender + "?amount=" + amount;
 
         try {
@@ -151,7 +155,8 @@ public class ProPayService implements IProPayService {
     }
 
     @Override
-    public void punishUser(String borrower, Transaction transaction) throws ProPayConnectionException {
+    public void punishUser(String borrower, Transaction transaction)
+            throws ProPayConnectionException, UserNotFoundException {
         long reservationId = transaction.getReservationId();
         final String url = BASE_URL + "reservation/punish/" + borrower + "?reservationId=" + reservationId;
         try {

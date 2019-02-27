@@ -1,7 +1,7 @@
 import React from "react";
 import NavigationView from "react-uwp/NavigationView";
 import SplitViewCommand from "react-uwp/SplitViewCommand";
-import Tabs, { Tab } from "react-uwp/Tabs";
+import Tabs, {Tab} from "react-uwp/Tabs";
 
 import { store } from "../../../Store/reduxInit";
 import ConsumerView from "../ContentTabs/Consumer/ConsumerView";
@@ -13,11 +13,14 @@ import UserView from "../ContentTabs/User/UserView";
 import Toast from "react-uwp/Toast";
 
 import "./ContentPage.css";
-import { getAllOverdueTransactions } from "../../../Services/User/authentificationCompleteService.js";
-import { logOutUser } from "../../../Services/User/authentificationCompleteService";
+import {getAllOverdueTransactions} from "../../../Services/User/authentificationCompleteService.js";
+import {logOutUser} from "../../../Services/User/authentificationCompleteService";
 import OwnerView from "../ContentTabs/Owner/OwnerView";
+import {setAdmin} from "../../../Services/Conflict/conflictCompleteService";
+import {connect} from "react-redux";
 
-export default class ContentPage extends React.Component {
+
+class ContentPage extends React.Component {
     constructor(props) {
         super(props);
 
@@ -28,13 +31,31 @@ export default class ContentPage extends React.Component {
     }
 
     async componentDidMount() {
+        setAdmin();
         let data = await getAllOverdueTransactions(store.getState().user.token);
         let list = data.data.data;
-        console.log(data);
         if (list.length !== 0) {
             this.setState({ showNotifToast: true });
         }
     }
+
+    switchTab(index) {
+        this.navigation.current.setState({ expanded: false });
+        this.tabs.current.setState({ tabFocusIndex: index });
+    }
+
+    renderNavigation() {
+        if (this.props.user.admin){
+            return (
+                <SplitViewCommand
+                    onClick={() => this.switchTab(6)}
+                    label="Conflicts"
+                    icon={"Admin"}
+                />)
+        }
+        return <div/>;
+    }
+
     render() {
         return (
             <>
@@ -74,7 +95,8 @@ export default class ContentPage extends React.Component {
                             onClick={() => this.switchTab(3)}
                             label="Transactions"
                             icon={"\uE9F5"}
-                        />
+                        />,
+                        (<div> {this.renderNavigation()} </div>)
                     ]}
                     navigationBottomNodes={[
                         <SplitViewCommand
@@ -126,14 +148,19 @@ export default class ContentPage extends React.Component {
                         <Tab style={{ width: "100%", height: "100%" }}>
                             <UserView />
                         </Tab>
+                        <Tab style={{width: "100%", height: "100%"}}>
+                            <ConflictView />
+                        </Tab>
                     </Tabs>
                 </NavigationView>
             </>
         );
     }
-
-    switchTab(index) {
-        this.navigation.current.setState({ expanded: false });
-        this.tabs.current.setState({ tabFocusIndex: index });
-    }
 }
+
+// start of code change
+const mapStateToProps = (state) => {
+    return { user: state.user };
+};
+
+export default connect(mapStateToProps)(ContentPage);

@@ -18,7 +18,7 @@ export default function lendstore(state = [], action) {
             return copy;
         }
         default: {
-            return [];
+            return state;
         }
     }
 }

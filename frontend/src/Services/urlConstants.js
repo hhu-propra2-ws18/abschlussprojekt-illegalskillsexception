@@ -40,4 +40,9 @@ export const TRANSACTION_GETALL_BORROW = `${BASEURL}${BORROW}transaction/`;
 export const TRANSACTION_GETALL_LEND = `${BASEURL}${LEND}transaction/`;
 export const TRANSACTION_FINISHED_BORROWER = `${BASEURL}${BORROW}transaction/return`;
 export const TRANSACTION_FINISHED_LENDER = `${BASEURL}${LEND}transaction/update`;
-export const TRANSACTION_PROBLEM = `${BASEURL}${LEND}transaction/problem`;
+export const TRANSACTION_PROBLEM = `${BASEURL}${LEND}transaction/update`;
+
+export const CONFLICT = "conflict/";
+export const CONFLICT_GETALL = `${BASEURL}${CONFLICT}`;
+export const CONFLICT_RESOLVE = `${BASEURL}${CONFLICT}release`;
+export const CONFLICT_PUNISH = `${BASEURL}${CONFLICT}punish`;
