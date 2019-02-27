@@ -53,5 +53,10 @@ export async function createTransactionProblem(id) {
         store.getState().user.token
     );
 
+    if (result.data.error) {
+        return result;
+    }
+
+    await getAllTransaction();
     return result;
 }
