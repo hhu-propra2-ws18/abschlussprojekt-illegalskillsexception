@@ -1,11 +1,11 @@
 package hhu.propra2.illegalskillsexception.frently.backend.Controller.Buy;
 
 
+import hhu.propra2.illegalskillsexception.frently.backend.Controller.Buy.DTOs.BuyArticleIDRequestDTO;
+import hhu.propra2.illegalskillsexception.frently.backend.Controller.Buy.IServices.IBuyService;
 import hhu.propra2.illegalskillsexception.frently.backend.Controller.Response.FrentlyError;
 import hhu.propra2.illegalskillsexception.frently.backend.Controller.Response.FrentlyException;
 import hhu.propra2.illegalskillsexception.frently.backend.Controller.Response.FrentlyResponse;
-import hhu.propra2.illegalskillsexception.frently.backend.Controller.Buy.DTOs.BuyArticleIDRequestDTO;
-import hhu.propra2.illegalskillsexception.frently.backend.Controller.Buy.IServices.IBuyService;
 import hhu.propra2.illegalskillsexception.frently.backend.Controller.User.Services.ApplicationUserService;
 import hhu.propra2.illegalskillsexception.frently.backend.Data.Models.ApplicationUser;
 import lombok.AllArgsConstructor;
@@ -20,10 +20,10 @@ public class BuyController {
     private final IBuyService buyService;
 
     @GetMapping("/")
-    public FrentlyResponse getAll() {
+    public FrentlyResponse getAllButOwn(Authentication auth) {
         FrentlyResponse response = new FrentlyResponse();
         try {
-            response.setData(buyService.getAllBuyableArticles());
+            response.setData(buyService.getAllBuyableArticlesButOwn(auth));
         } catch (Exception exc) {
             response.setError(new FrentlyError(exc));
         }
