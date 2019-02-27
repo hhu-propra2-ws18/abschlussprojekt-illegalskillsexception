@@ -67,13 +67,18 @@ public class ProPayService implements IProPayService {
             throw new ProPayConnectionException();
         }
 
+    public long transferMoney(String borrower, String lender, double amount) throws InsuffientFundsException, ProPayConnectionException {
+        checkFunds(borrower, amount);
+        final String url = BASE_URL + "account/" + borrower + "/transfer/" + lender + "?amount=" + amount;
         try {
             restTemplate.postForLocation(url, null);
         } catch (Exception e) {
+            e.printStackTrace();
             throw new ProPayConnectionException();
         }
 
         moneyTransferService.createMoneyTransfer(borrower, lender, amount);
+        return 0;
     }
 
     @Override

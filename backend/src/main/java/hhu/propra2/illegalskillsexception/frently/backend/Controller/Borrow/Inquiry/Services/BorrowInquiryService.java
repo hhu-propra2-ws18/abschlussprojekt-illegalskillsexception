@@ -9,7 +9,7 @@ import hhu.propra2.illegalskillsexception.frently.backend.Controller.Borrow.Inqu
 import hhu.propra2.illegalskillsexception.frently.backend.Controller.User.IServices.IApplicationUserService;
 import hhu.propra2.illegalskillsexception.frently.backend.Data.Exceptions.NoSuchArticleException;
 import hhu.propra2.illegalskillsexception.frently.backend.Data.Models.ApplicationUser;
-import hhu.propra2.illegalskillsexception.frently.backend.Data.Models.Article;
+import hhu.propra2.illegalskillsexception.frently.backend.Data.Models.BorrowArticle;
 import hhu.propra2.illegalskillsexception.frently.backend.Data.Models.Inquiry;
 import hhu.propra2.illegalskillsexception.frently.backend.Data.Repositories.IInquiryRepository;
 import lombok.AllArgsConstructor;
@@ -66,10 +66,10 @@ public class BorrowInquiryService implements IBorrowInquiryService {
     private Inquiry buildInquiry(BorrowInquiryRequestDTO dto) throws NoSuchArticleException {
         Inquiry inquiry = new Inquiry();
 
-        Article article = articleService.getArticleById(dto.getArticleId());
+        BorrowArticle borrowArticle = articleService.getArticleById(dto.getArticleId());
 
-        inquiry.setArticle(article);
-        inquiry.setLender(article.getOwner());
+        inquiry.setBorrowArticle(borrowArticle);
+        inquiry.setLender(borrowArticle.getOwner());
         inquiry.setStatus(Inquiry.Status.OPEN);
         inquiry.setStartDate(dto.getStartDate());
         inquiry.setEndDate(dto.getEndDate());
@@ -79,7 +79,7 @@ public class BorrowInquiryService implements IBorrowInquiryService {
 
     private boolean hasDateConflict(BorrowInquiryRequestDTO dto) {
         List<Inquiry> allConflictingInquiries =
-                inquiries.findAllByArticle_IdAndStartDateLessThanEqualAndEndDateGreaterThanEqual(
+                inquiries.findAllByBorrowArticle_IdAndStartDateLessThanEqualAndEndDateGreaterThanEqual(
                         dto.getArticleId(), dto.getEndDate(), dto.getStartDate());
         List<Inquiry> openOrAcceptedInquiries = getOpenAndAcceptedInquiries(allConflictingInquiries);
         return !openOrAcceptedInquiries.isEmpty();

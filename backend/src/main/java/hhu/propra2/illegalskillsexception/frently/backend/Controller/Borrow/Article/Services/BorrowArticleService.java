@@ -2,8 +2,8 @@ package hhu.propra2.illegalskillsexception.frently.backend.Controller.Borrow.Art
 
 import hhu.propra2.illegalskillsexception.frently.backend.Controller.Borrow.Article.IServices.IBorrowArticleService;
 import hhu.propra2.illegalskillsexception.frently.backend.Data.Exceptions.NoSuchArticleException;
-import hhu.propra2.illegalskillsexception.frently.backend.Data.Models.Article;
-import hhu.propra2.illegalskillsexception.frently.backend.Data.Repositories.IArticleRepository;
+import hhu.propra2.illegalskillsexception.frently.backend.Data.Models.BorrowArticle;
+import hhu.propra2.illegalskillsexception.frently.backend.Data.Repositories.IBorrowArticleRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -14,21 +14,21 @@ import java.util.Optional;
 @Service
 public class BorrowArticleService implements IBorrowArticleService {
 
-    private final IArticleRepository articles;
+    private final IBorrowArticleRepository articles;
 
     @Override
-    public List<Article> retrieveAll() {
+    public List<BorrowArticle> retrieveAll() {
         return articles.findAll();
     }
 
     @Override
-    public List<Article> retrieveAllOfOwner(long ownerId) {
+    public List<BorrowArticle> retrieveAllOfOwner(long ownerId) {
         return articles.findAllByOwner_Id(ownerId);
     }
 
     @Override
-    public Article getArticleById(long articleId) throws NoSuchArticleException {
-        Optional<Article> opt = articles.findById(articleId);
+    public BorrowArticle getArticleById(long articleId) throws NoSuchArticleException {
+        Optional<BorrowArticle> opt = articles.findById(articleId);
         return opt.orElseThrow(NoSuchArticleException::new);
     }
 }

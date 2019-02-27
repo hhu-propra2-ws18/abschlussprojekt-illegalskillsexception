@@ -17,7 +17,7 @@ public class Inquiry {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
     @OneToOne
-    private Article article;
+    private BorrowArticle borrowArticle;
     @OneToOne
     private ApplicationUser borrower;
     @OneToOne

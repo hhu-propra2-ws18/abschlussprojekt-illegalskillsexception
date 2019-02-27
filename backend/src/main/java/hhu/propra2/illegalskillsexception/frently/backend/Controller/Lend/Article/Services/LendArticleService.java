@@ -4,8 +4,8 @@ import hhu.propra2.illegalskillsexception.frently.backend.Controller.Lend.Articl
 import hhu.propra2.illegalskillsexception.frently.backend.Controller.Lend.Article.IServices.ILendArticleService;
 import hhu.propra2.illegalskillsexception.frently.backend.Data.Exceptions.NoSuchArticleException;
 import hhu.propra2.illegalskillsexception.frently.backend.Data.Models.ApplicationUser;
-import hhu.propra2.illegalskillsexception.frently.backend.Data.Models.Article;
-import hhu.propra2.illegalskillsexception.frently.backend.Data.Repositories.IArticleRepository;
+import hhu.propra2.illegalskillsexception.frently.backend.Data.Models.BorrowArticle;
+import hhu.propra2.illegalskillsexception.frently.backend.Data.Repositories.IBorrowArticleRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -16,25 +16,25 @@ import java.util.Optional;
 @AllArgsConstructor
 public class LendArticleService implements ILendArticleService {
 
-    private IArticleRepository articleRepo;
+    private IBorrowArticleRepository articleRepo;
 
     @Override
-    public Article createArticle(Article article, ApplicationUser user) {
-        article.setOwner(user);
-        articleRepo.save(article);
-        return article;
+    public BorrowArticle createArticle(BorrowArticle borrowArticle, ApplicationUser user) {
+        borrowArticle.setOwner(user);
+        articleRepo.save(borrowArticle);
+        return borrowArticle;
     }
 
     @Override
-    public List<Article> retrieveArticleList(ApplicationUser owner) {
+    public List<BorrowArticle> retrieveArticleList(ApplicationUser owner) {
         return articleRepo.findAllByOwner_Id(owner.getId());
     }
 
     @Override
-    public Article updateArticle(LendArticleUpdate lendArticle) throws NoSuchArticleException {
+    public BorrowArticle updateArticle(LendArticleUpdate lendArticle) throws NoSuchArticleException {
 
-        Optional<Article> articleOpt = articleRepo.findById(lendArticle.getArticleId());
-        Article article = articleOpt.orElseThrow(NoSuchArticleException::new);
+        Optional<BorrowArticle> articleOpt = articleRepo.findById(lendArticle.getArticleId());
+        BorrowArticle article = articleOpt.orElseThrow(NoSuchArticleException::new);
 
         article.setTitle(lendArticle.getTitle());
         article.setDeposit(lendArticle.getDeposit());
