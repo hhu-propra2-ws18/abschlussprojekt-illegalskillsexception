@@ -44,7 +44,7 @@ export default class LendItemCreateOfferDialog extends React.Component {
                     <label>location</label>
                     <TextBox ref={this.locationRef} />
                     <Button type="submit">Confirm</Button>
-                    <Button onClick={() => this.props.close()}>Cancel</Button>
+                    <Button type="button" onClick={() => this.props.close()}>Cancel</Button>
                 </form>
             </article>
         );
