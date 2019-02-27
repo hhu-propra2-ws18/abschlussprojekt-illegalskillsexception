@@ -58,9 +58,15 @@ public class ProPayService implements IProPayService {
 
     @Override
     @Retryable(value = {ProPayConnectionException.class}, maxAttempts = 2, backoff = @Backoff(delay = 1000))
-    public long transferMoney(String borrower, String lender, double amount) throws InsuffientFundsException, ProPayConnectionException {
-        checkFunds(borrower, amount);
+    public void transferMoney(String borrower, String lender, double amount) throws InsuffientFundsException, ProPayConnectionException, ExhaustedRetryException {
         final String url = BASE_URL + "account/" + borrower + "/transfer/" + lender + "?amount=" + amount;
+
+        try {
+            checkFunds(borrower, amount);
+        } catch (ExhaustedRetryException e) {
+            throw new ProPayConnectionException();
+        }
+
         try {
             restTemplate.postForLocation(url, null);
         } catch (Exception e) {
@@ -69,7 +75,6 @@ public class ProPayService implements IProPayService {
         }
 
         moneyTransferService.createMoneyTransfer(borrower, lender, amount);
-        return 0;
     }
 
     @Override
@@ -79,7 +84,7 @@ public class ProPayService implements IProPayService {
 
     @Override
     @Retryable(value = {ProPayConnectionException.class}, maxAttempts = 2, backoff = @Backoff(delay = 1000))
-    public ProPayAccount getProPayAccount(String username) throws ProPayConnectionException {
+    public ProPayAccount getProPayAccount(String username) throws ProPayConnectionException, ExhaustedRetryException {
         final String url = BASE_URL + "account/" + username;
         ProPayAccount account;
         try {

@@ -17,11 +17,11 @@ public interface IProPayService {
 
     void payInMoney(String userName, double amount) throws ProPayConnectionException, ExhaustedRetryException;
 
-    long transferMoney(String borrower, String lender, double amount) throws InsuffientFundsException, ProPayConnectionException;
+    void transferMoney(String borrower, String lender, double amount) throws InsuffientFundsException, ProPayConnectionException, ExhaustedRetryException;
 
     List<MoneyTransfer> getAllMoneyTransfers(String userName);
 
-    ProPayAccount getProPayAccount(String username) throws ProPayConnectionException;
+    ProPayAccount getProPayAccount(String username) throws ProPayConnectionException, ExhaustedRetryException;
 
     boolean amountGreaterThanReservation(List<Reservation> reservations, double amount, double accountBalance);
 
