@@ -1,5 +1,6 @@
 package hhu.propra2.illegalskillsexception.frently.backend.Data.Models;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.Data;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
@@ -7,14 +8,12 @@ import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
-import java.util.Collection;
-import java.util.Collections;
-import java.util.HashSet;
 import java.util.Set;
 
 @Data
 @Entity
 @EntityListeners(AuditingEntityListener.class)
+@JsonIgnoreProperties(value = {"id", "password", "timestamp", "updated"})
 public class ApplicationUser {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)

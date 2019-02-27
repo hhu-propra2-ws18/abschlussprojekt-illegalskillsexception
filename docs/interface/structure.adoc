@@ -1,39 +1,63 @@
 === Interface structure
-The interface of the REST API was designed using the domains of the backend and the feature domains of the frontend.
+The interface of the REST API was designed using the domains of the backend and
+the feature domains of the frontend.
 
 This resulted in the following top level interfaces:
 
-* *`borrow`:* Everything a "borrow" user can do, so borrowing an item, seeing the transaction he is involved in as borrower etc.
-* *`lend`:* Functions related to being a 'lender', e.g. uploading items, accepting inquiries
-* *`user`:* Interface for signing up new users, logging in users and accessing detailed informations about users
+* *`borrow`:* Everything a "borrow" user can do, so borrowing an item, seeing
+the transaction he is involved in as borrower etc.
+* *`lend`:* Functions related to being a 'lender', e.g. uploading items,
+accepting inquiries
+* *`user`:* Interface for signing up new users, logging in users and accessing
+detailed informations about users
 
-Every API request (except sign-up and login) require a present authorization token, which will be sent in the header. This token is then used to check if a user is authorized and is then used to identify the user.
+Every API request (except sign-up and login) require a present authorization
+token, which will be sent in the header. This token is then used to check if a
+user is authorized and is then used to identify the user.
 
 ==== Interface 'borrow'
 The interface borrow consists of the following functions:
 
 * *`/borrow/article/`:* Returns a list of all items that are listed for rental
-* *`/borrow/article/{id}`:* Returns a list of all items the user with the specified id has put up for rental
-* *`/borrow/inquiry/`:* Returns a list of all inquiries the user has set to other users
+* *`/borrow/article/{id}`:* Returns a list of all items the user with the
+specified id has put up for rental
+* *`/borrow/inquiry/`:* Returns a list of all inquiries the user has set to
+other users
 * *`/borrow/inquiry/create`:* Method used for creating an iquiry to rent an item
-* *`/borrow/transaction/`:* Returns a list of all items the user currently has borrowed
+* *`/borrow/transaction/`:* Returns a list of all items the user currently has
+borrowed
 
 ==== Interface 'lend'
 The lend interface consists of the following methods:
 
-* *`/lend/article/`:* Returns a list of all items the user currently has put up for rental
-* *`/lend/article/create/`:* Creates a new item that will be available for rental
+* *`/lend/article/`:* Returns a list of all items the user currently has put up
+for rental
+* *`/lend/article/create/`:* Creates a new item that will be available for
+rental
 * *`/led/article/update`:* Updates an item, the user has created
-* *`/lend/inquiry/`:* Returns a list of all inquiries related to items the user has put up for rental
-* *`/lend/inquiry/accept`:* Accepts an inquiry. The server creates a new transaction item
+* *`/lend/inquiry/`:* Returns a list of all inquiries related to items the user
+has put up for rental
+* *`/lend/inquiry/accept`:* Accepts an inquiry. The server creates a new
+transaction item
 * *`/lend/inquiry/decline`:* Decline an inquiry
-* *`/lend/transaction/`:* Returns a list of all transactions, that are related to items the user has put up.
-* *`/lend/transaction/update`:* Updates the status of a transaction. Usually the status should change to "Item returned" or "Problem exists"
+* *`/lend/transaction/`:* Returns a list of all transactions, that are related
+to items the user has put up
+* *`/lend/transaction/update`:* Updates the status of a transaction. Usually
+the status should change to "Item returned" or "Problem exists"
 
 ==== Interface 'user'
 In the user interface, the following methods exist:
-* *`/user/`:* Returns the profile of the current user
+
+* *`/user/`:* Returns the profile of the current user.
 * *`/user/sign-up`:* Creates a new user. This does however not log in the user
-* *`/login`:* Logs a user in. This method returns a JWT Auth token, which is used for the authorization.
+* *`/login`:* Logs a user in. This method returns a JWT Auth token, which is
+used for the authorization.
 
+==== Interace 'conflict'
+In the conflict interface the following methods exist:
 
+* *'/conflict/':* Returns all conflicts which need to be resolved by an admin
+* *'/conflict/release':* Updates a conflicting Transaction and releases the
+Transaction for the Borrower
+* *'/conflict/punish':* Updates a conflicting Transaction and transfers the
+money to the Lender

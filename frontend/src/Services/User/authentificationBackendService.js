@@ -3,7 +3,7 @@ import {
     SIGN_UP,
     LOGINURL,
     USER_PROFILE,
-    CHARGE_AMOUNT
+    ADD_AMOUNT
 } from "../urlConstants";
 
 export const loginUserBackend = async (username, password, url = LOGINURL) => {
@@ -33,10 +33,10 @@ export async function getUserDetailsBackend(token, url = USER_PROFILE) {
     return await axios.get(url, { headers: { Authorization: token } });
 }
 
-export async function chargeAmountBackend(token, url = CHARGE_AMOUNT) {
+export async function addAmountBackend(token, url = ADD_AMOUNT) {
     return await axios.post(
         url,
-        { amount: 50 },
+        { amount: 250 },
         { headers: { Authorization: token } }
     );
 }

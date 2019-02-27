@@ -1,18 +1,22 @@
 import { createStore, combineReducers } from "redux";
 import user from "./UserStore/UserReducer";
 import borrowstore from "./BorrowStore/BorrowReducer";
+import buystore from "./BuyStore/BuyReducer";
 import lendstore from "./LendStore/LendReducer";
 import inquirystore from "./InquiryStore/InquiryReducer";
+import sellstore from "./SellStore/SellReducer";
 import transactionstore from "./TransactionStore/TransactionReducer";
 import conflictstore from "./ConflictStore/ConflictReducer";
 
 export const reducers = combineReducers({
-    user,
     borrowstore,
+    buystore,
     lendstore,
     inquirystore,
+    sellstore,
     transactionstore,
-    conflictstore
+    conflictstore,
+    user
 });
 
 export function getDevtoolsExtension(object) {

@@ -1,46 +1,76 @@
 === Frontend structure
 
-To have an easy way of adding new features and keeping separate features separated, the frontend is split into (feature) domains.
-We used the following feature domains in the frontend:
+To have an easy way of adding new features and keeping separate features
+separated, the frontend is split into (feature) domains. We used the following
+feature domains in the frontend:
 
-* *Borrow:* Viewing items available and borrowing an item
+* *Borrow:* Viewing items available for borrowing and borrowing an item
+* *Buy:* All items available for buying and buying items
 * *Lend:* Showing the items posted for renting and uploading new items
-* *Inquiry:* Inquiries a user is involved in as either an item owner or as an item borrower
-* *Transactions:* Items a user has currently rented or items that are being currently rented.
-* *Conflict:* Conflicts the user can resolve, if the user is a support staff member
+* *Inquiry:* Inquiries a user is involved in as either an item owner or as an
+item borrower
+* *Transactions:* Items a user has currently rented or items that are being
+currently rented.
+* *Conflict:* Conflicts the user can resolve, if the user is a support staff
+member
+* *Sell:* Items a user has put up for sale
 
-Every feature domain has classes and components in every package of the frontend, since every feature domain needs to fullfill certain actions.This resulted in the frontend consisting of the following major 3 packages:
+Every feature domain has classes and components in every package of the
+frontend, since every feature domain needs to fulfill certain actions.This
+resulted in the frontend consisting of the following major 3 packages:
 
-* *View:* Consists of all the React components and the source code related to displaying data
-* *Store:* This package consists of all code related to storing the state of the app and interacting with redux.
-* *Services:* All code related to interacting with the backend and the respective REST API
+* *View:* Consists of all the React components and the source code related to
+displaying data
+* *Store:* This package consists of all code related to storing the state of
+the app and interacting with redux.
+* *Services:* All code related to interacting with the backend and the
+respective REST API
 
-Every feature domain has it's own service, (redux) store and content tab and view.
+Each feature domain has its own service, (redux) store and content tab and view.
 
 ==== Package 'View'
-The package View contains a folder 'App' which contains the main App body, and a folder 'Components', which contains the components which are related to the specific parts of the app.
+The package View contains a folder 'App' which contains the main App body, and
+a folder 'Components', which contains the components which are related to the
+specific parts of the app.
 Under 'Components' there are the following folders:
 
-* *Landingpage:* Contains the view that gets rendered when the user is not logged in
-* *Contentpage:* Is the container view for the main app logic. This page displays data using multiple Tabs.
-* *ContentTabs:* This folder contains subfolder for every tab that is being displayed on the contentpage.
+* *Landingpage:* Contains the view that gets rendered when the user is not
+logged in.
+* *Contentpage:* Is the container view for the main app logic. This page
+displays data using multiple Tabs.
+* *ContentTabs:* This folder contains subfolder for every tab that is being
+displayed on the content page.
 
-Every content tab has a [domain-name]View.jsx file, which is the entry point for the tab. The root view of a content tab is connected to the redux store and dispatches the initial loading of it's data.
-The dispatching of the loading is done using the corresponding Service in the 'Service' package.
+Every content tab has a [domain-name]View.jsx file, which is the entry point
+for the tab. The root view of a content tab is connected to the redux store and
+dispatches the initial loading of its data.
+The dispatching of the loading is done using the corresponding Service in the
+'Service' package.
 
 ==== Package 'Store'
-The 'Store' package contains all code related to redux. 
+The 'Store' package contains all code related to redux.
 
-What is redux?
 ************************************
-Redux was designed as proof of concept for flux and is a framework used for managing states.
-A redux state works by dispatching actions, which identify the new state, and reducers which return a new state based on the previous state and the action the reducer is currently processing. 
+*What is redux?*
+
+Redux was designed as proof of concept for flux and is a framework used for
+managing states.
+A redux state works by dispatching actions, which identify the new state, and
+reducers which return a new state based on the previous state and the action
+the reducer is currently processing.
 ************************************
 
-Every feature domain sits in a folder named after the domain and consist of an "[...]Actions.js" file containing the actions and an "[...]Reducer.js" file.
+Every feature domain sits in a folder named after the domain and consist of an
+"[...]Actions.js" file containing the actions and an "[...]Reducer.js" file.
 
-In addition the actions and reducers, the package contains the reduxInit.js, which initializes the redux store.
+In addition the actions and reducers, the package contains the reduxInit.js,
+which initializes the redux store.
 
 ==== Package 'Services'
-This package contains everything related to loading the data from the server and dispatching the associated redux actions to update the store. 
-Every folder repesents one feature domain. Almost every folder consists of a file which contains the functions related to the accessing of the REST API (usually "[...]BackendService.js") and a file, which calls the backend function and dispatches the action to the redux store. The latter files are usually called "[...]CompleteService.js".
+This package contains everything related to loading the data from the server
+and dispatching the associated redux actions to update the store.
+Every folder represents one feature domain. Almost every folder consists of a
+file which contains the functions related to the accessing of the REST API
+(usually "[...]BackendService.js") and a file, which calls the backend function
+and dispatches the action to the redux store. The latter files are usually
+called "[...]CompleteService.js".

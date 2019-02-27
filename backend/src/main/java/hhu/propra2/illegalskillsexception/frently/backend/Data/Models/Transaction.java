@@ -30,6 +30,6 @@ public class Transaction {
     private LocalDateTime updated;
 
     public enum Status {
-        OPEN, CLOSED, CONFLICT, PENDING_PAYMENT
+        OPEN, CLOSED, CONFLICT, RETURNED
     }
 }

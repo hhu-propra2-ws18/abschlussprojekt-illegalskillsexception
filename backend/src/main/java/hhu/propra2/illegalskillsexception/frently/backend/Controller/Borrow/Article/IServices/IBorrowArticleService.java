@@ -1,14 +1,14 @@
 package hhu.propra2.illegalskillsexception.frently.backend.Controller.Borrow.Article.IServices;
 
 import hhu.propra2.illegalskillsexception.frently.backend.Data.Exceptions.NoSuchArticleException;
-import hhu.propra2.illegalskillsexception.frently.backend.Data.Models.Article;
+import hhu.propra2.illegalskillsexception.frently.backend.Data.Models.BorrowArticle;
 
 import java.util.List;
 
 public interface IBorrowArticleService {
-    List<Article> retrieveAll();
+    List<BorrowArticle> retrieveAll();
 
-    List<Article> retrieveAllOfOwner(long ownerId);
+    List<BorrowArticle> retrieveAllOfOwner(long ownerId);
 
-    Article getArticleById(long articleId) throws NoSuchArticleException;
+    BorrowArticle getArticleById(long articleId) throws NoSuchArticleException;
 }

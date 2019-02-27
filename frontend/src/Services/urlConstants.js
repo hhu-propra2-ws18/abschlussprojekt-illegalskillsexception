@@ -5,7 +5,7 @@ export const USER = "user";
 export const SIGN_UP = `${BASEURL}${USER}/sign-up`;
 export const LOGINURL = `${BASEURL}login`;
 export const USER_PROFILE = `${BASEURL}${USER}/`;
-export const CHARGE_AMOUNT = `${BASEURL}${USER}/charge`;
+export const ADD_AMOUNT= `${BASEURL}${USER}/charge`;
 export const OVERDUE_NOTIFICATION = `${BASEURL}${USER}/notifications`;
 
 export const BORROW = "borrow/";
@@ -14,6 +14,17 @@ export const BORROW_GETALL = `${BASEURL}${BORROW}article/`;
 export const BORROW_INQUIRY = `${BASEURL}${BORROW}inquiry/create`;
 
 export const INQUIRY_GETALL_BORROW = `${BASEURL}${BORROW}inquiry/`;
+
+export const BUY = "buy/"
+export const BUY_GETALL = `${BASEURL}${BUY}`
+export const BUY_CREATEITEN = `${BASEURL}${BUY}buyItem`
+export const BUY_BUYITEM = `${BASEURL}${BUY}buyItem`
+
+export const SELL = "sell/"
+export const SELL_GETALL = `${BASEURL}${SELL}`;
+export const SELL_CREATE_ITEM = `${BASEURL}${SELL}create`;
+export const SELL_UPDATE_ITEM = `${BASEURL}${SELL}update`;
+
 
 export const LEND = "lend/";
 
@@ -27,7 +38,8 @@ export const INQUIRY_DECLINE = `${BASEURL}${LEND}inquiry/decline`;
 
 export const TRANSACTION_GETALL_BORROW = `${BASEURL}${BORROW}transaction/`;
 export const TRANSACTION_GETALL_LEND = `${BASEURL}${LEND}transaction/`;
-export const TRANSACTION_FINISHED = `${BASEURL}${LEND}transaction/update`;
+export const TRANSACTION_FINISHED_BORROWER = `${BASEURL}${BORROW}transaction/return`;
+export const TRANSACTION_FINISHED_LENDER = `${BASEURL}${LEND}transaction/update`;
 export const TRANSACTION_PROBLEM = `${BASEURL}${LEND}transaction/problem`;
 
 export const CONFLICT = "conflict/";

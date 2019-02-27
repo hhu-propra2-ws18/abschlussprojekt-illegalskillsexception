@@ -4,7 +4,7 @@ import hhu.propra2.illegalskillsexception.frently.backend.Controller.Response.Fr
 import hhu.propra2.illegalskillsexception.frently.backend.Controller.Response.FrentlyException;
 
 public class NoSuchTransactionException extends FrentlyException {
-    public NoSuchTransactionException(){
+    public NoSuchTransactionException() {
         super("The requested Transaction does not exist.", FrentlyErrorType.NO_SUCH_TRANSACTION);
     }
 }

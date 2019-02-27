@@ -1,0 +1,7 @@
+#lend-command-bar>div>div:last-child {
+    display: none;
+}
+
+#app-bar-separator {
+    height: 28px;
+}

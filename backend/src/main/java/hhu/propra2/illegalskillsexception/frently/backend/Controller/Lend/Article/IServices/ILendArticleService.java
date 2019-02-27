@@ -3,14 +3,14 @@ package hhu.propra2.illegalskillsexception.frently.backend.Controller.Lend.Artic
 import hhu.propra2.illegalskillsexception.frently.backend.Controller.Lend.Article.DTOs.LendArticleUpdate;
 import hhu.propra2.illegalskillsexception.frently.backend.Data.Exceptions.NoSuchArticleException;
 import hhu.propra2.illegalskillsexception.frently.backend.Data.Models.ApplicationUser;
-import hhu.propra2.illegalskillsexception.frently.backend.Data.Models.Article;
+import hhu.propra2.illegalskillsexception.frently.backend.Data.Models.BorrowArticle;
 
 import java.util.List;
 
 public interface ILendArticleService {
-    Article createArticle(Article article, ApplicationUser user);
+    BorrowArticle createArticle(BorrowArticle borrowArticle, ApplicationUser user);
 
-    List<Article> retrieveArticleList(ApplicationUser owner);
+    List<BorrowArticle> retrieveArticleList(ApplicationUser owner);
 
-    Article updateArticle(LendArticleUpdate lendArticle) throws NoSuchArticleException;
+    BorrowArticle updateArticle(LendArticleUpdate lendArticle) throws NoSuchArticleException;
 }

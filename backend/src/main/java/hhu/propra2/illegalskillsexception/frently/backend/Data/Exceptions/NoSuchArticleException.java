@@ -5,6 +5,6 @@ import hhu.propra2.illegalskillsexception.frently.backend.Controller.Response.Fr
 
 public class NoSuchArticleException extends FrentlyException {
     public NoSuchArticleException() {
-        super("The requested article does not exist.", FrentlyErrorType.NOT_SUCH_ARTICLE);
+        super("The requested borrowArticle does not exist.", FrentlyErrorType.NOT_SUCH_ARTICLE);
     }
 }

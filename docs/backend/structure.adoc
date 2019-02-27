@@ -1,10 +1,98 @@
 === Backend structure
+We use three main packages to differentiate between the Controller and Services
+that provide the REST API, the Data that holds no logic and the Service that
+links the ProPay API to our application.
 
-==== Repositories
-Our backend uses CRUD-Repositories to access and update our dataobjects in the database. We havent made many changes to the repository interfaces, mostly to return lists with a specific type.
+==== Package 'Controller'
+The Controller package holds packages for each major task that needs to be
+handled by our API.
 
-==== Security
-//TODO write documentation for the security package JWTAuthentication for the frontend.
+* *Borrow*
+//TODO
+* *Buy*
+//-Deals with buying of buyable items 
+* *Conflict*
+//TODO
+* *Lend*
+//TODO
+* *Response*
+//TODO
+* *Sell*
+//-Deals with selling of items
+* *Security*
+//TODO
+* *User*
+//TODO
 
-==== Services
-For almost each model, there is a service handling the business logic and saving the output into the database and/ or returning an dataobject. Each service is providing the opportunity to create, retrieve, update and to delete data from the database. Several services offer even more functionality. Overall we decided to use only the repository based on the usage of the given service within the service. We prefered to use constructor based dependency injection in our services, because it is being suggested by the Spring Team. All methods of the services are tested thoroughly, except for very simple oneliners, which don't contain major logical operations.
+==== Package 'Data'
+The Data package holds all Classes with no logic.
+
+* *Config*
+holds only one class, the Config class which has a annotation that enables
+database objects to automatically set the timestamp and updated variables.
+
+* *Exceptions*
+holds the NoSuchArticleException and NoSuchInquiryException which both extend
+the FrentlyException. These are used in the Controller Package to tell the
+frontend that something in the backend went wrong.
+
+* *Models*
+holds all Entities that saved in our database.
+- ApplicationUser
+- Article
+- Inquiry
+- LendingPeriod
+- Role
+- Transaction
+- TransactionResponseExport
+
+* *Repositories*
+Our backend uses CRUD-Repositories to access and update our data objects in the
+database. Most enquiries return lists with a specific type.
+
+==== Package 'ProPay'
+The ProPay Package holds everything that is related to the interaction with the
+ProPay API.
+
+* *Exceptions*
+holds the ProPayConnectionException which extends FrentlyException and is
+thrown by the ProPayService if the ProPay API is not found or the responds come
+too slow.
+
+* *IServices*
+holds the interfaces of all the services that are defined in the Services
+package. These are used for dependency inversion in all classes (mostly
+controllers) that use these services.
+
+* *Models*
+holds the data objects that our application receives from ProPay and are used
+by the ProPayService.
+- MoneyTransfer objects are saved in a repository and are used to list all
+money transfers that are made.
+- ProPayAccount objects are used for the API calls and as they store specific
+information.
+- Reservation objects are also used to transfer information from the ProPay API.
+
+* *Services*
+holds all the services that are used to interface with the ProPay API. That is
+mainly the ProPayService which does all the API calls.
+- ProPayService uses RestTemplates to interface with the ProPay API. The Base-
+URL that is used stands in the application.properties and though depend on
+whether the develop  configuration is on or not. Whenever money is transferred
+the
+- MoneyTransferService is used to create and save MoneyTransfers in the
+database.
+- ProPayApplicationUserService is used in the MoneyTransferService to set the
+sender and receiver in the MoneyTransfer objects.
+
+==== FrentlyBackendApplication
+Starts our SpringBootApplication and declares the BCryptPasswordEncoder Bean
+for Spring-Security.
+
+==== Initializer
+Fills the database with test data.
+
+==== SwaggerConfig
+Generates a Swagger API documentation reachable under
+http://localhost:8080/swagger-ui.html#/[Swagger-UI] if the application is
+running.

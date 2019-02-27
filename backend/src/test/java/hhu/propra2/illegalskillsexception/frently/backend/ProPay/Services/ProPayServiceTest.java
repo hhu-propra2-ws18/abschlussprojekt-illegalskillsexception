@@ -1,6 +1,7 @@
 package hhu.propra2.illegalskillsexception.frently.backend.ProPay.Services;
 
 import hhu.propra2.illegalskillsexception.frently.backend.ProPay.IServices.IMoneyTransferService;
+import hhu.propra2.illegalskillsexception.frently.backend.ProPay.IServices.IProPayService;
 import hhu.propra2.illegalskillsexception.frently.backend.ProPay.Models.Reservation;
 import org.junit.Before;
 import org.junit.Test;
@@ -14,7 +15,7 @@ import static org.mockito.Mockito.mock;
 
 public class ProPayServiceTest {
 
-    private ProPayService proPayService;
+    private IProPayService proPayService;
     private List<Reservation> twoReservations;
     private List<Reservation> noReservation;
 

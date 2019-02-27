@@ -4,6 +4,7 @@ import hhu.propra2.illegalskillsexception.frently.backend.Controller.User.Except
 import hhu.propra2.illegalskillsexception.frently.backend.Data.Models.ApplicationUser;
 import hhu.propra2.illegalskillsexception.frently.backend.Controller.User.DTOs.ForeignUserDetailResponse;
 import hhu.propra2.illegalskillsexception.frently.backend.Controller.User.DTOs.UserDetailResponse;
+import hhu.propra2.illegalskillsexception.frently.backend.ProPay.Exceptions.ProPayConnectionException;
 import hhu.propra2.illegalskillsexception.frently.backend.ProPay.Services.ProPayService;
 import org.junit.Assert;
 import org.junit.Before;
@@ -28,7 +29,7 @@ public class UserDetailServiceTest {
     }
 
     @Test
-    public void getUserDetailServiceTest_One() {
+    public void getUserDetailServiceTest_One() throws ProPayConnectionException {
         UserDetailService service = new UserDetailService(mockApplicationUserService, mockUserTransactionService,mockPropay);
 
         UserDetailResponse response = service.getUserDetails(null);
@@ -41,7 +42,7 @@ public class UserDetailServiceTest {
 
     @Test
     public void getForeignUserDetailServiceTest_One() throws UserNotFoundException {
-        UserDetailService service = new UserDetailService(mockApplicationUserService, mockUserTransactionService,null);
+        UserDetailService service = new UserDetailService(mockApplicationUserService, mockUserTransactionService, null);
 
         ForeignUserDetailResponse response = service.getForeignUserDetails("dude");
 
@@ -51,7 +52,7 @@ public class UserDetailServiceTest {
 
     @Test(expected = UserNotFoundException.class)
     public void getForeignUserDetailServiceTest_NotFound() throws UserNotFoundException {
-        UserDetailService service = new UserDetailService(mockApplicationUserService, mockUserTransactionService,null);
+        UserDetailService service = new UserDetailService(mockApplicationUserService, mockUserTransactionService, null);
 
         ForeignUserDetailResponse response = service.getForeignUserDetails("no dude");
     }

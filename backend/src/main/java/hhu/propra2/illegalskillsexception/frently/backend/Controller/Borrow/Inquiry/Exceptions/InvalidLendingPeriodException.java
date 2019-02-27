@@ -1,7 +1,7 @@
 package hhu.propra2.illegalskillsexception.frently.backend.Controller.Borrow.Inquiry.Exceptions;
 
-import hhu.propra2.illegalskillsexception.frently.backend.Controller.Response.FrentlyException;
 import hhu.propra2.illegalskillsexception.frently.backend.Controller.Response.FrentlyErrorType;
+import hhu.propra2.illegalskillsexception.frently.backend.Controller.Response.FrentlyException;
 
 public class InvalidLendingPeriodException extends FrentlyException {
     public InvalidLendingPeriodException() {

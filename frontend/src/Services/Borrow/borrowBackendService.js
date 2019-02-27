@@ -13,11 +13,6 @@ export async function borrowItemBackend(data, token, url = BORROW_INQUIRY) {
     return await Axios.post(url, data, {
         headers: {
             Authorization: token
-        },
-        params: {
-            id: data.id,
-            startDate: data.id,
-            endData: data.id
         }
     });
 }

@@ -1,0 +1,55 @@
+{
+    "/sell/": {
+        "method": "get",
+        "sendData": {},
+        "expectedData": {
+            "data": [
+                {
+                    "id": "Number (Snowflake)",
+                    "title": "String",
+                    "description": "String",
+                    "price": "Number",
+                    "location": "String"
+                }
+            ],
+            "error": {
+                "errorType": "Number or null",
+                "errorerrorMessage": "String or null"
+            }
+        }
+    },
+    "/sell/create": {
+        "method": "post",
+        "sendData": {
+            "id": "Number (Snowflake)",
+            "title": "String",
+            "description": "String",
+            "price": "Number",
+            "location": "String"
+        },
+        "expectedData": {
+            "data": { "articleId": "Number (Snowflake)" },
+            "error": {
+                "errorType": "Number or null",
+                "errorMessage": "String or null"
+            }
+        }
+    },
+    "/sell/update": {
+        "method": "post",
+        "sendData": {
+            "id": "Number (Snowflake)",
+            "title": "String",
+            "description": "String",
+            "price": "Number",
+            "location": "String"
+        },
+        "expectedData": {
+            "data": {},
+            "error": {
+                "errorType": "Number or null",
+                "errorMessage": "String or null"
+            }
+        }
+    }
+}

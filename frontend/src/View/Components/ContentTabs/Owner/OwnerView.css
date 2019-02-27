@@ -1,0 +1,10 @@
+#lendview-container {
+    width: 100%;
+}
+
+#lendview-container>h2 {
+    width: 100%;
+    text-align: center;
+    border-bottom: 2px solid rgba(255,255,255,20%);
+    padding-bottom: 5px;
+}
