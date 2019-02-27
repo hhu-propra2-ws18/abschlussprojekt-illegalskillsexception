@@ -10,7 +10,6 @@ import hhu.propra2.illegalskillsexception.frently.backend.Controller.User.DTOs.C
 import hhu.propra2.illegalskillsexception.frently.backend.Controller.User.DTOs.ForeignUserDetailRequest;
 import hhu.propra2.illegalskillsexception.frently.backend.Controller.User.DTOs.ForeignUserDetailResponse;
 import hhu.propra2.illegalskillsexception.frently.backend.Controller.User.DTOs.UserDetailResponse;
-import hhu.propra2.illegalskillsexception.frently.backend.Controller.User.Exceptions.UserAlreadyExistsAuthenticationException;
 import hhu.propra2.illegalskillsexception.frently.backend.Controller.User.IServices.IApplicationUserService;
 import hhu.propra2.illegalskillsexception.frently.backend.Controller.User.IServices.IUserDetailService;
 import hhu.propra2.illegalskillsexception.frently.backend.Controller.User.IServices.IUserTransactionService;
@@ -43,15 +42,17 @@ public class UserController {
         user.setEmail(dtoUser.getEmail());
         userService.encryptPassword(user);
         try {
+            userService.createUser(user);
             proPayService.createAccount(user.getUsername(), 0);
 
-            userService.createUser(user);
 
             response.setData(Collections.singletonList(user));
         } catch (ExhaustedRetryException e) {
             response.setError(new FrentlyError(new ProPayConnectionException()));
-        } catch (ProPayConnectionException | UserAlreadyExistsAuthenticationException fe) {
+        } catch (FrentlyException fe) {
             response.setError(new FrentlyError(fe));
+        } catch (Exception e) {
+            response.setError(new FrentlyError(e));
         }
         return response;
     }
@@ -92,7 +93,9 @@ public class UserController {
             proPayService.payInMoney(userName, amount.getAmount());
         } catch (ExhaustedRetryException e) {
             response.setError(new FrentlyError(new ProPayConnectionException()));
-        } catch (ProPayConnectionException e) {
+        } catch (FrentlyException fe) {
+            response.setError(new FrentlyError(fe));
+        } catch (Exception e) {
             response.setError(new FrentlyError(e));
         }
         return response;

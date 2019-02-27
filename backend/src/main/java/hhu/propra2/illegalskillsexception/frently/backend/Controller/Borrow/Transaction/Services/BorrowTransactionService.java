@@ -4,6 +4,7 @@ import hhu.propra2.illegalskillsexception.frently.backend.Controller.Borrow.Tran
 import hhu.propra2.illegalskillsexception.frently.backend.Controller.Borrow.Transaction.IServices.IBorrowTransactionService;
 import hhu.propra2.illegalskillsexception.frently.backend.Controller.Lend.Transaction.Exceptions.InsuffientFundsException;
 import hhu.propra2.illegalskillsexception.frently.backend.Controller.Lend.Transaction.Exceptions.NoSuchTransactionException;
+import hhu.propra2.illegalskillsexception.frently.backend.Controller.User.Exceptions.UserNotFoundException;
 import hhu.propra2.illegalskillsexception.frently.backend.Controller.User.IServices.IApplicationUserService;
 import hhu.propra2.illegalskillsexception.frently.backend.Data.Models.ApplicationUser;
 import hhu.propra2.illegalskillsexception.frently.backend.Data.Models.Transaction;
@@ -34,7 +35,7 @@ public class BorrowTransactionService implements IBorrowTransactionService {
 
     @Override
     public Transaction updateTransaction(ReturnItemRequestDTO update)
-            throws NoSuchTransactionException, InsuffientFundsException, ProPayConnectionException {
+            throws NoSuchTransactionException, InsuffientFundsException, ProPayConnectionException, UserNotFoundException {
         Transaction transaction = transactionRepository.findById(update.getTransactionId()).orElseThrow(NoSuchTransactionException::new);
         transaction.setReturnDate(LocalDate.now());
 
@@ -48,7 +49,8 @@ public class BorrowTransactionService implements IBorrowTransactionService {
 
     }
 
-    private void transferFee(Transaction transaction) throws InsuffientFundsException, ProPayConnectionException {
+    private void transferFee(Transaction transaction)
+            throws InsuffientFundsException, ProPayConnectionException, UserNotFoundException {
         LocalDate startDate = transaction.getInquiry().getStartDate();
         LocalDate endDate = transaction.getInquiry().getEndDate();
         Double dailyRate = transaction.getInquiry().getBorrowArticle().getDailyRate();
