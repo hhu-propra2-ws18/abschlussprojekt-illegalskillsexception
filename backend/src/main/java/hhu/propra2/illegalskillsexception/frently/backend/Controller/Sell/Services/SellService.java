@@ -3,10 +3,12 @@ package hhu.propra2.illegalskillsexception.frently.backend.Controller.Sell.Servi
 import hhu.propra2.illegalskillsexception.frently.backend.Controller.Buy.Exceptions.NoSuchBuyArticleException;
 import hhu.propra2.illegalskillsexception.frently.backend.Controller.Sell.DTOs.BuyArticleUpdate;
 import hhu.propra2.illegalskillsexception.frently.backend.Controller.Sell.IServices.ISellService;
+import hhu.propra2.illegalskillsexception.frently.backend.Controller.User.IServices.IApplicationUserService;
 import hhu.propra2.illegalskillsexception.frently.backend.Data.Models.ApplicationUser;
 import hhu.propra2.illegalskillsexception.frently.backend.Data.Models.BuyArticle;
 import hhu.propra2.illegalskillsexception.frently.backend.Data.Repositories.IBuyArticleRepository;
 import lombok.AllArgsConstructor;
+import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -15,15 +17,18 @@ import java.util.List;
 @Service
 public class SellService implements ISellService {
 
+    private final IApplicationUserService userService;
     private final IBuyArticleRepository buyArticleRepository;
 
     @Override
-    public List<BuyArticle> getAllArticlesOfUser(ApplicationUser user) {
+    public List<BuyArticle> getAllArticlesOfCurrentUser(Authentication auth) {
+        ApplicationUser user = userService.getCurrentUser(auth);
         return buyArticleRepository.findAllByOwner_Username(user.getUsername());
     }
 
     @Override
-    public BuyArticle createArticle(BuyArticle buyArticle, ApplicationUser user) {
+    public BuyArticle createArticle(BuyArticle buyArticle, Authentication auth) {
+        ApplicationUser user = userService.getCurrentUser(auth);
         buyArticle.setOwner(user);
         buyArticleRepository.save(buyArticle);
         return buyArticle;
