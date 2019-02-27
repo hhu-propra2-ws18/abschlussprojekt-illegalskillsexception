@@ -19,9 +19,9 @@ export default class TransactionsItem extends React.Component {
     render() {
         return (
             <article>
-                <h2>Title</h2>
-                <p>{this.props.data.title}</p>
-                <h3>{this.props.data.title}</h3>
+                <h2>{this.props.data.inquiry.article.title}</h2>
+                <h5>Descriptiom</h5>
+                <p>{this.props.data.inquiry.article.description}</p>
                 <h5>Status</h5>
                 <p> {this.props.data.status}</p>
                 <h5>Return Date</h5>
