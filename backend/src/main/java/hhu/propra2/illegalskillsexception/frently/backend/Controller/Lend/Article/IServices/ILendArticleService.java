@@ -14,4 +14,5 @@ public interface ILendArticleService {
     List<Article> retrieveArticleList(ApplicationUser owner);
 
     Article updateArticle(LendArticleUpdate lendArticle) throws NoSuchArticleException, PendingInquiryException;
+
 }
