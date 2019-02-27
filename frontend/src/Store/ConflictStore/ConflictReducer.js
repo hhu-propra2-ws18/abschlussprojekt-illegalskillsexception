@@ -1,7 +1,9 @@
 import {SET_CONFLICT_ITEMS} from "./ConflictActions";
 
 export default function conflictstore(
-    state = {conflictList: []},
+    state = {
+        conflictList: []
+    },
     action) {
 
     switch (action.type) {

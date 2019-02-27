@@ -17,17 +17,7 @@ export const checkIfAdmin = async (token=store.getState().user.token) => {
     return !err;
 };
 
-export const punishConflict = async (id) => {
-    const url = "punish";
-    return solveConflictBackend(id)
-};
-
-export const resolveConflict = async (id) => {
-    const url = "resolve";
-    return solveConflictBackend(id)
-};
-
-const solveConflictBackend = async (id,url,token=store.getState().user.token) => {
+export const solveConflictBackend = async (id,url,token=store.getState().user.token) => {
     return await axios.post(
         url, {
         transactionId: id,

@@ -32,4 +32,5 @@ export const TRANSACTION_PROBLEM = `${BASEURL}${LEND}transaction/problem`;
 
 export const CONFLICT = "conflict/";
 export const CONFLICT_GETALL = `${BASEURL}${CONFLICT}`;
-
+export const CONFLICT_RESOLVE = `${BASEURL}${CONFLICT}release`;
+export const CONFLICT_PUNISH = `${BASEURL}${CONFLICT}punish`;

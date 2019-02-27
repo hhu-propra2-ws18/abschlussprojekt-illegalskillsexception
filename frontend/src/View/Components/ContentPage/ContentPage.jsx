@@ -40,14 +40,18 @@ class ContentPage extends React.Component {
         }
     }
 
+    switchTab(index) {
+        this.navigation.current.setState({ expanded: false });
+        this.tabs.current.setState({ tabFocusIndex: index });
+    }
+
     renderNavigation() {
-        console.log(this.props.user.admin);
         if (this.props.user.admin){
             return (
                 <SplitViewCommand
-                    onClick={() => logOutUser()}
-                    label="Fuck"
-                    icon={"PowerButton"}
+                    onClick={() => this.switchTab(6)}
+                    label="Conflicts"
+                    icon={"Admin"}
                 />)
         }
         return <div/>;
@@ -89,7 +93,7 @@ class ContentPage extends React.Component {
                             label="Processes"
                             icon={"\uE9F5"}
                         />,
-                        (<div> {this.renderNavigation()}</div>)
+                        (<div> {this.renderNavigation()} </div>)
                     ]}
                     navigationBottomNodes={[<SplitViewCommand
                         onClick={() => this.switchTab(5)}
@@ -128,15 +132,13 @@ class ContentPage extends React.Component {
                         <Tab style={{width: "100%", height: "100%"}}>
                             <UserView/>
                         </Tab>
+                        <Tab style={{width: "100%", height: "100%"}}>
+                            <ConflictView />
+                        </Tab>
                     </Tabs>
                 </NavigationView>
             </>
         );
-    }
-
-    switchTab(index) {
-        this.navigation.current.setState({ expanded: false });
-        this.tabs.current.setState({ tabFocusIndex: index });
     }
 }
 
