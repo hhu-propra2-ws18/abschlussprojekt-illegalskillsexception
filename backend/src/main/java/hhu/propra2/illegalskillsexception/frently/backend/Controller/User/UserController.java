@@ -43,9 +43,9 @@ public class UserController {
         user.setEmail(dtoUser.getEmail());
         userService.encryptPassword(user);
         try {
-            userService.createUser(user);
-
             proPayService.createAccount(user.getUsername(), 0);
+
+            userService.createUser(user);
 
             response.setData(Collections.singletonList(user));
         } catch (ExhaustedRetryException e) {
