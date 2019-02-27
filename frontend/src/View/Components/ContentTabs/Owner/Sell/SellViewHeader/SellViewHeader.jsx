@@ -1,14 +1,15 @@
 import React from "react";
 
 import Dialog from "react-uwp/Dialog";
-import LendItemCreateOfferDialog from "../LendItemCreateOfferDialog/LendItemCreateOfferDialog";
+import LendItemCreateOfferDialog from "../../Lend/LendItemCreateOfferDialog/LendItemCreateOfferDialog";
 
 import CommandBar from "react-uwp/CommandBar";
 import AppBarButton from "react-uwp/AppBarButton";
 
-import "./LendViewHeader.css";
+import "./SellViewHeader.css";
+import SellItemCreateOfferDialog from "../SellItemCreateOfferDialog/SellItemCreateOfferDialog";
 
-export default class LendViewHeader extends React.Component {
+export default class SellViewHeader extends React.Component {
     constructor(props) {
         super(props);
         this.state = { showDialog: false };
@@ -20,7 +21,7 @@ export default class LendViewHeader extends React.Component {
                 <CommandBar
                     primaryCommands={[
                         <AppBarButton
-                            label="List item"
+                            label="Sell item"
                             onClick={() => this.createOfferDialog()}
                             icon={"\uE710"}
                             labelPosition="right"
@@ -36,7 +37,7 @@ export default class LendViewHeader extends React.Component {
                     style={{ zIndex: 400 }}
                     onCloseDialog={() => this.setState({ showDialog: false })}
                 >
-                    <LendItemCreateOfferDialog
+                    <SellItemCreateOfferDialog
                         close={() => this.hideCreateOfferDialog()}
                         data={this.props.data}
                     />

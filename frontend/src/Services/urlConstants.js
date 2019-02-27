@@ -15,6 +15,17 @@ export const BORROW_INQUIRY = `${BASEURL}${BORROW}inquiry/create`;
 
 export const INQUIRY_GETALL_BORROW = `${BASEURL}${BORROW}inquiry/`;
 
+export const BUY = "buy/"
+export const BUY_GETALL = `${BASEURL}${BUY}`
+export const BUY_CREATEITEN = `${BASEURL}${BUY}buyItem`
+export const BUY_BUYITEM = `${BASEURL}${BUY}buyItem`
+
+export const SELL = "sell/"
+export const SELL_GETALL = `${BASEURL}${SELL}`;
+export const SELL_CREATE_ITEM = `${BASEURL}${SELL}create`;
+export const SELL_UPDATE_ITEM = `${BASEURL}${SELL}update`;
+
+
 export const LEND = "lend/";
 
 export const LEND_GETALL = `${BASEURL}${LEND}article/`;

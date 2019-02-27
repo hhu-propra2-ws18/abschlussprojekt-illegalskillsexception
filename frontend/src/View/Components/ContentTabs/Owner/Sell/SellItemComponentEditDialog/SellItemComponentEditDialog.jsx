@@ -2,16 +2,15 @@ import React from "react";
 
 import TextBox from "react-uwp/TextBox";
 import Button from "react-uwp/Button";
-import { updateLendItem } from "../../../../../Services/Lend/lendCompleteService";
+import { updateSellItem } from "../../../../../../Services/Sell/sellCompleteService";
 
-export default class LendItemComponentEditDialog extends React.Component {
+export default class SellItemComponentEditDialog extends React.Component {
     constructor(props) {
         super(props);
 
         this.titleRef = React.createRef();
         this.descRef = React.createRef();
-        this.depositRef = React.createRef();
-        this.rateRef = React.createRef();
+        this.priceRef = React.createRef();
         this.locationRef = React.createRef();
     }
 
@@ -24,21 +23,15 @@ export default class LendItemComponentEditDialog extends React.Component {
                     defaultValue={this.props.data.title}
                 />
                 <label>Description</label>
-                <TextBox acceptsReturn={true}
+                <TextBox
                     ref={this.descRef}
                     defaultValue={this.props.data.description}
                     height=""
                 />
-                <label>Safety Deposit</label>
+                <label>Price</label>
                 <TextBox
-                    ref={this.depositRef}
-                    defaultValue={this.props.data.deposit}
-                    type="number"
-                />
-                <label>Daily rate</label>
-                <TextBox
-                    ref={this.rateRef}
-                    defaultValue={this.props.data.dailyRate}
+                    ref={this.priceRef}
+                    defaultValue={this.props.data.price}
                     type="number"
                 />
                 <label>location</label>
@@ -56,15 +49,14 @@ export default class LendItemComponentEditDialog extends React.Component {
 
     async saveChanges() {
         let data = {
-            articleId: this.props.data.id,
+            buyArticleId: this.props.data.id,
             title: this.titleRef.current.getValue(),
             description: this.descRef.current.getValue(),
-            deposit: this.depositRef.current.getValue(),
-            dailyRate: this.rateRef.current.getValue(),
+            price: this.priceRef.current.getValue(),
             location: this.locationRef.current.getValue()
         };
 
-        await updateLendItem(data);
+        await updateSellItem(data);
 
         this.props.close();
     }

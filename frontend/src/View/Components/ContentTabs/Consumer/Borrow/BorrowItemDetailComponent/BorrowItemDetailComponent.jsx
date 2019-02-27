@@ -5,7 +5,7 @@ import Button from "react-uwp/Button";
 import Dialog from "react-uwp/Dialog";
 import BorrowItemAcceptanceDialog from "../BorrowItemAcceptanceDialog/BorrowItemAcceptanceDialog";
 import BorrowItemErrorDialog from "../BorrowItemErrorDialog/BorrowItemErrorDialog";
-import { borrowItem } from "../../../../../Services/Borrow/borrowCompleteService";
+import { borrowItem } from "../../../../../../Services/Borrow/borrowCompleteService";
 
 export default class BorrowItemDetailComponent extends React.Component {
     constructor(props) {

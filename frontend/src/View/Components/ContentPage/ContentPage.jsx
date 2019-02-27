@@ -1,11 +1,10 @@
 import React from "react";
 import NavigationView from "react-uwp/NavigationView";
 import SplitViewCommand from "react-uwp/SplitViewCommand";
-import Tabs, {Tab} from "react-uwp/Tabs";
+import Tabs, { Tab } from "react-uwp/Tabs";
 
-import {store} from "../../../Store/reduxInit";
-import BorrowView from "../ContentTabs/Borrow/BorrowView";
-import LendView from "../ContentTabs/Lend/LendView.jsx";
+import { store } from "../../../Store/reduxInit";
+import ConsumerView from "../ContentTabs/Consumer/ConsumerView";
 import TransactionsView from "../ContentTabs/Transactions/TransactionsView";
 import InquiriesView from "../ContentTabs/Inquiries/InquiriesView";
 import ConflictView from "../ContentTabs/Conflict/ConflictView";
@@ -14,8 +13,9 @@ import UserView from "../ContentTabs/User/UserView";
 import Toast from "react-uwp/Toast";
 
 import "./ContentPage.css";
-import {getAllOverdueTransactions} from "../../../Services/User/authentificationCompleteService.js";
-import {logOutUser} from "../../../Services/User/authentificationCompleteService";
+import { getAllOverdueTransactions } from "../../../Services/User/authentificationCompleteService.js";
+import { logOutUser } from "../../../Services/User/authentificationCompleteService";
+import OwnerView from "../ContentTabs/Owner/OwnerView";
 
 export default class ContentPage extends React.Component {
     constructor(props) {
@@ -24,7 +24,7 @@ export default class ContentPage extends React.Component {
         this.tabs = React.createRef();
         this.navigation = React.createRef();
 
-        this.state = {showNotifToast: false};
+        this.state = { showNotifToast: false };
     }
 
     async componentDidMount() {
@@ -32,7 +32,7 @@ export default class ContentPage extends React.Component {
         let list = data.data.data;
         console.log(data);
         if (list.length !== 0) {
-            this.setState({showNotifToast: true})
+            this.setState({ showNotifToast: true });
         }
     }
     render() {
@@ -40,25 +40,29 @@ export default class ContentPage extends React.Component {
             <>
                 <Toast
                     defaultShow={this.state.showNotifToast}
-                    onToggleShowToast={showNotifToast => this.setState({showNotifToast})}
+                    onToggleShowToast={showNotifToast =>
+                        this.setState({ showNotifToast })
+                    }
                     title="You have articles that are due to return."
-                    description={"View the transaction tab for more informations."}
+                    description={
+                        "View the transaction tab for more informations."
+                    }
                     showCloseIcon
                 />
 
                 <NavigationView
-                    expandedWidth={240}
+                    expandedWidth={200}
                     focusNavigationNodeIndex={0}
                     ref={this.navigation}
                     navigationTopNodes={[
                         <SplitViewCommand
                             onClick={() => this.switchTab(0)}
-                            label="Borrow"
+                            label="Market"
                             icon={"\uECCD"}
                         />,
                         <SplitViewCommand
                             onClick={() => this.switchTab(1)}
-                            label="Lend"
+                            label="Your Items"
                             icon={"\uF0AD"}
                         />,
                         <SplitViewCommand
@@ -72,42 +76,55 @@ export default class ContentPage extends React.Component {
                             icon={"\uE9F5"}
                         />
                     ]}
-                    navigationBottomNodes={[<SplitViewCommand
-                        onClick={() => this.switchTab(5)}
-                        label="Profile"
-                        icon={"Contact"}
-                    />,<SplitViewCommand
-                        onClick={() => logOutUser()}
-                        label="LogOut"
-                        icon={"PowerButton"}
-                        />]}
+                    navigationBottomNodes={[
+                        <SplitViewCommand
+                            onClick={() => this.switchTab(5)}
+                            label="Profile"
+                            icon={"Contact"}
+                        />,
+                        <SplitViewCommand
+                            onClick={() => logOutUser()}
+                            label="LogOut"
+                            icon={"PowerButton"}
+                        />
+                    ]}
                     displayMode="compact"
                     autoResize={false}
+                    defaultExpanded={true}
                 >
                     <Tabs
-                        tabTitleStyle={{display: "none"}}
+                        tabTitleStyle={{ display: "none" }}
                         ref={this.tabs}
                         id="content-view"
                         animateMode="in"
-                        style={{display: "block"}}
+                        style={{ display: "block" }}
                     >
-                        <Tab title="Borrow" style={{width: "100%", height: "100%"}}>
-                            <BorrowView/>
+                        <Tab
+                            title="Borrow"
+                            style={{ width: "100%", height: "100%" }}
+                        >
+                            <ConsumerView />
                         </Tab>
-                        <Tab title="Lend" style={{width: "100%", height: "100%"}}>
-                            <LendView/>
+                        <Tab
+                            title="Lend"
+                            style={{ width: "100%", height: "100%" }}
+                        >
+                            <OwnerView />
                         </Tab>
-                        <Tab title="Inquiries" style={{width: "100%", height: "100%"}}>
-                            <InquiriesView/>
+                        <Tab
+                            title="Inquiries"
+                            style={{ width: "100%", height: "100%" }}
+                        >
+                            <InquiriesView />
                         </Tab>
-                        <Tab style={{width: "100%", height: "100%"}}>
-                            <TransactionsView/>
+                        <Tab style={{ width: "100%", height: "100%" }}>
+                            <TransactionsView />
                         </Tab>
-                        <Tab style={{width: "100%", height: "100%"}}>
-                            <ConflictView/>
+                        <Tab style={{ width: "100%", height: "100%" }}>
+                            <ConflictView />
                         </Tab>
-                        <Tab style={{width: "100%", height: "100%"}}>
-                            <UserView/>
+                        <Tab style={{ width: "100%", height: "100%" }}>
+                            <UserView />
                         </Tab>
                     </Tabs>
                 </NavigationView>

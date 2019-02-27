@@ -13,7 +13,7 @@ export default class BorrowItemComponent extends React.Component {
     render() {
         return (
             <article>
-                <h1>{this.props.data.title}</h1>
+                <h3>{this.props.data.title}</h3>
                 <h6>Daily rate:</h6>
                 <p>{this.props.data.dailyRate}</p>
                 <h6>Safety deposit:</h6>
