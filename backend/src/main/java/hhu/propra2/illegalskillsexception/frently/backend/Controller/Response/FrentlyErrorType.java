@@ -11,4 +11,5 @@ public enum FrentlyErrorType {
     INSUFFICIENT_FUNDS,
     PROPAY_CONNECTION,
     NO_SUCH_TRANSACTION,
+    PENDING_INQUIRIES,
 }
