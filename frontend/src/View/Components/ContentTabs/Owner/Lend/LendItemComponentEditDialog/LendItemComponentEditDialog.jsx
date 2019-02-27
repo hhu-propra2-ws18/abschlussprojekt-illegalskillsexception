@@ -5,7 +5,6 @@ import Button from "react-uwp/Button";
 import Dialog from "react-uwp/Dialog";
 import { updateLendItem } from "../../../../../../Services/Lend/lendCompleteService";
 import LendItemEditErrorDialog from "../LendItemComponent/LendItemEditErrorDialog";
-import { updateLendItem } from "../../../../../../Services/Lend/lendCompleteService";
 
 export default class LendItemComponentEditDialog extends React.Component {
     constructor(props) {
