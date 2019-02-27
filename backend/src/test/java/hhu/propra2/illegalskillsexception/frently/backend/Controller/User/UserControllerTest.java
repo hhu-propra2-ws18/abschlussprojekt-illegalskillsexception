@@ -2,6 +2,7 @@ package hhu.propra2.illegalskillsexception.frently.backend.Controller.User;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import hhu.propra2.illegalskillsexception.frently.backend.Controller.Security.ApplicationUserDTO;
+import hhu.propra2.illegalskillsexception.frently.backend.Controller.User.Exceptions.UserAlreadyExistsAuthenticationException;
 import hhu.propra2.illegalskillsexception.frently.backend.Controller.User.IServices.IApplicationUserService;
 import hhu.propra2.illegalskillsexception.frently.backend.Controller.User.IServices.IUserDetailService;
 import hhu.propra2.illegalskillsexception.frently.backend.Controller.User.IServices.IUserTransactionService;
@@ -13,6 +14,7 @@ import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
+import org.springframework.retry.ExhaustedRetryException;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.web.WebAppConfiguration;
 import org.springframework.test.web.servlet.MockMvc;
@@ -22,6 +24,7 @@ import static org.mockito.BDDMockito.*;
 import static org.mockito.Mockito.verify;
 import static org.springframework.http.MediaType.APPLICATION_JSON_UTF8;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 @RunWith(SpringJUnit4ClassRunner.class)
@@ -29,7 +32,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 public class UserControllerTest {
 
     @InjectMocks
-    UserController projectScsController;
+    UserController userController;
     private MockMvc mockMvc;
     @Mock
     private IApplicationUserService mockUserService;
@@ -44,7 +47,7 @@ public class UserControllerTest {
     @Before
     public void setUp() {
         MockitoAnnotations.initMocks(this);
-        this.mockMvc = MockMvcBuilders.standaloneSetup(projectScsController).build();
+        this.mockMvc = MockMvcBuilders.standaloneSetup(userController).build();
     }
 
     @Test
@@ -58,6 +61,7 @@ public class UserControllerTest {
 
         this.mockMvc.perform(post("/user/sign-up").contentType(APPLICATION_JSON_UTF8)
                 .content(requestBody))
+                .andDo(print())
                 .andExpect(status().isOk())
                 .andExpect(content().contentType(APPLICATION_JSON_UTF8))
                 .andExpect(jsonPath("$.error").value(IsNull.nullValue()))
@@ -66,7 +70,53 @@ public class UserControllerTest {
                 .andExpect(jsonPath("$.data[0].roles").value(IsNull.nullValue()));
 
 
-        verify(mockUserService).encryptPassword(any());
+        verify(mockUserService, times(1)).encryptPassword(any());
+        verify(mockUserService, times(1)).createUser(any());
+        verify(mockProPayService, times(1)).createAccount(any(), eq(0.0));
+    }
+
+    @Test
+    public void signHannesUpFailsBecauseProPayIsNotReachable() throws Exception {
+        ApplicationUserDTO applicationUserDTO = new ApplicationUserDTO();
+        applicationUserDTO.setUsername("Hannes");
+        applicationUserDTO.setPassword("123");
+        applicationUserDTO.setEmail("HannesSupercool@yahoo.com");
+        ObjectMapper objectMapper = new ObjectMapper();
+        String requestBody = objectMapper.writeValueAsString(applicationUserDTO);
+
+        when(mockProPayService.createAccount(anyString(), anyDouble())).thenThrow(ExhaustedRetryException.class);
+        this.mockMvc.perform(post("/user/sign-up").contentType(APPLICATION_JSON_UTF8)
+                .content(requestBody))
+                .andDo(print())
+                .andExpect(status().isOk())
+                .andExpect(content().contentType(APPLICATION_JSON_UTF8))
+                .andExpect(jsonPath("$.error.errorType").value("PROPAY_CONNECTION"))
+                .andExpect(jsonPath("$.data").value(IsNull.nullValue()));
+
+
+        verify(mockUserService, times(0)).createUser(any());
+        verify(mockProPayService, times(1)).createAccount(any(), eq(0.0));
+    }
+
+    @Test
+    public void signHannesUpFailsBecauseTheUsernameIsAlreadyTaken() throws Exception {
+        ApplicationUserDTO applicationUserDTO = new ApplicationUserDTO();
+        applicationUserDTO.setUsername("Hannes");
+        applicationUserDTO.setPassword("123");
+        applicationUserDTO.setEmail("HannesSupercool@yahoo.com");
+        ObjectMapper objectMapper = new ObjectMapper();
+        String requestBody = objectMapper.writeValueAsString(applicationUserDTO);
+        doThrow(UserAlreadyExistsAuthenticationException.class).when(mockUserService).createUser(any());
+
+        this.mockMvc.perform(post("/user/sign-up").contentType(APPLICATION_JSON_UTF8)
+                .content(requestBody))
+                .andDo(print())
+                .andExpect(status().isOk())
+                .andExpect(content().contentType(APPLICATION_JSON_UTF8))
+                .andExpect(jsonPath("$.error.errorType").value("MISC"))
+                .andExpect(jsonPath("$.data").value(IsNull.nullValue()));
+
+
         verify(mockUserService, times(1)).createUser(any());
         verify(mockProPayService, times(1)).createAccount(any(), eq(0.0));
     }
