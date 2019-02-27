@@ -3,6 +3,7 @@ package hhu.propra2.illegalskillsexception.frently.backend.ProPay.Integration;
 import com.github.tomakehurst.wiremock.WireMockServer;
 import com.github.tomakehurst.wiremock.client.WireMock;
 import hhu.propra2.illegalskillsexception.frently.backend.Controller.Lend.Transaction.Exceptions.InsuffientFundsException;
+import hhu.propra2.illegalskillsexception.frently.backend.Controller.User.Exceptions.UserNotFoundException;
 import hhu.propra2.illegalskillsexception.frently.backend.Data.Models.ApplicationUser;
 import hhu.propra2.illegalskillsexception.frently.backend.Data.Models.BorrowArticle;
 import hhu.propra2.illegalskillsexception.frently.backend.Data.Models.Inquiry;
@@ -42,7 +43,7 @@ public class ProPayIntegrationTest {
     }
 
     @Test
-    public void createHannesAccountWithNoCash() throws ProPayConnectionException {
+    public void createHannesAccountWithNoCash() throws ProPayConnectionException, UserNotFoundException {
         stubFor(post(urlPathMatching("/account/Hannes"))
                 .withQueryParam("amount", equalTo("0.0"))
                 .willReturn(aResponse()
@@ -65,7 +66,7 @@ public class ProPayIntegrationTest {
     }
 
     @Test
-    public void createAnnesAccountWith100Euro() throws ProPayConnectionException {
+    public void createAnnesAccountWith100Euro() throws ProPayConnectionException, UserNotFoundException {
         stubFor(post(urlPathMatching("/account/Anne"))
                 .withQueryParam("amount", equalTo("100.0"))
                 .willReturn(aResponse()
@@ -106,7 +107,7 @@ public class ProPayIntegrationTest {
     }
 
     @Test
-    public void transfer100EuroBetweenMaxAndMoritz() throws ProPayConnectionException, InsuffientFundsException {
+    public void transfer100EuroBetweenMaxAndMoritz() throws ProPayConnectionException, InsuffientFundsException, UserNotFoundException {
         stubFor(get(urlPathMatching("/account/Max"))
                 .willReturn(aResponse()
                         .withStatus(200)
@@ -227,7 +228,7 @@ public class ProPayIntegrationTest {
 
 
     @Test
-    public void punishMoritzGiveThe100EuroDepositToMax() throws ProPayConnectionException {
+    public void punishMoritzGiveThe100EuroDepositToMax() throws ProPayConnectionException, UserNotFoundException {
         stubFor(post(urlPathMatching("/reservation/punish/Moritz"))
                 .withQueryParam("reservationId", equalTo("1"))
                 .willReturn(aResponse()
