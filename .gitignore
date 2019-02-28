@@ -50,6 +50,7 @@ data/
 .env.test.local
 .env.production.local
 /frontend/.vscode
+/mysql
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
