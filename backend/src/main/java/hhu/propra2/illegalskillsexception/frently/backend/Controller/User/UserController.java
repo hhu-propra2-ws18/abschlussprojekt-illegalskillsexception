@@ -62,7 +62,7 @@ public class UserController {
             UserDetailResponse userDetailResponse = userDetailService.getUserDetails(auth);
             response.setData(userDetailResponse);
         } catch (FrentlyException exc) {
-            response.setError(new FrentlyError(exc));
+            response.setError(new FrentlyError(new ProPayConnectionException()));
         } catch (Exception e) {
             response.setError(new FrentlyError(e));
         }
