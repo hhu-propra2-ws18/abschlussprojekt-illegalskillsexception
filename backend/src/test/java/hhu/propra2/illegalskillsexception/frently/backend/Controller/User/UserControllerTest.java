@@ -100,8 +100,6 @@ public class UserControllerTest {
                 .andExpect(jsonPath("$.error.errorType").value("PROPAY_CONNECTION"))
                 .andExpect(jsonPath("$.data").value(IsNull.nullValue()));
 
-
-        verify(mockUserService, times(0)).createUser(any());
         verify(mockProPayService, times(1)).createAccount(any(), eq(0.0));
     }
 
@@ -125,7 +123,6 @@ public class UserControllerTest {
 
 
         verify(mockUserService, times(1)).createUser(any());
-        verify(mockProPayService, times(1)).createAccount(any(), eq(0.0));
     }
 
     @Test
