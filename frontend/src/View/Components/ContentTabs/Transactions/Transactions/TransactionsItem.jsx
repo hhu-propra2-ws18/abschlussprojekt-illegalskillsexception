@@ -63,7 +63,7 @@ export default class TransactionsItem extends React.Component {
                 <Button
                     onClick={() => createTransactionProblem(this.props.data.id)}
                 >
-                    Item was returned in bad condition
+                    Item in bad condition or not returned
                 </Button>
             </div>
         ) : (

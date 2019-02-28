@@ -5,6 +5,6 @@ import hhu.propra2.illegalskillsexception.frently.backend.Controller.Response.Fr
 
 public class PendingInquiryException extends FrentlyException {
     public PendingInquiryException() {
-        super("Cannot edit Article. Has pending Inquiries", FrentlyErrorType.PENDING_INQUIRIES);
+        super("This Article has pending Inquiries", FrentlyErrorType.PENDING_INQUIRIES);
     }
 }
