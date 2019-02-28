@@ -7,7 +7,6 @@ import * as serviceWorker from "./serviceWorker";
 import "./Store/reduxInit";
 import { store } from "./Store/reduxInit";
 import { Provider } from "react-redux";
-import {getAllConflicts} from "./Services/Conflict/conflictBackendService";
 
 
 

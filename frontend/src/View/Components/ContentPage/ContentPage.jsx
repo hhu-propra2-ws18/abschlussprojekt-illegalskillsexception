@@ -45,15 +45,40 @@ class ContentPage extends React.Component {
     }
 
     renderNavigation() {
+
+        const nodeList = [
+            <SplitViewCommand
+                onClick={() => this.switchTab(0)}
+                label="Market"
+                icon={"\uECCD"}
+            />,
+            <SplitViewCommand
+                onClick={() => this.switchTab(1)}
+                label="Your Items"
+                icon={"\uF0AD"}
+            />,
+            <SplitViewCommand
+                onClick={() => this.switchTab(2)}
+                label="Inquiry"
+                icon={"\uE73E"}
+            />,
+            <SplitViewCommand
+                onClick={() => this.switchTab(3)}
+                label="Transactions"
+                icon={"\uE9F5"}
+            />
+        ];
+
+
         if (this.props.user.admin){
-            return (
+            nodeList.push(
                 <SplitViewCommand
-                    onClick={() => this.switchTab(6)}
+                    onClick={() => this.switchTab(4)}
                     label="Conflicts"
                     icon={"Admin"}
                 />)
         }
-        return <div/>;
+        return nodeList;
     }
 
     render() {
@@ -75,29 +100,7 @@ class ContentPage extends React.Component {
                     expandedWidth={200}
                     focusNavigationNodeIndex={0}
                     ref={this.navigation}
-                    navigationTopNodes={[
-                        <SplitViewCommand
-                            onClick={() => this.switchTab(0)}
-                            label="Market"
-                            icon={"\uECCD"}
-                        />,
-                        <SplitViewCommand
-                            onClick={() => this.switchTab(1)}
-                            label="Your Items"
-                            icon={"\uF0AD"}
-                        />,
-                        <SplitViewCommand
-                            onClick={() => this.switchTab(2)}
-                            label="Inquiry"
-                            icon={"\uE73E"}
-                        />,
-                        <SplitViewCommand
-                            onClick={() => this.switchTab(3)}
-                            label="Transactions"
-                            icon={"\uE9F5"}
-                        />,
-                        (<div> {this.renderNavigation()} </div>)
-                    ]}
+                    navigationTopNodes={this.renderNavigation()}
                     navigationBottomNodes={[
                         <SplitViewCommand
                             onClick={() => this.switchTab(5)}
@@ -147,9 +150,6 @@ class ContentPage extends React.Component {
                         </Tab>
                         <Tab style={{ width: "100%", height: "100%" }}>
                             <UserView />
-                        </Tab>
-                        <Tab style={{width: "100%", height: "100%"}}>
-                            <ConflictView />
                         </Tab>
                     </Tabs>
                 </NavigationView>

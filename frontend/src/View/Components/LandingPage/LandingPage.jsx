@@ -17,7 +17,10 @@ export default class LandingPage extends React.Component {
     constructor(props) {
         super(props);
 
-        this.state = { register: false, login: false };
+        this.state = {
+            register: false,
+            login: false
+        };
 
         this.nameRegister = React.createRef();
         this.emailRegister = React.createRef();
@@ -173,6 +176,5 @@ export default class LandingPage extends React.Component {
         let passwordInner = this.passwordRegister.current.getValue();
 
         await registerAndLoginUser(nameInner, emailInner, passwordInner);
-        this.setState({ register: false });
     }
 }
