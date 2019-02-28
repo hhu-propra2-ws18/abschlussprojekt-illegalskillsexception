@@ -1,7 +1,6 @@
 package hhu.propra2.illegalskillsexception.frently.backend.Controller.User;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import hhu.propra2.illegalskillsexception.frently.backend.Controller.MockAuthentication;
 import hhu.propra2.illegalskillsexception.frently.backend.Controller.Security.ApplicationUserDTO;
 import hhu.propra2.illegalskillsexception.frently.backend.Controller.User.DTOs.*;
 import hhu.propra2.illegalskillsexception.frently.backend.Controller.User.Exceptions.UserAlreadyExistsAuthenticationException;
@@ -248,8 +247,6 @@ public class UserControllerTest {
 
     @Test
     public void chargeUpHannesAccountWith300Euro() throws Exception {
-        MockAuthentication mockAuthentication = new MockAuthentication();
-        mockAuthentication.setPrinciple("Hannes");
         ChargeAmountDTO chargeAmountDTO = new ChargeAmountDTO();
         chargeAmountDTO.setAmount(300L);
 
@@ -269,8 +266,6 @@ public class UserControllerTest {
 
     @Test
     public void chargeUpHannesAccountWith300EuroFailsBecauseProPayDoesNotRespond() throws Exception {
-        MockAuthentication mockAuthentication = new MockAuthentication();
-        mockAuthentication.setPrinciple("Hannes");
         ChargeAmountDTO chargeAmountDTO = new ChargeAmountDTO();
         chargeAmountDTO.setAmount(300L);
 
