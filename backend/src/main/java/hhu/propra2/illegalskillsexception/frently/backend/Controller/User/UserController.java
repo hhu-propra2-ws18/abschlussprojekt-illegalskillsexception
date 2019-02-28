@@ -80,7 +80,7 @@ public class UserController {
             ForeignUserDetailResponse foreignUserDetailResponse = userDetailService.getForeignUserDetails(request.getUsername());
             response.setData(foreignUserDetailResponse);
         } catch (FrentlyException exc) {
-            response.setError(new FrentlyError(exc));
+            response.setError(new FrentlyError(new ProPayConnectionException()));
         } catch (Exception e) {
             response.setError(new FrentlyError(e));
         }
@@ -90,9 +90,8 @@ public class UserController {
     @PostMapping("/charge")
     public FrentlyResponse chargeCredit(Authentication auth, @RequestBody ChargeAmountDTO amount) {
         FrentlyResponse response = new FrentlyResponse();
-        String userName = (String) auth.getPrincipal();
         try {
-            proPayService.payInMoney(userName, amount.getAmount());
+            proPayService.payInMoney(auth, amount.getAmount());
         } catch (ExhaustedRetryException e) {
             response.setError(new FrentlyError(new ProPayConnectionException()));
         } catch (FrentlyException fe) {
@@ -109,7 +108,7 @@ public class UserController {
         ApplicationUser currentUser = userService.getCurrentUser(auth);
         try {
             response.setData(transactionService.allOverdueTransactions(currentUser.getId()));
-        } catch (Exception e) { //TODO: Better Exception Handling
+        } catch (Exception e) {
             response.setError(new FrentlyError("Couldn't find any Transactions overdue for owner", FrentlyErrorType.NO_SUCH_TRANSACTION));
         }
         return response;

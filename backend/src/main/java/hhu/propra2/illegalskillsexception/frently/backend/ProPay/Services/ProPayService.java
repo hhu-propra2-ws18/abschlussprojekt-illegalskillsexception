@@ -14,6 +14,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.retry.ExhaustedRetryException;
 import org.springframework.retry.annotation.Backoff;
 import org.springframework.retry.annotation.Retryable;
+import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
@@ -53,8 +54,8 @@ public class ProPayService implements IProPayService {
     }
 
     @Override
-    public void payInMoney(String userName, double amount)
-            throws ProPayConnectionException, ExhaustedRetryException, UserNotFoundException {
+    public void payInMoney(Authentication auth, double amount) throws ProPayConnectionException, ExhaustedRetryException, UserNotFoundException {
+        String userName = (String) auth.getPrincipal();
         createAccount(userName, amount);
         moneyTransferService.createMoneyTransfer(userName, userName, amount);
     }
