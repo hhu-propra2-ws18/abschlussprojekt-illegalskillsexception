@@ -31,7 +31,7 @@ public class LendInquiryService implements ILendInquiryService {
         return responseDTOs;
     }
 
-    public List<Inquiry> getOpenInquiries(List<Inquiry> inquiryList) {
+    List<Inquiry> getOpenInquiries(List<Inquiry> inquiryList) {
         List<Inquiry> openInquiries = new ArrayList<>();
 
         for (Inquiry inquiry : inquiryList) {
@@ -44,14 +44,14 @@ public class LendInquiryService implements ILendInquiryService {
         return openInquiries;
     }
 
-    public List<Inquiry> getInquiries(List<Inquiry> inquiries) {
-        return removeExpiredInquires(getOpenInquiries(inquiries));
+    private List<Inquiry> getInquiries(List<Inquiry> inquiries) {
+        return removeExpiredInquires(getOpenInquiries(inquiries), LocalDate.now());
     }
 
-    List<Inquiry> removeExpiredInquires(List<Inquiry> inquiries) {
+    List<Inquiry> removeExpiredInquires(List<Inquiry> inquiries, LocalDate localDate) {
         List<Inquiry> validInquiries = new ArrayList<>();
         for (Inquiry inquiry : inquiries) {
-            if (inquiry.getStartDate().isAfter(LocalDate.now())) {
+            if (inquiry.getStartDate().plusDays(1L).isAfter(localDate)) {
                 validInquiries.add(inquiry);
             } else {
                 inquiry.setStatus(Inquiry.Status.DECLINED);

@@ -8,6 +8,4 @@ import java.util.List;
 
 public interface ILendInquiryService {
     List<LendInquiryResponseDTO> retrieveInquiriesFromUser(ApplicationUser user);
-
-    List<Inquiry> getOpenInquiries(List<Inquiry> inquiryList);
 }
