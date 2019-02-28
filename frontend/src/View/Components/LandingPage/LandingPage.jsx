@@ -18,8 +18,9 @@ export default class LandingPage extends React.Component {
         super(props);
 
         this.state = {
-            register: false,
-            login: false
+            showRegisterDialog: false,
+            showLoginDialog: false,
+            showError: false
         };
 
         this.nameRegister = React.createRef();
@@ -49,11 +50,13 @@ export default class LandingPage extends React.Component {
                         Login
                     </Button>
                 </div>
-                {this.state.register ? (
+                {this.state.showRegisterDialog ? (
                     <Dialog
-                        defaultShow={this.state.register}
+                        defaultShow={this.state.showRegisterDialog}
                         style={{ zIndex: 400 }}
-                        onCloseDialog={() => this.setState({ register: false })}
+                        onCloseDialog={() =>
+                            this.setState({ showRegisterDialog: false })
+                        }
                     >
                         <form
                             onSubmit={e => {
@@ -95,11 +98,13 @@ export default class LandingPage extends React.Component {
                         </form>
                     </Dialog>
                 ) : null}
-                {this.state.login ? (
+                {this.state.showLoginDialog ? (
                     <Dialog
-                        defaultShow={this.state.login}
+                        defaultShow={this.state.showLoginDialog}
                         style={{ zIndex: 400 }}
-                        onCloseDialog={() => this.setState({ login: false })}
+                        onCloseDialog={() =>
+                            this.setState({ showLoginDialog: false })
+                        }
                     >
                         <form
                             onSubmit={e => {
@@ -124,14 +129,31 @@ export default class LandingPage extends React.Component {
                                     <Button onClick={() => this.hideLogin()}>
                                         Cancel
                                     </Button>
-                                    <Button
-                                        type="submit"
-                                    >
-                                        Login
-                                    </Button>
+                                    <Button type="submit">Login</Button>
                                 </div>
                             </div>
                         </form>
+                    </Dialog>
+                ) : null}
+                {this.state.showError ? (
+                    <Dialog
+                        defaultShow={this.state.showError}
+                        style={{ zIndex: 400 }}
+                        onCloseDialog={() =>
+                            this.setState({ showError: false })
+                        }
+                    >
+                        <article>
+                            <h5>Sorry, an error occurred.</h5>
+                            <p>{this.state.errorMessage}</p>
+                            <Button
+                                onClick={() =>
+                                    this.setState({ showError: false })
+                                }
+                            >
+                                Close
+                            </Button>
+                        </article>
                     </Dialog>
                 ) : null}
             </div>
@@ -139,19 +161,19 @@ export default class LandingPage extends React.Component {
     }
 
     hideRegister() {
-        this.setState({ register: false });
+        this.setState({ showRegisterDialog: false });
     }
 
     showRegister() {
-        this.setState({ register: true });
+        this.setState({ showRegisterDialog: true });
     }
 
     showLogin() {
-        this.setState({ login: true });
+        this.setState({ showLoginDialog: true });
     }
 
     hideLogin() {
-        this.setState({ login: false });
+        this.setState({ showLoginDialog: false });
     }
 
     async loginUser(namePassed, passwordPassed) {
@@ -162,11 +184,15 @@ export default class LandingPage extends React.Component {
             ? passwordPassed
             : this.passwordLogin.current.getValue();
 
-        try {
-            loginUser(nameInner, passwordInner);
-            this.setState({ login: false });
-        } catch (exception) {
-            console.log(exception);
+        let result = await loginUser(nameInner, passwordInner);
+        if (result.error) {
+            this.setState({
+                showError: true,
+                errorMessage: "Wrong credentials"
+            });
+            console.log("exception");
+        } else {
+            this.setState({ showLoginDialog: false });
         }
     }
 
@@ -175,6 +201,27 @@ export default class LandingPage extends React.Component {
         let emailInner = this.emailRegister.current.getValue();
         let passwordInner = this.passwordRegister.current.getValue();
 
-        await registerAndLoginUser(nameInner, emailInner, passwordInner);
+        let result = await registerAndLoginUser(
+            nameInner,
+            emailInner,
+            passwordInner
+        );
+
+        console.log("result", result);
+        if (result.data.error) {
+            this.setState({
+                showError: true,
+                errorMessage: result.data.error.errorMessage
+            });
+        }
+
+        if (result.error) {
+            this.setState({
+
+                showError: true,
+                errorMessage: result.error.errorMessage
+
+            });
+        }
     }
 }
