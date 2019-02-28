@@ -13,7 +13,6 @@ export async function getAllInquiries() {
     let data = await getAllInquiriesBackend(store.getState().user.token);
 
     let action = getSetInquiryItemListAction(data.borrowList, data.lendList);
-    console.log(action);
     store.dispatch(action);
 }
 

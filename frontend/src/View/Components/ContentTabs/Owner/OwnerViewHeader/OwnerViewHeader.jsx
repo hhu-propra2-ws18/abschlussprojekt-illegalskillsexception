@@ -4,7 +4,6 @@ import Dialog from "react-uwp/Dialog";
 
 import CommandBar from "react-uwp/CommandBar";
 import AppBarButton from "react-uwp/AppBarButton";
-import AppBarSeparator from "react-uwp/AppBarSeparator";
 
 import "./OwnerViewHeader.css";
 import SellItemCreateOfferDialog from "../Sell/SellItemCreateOfferDialog/SellItemCreateOfferDialog";

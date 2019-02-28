@@ -1,5 +1,9 @@
 import Axios from "axios";
-import { BORROW_GETALL, BORROW_INQUIRY } from "../urlConstants";
+import {
+    BORROW_GETALL,
+    BORROW_INQUIRY,
+    BORROW_GET_AVAILABILITYLIST
+} from "../urlConstants";
 
 export async function getAllBorrowItemsBackend(token, url = BORROW_GETALL) {
     return await Axios.get(url, {
@@ -15,4 +19,20 @@ export async function borrowItemBackend(data, token, url = BORROW_INQUIRY) {
             Authorization: token
         }
     });
+}
+
+export async function getArticleAvailabilityListBackend(
+    id,
+    token,
+    url = BORROW_GET_AVAILABILITYLIST
+) {
+    return await Axios.post(
+        url,
+        { articleId: id },
+        {
+            headers: {
+                Authorization: token
+            }
+        }
+    );
 }

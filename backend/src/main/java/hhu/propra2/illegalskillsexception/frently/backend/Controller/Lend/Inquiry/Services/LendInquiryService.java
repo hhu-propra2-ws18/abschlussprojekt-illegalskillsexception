@@ -8,6 +8,7 @@ import hhu.propra2.illegalskillsexception.frently.backend.Data.Repositories.IInq
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -15,22 +16,22 @@ import java.util.List;
 @AllArgsConstructor
 public class LendInquiryService implements ILendInquiryService {
 
-    private final IInquiryRepository IInquiryRepository;
+    private final IInquiryRepository inquiryRepository;
 
     @Override
     public List<LendInquiryResponseDTO> retrieveInquiriesFromUser(ApplicationUser user) {
-        List<Inquiry> inquiryList = IInquiryRepository.findAllByLender_Id(user.getId());
-        List<Inquiry> openInquiries = getOpenInquiries(inquiryList);
+        List<Inquiry> inquiryList = inquiryRepository.findAllByLender_Id(user.getId());
+        List<Inquiry> validInquiries = getInquiries(inquiryList);
 
         List<LendInquiryResponseDTO> responseDTOs = new ArrayList<>();
-        for (Inquiry inquiry : openInquiries) {
+        for (Inquiry inquiry : validInquiries) {
             LendInquiryResponseDTO dto = new LendInquiryResponseDTO(inquiry);
             responseDTOs.add(dto);
         }
         return responseDTOs;
     }
 
-    public List<Inquiry> getOpenInquiries(List<Inquiry> inquiryList) {
+    List<Inquiry> getOpenInquiries(List<Inquiry> inquiryList) {
         List<Inquiry> openInquiries = new ArrayList<>();
 
         for (Inquiry inquiry : inquiryList) {
@@ -43,4 +44,20 @@ public class LendInquiryService implements ILendInquiryService {
         return openInquiries;
     }
 
+    private List<Inquiry> getInquiries(List<Inquiry> inquiries) {
+        return removeExpiredInquires(getOpenInquiries(inquiries), LocalDate.now());
+    }
+
+    List<Inquiry> removeExpiredInquires(List<Inquiry> inquiries, LocalDate localDate) {
+        List<Inquiry> validInquiries = new ArrayList<>();
+        for (Inquiry inquiry : inquiries) {
+            if (inquiry.getStartDate().plusDays(1L).isAfter(localDate)) {
+                validInquiries.add(inquiry);
+            } else {
+                inquiry.setStatus(Inquiry.Status.DECLINED);
+                inquiryRepository.save(inquiry);
+            }
+        }
+        return validInquiries;
+    }
 }

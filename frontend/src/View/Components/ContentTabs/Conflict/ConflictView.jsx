@@ -35,7 +35,6 @@ class ConflictView extends React.Component {
     }
 
     render() {
-        console.log("conflictList: ",this.props.conflictList);
         return (
             <>
                 {this.renderConflictList()}

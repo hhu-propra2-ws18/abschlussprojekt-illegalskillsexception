@@ -43,7 +43,6 @@ public class ProPayService implements IProPayService {
         } catch (Exception e) {
             throw new ProPayConnectionException();
         }
-        moneyTransferService.createMoneyTransfer(userName, userName, amount);
         return newAccount;
     }
 
@@ -57,6 +56,7 @@ public class ProPayService implements IProPayService {
     public void payInMoney(String userName, double amount)
             throws ProPayConnectionException, ExhaustedRetryException, UserNotFoundException {
         createAccount(userName, amount);
+        moneyTransferService.createMoneyTransfer(userName, userName, amount);
     }
 
     @Override
