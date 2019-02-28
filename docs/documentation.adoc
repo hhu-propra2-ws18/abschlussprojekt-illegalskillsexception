@@ -92,6 +92,22 @@ include::frontend/structure.adoc[]
 include::interface/structure.adoc[]
 
 
+== Workflows
+In this section, common user operations are being defined/explained using flowcharts.
+
+==== Logging in / getting authorized
+image::workflows/authorize-workflow.svg[]
+
+==== Rent an item/article
+image::workflows/rent-item-workflow.svg[]
+
+=== Buy an item/article
+image::workflows/buy-item-workflow.svg[]
+
+=== Upload/list an item for rent or sale
+image::workflows/create-item-workflow.svg[]
+
+
 == Problems / Issues
 === Deployment / Docker Issues
 We had problems with the /api mapping to the "frentlyapi" backend container
