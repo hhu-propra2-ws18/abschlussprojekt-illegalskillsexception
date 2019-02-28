@@ -1,6 +1,6 @@
 import { store } from "../../Store/reduxInit";
 
-import { getAllBorrowItemsBackend, borrowItemBackend } from "./borrowBackendService";
+import { getAllBorrowItemsBackend, borrowItemBackend, getArticleAvailabilityListBackend } from "./borrowBackendService";
 import { getSetBorrowListAction } from "../../Store/BorrowStore/BorrowActions";
 
 
@@ -15,4 +15,8 @@ export async function getAllBorrowItems(){
 
 export async function borrowItem(data){
     return await borrowItemBackend(data, store.getState().user.token);
+}
+
+export async function getArticleAvailabilityList(id){
+    return await getArticleAvailabilityListBackend(id,store.getState().user.token);
 }

@@ -1,14 +1,9 @@
 package hhu.propra2.illegalskillsexception.frently.backend.Controller.User.DTOs;
 
+import lombok.Data;
+
+@Data
 public class ForeignUserDetailRequest {
 
     private String username;
-
-    public String getUsername() {
-        return username;
-    }
-
-    public void setUsername(String username) {
-        this.username = username;
-    }
 }

@@ -5,7 +5,10 @@ import Button from "react-uwp/Button";
 import Dialog from "react-uwp/Dialog";
 import BorrowItemAcceptanceDialog from "../BorrowItemAcceptanceDialog/BorrowItemAcceptanceDialog";
 import BorrowItemErrorDialog from "../BorrowItemErrorDialog/BorrowItemErrorDialog";
-import { borrowItem } from "../../../../../../Services/Borrow/borrowCompleteService";
+import {
+    borrowItem,
+    getArticleAvailabilityList
+} from "../../../../../../Services/Borrow/borrowCompleteService";
 
 export default class BorrowItemDetailComponent extends React.Component {
     constructor(props) {
@@ -15,15 +18,23 @@ export default class BorrowItemDetailComponent extends React.Component {
             showError: false,
             errorMessage: "",
             startDate: new Date(),
-            endDate: new Date(),
+            endDate: new Date()
         };
+
+        getArticleAvailabilityList(this.props.data.id).then(item => {
+            console.log('item', item);
+            this.setState({
+                timeSpans: item.data.data.blockedTimespans
+                    ? item.data.data.blockedTimespans
+                    : []
+            });
+        });
 
         this.startRef = React.createRef();
         this.endRef = React.createRef();
     }
 
     render() {
-
         return (
             <article>
                 <h1>{this.props.data.title}</h1>
@@ -50,6 +61,14 @@ export default class BorrowItemDetailComponent extends React.Component {
                 <p>{this.props.data.dailyRate}</p>
                 <h5>Safety deposit:</h5>
                 <p>{this.props.data.deposit}</p>
+                {this.state.timeSpans && (this.state.timeSpans !== 0) ? (
+                    <div>
+                        <h5>Periods the item is not available</h5>
+                        {this.state.timeSpans.map(item => (
+                            <p>{item}</p>
+                        ))}
+                    </div>
+                ) : null}
                 <div className="dialog-buttons-div">
                     <Button onClick={() => this.showBorrowDialog()}>
                         Borrow
@@ -74,27 +93,31 @@ export default class BorrowItemDetailComponent extends React.Component {
                     style={{ zIndex: 400 }}
                     onCloseDialog={() => this.setState({ showDialog: false })}
                 >
-                    <BorrowItemErrorDialog errorMessage={this.state.errorMessage} closeDialog={this.closeErrorDialog}/>
+                    <BorrowItemErrorDialog
+                        errorMessage={this.state.errorMessage}
+                        closeDialog={this.closeErrorDialog}
+                    />
                 </Dialog>
             </article>
         );
     }
 
     setStartDate = () => {
-        this.setState({startDate: this.startRef.current.state.currDate})
+        this.setState({ startDate: this.startRef.current.state.currDate });
     };
 
     setEndDate = () => {
-        this.setState({endDate: this.endRef.current.state.currDate})
+        this.setState({ endDate: this.endRef.current.state.currDate });
     };
 
     closeErrorDialog = () => {
-        this.setState({showError: false, showDialog: false});
+        this.setState({ showError: false, showDialog: false });
     };
 
-    transformDate = (date) => {
-        const da = `${(date.getDate()) < 10 ? "0" : ""}${date.getDate()}`;
-        const mo = `${(date.getMonth() + 1) < 10 ? "0" : ""}${date.getMonth() + 1}`;
+    transformDate = date => {
+        const da = `${date.getDate() < 10 ? "0" : ""}${date.getDate()}`;
+        const mo = `${date.getMonth() + 1 < 10 ? "0" : ""}${date.getMonth() +
+            1}`;
         return `${date.getFullYear()}-${mo}-${da}`;
     };
 
@@ -105,7 +128,7 @@ export default class BorrowItemDetailComponent extends React.Component {
         let data = {
             articleId: this.props.data.id,
             startDate: startString,
-            endDate: endString,
+            endDate: endString
         };
 
         let result = await borrowItem(data);
@@ -114,10 +137,9 @@ export default class BorrowItemDetailComponent extends React.Component {
             this.props.close();
         } else {
             this.setState({
-                showError:true,
+                showError: true,
                 errorMessage: result.data.error.errorMessage
-                }
-            )
+            });
         }
     };
 
