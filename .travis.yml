@@ -1,7 +1,11 @@
-language: java
-
-before_install:
-  - cd backend
+matrix:
+  include:
+    - language: java
+      before_install:
+        - cd backend
+    - language: node_js
+      before_install:
+        - cd frontend
 
 branches:
   only:
