@@ -4,7 +4,6 @@ matrix:
       before_install:
         - cd backend
     - language: node_js
-    node
       before_install:
         - cd frontend
       node_js: "8.11.0"
