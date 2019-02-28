@@ -25,7 +25,7 @@ export default class TransactionsItem extends React.Component {
                 <h5>Status</h5>
                 <p> {this.props.data.status}</p>
                 <h5>Return Date</h5>
-                <p>
+                <span>
                     {(this.props.data.status === "OPEN" &&
                         !this.props.data.isLender) ||
                     (this.props.data.status === "RETURNED" &&
@@ -34,7 +34,7 @@ export default class TransactionsItem extends React.Component {
                         : null}
 
                     {this.props.data.returnDate}
-                </p>
+                </span>
                 {this.state.showError ? (
                     <Dialog
                         defaultShow={this.state.showError}
