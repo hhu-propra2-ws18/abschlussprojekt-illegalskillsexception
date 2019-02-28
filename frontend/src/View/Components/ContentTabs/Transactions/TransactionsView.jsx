@@ -14,8 +14,6 @@ const mapStateToProps = state => {
 export class TransactionsView extends React.Component {
     async componentDidMount() {
         await getAllTransaction();
-        console.log("Transaction onload list - borrow", this.props.itemsBorrow);
-        console.log("Transaction onload list - lend", this.props.itemsLend);
     }
 
     render() {

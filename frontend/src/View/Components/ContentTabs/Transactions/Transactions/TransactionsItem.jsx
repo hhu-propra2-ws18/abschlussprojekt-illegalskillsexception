@@ -78,7 +78,6 @@ export default class TransactionsItem extends React.Component {
     async returnItemBorrower() {
         let data = await transactionItemReturnedBorrower(this.props.data.id);
 
-        console.log(data);
         if (data.data.error) {
             this.setState({ showError: true, error: data.data.error });
         }

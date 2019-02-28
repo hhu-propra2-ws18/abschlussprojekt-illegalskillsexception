@@ -22,9 +22,7 @@ export async function createSellItem(item) {
 export async function updateSellItem(item) {
     let serverId = await udpateSellItemBackend(item, store.getState().user.token);
     item.id = serverId.data.data.id;
-    console.log(item);
     let action = getUpdateSellItemAction(item);
-    console.log('action', action)
     store.dispatch(action);
 }
 

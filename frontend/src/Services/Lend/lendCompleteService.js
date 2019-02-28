@@ -21,7 +21,6 @@ export async function getAllLendItems() {
     let data = await getAllLendItemsBackend(store.getState().user.token);
 
     let list = data.data.data;
-    console.log("Lend onload list", list);
 
     let action = getSetLendItemListAction(list);
     store.dispatch(action);
