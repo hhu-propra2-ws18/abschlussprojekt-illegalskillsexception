@@ -1,9 +1,9 @@
 package hhu.propra2.illegalskillsexception.frently.backend.Controller.User.Services;
 
-import hhu.propra2.illegalskillsexception.frently.backend.Controller.User.Exceptions.UserNotFoundException;
-import hhu.propra2.illegalskillsexception.frently.backend.Data.Models.ApplicationUser;
 import hhu.propra2.illegalskillsexception.frently.backend.Controller.User.DTOs.ForeignUserDetailResponse;
 import hhu.propra2.illegalskillsexception.frently.backend.Controller.User.DTOs.UserDetailResponse;
+import hhu.propra2.illegalskillsexception.frently.backend.Controller.User.Exceptions.UserNotFoundException;
+import hhu.propra2.illegalskillsexception.frently.backend.Data.Models.ApplicationUser;
 import hhu.propra2.illegalskillsexception.frently.backend.ProPay.Exceptions.ProPayConnectionException;
 import hhu.propra2.illegalskillsexception.frently.backend.ProPay.Services.ProPayService;
 import org.junit.Assert;
@@ -54,7 +54,7 @@ public class UserDetailServiceTest {
     public void getForeignUserDetailServiceTest_NotFound() throws UserNotFoundException {
         UserDetailService service = new UserDetailService(mockApplicationUserService, mockUserTransactionService, null);
 
-        ForeignUserDetailResponse response = service.getForeignUserDetails("no dude");
+        service.getForeignUserDetails("no dude");
     }
 
 
