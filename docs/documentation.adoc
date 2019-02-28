@@ -13,6 +13,20 @@ login using a username and password. Without valid credentials a user cannot
 use the webapp. Currently it is assumed, that the ProPay account uses the same
 e-mail as the Frently user account.
 
+=== Spring Security
+Our API routes are secured with spring security using a JSON Web Token (JWT).
+When the client logs into the application he receives a bearer token, now he has
+to add the token to the authorisation header of all requests. This part is
+handled by the javascript application which stores the token inside our redux
+store and automatically sets it bevor calling the API. +
+In the backend two filters handle the authorisation and authentication process.
+The authorisation filter filters all requests and validates the existance and
+validity of the token inside the request header and thus alows the request to
+reach the destined controller. If the token is not valid the backend returns 403
+ HTTP error. A token is valid for ten days. + 
+The authentication filter is used to issue the token to a user that wants to
+login to the application, by validating username and password.
+
 === Borrowing Items
 Users can borrow items by simply specifying a start- and enddate. Sending an
 inquiry adds a reservation for the requested time. Then the person lending the
@@ -41,9 +55,9 @@ returned item, the owner can simply click "Problem with item".
 After that the transaction will be sent to the conflict center, and the Frently
 support staff will try to find a solution with the owner and the person who
 rented the item.
-When a solution was found, the support staff will enter the amount of money
-that should be paid by the affected parties, and the webapp will handle the
-rest of the billing.
+When a solution is reached, the support staff will either release the depsoit or
+punish the borrower by transfering the depsit to the lender. This can only be
+inside the webapp by the admin.
 
 == Structure
 Our project uses Spring Boot Java for the backend, a MySQL database and React
@@ -98,10 +112,5 @@ that there is a problem. In this case every time the ProPay API does not
 respond after multiple retries the methods in our ProPayService
 should throw a "ProPayConnectionException", but with the spring-boot retry
 package a "RetriesExhaustedException" is thrown that wraps our
-exception. Our solution was to use "Recover" methods in which we return null.
-In the "Retryable" methods we then check for that null
-and then throw our "ProPayConnectionException". For one case that was not
-possible because the return type is void. We chose that solution
-because it allows us to resolve the timeouts and retries almost only in the
-ProPayService instead of the Controllers and other
-Services.
+exception. Our solution is, that we intercept the thown "RetriesExhaustedException"
+in all called ProPayService methods and throw a "ProPayConnectionException" instead.

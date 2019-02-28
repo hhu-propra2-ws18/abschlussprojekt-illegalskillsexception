@@ -12,6 +12,7 @@ export const BORROW = "borrow/";
 
 export const BORROW_GETALL = `${BASEURL}${BORROW}article/`;
 export const BORROW_INQUIRY = `${BASEURL}${BORROW}inquiry/create`;
+export const BORROW_GET_AVAILABILITYLIST = `${BASEURL}${BORROW}article/`;
 
 export const INQUIRY_GETALL_BORROW = `${BASEURL}${BORROW}inquiry/`;
 

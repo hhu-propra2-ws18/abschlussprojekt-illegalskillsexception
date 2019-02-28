@@ -38,7 +38,6 @@ export default class UserView extends React.Component {
     }
 
     render() {
-        console.log(this.state.profile.completedTransactions);
         return (
             <article>
                 <h3>Username</h3>

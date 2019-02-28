@@ -1,6 +1,5 @@
 import {
     getAllTransactionsBackend,
-    postTransactionProblem,
     postTransactionFinishedBackend,
     postTransactionProblemBackend,
     transactionItemReturnedBorrowerBackend
@@ -8,7 +7,6 @@ import {
 import { store } from "../../Store/reduxInit";
 import {
     getSetTransactionItemListAction,
-    getRemoveTransactionItemAction
 } from "../../Store/TransactionStore/TransactionActions";
 
 export async function getAllTransaction() {

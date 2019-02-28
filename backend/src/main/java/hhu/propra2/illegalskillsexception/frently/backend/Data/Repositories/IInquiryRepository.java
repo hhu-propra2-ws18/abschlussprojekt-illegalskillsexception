@@ -18,4 +18,7 @@ public interface IInquiryRepository extends CrudRepository<Inquiry, Long> {
     List<Inquiry> findAllByLender_IdAndStatus(Long lenderId, Inquiry.Status status);
 
     List<Inquiry> findAllByBorrowArticle_IdAndStartDateLessThanEqualAndEndDateGreaterThanEqual(long articleId, LocalDate startDate, LocalDate endDate);
+
+    List<Inquiry> findAllByBorrowArticle_Id(long id);
+
 }

@@ -1,7 +1,13 @@
-language: java
-
-before_install:
-  - cd backend
+matrix:
+  include:
+    - language: java
+      before_install:
+        - cd backend
+    - language: node_js
+      before_install:
+        - cd frontend
+      node_js: "8.11.0"
+      cache: npm
 
 branches:
   only:
