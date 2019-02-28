@@ -9,6 +9,8 @@ public interface IUserDetailService {
 
     UserDetailResponse getUserDetails(Authentication auth) throws FrentlyException;
 
+    UserDetailResponse getUserDetailsWithoutPropay(Authentication auth);
+
     ForeignUserDetailResponse getForeignUserDetails(String username) throws FrentlyException;
 
 }

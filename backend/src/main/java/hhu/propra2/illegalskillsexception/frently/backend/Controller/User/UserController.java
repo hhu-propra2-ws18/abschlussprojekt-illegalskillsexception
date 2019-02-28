@@ -58,10 +58,14 @@ public class UserController {
     @GetMapping("/")
     public FrentlyResponse getUserDetails(Authentication auth) {
         FrentlyResponse response = new FrentlyResponse();
+
+        UserDetailResponse userDetailResponse;
         try {
-            UserDetailResponse userDetailResponse = userDetailService.getUserDetails(auth);
+            userDetailResponse = userDetailService.getUserDetails(auth);
             response.setData(userDetailResponse);
         } catch (FrentlyException exc) {
+            userDetailResponse = userDetailService.getUserDetailsWithoutPropay(auth);
+            response.setData(userDetailResponse);
             response.setError(new FrentlyError(new ProPayConnectionException()));
         } catch (Exception e) {
             response.setError(new FrentlyError(e));

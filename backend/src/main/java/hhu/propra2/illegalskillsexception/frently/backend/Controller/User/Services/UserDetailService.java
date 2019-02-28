@@ -50,6 +50,20 @@ public class UserDetailService implements IUserDetailService {
     }
 
 
+    @Override
+    public UserDetailResponse getUserDetailsWithoutPropay(Authentication auth){
+        UserDetailResponse userDetailResponse = new UserDetailResponse();
+
+        ApplicationUser currentUser = applicationUserService.getCurrentUser(auth);
+        userDetailResponse.setEmail(currentUser.getEmail());
+        userDetailResponse.setUsername(currentUser.getUsername());
+
+        List<MoneyTransferDTO> finishedTransaction = userTransactionService.getAllFinishedTransactions(currentUser);
+        userDetailResponse.setCompletedTransactions(finishedTransaction);
+        userDetailResponse.setAccountBalance(-1);
+        return userDetailResponse;
+    }
+
     public ForeignUserDetailResponse getForeignUserDetails(String username) throws UserNotFoundException {
 
         ForeignUserDetailResponse foreignUserDetailResponse = new ForeignUserDetailResponse();
