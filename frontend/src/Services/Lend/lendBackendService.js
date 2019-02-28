@@ -16,7 +16,6 @@ export async function createLendBackend(data, token, url = LEND_CREATE) {
             Authorization: token
         }
     });
-    console.log(returnData);
     return returnData;
 }
 
@@ -26,6 +25,5 @@ export async function updateLendBackend(data, token, url = LEND_UPDATE) {
             Authorization: token,
         }
     });
-    console.log(returnData);
     return returnData;
 }

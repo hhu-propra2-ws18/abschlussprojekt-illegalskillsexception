@@ -1,6 +1,7 @@
 package hhu.propra2.illegalskillsexception.frently.backend.Controller.Lend.Transaction.Service;
 
 import hhu.propra2.illegalskillsexception.frently.backend.Controller.Lend.Transaction.DTOs.AcceptReturnedItemRequestDTO;
+import hhu.propra2.illegalskillsexception.frently.backend.Controller.Lend.Transaction.Exceptions.ArticleNotReturnedException;
 import hhu.propra2.illegalskillsexception.frently.backend.Controller.Lend.Transaction.Exceptions.NoSuchTransactionException;
 import hhu.propra2.illegalskillsexception.frently.backend.Controller.Lend.Transaction.IService.ILendTransactionService;
 import hhu.propra2.illegalskillsexception.frently.backend.Controller.User.IServices.IApplicationUserService;
@@ -36,9 +37,13 @@ public class LendTransactionService implements ILendTransactionService {
     }
 
     @Override
-    public Transaction updateTransaction(AcceptReturnedItemRequestDTO dto) throws NoSuchTransactionException {
+    public Transaction updateTransaction(AcceptReturnedItemRequestDTO dto) throws ArticleNotReturnedException, NoSuchTransactionException {
         Transaction transaction = transactionRepository.findById(dto.getTransactionId())
                 .orElseThrow(NoSuchTransactionException::new);
+
+        if (transaction.getStatus() != Transaction.Status.RETURNED) {
+            throw new ArticleNotReturnedException();
+        }
 
         if (dto.isFaulty()) {
             transaction.setStatus(Transaction.Status.CONFLICT);

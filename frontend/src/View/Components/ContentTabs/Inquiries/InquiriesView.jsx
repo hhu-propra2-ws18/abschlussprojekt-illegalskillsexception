@@ -14,8 +14,6 @@ const mapStateToProps = state => {
 export class InquiriesView extends React.Component {
     async componentDidMount() {
         await getAllInquiries();
-        console.log("Inquiry onload list - borrow",this.props.itemsBorrow);
-        console.log("Inquiry onload list - lend",this.props.itemsLend);
     }
 
     render() {

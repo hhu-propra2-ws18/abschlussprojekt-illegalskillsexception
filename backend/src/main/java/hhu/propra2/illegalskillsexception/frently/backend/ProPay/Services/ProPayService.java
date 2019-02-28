@@ -43,7 +43,6 @@ public class ProPayService implements IProPayService {
         } catch (Exception e) {
             throw new ProPayConnectionException();
         }
-        moneyTransferService.createMoneyTransfer(userName, userName, amount);
         return newAccount;
     }
 
@@ -57,6 +56,7 @@ public class ProPayService implements IProPayService {
     public void payInMoney(String userName, double amount)
             throws ProPayConnectionException, ExhaustedRetryException, UserNotFoundException {
         createAccount(userName, amount);
+        moneyTransferService.createMoneyTransfer(userName, userName, amount);
     }
 
     @Override
@@ -132,12 +132,23 @@ public class ProPayService implements IProPayService {
         return reservation;
     }
 
+    @Retryable(value = {ProPayConnectionException.class}, maxAttempts = 2, backoff = @Backoff(delay = 1000))
+    private ProPayAccount postForProPayAccount(String url) throws ProPayConnectionException, ExhaustedRetryException {
+        ProPayAccount proPayAccount;
+        try {
+            proPayAccount = restTemplate.postForObject(url, null, ProPayAccount.class);
+        } catch (Exception e) {
+            throw new ProPayConnectionException();
+        }
+        return proPayAccount;
+    }
+
     @Override
     public void freeDeposit(String borrower, Transaction transaction) throws ProPayConnectionException {
         long reservationId = transaction.getReservationId();
         final String url = BASE_URL + "reservation/release/" + borrower + "?reservationId=" + reservationId;
         try {
-            postForReservation(url);
+            postForProPayAccount(url);
         } catch (ExhaustedRetryException e) {
             throw new ProPayConnectionException();
         }

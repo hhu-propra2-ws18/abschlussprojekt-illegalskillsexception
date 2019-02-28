@@ -42,10 +42,8 @@ public class UserController {
         user.setEmail(dtoUser.getEmail());
         userService.encryptPassword(user);
         try {
-            userService.createUser(user);
             proPayService.createAccount(user.getUsername(), 0);
-
-
+            userService.createUser(user);
             response.setData(Collections.singletonList(user));
         } catch (ExhaustedRetryException e) {
             response.setError(new FrentlyError(new ProPayConnectionException()));
@@ -64,7 +62,7 @@ public class UserController {
             UserDetailResponse userDetailResponse = userDetailService.getUserDetails(auth);
             response.setData(userDetailResponse);
         } catch (FrentlyException exc) {
-            response.setError(new FrentlyError(exc));
+            response.setError(new FrentlyError(new ProPayConnectionException()));
         } catch (Exception e) {
             response.setError(new FrentlyError(e));
         }

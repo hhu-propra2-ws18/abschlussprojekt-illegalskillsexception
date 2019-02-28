@@ -35,6 +35,10 @@ public class Inquiry {
     @Column(nullable = false)
     private LocalDateTime updated;
 
+    public String timeSpanToString() {
+        return startDate.toString() + " to " + endDate.toString();
+    }
+
     public enum Status {
         OPEN, DECLINED, ACCEPTED
     }

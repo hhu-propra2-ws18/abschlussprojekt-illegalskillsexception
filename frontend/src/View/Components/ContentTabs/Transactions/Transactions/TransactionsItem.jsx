@@ -25,14 +25,16 @@ export default class TransactionsItem extends React.Component {
                 <h5>Status</h5>
                 <p> {this.props.data.status}</p>
                 <h5>Return Date</h5>
-                <p>
-                    {this.props.data.status === "OPEN" ||
-                    this.props.data.status === "RETURNED"
+                <span>
+                    {(this.props.data.status === "OPEN" &&
+                        !this.props.data.isLender) ||
+                    (this.props.data.status === "RETURNED" &&
+                        this.props.isLender)
                         ? this.getButtons()
                         : null}
 
                     {this.props.data.returnDate}
-                </p>
+                </span>
                 {this.state.showError ? (
                     <Dialog
                         defaultShow={this.state.showError}
@@ -61,7 +63,7 @@ export default class TransactionsItem extends React.Component {
                 <Button
                     onClick={() => createTransactionProblem(this.props.data.id)}
                 >
-                    Item was returned in bad condition
+                    Item in bad condition or not returned
                 </Button>
             </div>
         ) : (
@@ -76,7 +78,6 @@ export default class TransactionsItem extends React.Component {
     async returnItemBorrower() {
         let data = await transactionItemReturnedBorrower(this.props.data.id);
 
-        console.log(data);
         if (data.data.error) {
             this.setState({ showError: true, error: data.data.error });
         }
