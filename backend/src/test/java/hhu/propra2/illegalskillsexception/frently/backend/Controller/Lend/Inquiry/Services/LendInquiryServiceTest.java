@@ -69,7 +69,7 @@ public class LendInquiryServiceTest {
     }
 
     @Test
-    public void NoInquiries() {
+    public void noInquiries() {
         LocalDate nowDate = LocalDate.of(2018, Month.FEBRUARY, 25);
         List<Inquiry> noInquiries = new ArrayList<>();
         List<Inquiry> result = inquiryService.removeExpiredInquires(noInquiries, nowDate);
@@ -96,7 +96,7 @@ public class LendInquiryServiceTest {
     }
 
     @Test
-    public void OneExpiredInquiresIsRemoved() {
+    public void oneExpiredInquiresIsRemoved() {
         LocalDate expiredDate = LocalDate.of(2018, Month.FEBRUARY, 24);
         LocalDate afterDate = LocalDate.of(2019, Month.FEBRUARY, 20);
         inquiry0.setStatus(Inquiry.Status.OPEN);
@@ -113,7 +113,7 @@ public class LendInquiryServiceTest {
     }
 
     @Test
-    public void MultipleExpiredInquiresWereRemoved() {
+    public void multipleExpiredInquiresWereRemoved() {
         LocalDate expiredDate0 = LocalDate.of(2017, Month.JULY, 14);
         LocalDate expiredDate1 = LocalDate.of(2015, Month.DECEMBER, 24);
         LocalDate afterDate = LocalDate.of(2019, Month.FEBRUARY, 20);

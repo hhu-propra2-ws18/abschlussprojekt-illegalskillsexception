@@ -218,17 +218,6 @@ public class UserControllerTest {
         ObjectMapper objectMapper = new ObjectMapper();
         String requestBody = objectMapper.writeValueAsString(foreignUserDetailRequest);
 
-        MoneyTransferDTO transferDTO = new MoneyTransferDTO();
-        transferDTO.setReceiver("Hannes");
-        transferDTO.setSender("Max");
-        transferDTO.setAmount(300.0);
-        ArrayList<MoneyTransferDTO> moneyTransferDTOList = new ArrayList<>();
-        moneyTransferDTOList.add(transferDTO);
-
-        ForeignUserDetailResponse foreignUserDetailResponse = new ForeignUserDetailResponse();
-        foreignUserDetailResponse.setUsername("Hannes");
-        foreignUserDetailResponse.setCompletedTransactions(moneyTransferDTOList);
-
         when(mockUserDetailService.getForeignUserDetails(any())).thenThrow(ProPayConnectionException.class);
 
         this.mockMvc.perform(post("/user/").contentType(APPLICATION_JSON_UTF8)
@@ -307,12 +296,6 @@ public class UserControllerTest {
 
     @Test
     public void notificationsNoOverdueTransactions() throws Exception {
-        ApplicationUser applicationUser = new ApplicationUser();
-        applicationUser.setUsername("Hans");
-        applicationUser.setEmail("HansSupercool@yahoo.com");
-        applicationUser.setPassword("123");
-        applicationUser.setId(1);
-
         when(mockTransactionService.allOverdueTransactions(eq(1))).thenReturn(null);
 
         this.mockMvc.perform(get("/user/notifications").contentType(APPLICATION_JSON_UTF8))
