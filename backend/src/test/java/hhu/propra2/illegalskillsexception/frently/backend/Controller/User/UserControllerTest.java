@@ -7,7 +7,6 @@ import hhu.propra2.illegalskillsexception.frently.backend.Controller.User.Except
 import hhu.propra2.illegalskillsexception.frently.backend.Controller.User.IServices.IApplicationUserService;
 import hhu.propra2.illegalskillsexception.frently.backend.Controller.User.IServices.IUserDetailService;
 import hhu.propra2.illegalskillsexception.frently.backend.Controller.User.IServices.IUserTransactionService;
-import hhu.propra2.illegalskillsexception.frently.backend.Controller.User.Services.SecurityUserService;
 import hhu.propra2.illegalskillsexception.frently.backend.Data.Models.ApplicationUser;
 import hhu.propra2.illegalskillsexception.frently.backend.Data.Models.Transaction;
 import hhu.propra2.illegalskillsexception.frently.backend.ProPay.Exceptions.ProPayConnectionException;
@@ -49,8 +48,6 @@ public class UserControllerTest {
     private IUserTransactionService mockTransactionService;
     @MockBean
     private IProPayService mockProPayService;
-    @MockBean
-    private SecurityUserService mockSecruityUserService;
 
     @Before
     public void setUp() {
@@ -315,10 +312,6 @@ public class UserControllerTest {
         applicationUser.setEmail("HansSupercool@yahoo.com");
         applicationUser.setPassword("123");
         applicationUser.setId(1);
-
-        Transaction transaction = Mockito.mock(Transaction.class);
-        ArrayList<Transaction> transactionArrayList = new ArrayList<>();
-        transactionArrayList.add(transaction);
 
         when(mockTransactionService.allOverdueTransactions(eq(1))).thenReturn(null);
 
