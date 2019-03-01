@@ -7,9 +7,9 @@ import org.springframework.security.core.Authentication;
 import java.util.List;
 
 public interface IBorrowArticleService {
-    List<BorrowArticle> retrieveAllButOwn(Authentication auth);
+    List<BorrowArticle> retrieveAllButOwn(Authentication auth) throws Exception;
 
-    List<BorrowArticle> retrieveAllOfOwner(long ownerId);
+    List<BorrowArticle> retrieveAllOfOwner(long ownerId) throws Exception;
 
     BorrowArticle getArticleById(long articleId) throws NoSuchArticleException;
 }
