@@ -51,24 +51,7 @@ public class ApplicationUserService implements IApplicationUserService {
         return userOpt.orElse(null);
     }
 
-    @Override
-    public List<ApplicationUser> getAllUsers() {
-        return userRepo.findAll();
-    }
-
-    @Override
-    public ApplicationUser updateUser(ApplicationUser updateUser) {
-        userRepo.save(updateUser);
-        return updateUser;
-    }
-
-    @Override
-    public void deleteUser(long userId) {
-        userRepo.deleteById(userId);
-    }
-
     // Security
-
     @Override
     public void encryptPassword(ApplicationUser user) {
         user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
@@ -80,6 +63,5 @@ public class ApplicationUserService implements IApplicationUserService {
         Optional<ApplicationUser> optUser = userRepo.findByUsername((String) (authentication.getPrincipal()));
         if (optUser.isPresent()) return optUser.get();
         throw new UsernameNotFoundException((String) authentication.getPrincipal());
-
     }
 }

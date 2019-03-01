@@ -19,8 +19,8 @@ import java.util.List;
 @RestController
 @RequestMapping("/borrow/inquiry")
 public class BorrowInquiryController {
-    private final IBorrowInquiryService inquiryService;
-    private final IApplicationUserService userService;
+    private IBorrowInquiryService inquiryService;
+    private IApplicationUserService userService;
 
     @GetMapping("/")
     public FrentlyResponse retrieveAllMyInquiries(Authentication auth) {

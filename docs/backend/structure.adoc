@@ -19,7 +19,7 @@ Controller packages contain subfolders/subpackages for their API-path and for
 
 * *DTOs*
 or Data Transfer Objects, are used to for post requests on the API. Since we 
-usually use post mappings in our API we need wrapper classes to work with the 
+often use post mappings in our API we need wrapper classes to work with the
 RequestBodies in the HTTP-Bodies. A DTOs folder is always present in a package
 containing a Controller dealing with post mappings.
 
@@ -69,14 +69,13 @@ admin can now choose to either free the deposit or punish the borrower,
 transferring the deposit to the lender.
 
 * *Lend*
-Similar to Borrower Lend contains an Article, Inquiry and Transaction
+Similar to Borrow, Lend contains an Article, Inquiry and Transaction
 subpackage. +
 Article gives the user the ability to upload a new article to be rented out 
 and the option to update an already existing article. +
 It also returns returns a list of all the currently enlisted articles a user 
 has. + 
-In inquiry as a list of all open inquiries for articles a user has for its own
-articles is send. One can also accept and decline inquiries and if an inquiry 
+In inquiry a list of all open inquiries for articles, a user has, is sent. One can also accept and decline inquiries and if an inquiry
 is accepted a new transfer object is created and saved. In both cases the 
 inquiry is being updated. +
 Transfer shows all Transactions for articles a lender has. Transfer also allows 

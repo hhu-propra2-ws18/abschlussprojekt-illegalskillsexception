@@ -11,7 +11,7 @@ fRently).
 When visiting the website users first have to either register themselves or
 login using a username and password. Without valid credentials a user cannot
 use the webapp. Currently it is assumed, that the ProPay account uses the same
-e-mail as the fRently user account.
+username as the fRently user account.
 
 === Borrowing Items
 Users can borrow items by simply specifying a start- and enddate. Sending an
@@ -44,6 +44,18 @@ rented the item.
 When a solution is reached, the support staff will either release the depsoit or
 punish the borrower by transfering the deposit to the lender. This can only be
 done inside the webapp by the admin.
+
+=== Buying Items
+Users can buy items by simply selecting an item in the Up-for-Sale Tab and
+clicking buy.
+
+=== Selling Items
+In addition to buying items, users can also put their own items up for
+selling. The required information is a name, a description, a price
+and a location where the item can be picked up.
+
+=== Toggle Dark/Light-Theme
+In the lower right corner there is a toggle button for switching the UI-Theme.
 
 == Structure
 Our project uses Spring Boot Java for the backend, a MySQL database and React
@@ -118,3 +130,4 @@ should throw a "ProPayConnectionException", but with the spring-boot retry
 package a "RetriesExhaustedException" is thrown that wraps our
 exception. Our solution is, that we intercept the thown "RetriesExhaustedException"
 in all called ProPayService methods and throw a "ProPayConnectionException" instead.
+With this we can use our own Exceptions which can be handled by the frontend.

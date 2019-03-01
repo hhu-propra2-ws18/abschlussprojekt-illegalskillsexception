@@ -12,12 +12,6 @@ public interface IApplicationUserService {
 
     ApplicationUser getUserById(Long userId);
 
-    List<ApplicationUser> getAllUsers();
-
-    ApplicationUser updateUser(ApplicationUser updateUser);
-
-    void deleteUser(long userId);
-
     void encryptPassword(ApplicationUser user);
 
     ApplicationUser getCurrentUser(Authentication authentication);

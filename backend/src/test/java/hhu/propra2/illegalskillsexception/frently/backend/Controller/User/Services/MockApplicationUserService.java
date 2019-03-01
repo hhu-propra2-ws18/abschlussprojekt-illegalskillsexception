@@ -33,21 +33,6 @@ public class MockApplicationUserService implements IApplicationUserService {
     }
 
     @Override
-    public List<ApplicationUser> getAllUsers() {
-        return null;
-    }
-
-    @Override
-    public ApplicationUser updateUser(ApplicationUser updateUser) {
-        return null;
-    }
-
-    @Override
-    public void deleteUser(long userId) {
-
-    }
-
-    @Override
     public void encryptPassword(ApplicationUser user) {
 
     }
