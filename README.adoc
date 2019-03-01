@@ -3,6 +3,8 @@ WS18/19
 :icons: font
 :icon-set: octicon
 
+image::frontend/src/View/App/logo.svg[]
+
 
 == Starting the project
 === As tester / non developer
