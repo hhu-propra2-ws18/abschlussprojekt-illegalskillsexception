@@ -14,8 +14,8 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("/borrow/article")
 public class BorrowArticleController {
 
-    private final IArticleAvailabilityService availabilityService;
-    private final IBorrowArticleService articleService;
+    private IArticleAvailabilityService availabilityService;
+    private IBorrowArticleService articleService;
 
     @GetMapping(value = "/")
     public FrentlyResponse retrieveAllOffersButOwn(Authentication auth) {

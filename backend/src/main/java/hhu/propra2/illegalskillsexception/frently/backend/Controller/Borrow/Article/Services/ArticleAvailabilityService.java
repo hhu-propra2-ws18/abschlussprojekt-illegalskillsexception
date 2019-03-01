@@ -17,7 +17,7 @@ public class ArticleAvailabilityService implements IArticleAvailabilityService {
     private final IInquiryRepository inquiryRepo;
 
     @Override
-    public ArticleAvailabilityDTO getArticleAvailabilityDTP(long articleId) {
+    public ArticleAvailabilityDTO getArticleAvailabilityDTP(long articleId) throws Exception {
 //        List<Inquiry> matchingInquiries = inquiryRepo.findAllByBorrowArticle_Id(articleId);
         List<Inquiry> matchingInquiries = inquiryRepo.findAllByBorrowArticle_Id(articleId);
         ArrayList<String> list = new ArrayList<>();

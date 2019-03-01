@@ -20,13 +20,13 @@ public class BorrowArticleService implements IBorrowArticleService {
     private final IApplicationUserService userService;
 
     @Override
-    public List<BorrowArticle> retrieveAllButOwn(Authentication auth) {
+    public List<BorrowArticle> retrieveAllButOwn(Authentication auth) throws Exception {
         long currentUserId = userService.getCurrentUser(auth).getId();
         return articles.findAllByOwner_IdNot(currentUserId);
     }
 
     @Override
-    public List<BorrowArticle> retrieveAllOfOwner(long ownerId) {
+    public List<BorrowArticle> retrieveAllOfOwner(long ownerId) throws Exception {
         return articles.findAllByOwner_Id(ownerId);
     }
 
