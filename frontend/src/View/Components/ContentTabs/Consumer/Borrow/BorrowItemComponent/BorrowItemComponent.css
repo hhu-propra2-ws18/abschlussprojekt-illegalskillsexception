@@ -1,0 +1,10 @@
+.borrow-article-container>div {
+    display: flex;
+    flex-direction: column;
+    margin-top: auto;
+    height:100%;
+}
+
+.borrow-article-container>div>.bottom-button {
+    margin-top: auto;
+}
