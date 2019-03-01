@@ -30,7 +30,7 @@ public class UserDetailServiceTest {
 
     @Test
     public void getUserDetailServiceTest_One() throws ProPayConnectionException {
-        UserDetailService service = new UserDetailService(mockApplicationUserService, mockUserTransactionService,mockPropay);
+        UserDetailService service = new UserDetailService(mockApplicationUserService, mockUserTransactionService, mockPropay);
 
         UserDetailResponse response = service.getUserDetails(null);
 

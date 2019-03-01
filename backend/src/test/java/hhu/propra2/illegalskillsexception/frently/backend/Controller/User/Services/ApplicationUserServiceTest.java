@@ -4,23 +4,22 @@ import hhu.propra2.illegalskillsexception.frently.backend.Data.Models.Applicatio
 import org.junit.Test;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertNotEquals;
 
 public class ApplicationUserServiceTest {
 
-    private ApplicationUserService userService = new ApplicationUserService(null,new BCryptPasswordEncoder( ),null);
+    private ApplicationUserService userService = new ApplicationUserService(null, new BCryptPasswordEncoder(), null);
 
     @Test
-    public void encryptPassword(){
+    public void encryptPassword() {
         ApplicationUser user = new ApplicationUser();
         user.setUsername("some user");
         user.setPassword("password");
 
         userService.encryptPassword(user);
 
-        assertNotEquals(new BCryptPasswordEncoder().encode("password"),user.getPassword());
+        assertNotEquals(new BCryptPasswordEncoder().encode("password"), user.getPassword());
     }
-
 
 
 }

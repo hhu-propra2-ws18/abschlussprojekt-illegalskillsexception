@@ -1,7 +1,6 @@
 package hhu.propra2.illegalskillsexception.frently.backend.Data.Repositories;
 
 import hhu.propra2.illegalskillsexception.frently.backend.Data.Models.Transaction;
-import org.springframework.data.jpa.domain.Specification;
 import org.springframework.data.repository.CrudRepository;
 
 import java.time.LocalDate;

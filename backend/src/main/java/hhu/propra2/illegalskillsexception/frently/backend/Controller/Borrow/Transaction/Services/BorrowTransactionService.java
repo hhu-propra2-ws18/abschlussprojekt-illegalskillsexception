@@ -63,7 +63,7 @@ public class BorrowTransactionService implements IBorrowTransactionService {
         //Is checked here instead of inside ProPayService because transferMoney is a void
         try {
             proPayService.transferMoney(borrower, lender, fee);
-        } catch (ExhaustedRetryException e){
+        } catch (ExhaustedRetryException e) {
             throw new ProPayConnectionException();
         }
     }
