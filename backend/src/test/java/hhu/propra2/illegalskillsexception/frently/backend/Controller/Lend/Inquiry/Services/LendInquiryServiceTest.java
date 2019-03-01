@@ -41,7 +41,7 @@ public class LendInquiryServiceTest {
     }
 
     @Test
-    public void oneOpenInquirie() {
+    public void oneOpenInquiry() {
         inquiry0.setStatus(Inquiry.Status.OPEN);
         inquiry1.setStatus(Inquiry.Status.DECLINED);
         inquiry2.setStatus(Inquiry.Status.ACCEPTED);

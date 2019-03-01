@@ -60,9 +60,7 @@ public class LendInquiryProcessingService implements ILendInquiryProcessingServi
             throws ProPayConnectionException, InsuffientFundsException {
         String borrowerName = borrower.getUsername();
         String lenderName = lender.getUsername();
-
-        Long reservationId = proPayService.blockDeposit(borrowerName, lenderName, deposit);
-        return reservationId;
+        return proPayService.blockDeposit(borrowerName, lenderName, deposit);
     }
 
     private void flagAsAccepted(Inquiry inquiry) {

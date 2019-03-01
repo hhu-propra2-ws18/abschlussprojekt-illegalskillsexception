@@ -2,12 +2,33 @@
 WS18/19
 :icons: font
 :icon-set: octicon
+:width50: 275
+
+image::frontend/src/View/App/logo.svg[,width=200,height=200]
 
 
 == Starting the project
 === As tester / non developer
 To start the project simply run `docker-compose up`. This should start the docker compose, which starts all necessary components.
 When the docker compose has finished setting up, the website should be available under the URL : `http://localhost:8080`.
+
+By default there are two users available:
+
+* *admin:* 
+** username: "admin"
+** password: "password"
+* *user:*
+** username="user"
+** password:"password"
+
+The admin account has access to the conflict center, all other users do not have access to the conflict center.
+
+==== Docker compose problem with windows
+Since windows uses different line endings, pulling the repository without the right git configuration may result in docker compose not working. To avoid this pull the repository by using the following command 
+
+`git pull https://github.com/hhu-propra2/abschlussprojekt-illegalskillsexception --config core.autocrlf=false`
+
+See https://stackoverflow.com/questions/53165471/building-docker-images-on-windows-entrypoint-script-no-such-file-or-directory[this stackoverflow post] for more information.
 
 === As developer
 TO start the project in dev mode the following things need to be done:
@@ -22,9 +43,7 @@ To start propay run the following command in any folder:
 `docker run -p 8888:8888 propra/propay:latest`
 
 ===== Starting the backend
-To start the backend, go into the backend folder and run the following command:
-
-
+To start the backend in developer mode, you need to start the project with `application-dev.properties` profile.
 
 ===== Starting the frontend
 To start the frontend, go into the frontend folder and run the following commans:

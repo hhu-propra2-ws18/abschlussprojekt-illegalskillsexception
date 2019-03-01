@@ -55,8 +55,6 @@ public class BuyControllerTest {
         article.setPrice(1000.0);
         article.setTitle("Test");
 
-        System.out.println(article);
-
         when(buyService.getAllBuyableArticlesButOwn(any()))
                 .thenReturn(Collections.singletonList(article));
 

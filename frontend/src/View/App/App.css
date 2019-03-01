@@ -123,12 +123,12 @@ article p {
 }
 
 .react-uwp-theme-light article {
-    background-color: rgba(255, 255, 255, 0.5);
+    background-color: rgba(255, 255, 255, 0.7);
     border: 2px solid rgba(0, 0, 0, 0.25)
 }
 
 .react-uwp-theme-dark article {
-    background-color: rgba(255, 255, 255, 0.2);
+    background-color: rgba(105, 105, 105, 0.8);
     border: 2px solid rgba(255, 255, 255, 0.2)
 }
 
@@ -257,4 +257,15 @@ button.bottom-button {
 .two-item-grid>p {
     width: fit-content;
     text-align: center;
+}
+
+
+.bottom-button-aligndiv{
+    display:flex;
+    flex-direction: column;
+    height:100%;
+}
+
+.bottom-button-aligndiv>.bottom-button{
+    margin-top: auto;
 }

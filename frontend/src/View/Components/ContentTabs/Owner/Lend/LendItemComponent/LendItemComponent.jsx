@@ -13,6 +13,7 @@ export default class LendItemComponent extends React.Component {
     render() {
         return (
             <article>
+                <div className="bottom-button-aligndiv">
                 <h3>{this.props.data.title}</h3>
                 <h5>Location:</h5>
                 <p>{this.props.data.location}</p>
@@ -21,6 +22,7 @@ export default class LendItemComponent extends React.Component {
                 <h5>Safety deposit:</h5>
                 <p>{this.props.data.deposit}</p>
                 <Button className="bottom-button"onClick={() => this.showEditDialog()}>Edit</Button>
+                </div>
                 <Dialog
                     defaultShow={this.state.showDialog}
                     style={{ zIndex: 400 }}

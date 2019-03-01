@@ -3,5 +3,5 @@ package hhu.propra2.illegalskillsexception.frently.backend.Controller.Borrow.Art
 import hhu.propra2.illegalskillsexception.frently.backend.Controller.Borrow.Article.DTOs.ArticleAvailabilityDTO;
 
 public interface IArticleAvailabilityService {
-    ArticleAvailabilityDTO getArticleAvailabilityDTP(long articleId);
+    ArticleAvailabilityDTO getArticleAvailabilityDTP(long articleId) throws Exception;
 }
