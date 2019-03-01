@@ -1,0 +1,10 @@
+.buy-article-container>div {
+    margin-top: auto;
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+}
+
+.buy-article-container>div>.bottom-button {
+    margin-top:auto;
+}

@@ -50,7 +50,7 @@ main {
     background: none;
     width: 80%;
     min-width: 300px;
-    height: calc(100% - 60px);
+    height: calc(100% - 66px);
 }
 
 .grid-article-view {

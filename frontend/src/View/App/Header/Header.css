@@ -1,17 +1,30 @@
 header {
     width: 100%;
     text-align: center;
-    background-color: #0078D7;
-    height: 60px;
+    background: linear-gradient(to bottom, #e2453c 0, #e2453c 16%, #e07e39 16%, #e07e39 32%, #e5d667 32%, #e5d667 48%, #51b95b 48%, #51b95b 66%, #1e72b7 66%, #1e72b7 86%, #6f5ba7 86%) no-repeat;
+    ;
+    height: 66px;
+    /* FF3.5+, Opera 9+, Saf1+, Chrome, IE10 */
+    position: relative;
 }
 
 header>h1 {
-    padding-top: 5px;
+    color: white;
+    text-shadow: 0 0 10px #000000;
     font-family: 'Oxygen', sans-serif;
     font-weight: 500;
+    font-size: 38px;
+    position: absolute;
+    top: 0;
+    right: 0;
+    left: 0;
+    margin: auto;
+    bottom: 0;
+    height: 40px;
+    line-height: 36px;
 }
 
-header>h1>span {
+header>h1 span {
     font-weight: 400;
     font-size: 26px;
     margin: 2px;
