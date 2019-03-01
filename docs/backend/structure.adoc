@@ -7,22 +7,99 @@ links the ProPay API to our application.
 The Controller package holds packages for each major task that needs to be
 handled by our API.
 
-* *Borrow*
-//TODO
+===== General Structure and Oversight of recurring Subfolders
+The Controllers are divided corresponding to their path in the API, meaning 
+there is one package corresponding to its appearance in the API. This leads 
+to a better oversight and easier divisions between the domains and their tasks.
+Controller packages contain subfolders/subpackages for their API-path and for
+ structuring purposes.
+
+
+* *Controllers* are used to map the API-Path.
+
+* *DTOs*
+or Data Transfer Objects, are used to for post requests on the API. Since we 
+usually use post mappings in our API we need wrapper classes to work with the 
+RequestBodies in the HTTP-Bodies. A DTOs folder is always present in a package
+containing a Controller dealing with post mappings.
+
+* *Exception* 
+Since we send custom responses to our frontend and do not want send general 
+exceptions and errors to the frontend, we chose to use custom exceptions for 
+more specific error handling and informing of the end user. These custom
+exceptions are saved in the packages of the Controllers using these exceptions.
+
+* *Services*
+We try to seperate the logic from the controller. For this purpose we use 
+Services which contain the Business-Logic for frently. These contain the methods
+and other services to implement the core features of our backend. They also
+contain the repositories to correspond with the database, so we can have 
+persistency.
+
+* *IServices*
+Since we try to follow the SOLID-Principles, we need to have interfaces for 
+Dependency-Inversion. There exists one Interface for each Service and all 
+Interfaces for a subpackage are collected in a IServices folder.
+
+---
+
+* *Borrow* has the subpackages Article, Inquiry and Transactions. 
+The Article package deals with the role of the user as an borrower and returns
+the available offers which one can borrow and if needed all available 
+articles of a specific user. The articles are filtered so that a user can not
+borrow their own article +
+The Inquiry package is there so a user can create an inquiry if they are 
+interested in borrowing it. It deals with creating inquiries and returning all 
+open inquires of a user they have created. +
+For already rented articles there is the Transaction package. The 
+package returns all the transactions a Borrower has, meaning the stuff they
+have rented and one can return an item and the transaction is being updated.
+In addition deposit is freed and the fee is transfered to the lender.
+
 * *Buy*
 //-Deals with buying of buyable items 
+
 * *Conflict*
-//TODO
+If an item is returned in a bad conidition or not returned at all, there is the 
+conflict center. If a user is an admin then they can get all transactions 
+marked with conflict. Afet having externally talked with both parties, the 
+admin can now choose to either free the deposit or punish the borrower, 
+transfering the deposit to the lender.
+
 * *Lend*
-//TODO
+Similiar to Borrower Lend contains an Article, Inquiry and Transaction 
+subpackage. +
+Article gives the user the ability to upload a new article to be rented out 
+and the option to update an already existing article. +
+It also returns returns a list of all the currently enlisted articles a user 
+has. + 
+In inquiry as a list of all open inquiries for articles a user has for its own
+articles is send. One can also accept and decline inquiries and if an inquiry 
+is accepted a new transfer object is created and saved. In both cases the 
+inquiry is being updated. +
+Transfer shows all Transactions for articles a lender has. Transfer also allows 
+a user to update and finish a transaction if an item has been returned or 
+mark a transaction as 'CONFLICT' if there are any problems with the returnment.
+
 * *Response*
-//TODO
+We use custom objects to transfer data with our frontend. This leads to more 
+unifed messaging and more expected behaviour. We always return a 
+FrentlyReponse. It contains either data or a FrentlyError. Just one of them 
+is being set depending if an exception is thrown. All the different error types
+ are also defined here.
+
 * *Sell*
 //-Deals with selling of items
 * *Security*
 //TODO
 * *User*
-//TODO
+The User package is the first one that is used if an user wants to use frently.
+With this package an user can sign-up for frently. This results in an 
+ApplicationUser being created and saved aswell as the creation of an ProPayUser,
+ given the availability of ProPay. +
+With the help of the User package an User can also view their own details and 
+charge up their ProPay Account. +
+Notficatioins for the user are also retrieved here.
 
 ==== Package 'Data'
 The Data package holds all Classes with no logic.
@@ -34,17 +111,19 @@ database objects to automatically set the timestamp and updated variables.
 * *Exceptions*
 holds the NoSuchArticleException and NoSuchInquiryException which both extend
 the FrentlyException. These are used in the Controller Package to tell the
-frontend that something in the backend went wrong.
+frontend that something in the backend went wrong. We chose to put them here 
+since, these exceptions deal with the Repository and are used by mulitple\
+ controller domains.
 
 * *Models*
 holds all Entities that saved in our database.
-- ApplicationUser
-- Article
-- Inquiry
-- LendingPeriod
-- Role
-- Transaction
-- TransactionResponseExport
+- ApplicationUser: Representing the User of Frently
+- Article: Articles a User can either borrow/lend or buy/sell
+- Inquiry: An Inquiry is created if a User wants to borrow an Article.
+- Role: Representing the rights an ApplicationUser has. Important for conflict
+center
+- Transaction: If an Inquiry is accepted a Transaction is created, standing for 
+the renting of the object.
 
 * *Repositories*
 Our backend uses CRUD-Repositories to access and update our data objects in the
@@ -56,7 +135,7 @@ ProPay API.
 
 * *Exceptions*
 holds the ProPayConnectionException which extends FrentlyException and is
-thrown by the ProPayService if the ProPay API is not found or the responds come
+thrown by the ProPayService if the ProPay API is not found or the responses come
 too slow.
 
 * *IServices*
@@ -78,7 +157,7 @@ holds all the services that are used to interface with the ProPay API. That is
 mainly the ProPayService which does all the API calls.
 - ProPayService uses RestTemplates to interface with the ProPay API. The Base-
 URL that is used stands in the application.properties and though depend on
-whether the develop  configuration is on or not. Whenever money is transferred
+whether the develop configuration is on or not. Whenever money is transferred
 the
 - MoneyTransferService is used to create and save MoneyTransfers in the
 database.

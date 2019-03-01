@@ -10,7 +10,7 @@ export default class UserView extends React.Component {
         super(props);
         this.state = {
             profile: {
-                accountBalance: "Number",
+                accountBalance: "Propay information currently not available",
                 username: "String",
                 completedTransactions: [
                     { sender: "null", receiver: "null", amount: 0 }
@@ -30,7 +30,18 @@ export default class UserView extends React.Component {
             }
         });
         let data = await getUserDetails();
-        this.setState({ profile: data.data });
+        if (!data.error) {
+            this.setState({ profile: data.data });
+        } else {
+            this.setState({
+                profile: {
+                    accountBalance:
+                        "Propay information currently not available",
+                    username: data.data.username,
+                    completedTransactions: data.data.completedTransactions
+                }
+            });
+        }
     }
 
     async componentDidMount() {

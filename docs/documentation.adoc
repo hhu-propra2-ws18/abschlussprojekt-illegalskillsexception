@@ -1,8 +1,8 @@
 = Frently Webapp Documentation
 
 == Project idea
-In this project we are creating a webapp which enables users to lend and borrow
-items of other users. The name of the webapp is Frently (fRENTly, frently or
+In this project we are creating a webapp which enables users to lend, borrow
+and sell items to and from other users. The name of the webapp is Frently (fRENTly, frently or
 fRently).
 
 == Features
@@ -56,8 +56,8 @@ After that the transaction will be sent to the conflict center, and the Frently
 support staff will try to find a solution with the owner and the person who
 rented the item.
 When a solution is reached, the support staff will either release the depsoit or
-punish the borrower by transfering the depsit to the lender. This can only be
-inside the webapp by the admin.
+punish the borrower by transfering the deposit to the lender. This can only be
+done inside the webapp by the admin.
 
 == Structure
 Our project uses Spring Boot Java for the backend, a MySQL database and React
