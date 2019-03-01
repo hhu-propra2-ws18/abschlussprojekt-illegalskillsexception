@@ -27,6 +27,7 @@ export default class TransactionsItem extends React.Component {
                 <h5>Return Date:</h5>
                 <p>{this.props.data.returnDate}</p>
                 <span>
+                    {this.props.data.returnDate}
                     {(this.props.data.status === "OPEN" &&
                         !this.props.data.isLender) ||
                     (this.props.data.status === "RETURNED" &&
