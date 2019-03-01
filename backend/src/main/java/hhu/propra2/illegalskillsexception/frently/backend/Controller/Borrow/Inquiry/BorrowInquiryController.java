@@ -6,7 +6,7 @@ import hhu.propra2.illegalskillsexception.frently.backend.Controller.Borrow.Inqu
 import hhu.propra2.illegalskillsexception.frently.backend.Controller.Response.FrentlyError;
 import hhu.propra2.illegalskillsexception.frently.backend.Controller.Response.FrentlyException;
 import hhu.propra2.illegalskillsexception.frently.backend.Controller.Response.FrentlyResponse;
-import hhu.propra2.illegalskillsexception.frently.backend.Controller.User.Services.ApplicationUserService;
+import hhu.propra2.illegalskillsexception.frently.backend.Controller.User.IServices.IApplicationUserService;
 import hhu.propra2.illegalskillsexception.frently.backend.Data.Models.ApplicationUser;
 import hhu.propra2.illegalskillsexception.frently.backend.Data.Models.Inquiry;
 import lombok.AllArgsConstructor;
@@ -20,7 +20,7 @@ import java.util.List;
 @RequestMapping("/borrow/inquiry")
 public class BorrowInquiryController {
     private final IBorrowInquiryService inquiryService;
-    private final ApplicationUserService userService;
+    private final IApplicationUserService userService;
 
     @GetMapping("/")
     public FrentlyResponse retrieveAllMyInquiries(Authentication auth) {

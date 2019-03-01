@@ -11,21 +11,7 @@ fRently).
 When visiting the website users first have to either register themselves or
 login using a username and password. Without valid credentials a user cannot
 use the webapp. Currently it is assumed, that the ProPay account uses the same
-e-mail as the Frently user account.
-
-=== Spring Security
-Our API routes are secured with spring security using a JSON Web Token (JWT).
-When the client logs into the application he receives a bearer token, now he has
-to add the token to the authorisation header of all requests. This part is
-handled by the javascript application which stores the token inside our redux
-store and automatically sets it bevor calling the API. +
-In the backend two filters handle the authorisation and authentication process.
-The authorisation filter filters all requests and validates the existance and
-validity of the token inside the request header and thus alows the request to
-reach the destined controller. If the token is not valid the backend returns 403
- HTTP error. A token is valid for ten days. + 
-The authentication filter is used to issue the token to a user that wants to
-login to the application, by validating username and password.
+e-mail as the fRently user account.
 
 === Borrowing Items
 Users can borrow items by simply specifying a start- and enddate. Sending an
