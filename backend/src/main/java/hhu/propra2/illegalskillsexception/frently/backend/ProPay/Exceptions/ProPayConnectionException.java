@@ -5,6 +5,6 @@ import hhu.propra2.illegalskillsexception.frently.backend.Controller.Response.Fr
 
 public class ProPayConnectionException extends FrentlyException {
     public ProPayConnectionException() {
-        super("An error occured when communicating with the ProPay service.", FrentlyErrorType.PROPAY_CONNECTION);
+        super("An error occurred when communicating with the ProPay service.", FrentlyErrorType.PROPAY_CONNECTION);
     }
 }
