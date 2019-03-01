@@ -4,7 +4,7 @@ WS18/19
 :icon-set: octicon
 :width50: 275
 
-image::frontend/src/View/App/logo.svg[,{width:width50}]
+image::frontend/src/View/App/logo.svg[,width=200,height=200]
 
 
 == Starting the project
@@ -24,7 +24,9 @@ By default there are two users available:
 The admin account has access to the conflict center, all other users do not have access to the conflict center.
 
 ==== Docker compose problem with windows
-Since windows uses different line endings, pulling the repository without the right git configuration may result in docker compose not working. To avoid this pull the repository by using the following command `git pull https://github.com/hhu-propra2/abschlussprojekt-illegalskillsexception --config core.autocrlf=false`
+Since windows uses different line endings, pulling the repository without the right git configuration may result in docker compose not working. To avoid this pull the repository by using the following command 
+
+`git pull https://github.com/hhu-propra2/abschlussprojekt-illegalskillsexception --config core.autocrlf=false`
 
 See https://stackoverflow.com/questions/53165471/building-docker-images-on-windows-entrypoint-script-no-such-file-or-directory[this stackoverflow post] for more information.
 
