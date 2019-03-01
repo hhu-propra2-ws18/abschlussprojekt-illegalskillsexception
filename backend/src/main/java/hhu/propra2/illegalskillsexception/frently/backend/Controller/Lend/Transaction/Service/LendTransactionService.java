@@ -31,7 +31,7 @@ public class LendTransactionService implements ILendTransactionService {
     }
 
     @Override
-    public List<Transaction> retrieveAllOfCurrentUser(Authentication auth) {
+    public List<Transaction> retrieveAllOfCurrentUser(Authentication auth) throws Exception {
         ApplicationUser currentUser = userService.getCurrentUser(auth);
         return transactionRepository.findAllByInquiry_Lender_Id(currentUser.getId());
     }

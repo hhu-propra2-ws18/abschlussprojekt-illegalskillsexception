@@ -12,15 +12,20 @@ export default class SellItemComponent extends Component {
     render() {
         return (
             <article>
-                <h4>{this.props.data.title}</h4>
-                <h5>Description:</h5>
-                <p>{this.props.data.description}</p>
-                <h5>Price:</h5>
-                <p>{this.props.data.price}</p>
-                <div>
-                    <Button className="bottom-button"onClick={() => this.setState({ showDialog: true })}>
-                        Edit
-                    </Button>
+                <div className="bottom-button-aligndiv">
+                    <h4>{this.props.data.title}</h4>
+                    <h5>Description:</h5>
+                    <p>{this.props.data.description}</p>
+                    <h5>Price:</h5>
+                    <p>{this.props.data.price}</p>
+                    <div>
+                        <Button
+                            className="bottom-button"
+                            onClick={() => this.setState({ showDialog: true })}
+                        >
+                            Edit
+                        </Button>
+                    </div>
                 </div>
                 {this.state.showDialog ? (
                     <Dialog

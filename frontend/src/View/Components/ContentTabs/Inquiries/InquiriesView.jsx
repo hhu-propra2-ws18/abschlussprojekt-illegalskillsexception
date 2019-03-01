@@ -21,7 +21,7 @@ export class InquiriesView extends React.Component {
             <div>
                 {this.props.itemsBorrow.length === 0 && this.props.itemsLend.length === 0 ? (
                     <article>
-                        <h4>No inquiries available</h4>
+                        <h4>Currently, there are no inquiries for you</h4>
                     </article>
                 ) : null}
             <div className="grid-article-view">

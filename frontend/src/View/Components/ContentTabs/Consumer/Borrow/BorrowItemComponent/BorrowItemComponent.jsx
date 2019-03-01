@@ -4,6 +4,8 @@ import Button from "react-uwp/Button";
 import Dialog from "react-uwp/Dialog";
 import BorrowItemDetailComponent from "../BorrowItemDetailComponent/BorrowItemDetailComponent";
 
+import "./BorrowItemComponent.css";
+
 export default class BorrowItemComponent extends React.Component {
     constructor(props) {
         super(props);
@@ -12,31 +14,38 @@ export default class BorrowItemComponent extends React.Component {
 
     render() {
         return (
-            <article>
+            <article className="borrow-article-container">
+                <div>
                 <h3>{this.props.data.title}</h3>
-                <div className="two-column-display">
-                    <h5>Daily rate:</h5>
-                    <p>{this.props.data.dailyRate}</p>
-                    <h5>Safety deposit:</h5>
-                    <p>{this.props.data.deposit}</p>
-                </div>
-                <h5>Location:</h5>
-                <p>{this.props.data.location}</p>
-                <Button className="bottom-button"onClick={() => this.onClickDetails()}>Details</Button>
-                {this.state.showDialog && (
-                    <Dialog
-                        defaultShow={this.state.showDialog}
-                        style={{ zIndex: 400 }}
-                        onCloseDialog={() =>
-                            this.setState({ showDialog: false })
-                        }
+                    <div className="two-column-display">
+                        <h5>Daily rate:</h5>
+                        <p>{this.props.data.dailyRate}</p>
+                        <h5>Safety deposit:</h5>
+                        <p>{this.props.data.deposit}</p>
+                    </div>
+                    <h5>Location:</h5>
+                    <p>{this.props.data.location}</p>
+                    <Button
+                        className="bottom-button"
+                        onClick={() => this.onClickDetails()}
                     >
-                        <BorrowItemDetailComponent
-                            close={() => this.closeDialog()}
-                            data={this.props.data}
-                        />
-                    </Dialog>
-                )}
+                        Details
+                    </Button>
+                    {this.state.showDialog && (
+                        <Dialog
+                            defaultShow={this.state.showDialog}
+                            style={{ zIndex: 400 }}
+                            onCloseDialog={() =>
+                                this.setState({ showDialog: false })
+                            }
+                        >
+                            <BorrowItemDetailComponent
+                                close={() => this.closeDialog()}
+                                data={this.props.data}
+                            />
+                        </Dialog>
+                    )}
+                </div>
             </article>
         );
     }

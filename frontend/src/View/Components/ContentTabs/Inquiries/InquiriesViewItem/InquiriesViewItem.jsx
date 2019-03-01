@@ -1,8 +1,6 @@
 import React from "react";
 
 import Button from "react-uwp/Button";
-import Dialog from "react-uwp/Dialog";
-import InquiryItemErrorDialog from "../InquiryItemComponent/InquiryItemErrorDialog";
 
 import {
     declineInquiry,
