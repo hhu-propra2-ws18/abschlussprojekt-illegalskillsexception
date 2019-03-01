@@ -6,7 +6,7 @@ import hhu.propra2.illegalskillsexception.frently.backend.Controller.Buy.IServic
 import hhu.propra2.illegalskillsexception.frently.backend.Controller.Response.FrentlyError;
 import hhu.propra2.illegalskillsexception.frently.backend.Controller.Response.FrentlyException;
 import hhu.propra2.illegalskillsexception.frently.backend.Controller.Response.FrentlyResponse;
-import hhu.propra2.illegalskillsexception.frently.backend.Controller.User.Services.ApplicationUserService;
+import hhu.propra2.illegalskillsexception.frently.backend.Controller.User.IServices.IApplicationUserService;
 import hhu.propra2.illegalskillsexception.frently.backend.Data.Models.ApplicationUser;
 import lombok.AllArgsConstructor;
 import org.springframework.security.core.Authentication;
@@ -16,8 +16,8 @@ import org.springframework.web.bind.annotation.*;
 @AllArgsConstructor
 @RequestMapping("/buy")
 public class BuyController {
-    private final ApplicationUserService userService;
-    private final IBuyService buyService;
+    private IApplicationUserService userService;
+    private IBuyService buyService;
 
     @GetMapping("/")
     public FrentlyResponse getAllButOwn(Authentication auth) {

@@ -45,7 +45,7 @@
 				v:shadowOffsetY="-8.50394"/>
 		<v:layer v:name="Flowchart" v:index="0"/>
 		<v:layer v:name="Connector" v:index="1"/>
-		<g id="shape1-1" v:mID="1" v:groupContext="shape" v:layerMember="0" transform="translate(223.478,-606.864)">
+		<g id="shape1-1" v:mID="1" v:groupContext="shape" v:layerMember="0" transform="translate(235.723,-606.864)">
 			<title>Start/End</title>
 			<desc>Start</desc>
 			<v:custProps>
@@ -76,7 +76,7 @@
 			<path d="M14.17 663.81 L56.69 663.81 A14.1732 14.1732 -180 0 0 56.69 635.46 L14.17 635.46 A14.1732 14.1732 -180 1 0 14.17
 						 663.81 Z" class="st1"/>
 			<text x="27.17" y="652.03" class="st2" v:langID="1031"><v:paragraph v:horizAlign="1"/><v:tabList/>Start</text>		</g>
-		<g id="shape3-4" v:mID="3" v:groupContext="shape" v:layerMember="0" transform="translate(223.478,-533.014)">
+		<g id="shape3-4" v:mID="3" v:groupContext="shape" v:layerMember="0" transform="translate(235.723,-530.763)">
 			<title>Data</title>
 			<desc>User wants to authorize himself</desc>
 			<v:custProps>
@@ -107,9 +107,9 @@
 			<path d="M-10.63 663.81 L60.24 663.81 L81.5 621.29 L10.63 621.29 L-10.63 663.81 Z" class="st3"/>
 			<text x="16.17" y="635.35" class="st2" v:langID="1031"><v:paragraph v:horizAlign="1"/><v:tabList/>User wants <tspan
 						x="14.12" dy="1.2em" class="st4">to authorize </tspan><tspan x="22.75" dy="1.2em" class="st4">himself</tspan></text>		</g>
-		<g id="shape4-9" v:mID="4" v:groupContext="shape" v:layerMember="1" transform="translate(251.825,-606.864)">
+		<g id="shape4-9" v:mID="4" v:groupContext="shape" v:layerMember="1" transform="translate(264.07,-606.864)">
 			<title>Dynamic connector</title>
-			<path d="M7.09 663.81 L7.09 689.1" class="st5"/>
+			<path d="M7.09 663.81 L7.09 691.35" class="st5"/>
 		</g>
 		<g id="shape5-15" v:mID="5" v:groupContext="shape" v:layerMember="0" transform="translate(166.785,-368.754)">
 			<title>Process</title>
@@ -141,9 +141,9 @@
 			<v:textRect cx="35.4331" cy="642.547" width="70.87" height="42.5197"/>
 			<rect x="0" y="621.287" width="70.8661" height="42.5197" class="st7"/>
 			<text x="14.72" y="644.95" class="st2" v:langID="1031"><v:paragraph v:horizAlign="1"/><v:tabList/>User logs in</text>		</g>
-		<g id="shape6-18" v:mID="6" v:groupContext="shape" v:layerMember="1" transform="translate(251.825,-533.014)">
+		<g id="shape6-18" v:mID="6" v:groupContext="shape" v:layerMember="1" transform="translate(264.07,-530.763)">
 			<title>Dynamic connector.5</title>
-			<path d="M7.09 663.81 L7.09 694.47" class="st5"/>
+			<path d="M7.09 663.81 L7.09 691.35" class="st5"/>
 		</g>
 		<g id="shape7-23" v:mID="7" v:groupContext="shape" v:layerMember="0" transform="translate(28.5965,-83.238)">
 			<title>Start/End.7</title>
@@ -364,15 +364,15 @@
 			<path d="M62.36 663.81 L62.36 621.29" class="st9"/>
 			<text x="11.6" y="635.35" class="st2" v:langID="1031"><v:paragraph v:horizAlign="1"/><v:tabList/>Server checks <tspan
 						x="12.23" dy="1.2em" class="st4">availability of </tspan><tspan x="16.37" dy="1.2em" class="st4">credentials</tspan></text>		</g>
-		<g id="shape17-79" v:mID="17" v:groupContext="shape" v:layerMember="1" transform="translate(223.478,-475.053)">
+		<g id="shape17-79" v:mID="17" v:groupContext="shape" v:layerMember="1" transform="translate(235.723,-475.922)">
 			<title>Dynamic connector.38</title>
 			<desc>Yes</desc>
 			<v:textBlock v:margins="rect(4,4,4,4)" v:tabSpace="42.5197"/>
-			<v:textRect cx="-21.2598" cy="685.067" width="40" height="17.6036"/>
-			<path d="M0 663.81 L-21.26 663.81 L-21.26 721.55" class="st5"/>
-			<rect v:rectContext="textBkgnd" x="-27.2597" y="680.267" width="11.9998" height="9.59985" class="st10"/>
-			<text x="-27.26" y="687.47" class="st11" v:langID="1031"><v:paragraph v:horizAlign="1"/><v:tabList/>Yes</text>		</g>
-		<g id="shape18-86" v:mID="18" v:groupContext="shape" v:layerMember="0" transform="translate(223.478,-453.793)">
+			<v:textRect cx="-33.5047" cy="679.379" width="40" height="17.6036"/>
+			<path d="M0 663.81 L-33.5 663.81 L-33.5 722.42" class="st5"/>
+			<rect v:rectContext="textBkgnd" x="-39.5045" y="674.579" width="11.9998" height="9.59985" class="st10"/>
+			<text x="-39.5" y="681.78" class="st11" v:langID="1031"><v:paragraph v:horizAlign="1"/><v:tabList/>Yes</text>		</g>
+		<g id="shape18-86" v:mID="18" v:groupContext="shape" v:layerMember="0" transform="translate(235.723,-454.662)">
 			<title>Decision.37</title>
 			<desc>User has account</desc>
 			<v:custProps>
@@ -403,14 +403,14 @@
 			<path d="M0 642.55 L35.43 621.29 L70.87 642.55 L35.43 663.81 L0 642.55 Z" class="st1"/>
 			<text x="20.41" y="640.15" class="st2" v:langID="1031"><v:paragraph v:horizAlign="1"/><v:tabList/>User has <tspan
 						x="21.48" dy="1.2em" class="st4">account</tspan></text>		</g>
-		<g id="shape19-90" v:mID="19" v:groupContext="shape" v:layerMember="1" transform="translate(294.345,-475.053)">
+		<g id="shape19-90" v:mID="19" v:groupContext="shape" v:layerMember="1" transform="translate(306.589,-475.922)">
 			<title>Dynamic connector.39</title>
 			<desc>No</desc>
 			<v:textBlock v:margins="rect(4,4,4,4)" v:tabSpace="42.5197"/>
-			<v:textRect cx="42.5197" cy="674.437" width="40" height="17.6036"/>
-			<path d="M0 663.81 L42.52 663.81 L42.52 721.55" class="st5"/>
-			<rect v:rectContext="textBkgnd" x="37.1837" y="669.637" width="10.6718" height="9.59985" class="st10"/>
-			<text x="37.18" y="676.84" class="st11" v:langID="1031"><v:paragraph v:horizAlign="1"/><v:tabList/>No</text>		</g>
+			<v:textRect cx="30.2749" cy="680.994" width="40" height="17.6036"/>
+			<path d="M0 663.81 L30.27 663.81 L30.27 722.42" class="st5"/>
+			<rect v:rectContext="textBkgnd" x="24.9389" y="676.194" width="10.6718" height="9.59985" class="st10"/>
+			<text x="24.94" y="683.39" class="st11" v:langID="1031"><v:paragraph v:horizAlign="1"/><v:tabList/>No</text>		</g>
 		<g id="shape20-97" v:mID="20" v:groupContext="shape" v:layerMember="0" transform="translate(280.944,-168.221)">
 			<title>Decision.40</title>
 			<desc>Credentials available (username is available, e-mail not alre...</desc>

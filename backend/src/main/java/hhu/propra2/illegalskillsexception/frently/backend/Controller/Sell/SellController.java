@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("/sell")
 public class SellController {
 
-    private final ISellService sellService;
+    private ISellService sellService;
 
     @GetMapping("/")
     public FrentlyResponse getAllItemsOfUser(Authentication auth) {

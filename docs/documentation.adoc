@@ -93,6 +93,8 @@ image::workflows/buy-item-workflow.svg[]
 === Upload/list an item for rent or sale
 image::workflows/create-item-workflow.svg[]
 
+=== Change an item that is currently listed
+image::workflows/change-item-workflow.svg[]
 
 == Problems / Issues
 === Deployment / Docker Issues

@@ -1,5 +1,6 @@
 package hhu.propra2.illegalskillsexception.frently.backend.Data.Models;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.Data;
 import org.hibernate.annotations.NotFound;
 import org.hibernate.annotations.NotFoundAction;
@@ -13,6 +14,7 @@ import java.time.LocalDateTime;
 @Data
 @Entity
 @EntityListeners(AuditingEntityListener.class)
+@JsonIgnoreProperties(value = {"id", "timestamp", "updated"})
 public class BuyArticle {
 
     @Id

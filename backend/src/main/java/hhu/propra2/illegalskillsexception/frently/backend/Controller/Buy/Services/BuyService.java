@@ -27,7 +27,7 @@ public class BuyService implements IBuyService {
 
 
     @Override
-    public List<BuyArticle> getAllBuyableArticlesButOwn(Authentication auth) {
+    public List<BuyArticle> getAllBuyableArticlesButOwn(Authentication auth) throws Exception {
         long currentUserId = userService.getCurrentUser(auth).getId();
         return buyArticleRepository.findAllByOwner_IdNot(currentUserId);
     }

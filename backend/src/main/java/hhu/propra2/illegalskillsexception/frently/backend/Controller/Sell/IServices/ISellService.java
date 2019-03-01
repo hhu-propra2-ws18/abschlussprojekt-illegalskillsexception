@@ -9,9 +9,9 @@ import java.util.List;
 
 public interface ISellService {
 
-    List<BuyArticle> getAllArticlesOfCurrentUser(Authentication auth);
+    List<BuyArticle> getAllArticlesOfCurrentUser(Authentication auth) throws Exception;
 
-    BuyArticle createArticle(BuyArticle buyArticle, Authentication auth);
+    BuyArticle createArticle(BuyArticle buyArticle, Authentication auth) throws Exception;
 
     BuyArticle updateArticle(BuyArticleUpdate update) throws NoSuchBuyArticleException;
 }
