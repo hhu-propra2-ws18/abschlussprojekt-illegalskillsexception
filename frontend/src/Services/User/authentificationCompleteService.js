@@ -48,6 +48,7 @@ export async function loginUser(nameInner, passwordInner) {
 
         let action = getLoginUserAction({ token: token });
         store.dispatch(action);
+        return {};
     } catch (exc) {
         return { error: true, errorMessage: "Wrong credentials" };
     }

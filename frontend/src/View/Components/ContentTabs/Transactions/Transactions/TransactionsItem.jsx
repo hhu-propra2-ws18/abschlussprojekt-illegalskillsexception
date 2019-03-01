@@ -5,7 +5,7 @@ import {
     transactionItemReturnedBorrower,
     createTransactionProblem
 } from "../../../../../Services/Transaction/transactionCompleteService";
-import Dialog from "react-uwp/Dialog";
+import ErrorDialog from "../../../../App/ErrorDialog/ErrorDialog";
 
 export default class TransactionsItem extends React.Component {
     constructor(props) {
@@ -20,11 +20,12 @@ export default class TransactionsItem extends React.Component {
         return (
             <article>
                 <h2>{this.props.data.inquiry.borrowArticle.title}</h2>
-                <h5>Descriptiom</h5>
+                <h5>Description:</h5>
                 <p>{this.props.data.inquiry.borrowArticle.description}</p>
-                <h5>Status</h5>
+                <h5>Status:</h5>
                 <p> {this.props.data.status}</p>
-                <h5>Return Date</h5>
+                <h5>Return Date:</h5>
+                <p>{this.props.data.returnDate}</p>
                 <span>
                     {(this.props.data.status === "OPEN" &&
                         !this.props.data.isLender) ||
@@ -32,27 +33,21 @@ export default class TransactionsItem extends React.Component {
                         this.props.isLender)
                         ? this.getButtons()
                         : null}
-
-                    {this.props.data.returnDate}
                 </span>
-                {this.state.showError ? (
-                    <Dialog
-                        defaultShow={this.state.showError}
-                        onCloseDialog={() =>
-                            this.setState({ showError: false })
-                        }
-                    >
-                        <h4>Sorry, an error occured</h4>
-                        <p>{this.state.error.errorMessage}</p>
-                    </Dialog>
-                ) : null}
+                <ErrorDialog
+                    showDialog={this.state.showError}
+                    closeDialog={() => this.setState({ showError: false })}
+                    description={
+                        this.state.error ? this.state.error.errorMessage : null
+                    }
+                />
             </article>
         );
     }
 
     getButtons() {
         return this.props.isLender ? (
-            <div>
+            <div className="two-buttons-stack">
                 <Button
                     onClick={() =>
                         transactionItemReturnedLender(this.props.data.id)
@@ -63,7 +58,7 @@ export default class TransactionsItem extends React.Component {
                 <Button
                     onClick={() => createTransactionProblem(this.props.data.id)}
                 >
-                    Item in bad condition or not returned
+                    Item returned in bad condition or not returned
                 </Button>
             </div>
         ) : (

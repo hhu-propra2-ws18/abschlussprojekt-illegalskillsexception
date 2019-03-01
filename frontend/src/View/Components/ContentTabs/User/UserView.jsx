@@ -11,10 +11,9 @@ export default class UserView extends React.Component {
         this.state = {
             profile: {
                 accountBalance: "Propay information currently not available",
-                username: "String",
-                completedTransactions: [
-                    { sender: "null", receiver: "null", amount: 0 }
-                ]
+                username: "",
+                email: "",
+                completedTransactions: []
             }
         };
     }
@@ -22,11 +21,10 @@ export default class UserView extends React.Component {
     async loadProfile() {
         this.setState({
             profile: {
-                accountBalance: "Number",
-                username: "String",
-                completedTransactions: [
-                    { sender: "null", receiver: "null", amount: 0 }
-                ]
+                accountBalance: "Loading ...",
+                username: "Loading ...",
+                email: "Loading ...",
+                completedTransactions: []
             }
         });
         let data = await getUserDetails();
@@ -38,6 +36,7 @@ export default class UserView extends React.Component {
                     accountBalance:
                         "Propay information currently not available",
                     username: data.data.username,
+                    email: data.data.email,
                     completedTransactions: data.data.completedTransactions
                 }
             });
@@ -50,41 +49,79 @@ export default class UserView extends React.Component {
 
     render() {
         return (
-            <article>
-                <h3>Username</h3>
-                <p>{this.state.profile.username}</p>
-                <h3>Balance</h3>
-                <p>{this.state.profile.accountBalance}</p>
-                <h3>Add credit</h3>
-                <Button
-                    onClick={async () => {
-                        addMoneyBalanceToUserAccount();
-                        await this.loadProfile();
-                    }}
-                >
-                    Add 250€
-                </Button>
-                <div>
-                    {this.state.profile.completedTransactions.map(element => (
-                        <div
-                            key={this.state.profile.completedTransactions.indexOf(
-                                element
-                            )}
-                        >
-                            <h5>
-                                Transaction #
-                                {this.state.profile.completedTransactions.indexOf(
-                                    element
-                                )}
-                            </h5>
-                            <p>Sender: {element.sender}</p>
-                            <p>Receiver: {element.receiver}</p>
-
-                            <p>Amount: {element.amount}</p>
-                        </div>
-                    ))}
-                </div>
-            </article>
+            <div>
+                <article>
+                    <h2>Profile</h2>
+                    <div className="two-item-grid">
+                        <p>
+                            <span className="underline">Username:</span>{" "}
+                            {this.state.profile.username}
+                        </p>
+                        <p>
+                            <span className="underline">E-mail:</span>{" "}
+                            {this.state.profile.email}
+                        </p>
+                    </div>
+                </article>
+                <article>
+                    <h2>Propay</h2>
+                    <div className="two-item-grid">
+                        <p style={{ marginTop: 11 }}>
+                                <span className="underline">
+                                    Account balance:
+                                </span>{" "}
+                                <span>{this.state.profile.accountBalance}</span>
+                        </p>
+                        <p>
+                            <span className="">Add credit:</span>
+                            <Button
+                                onClick={async () => {
+                                    addMoneyBalanceToUserAccount();
+                                    await this.loadProfile();
+                                }}
+                            >
+                                Add 250€
+                            </Button>
+                        </p>
+                    </div>
+                    {this.state.profile.completedTransactions.length !== 0 ? (
+                        <h3 style={{}} className="underline">
+                            Money transactions:
+                        </h3>
+                    ) : null}
+                    <div className="grid-article-view">
+                        {this.state.profile.completedTransactions.map(
+                            element => (
+                                <article
+                                    key={this.state.profile.completedTransactions.indexOf(
+                                        element
+                                    )}
+                                >
+                                    <h5>
+                                        Transaction #
+                                        {this.state.profile.completedTransactions.indexOf(
+                                            element
+                                        )}
+                                    </h5>
+                                    <p>
+                                        <span className="underline">
+                                            Sender:
+                                        </span>{" "}
+                                        {element.sender}
+                                    </p>
+                                    <p>
+                                        <span className="underline">
+                                            Receiver:
+                                        </span>{" "}
+                                        {element.receiver}
+                                    </p>
+                                    <p>Amount: {element.amount}</p>
+                                </article>
+                            )
+                        )}
+                    </div>
+                </article>
+            </div>
         );
     }
 }

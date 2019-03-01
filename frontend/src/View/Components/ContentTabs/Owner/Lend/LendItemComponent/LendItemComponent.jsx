@@ -20,7 +20,7 @@ export default class LendItemComponent extends React.Component {
                 <p>{this.props.data.dailyRate}</p>
                 <h5>Safety deposit:</h5>
                 <p>{this.props.data.deposit}</p>
-                <Button onClick={() => this.showEditDialog()}>Edit</Button>
+                <Button className="bottom-button"onClick={() => this.showEditDialog()}>Edit</Button>
                 <Dialog
                     defaultShow={this.state.showDialog}
                     style={{ zIndex: 400 }}

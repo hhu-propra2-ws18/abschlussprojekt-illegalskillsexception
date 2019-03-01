@@ -2,9 +2,8 @@ import React from "react";
 
 import TextBox from "react-uwp/TextBox";
 import Button from "react-uwp/Button";
-import Dialog from "react-uwp/Dialog";
 import { updateLendItem } from "../../../../../../Services/Lend/lendCompleteService";
-import LendItemEditErrorDialog from "../LendItemComponent/LendItemEditErrorDialog";
+import ErrorDialog from "../../../../../App/ErrorDialog/ErrorDialog";
 
 export default class LendItemComponentEditDialog extends React.Component {
     constructor(props) {
@@ -13,7 +12,7 @@ export default class LendItemComponentEditDialog extends React.Component {
         this.state = {
             showDialog: false,
             showError: false,
-            errorMessage: "",
+            errorMessage: ""
         };
         this.titleRef = React.createRef();
         this.descRef = React.createRef();
@@ -57,14 +56,11 @@ export default class LendItemComponentEditDialog extends React.Component {
                     <Button onClick={() => this.saveChanges()}>Confirm</Button>
                     <Button onClick={() => this.props.close()}>Cancel</Button>
                 </div>
-                <Dialog
-                    defaultShow={this.state.showError}
-                    style={{ zIndex: 400 }}
-                    onCloseDialog={() => this.setState({ showDialog: false })}
-                >
-                    <LendItemEditErrorDialog errorMessage={this.state.errorMessage} closeDialog={this.closeErrorDialog}/>
-                </Dialog>
-
+                <ErrorDialog
+                    showDialog={this.state.showError}
+                    closeDialog={() => this.setState({ showDialog: false })}
+                    description={this.state.errorMessage}
+                />
             </article>
         );
     }
@@ -81,17 +77,16 @@ export default class LendItemComponentEditDialog extends React.Component {
 
         let result = await updateLendItem(data);
         if (result.data.error) {
-            this.setState( {
-                showError:true,
+            this.setState({
+                showError: true,
                 errorMessage: result.data.error.errorMessage
-            })
+            });
         }
 
         this.props.close();
     }
 
     closeErrorDialog = () => {
-        this.setState({showError: false, showDialog: false});
+        this.setState({ showError: false, showDialog: false });
     };
-
 }
