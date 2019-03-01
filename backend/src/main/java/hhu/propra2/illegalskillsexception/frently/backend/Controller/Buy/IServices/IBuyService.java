@@ -1,7 +1,7 @@
 package hhu.propra2.illegalskillsexception.frently.backend.Controller.Buy.IServices;
 
 import hhu.propra2.illegalskillsexception.frently.backend.Controller.Buy.Exceptions.NoSuchBuyArticleException;
-import hhu.propra2.illegalskillsexception.frently.backend.Controller.Lend.Transaction.Exceptions.InsuffientFundsException;
+import hhu.propra2.illegalskillsexception.frently.backend.Controller.Lend.Transaction.Exceptions.InsufficientFundsException;
 import hhu.propra2.illegalskillsexception.frently.backend.Controller.User.Exceptions.UserNotFoundException;
 import hhu.propra2.illegalskillsexception.frently.backend.Data.Models.ApplicationUser;
 import hhu.propra2.illegalskillsexception.frently.backend.Data.Models.BuyArticle;
@@ -14,6 +14,6 @@ public interface IBuyService {
 
     List<BuyArticle> getAllBuyableArticlesButOwn(Authentication auth) throws Exception;
 
-    void buyItem(Long sellArticleID, ApplicationUser buyer) throws NoSuchBuyArticleException, ProPayConnectionException, InsuffientFundsException, UserNotFoundException;
+    void buyItem(Long sellArticleID, ApplicationUser buyer) throws NoSuchBuyArticleException, ProPayConnectionException, InsufficientFundsException, UserNotFoundException;
 
 }

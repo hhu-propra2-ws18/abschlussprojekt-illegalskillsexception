@@ -14,7 +14,7 @@ import java.time.LocalDateTime;
 @Data
 @Entity
 @EntityListeners(AuditingEntityListener.class)
-@JsonIgnoreProperties(value = {"id", "timestamp", "updated"})
+@JsonIgnoreProperties(value = {"timestamp", "updated"})
 public class BuyArticle {
 
     @Id

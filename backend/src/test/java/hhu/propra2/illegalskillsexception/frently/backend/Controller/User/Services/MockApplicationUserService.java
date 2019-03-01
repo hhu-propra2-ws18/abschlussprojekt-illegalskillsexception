@@ -4,8 +4,6 @@ import hhu.propra2.illegalskillsexception.frently.backend.Controller.User.IServi
 import hhu.propra2.illegalskillsexception.frently.backend.Data.Models.ApplicationUser;
 import org.springframework.security.core.Authentication;
 
-import java.util.List;
-
 public class MockApplicationUserService implements IApplicationUserService {
 
     private final ApplicationUser userIntern;

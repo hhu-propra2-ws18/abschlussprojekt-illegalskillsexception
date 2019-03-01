@@ -51,7 +51,7 @@ public class UserDetailService implements IUserDetailService {
 
 
     @Override
-    public UserDetailResponse getUserDetailsWithoutPropay(Authentication auth){
+    public UserDetailResponse getUserDetailsWithoutPropay(Authentication auth) {
         UserDetailResponse userDetailResponse = new UserDetailResponse();
 
         ApplicationUser currentUser = applicationUserService.getCurrentUser(auth);

@@ -3,8 +3,6 @@ package hhu.propra2.illegalskillsexception.frently.backend.Controller.User.IServ
 import hhu.propra2.illegalskillsexception.frently.backend.Data.Models.ApplicationUser;
 import org.springframework.security.core.Authentication;
 
-import java.util.List;
-
 public interface IApplicationUserService {
     ApplicationUser getApplicationUserByUsername(String userName);
 

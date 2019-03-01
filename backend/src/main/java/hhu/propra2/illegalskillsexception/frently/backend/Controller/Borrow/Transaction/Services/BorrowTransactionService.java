@@ -2,7 +2,7 @@ package hhu.propra2.illegalskillsexception.frently.backend.Controller.Borrow.Tra
 
 import hhu.propra2.illegalskillsexception.frently.backend.Controller.Borrow.Transaction.DTOs.ReturnItemRequestDTO;
 import hhu.propra2.illegalskillsexception.frently.backend.Controller.Borrow.Transaction.IServices.IBorrowTransactionService;
-import hhu.propra2.illegalskillsexception.frently.backend.Controller.Lend.Transaction.Exceptions.InsuffientFundsException;
+import hhu.propra2.illegalskillsexception.frently.backend.Controller.Lend.Transaction.Exceptions.InsufficientFundsException;
 import hhu.propra2.illegalskillsexception.frently.backend.Controller.Lend.Transaction.Exceptions.NoSuchTransactionException;
 import hhu.propra2.illegalskillsexception.frently.backend.Controller.User.Exceptions.UserNotFoundException;
 import hhu.propra2.illegalskillsexception.frently.backend.Controller.User.IServices.IApplicationUserService;
@@ -28,14 +28,14 @@ public class BorrowTransactionService implements IBorrowTransactionService {
     private final IProPayService proPayService;
 
     @Override
-    public List<Transaction> retrieveAllOfCurrentUser(Authentication auth) {
+    public List<Transaction> retrieveAllOfCurrentUser(Authentication auth) throws Exception {
         ApplicationUser currentUser = userService.getCurrentUser(auth);
         return transactionRepository.findAllByInquiry_Borrower_Id(currentUser.getId());
     }
 
     @Override
     public Transaction updateTransaction(ReturnItemRequestDTO update)
-            throws NoSuchTransactionException, InsuffientFundsException, ProPayConnectionException, UserNotFoundException {
+            throws NoSuchTransactionException, InsufficientFundsException, ProPayConnectionException, UserNotFoundException {
         Transaction transaction = transactionRepository.findById(update.getTransactionId()).orElseThrow(NoSuchTransactionException::new);
         transaction.setReturnDate(LocalDate.now());
 
@@ -50,7 +50,7 @@ public class BorrowTransactionService implements IBorrowTransactionService {
     }
 
     private void transferFee(Transaction transaction)
-            throws InsuffientFundsException, ProPayConnectionException, UserNotFoundException {
+            throws InsufficientFundsException, ProPayConnectionException, UserNotFoundException {
         LocalDate startDate = transaction.getInquiry().getStartDate();
         LocalDate endDate = transaction.getInquiry().getEndDate();
         Double dailyRate = transaction.getInquiry().getBorrowArticle().getDailyRate();
@@ -63,7 +63,7 @@ public class BorrowTransactionService implements IBorrowTransactionService {
         //Is checked here instead of inside ProPayService because transferMoney is a void
         try {
             proPayService.transferMoney(borrower, lender, fee);
-        } catch (ExhaustedRetryException e){
+        } catch (ExhaustedRetryException e) {
             throw new ProPayConnectionException();
         }
     }

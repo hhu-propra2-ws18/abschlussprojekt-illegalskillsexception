@@ -78,7 +78,7 @@ public class Initializer implements ServletContextInitializer {
             try {
                 proPayService.createAccount("user", 100000);
                 proPayService.createAccount("user1", 0);
-            }catch(Exception exc){
+            } catch (Exception exc) {
                 System.out.println("Propay not found");
                 exc.printStackTrace();
             }

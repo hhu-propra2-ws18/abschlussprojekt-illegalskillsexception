@@ -22,7 +22,7 @@ public class LendInquiryServiceTest {
     private Inquiry inquiry2 = new Inquiry();
     private Inquiry inquiry3 = new Inquiry();
     private LocalDate nowDate = LocalDate.of(2018, Month.FEBRUARY, 25);
-    
+
     @Before
     public void setUp() {
         IInquiryRepository inquiryRepository = mock(IInquiryRepository.class);

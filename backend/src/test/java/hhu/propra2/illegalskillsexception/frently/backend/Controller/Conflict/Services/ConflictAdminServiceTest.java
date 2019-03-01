@@ -4,12 +4,9 @@ import hhu.propra2.illegalskillsexception.frently.backend.Controller.Security.Ex
 import hhu.propra2.illegalskillsexception.frently.backend.Data.Models.Role;
 import org.junit.Before;
 import org.junit.Test;
-import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.HashSet;
 import java.util.Set;
-
-import static org.junit.Assert.*;
 
 public class ConflictAdminServiceTest {
 
@@ -23,12 +20,13 @@ public class ConflictAdminServiceTest {
     }
 
     @Test(expected = NotAdminException.class)
-    public void isNotAdmin() throws Exception{
+    public void isNotAdmin() throws Exception {
         role1.setName("user");
         Set<Role> roles = new HashSet<>();
         roles.add(role1);
         conflictAdminService.isAdmin(roles);
     }
+
     @Test
     public void isAdmin() throws Exception {
         role2.setName("ADMIN");

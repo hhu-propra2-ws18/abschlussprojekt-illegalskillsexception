@@ -1,6 +1,6 @@
 package hhu.propra2.illegalskillsexception.frently.backend.ProPay.Services;
 
-import hhu.propra2.illegalskillsexception.frently.backend.Controller.Lend.Transaction.Exceptions.InsuffientFundsException;
+import hhu.propra2.illegalskillsexception.frently.backend.Controller.Lend.Transaction.Exceptions.InsufficientFundsException;
 import hhu.propra2.illegalskillsexception.frently.backend.Controller.User.Exceptions.UserNotFoundException;
 import hhu.propra2.illegalskillsexception.frently.backend.Data.Models.Transaction;
 import hhu.propra2.illegalskillsexception.frently.backend.ProPay.Exceptions.ProPayConnectionException;
@@ -63,7 +63,7 @@ public class ProPayService implements IProPayService {
     @Override
     @Retryable(value = {ProPayConnectionException.class}, maxAttempts = 2, backoff = @Backoff(delay = 1000))
     public void transferMoney(String borrower, String lender, double amount)
-            throws InsuffientFundsException, ProPayConnectionException, ExhaustedRetryException, UserNotFoundException {
+            throws InsufficientFundsException, ProPayConnectionException, ExhaustedRetryException, UserNotFoundException {
         final String url = BASE_URL + "account/" + borrower + "/transfer/" + lender + "?amount=" + amount;
 
         try {
@@ -110,7 +110,7 @@ public class ProPayService implements IProPayService {
     }
 
     @Override
-    public Long blockDeposit(String borrower, String lender, double amount) throws ProPayConnectionException, InsuffientFundsException {
+    public Long blockDeposit(String borrower, String lender, double amount) throws ProPayConnectionException, InsufficientFundsException {
         final String url = BASE_URL + "reservation/reserve/" + borrower + "/" + lender + "?amount=" + amount;
         Reservation reservation;
         try {
@@ -169,7 +169,7 @@ public class ProPayService implements IProPayService {
     }
 
     @Retryable(value = {ProPayConnectionException.class}, maxAttempts = 2, backoff = @Backoff(delay = 1000))
-    private void checkFunds(String userName, double amount) throws InsuffientFundsException, ProPayConnectionException {
+    private void checkFunds(String userName, double amount) throws InsufficientFundsException, ProPayConnectionException {
         ProPayAccount proPayAccount;
         try {
             proPayAccount = getProPayAccount(userName);
@@ -178,6 +178,6 @@ public class ProPayService implements IProPayService {
         }
         List<Reservation> reservations = proPayAccount.getReservations();
         double accountBalance = proPayAccount.getAmount();
-        if (!amountGreaterThanReservation(reservations, amount, accountBalance)) throw new InsuffientFundsException();
+        if (!amountGreaterThanReservation(reservations, amount, accountBalance)) throw new InsufficientFundsException();
     }
 }

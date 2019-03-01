@@ -56,7 +56,7 @@ public class UserControllerTest {
     }
 
     @Test
-    public void signHannesUpSuccesfully() throws Exception {
+    public void signHannesUpSuccessfully() throws Exception {
         ApplicationUserDTO applicationUserDTO = new ApplicationUserDTO();
         applicationUserDTO.setUsername("Hannes");
         applicationUserDTO.setPassword("123");
