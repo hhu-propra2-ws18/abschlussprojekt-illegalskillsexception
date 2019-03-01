@@ -68,19 +68,16 @@ export default class LandingPage extends React.Component {
                                 <label>Username:</label>
                                 <TextBox
                                     required={true}
-                                    defaultValue="user"
                                     ref={this.nameRegister}
                                 />
                                 <label>Email:</label>
                                 <TextBox
                                     required={true}
-                                    defaultValue="idiot@frently.com"
                                     ref={this.emailRegister}
                                 />
                                 <label>Password:</label>
                                 <PasswordBox
                                     required={true}
-                                    defaultValue="password"
                                     ref={this.passwordRegister}
                                 />
                                 <div className="dialog-buttons-div">
@@ -115,13 +112,11 @@ export default class LandingPage extends React.Component {
                             <article className="dialog-container">
                                 <label>Username:</label>
                                 <TextBox
-                                    defaultValue="user"
                                     ref={this.nameLogin}
                                     required={true}
                                 />
                                 <label>Password:</label>
                                 <PasswordBox
-                                    defaultValue="password"
                                     ref={this.passwordLogin}
                                     required={true}
                                 />
