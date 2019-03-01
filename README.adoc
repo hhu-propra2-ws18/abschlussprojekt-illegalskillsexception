@@ -15,10 +15,10 @@ When the docker compose has finished setting up, the website should be available
 By default there are two users available:
 
 * *admin:* 
-** username: "admin"
+** username: "user"
 ** password: "password"
 * *user:*
-** username="user"
+** username="user1"
 ** password:"password"
 
 The admin account has access to the conflict center, all other users do not have access to the conflict center.
