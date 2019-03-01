@@ -57,5 +57,16 @@ public class UserDetailServiceTest {
         service.getForeignUserDetails("no dude");
     }
 
+    @Test
+    public void getUserDetailServiceWithoutPropayTest_One() {
+        UserDetailService service = new UserDetailService(mockApplicationUserService, mockUserTransactionService, mockPropay);
+
+        UserDetailResponse response = service.getUserDetailsWithoutPropay(null);
+
+        Assert.assertEquals(response.getUsername(), "dude");
+        Assert.assertEquals(response.getCompletedTransactions().size(), 1);
+        Assert.assertEquals(response.getEmail(), "dude@dude.dude");
+        Assert.assertEquals(response.getAccountBalance(), -1, 0.0001);
+    }
 
 }

@@ -78,10 +78,6 @@ public class UserDetailService implements IUserDetailService {
         List<MoneyTransferDTO> finishedTransaction = userTransactionService.getAllFinishedTransactions(foreignUser);
         foreignUserDetailResponse.setCompletedTransactions(finishedTransaction);
 
-        //@TODO Deal with propay account
-        //double accountBalance = propayService.getCurrentBalance(currentUser);
-        //userDetails.setAccountBalance(accountBalance);
-
         return foreignUserDetailResponse;
     }
 }
