@@ -28,7 +28,7 @@ public class BorrowTransactionService implements IBorrowTransactionService {
     private final IProPayService proPayService;
 
     @Override
-    public List<Transaction> retrieveAllOfCurrentUser(Authentication auth) {
+    public List<Transaction> retrieveAllOfCurrentUser(Authentication auth) throws Exception {
         ApplicationUser currentUser = userService.getCurrentUser(auth);
         return transactionRepository.findAllByInquiry_Borrower_Id(currentUser.getId());
     }

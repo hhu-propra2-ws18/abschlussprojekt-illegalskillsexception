@@ -11,7 +11,7 @@ import org.springframework.security.core.Authentication;
 import java.util.List;
 
 public interface IBorrowTransactionService {
-    List<Transaction> retrieveAllOfCurrentUser(Authentication auth);
+    List<Transaction> retrieveAllOfCurrentUser(Authentication auth) throws Exception;
 
     Transaction updateTransaction(ReturnItemRequestDTO update) throws NoSuchTransactionException, InsuffientFundsException, ProPayConnectionException, UserNotFoundException;
 }
