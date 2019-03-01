@@ -21,7 +21,7 @@ export async function registerUserBackend(
     passwordInner,
     url = SIGN_UP
 ) {
-    await axios.post(url, {
+    return await axios.post(url, {
         username: nameInner,
         email: emailInner,
         password: passwordInner,
