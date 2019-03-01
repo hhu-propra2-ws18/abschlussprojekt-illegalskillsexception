@@ -59,14 +59,14 @@ public class Initializer implements ServletContextInitializer {
 
             // Set std user
             ApplicationUser standardUser = fakeUsers[0];
-            standardUser.setUsername("user");
+            standardUser.setUsername("admin");
             standardUser.setPassword("password");
 
             Set<Role> userRoles = Collections.singleton(roles.get(0));
             standardUser.setRoles(userRoles);
 
             ApplicationUser standardUserBorrow = fakeUsers[1];
-            standardUserBorrow.setUsername("user1");
+            standardUserBorrow.setUsername("user");
             standardUserBorrow.setPassword("password");
 
 
