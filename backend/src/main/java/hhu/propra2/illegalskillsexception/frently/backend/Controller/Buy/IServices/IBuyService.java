@@ -12,7 +12,7 @@ import java.util.List;
 
 public interface IBuyService {
 
-    List<BuyArticle> getAllBuyableArticlesButOwn(Authentication auth);
+    List<BuyArticle> getAllBuyableArticlesButOwn(Authentication auth) throws Exception;
 
     void buyItem(Long sellArticleID, ApplicationUser buyer) throws NoSuchBuyArticleException, ProPayConnectionException, InsuffientFundsException, UserNotFoundException;
 
