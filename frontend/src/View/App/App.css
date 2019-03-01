@@ -41,7 +41,10 @@ body {
 }
 
 #root {
-    background-image: url("https://d2v9y0dukr6mq2.cloudfront.net/video/thumbnail/U4GOIU-/summer-famous-phuket-island-orange-sunset-panorama-4k-thailand_ewajnerhg__F0000.png");
+    background-image: url("./background.png");
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-clip: border-box;
 }
 
 main {
