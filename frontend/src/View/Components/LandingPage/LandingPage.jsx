@@ -26,7 +26,6 @@ export default class LandingPage extends React.Component {
         this.nameRegister = React.createRef();
         this.emailRegister = React.createRef();
         this.passwordRegister = React.createRef();
-        this.bankRegister = React.createRef();
 
         this.nameLogin = React.createRef();
         this.passwordLogin = React.createRef();
