@@ -29,7 +29,7 @@ export default class BuyItemComponent extends Component {
                 showBuyDialog: false,
                 error: result.data.error
             });
-        } 
+        }
     }
 
     render() {
@@ -40,7 +40,9 @@ export default class BuyItemComponent extends Component {
                 <p>{this.props.data.description}</p>
                 <h5>Price:</h5>
                 <p>{this.props.data.price}</p>
-                <Button onClick={() => this.setState({ showBuyDialog: true })}>
+                <h5>Location:</h5>
+                <p>{this.props.data.location}</p>
+                <Button className="bottom-button" onClick={() => this.setState({ showBuyDialog: true })}>
                     Buy item
                 </Button>
                 {this.state.showBuyDialog ? (

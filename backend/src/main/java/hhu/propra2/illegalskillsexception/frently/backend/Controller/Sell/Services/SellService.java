@@ -21,13 +21,13 @@ public class SellService implements ISellService {
     private final IBuyArticleRepository buyArticleRepository;
 
     @Override
-    public List<BuyArticle> getAllArticlesOfCurrentUser(Authentication auth) {
+    public List<BuyArticle> getAllArticlesOfCurrentUser(Authentication auth) throws Exception {
         ApplicationUser user = userService.getCurrentUser(auth);
         return buyArticleRepository.findAllByOwner_Username(user.getUsername());
     }
 
     @Override
-    public BuyArticle createArticle(BuyArticle buyArticle, Authentication auth) {
+    public BuyArticle createArticle(BuyArticle buyArticle, Authentication auth) throws Exception {
         ApplicationUser user = userService.getCurrentUser(auth);
         buyArticle.setOwner(user);
         buyArticleRepository.save(buyArticle);

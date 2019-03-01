@@ -1,0 +1,4 @@
+#error-dialog>div>div:first-child {
+    height: 70px;
+    min-height: 0;
+}

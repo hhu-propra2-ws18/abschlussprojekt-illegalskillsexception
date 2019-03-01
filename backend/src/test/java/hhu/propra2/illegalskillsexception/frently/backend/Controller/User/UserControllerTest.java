@@ -38,7 +38,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @RunWith(SpringRunner.class)
 public class UserControllerTest {
     @InjectMocks
-    UserController userController;
+    private UserController userController;
     private MockMvc mockMvc;
     @MockBean
     private IApplicationUserService mockUserService;

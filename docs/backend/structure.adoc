@@ -57,7 +57,9 @@ have rented and one can return an item and the transaction is being updated.
 In addition deposit is freed and the fee is transferred to the lender.
 
 * *Buy*
-//-Deals with buying of buyable items 
+Buy allows an user to get all possible articles they could buy and gives them 
+the possibility to buy a particular article. In this case the money is 
+transferred from the buyer to the seller and the article is deleted.
 
 * *Conflict*
 If an item is returned in a bad condition or not returned at all, there is the
@@ -89,7 +91,8 @@ is being set depending if an exception is thrown. All the different error types
  are also defined here.
 
 * *Sell*
-//-Deals with selling of items
+Sell allows the user to create items, to sell and update them if wanted.
+An user also gets an overview of all the articles they offered to sell. 
 
 * *Security*
 Our API routes are secured with spring security using a JSON Web Token (JWT).
@@ -139,7 +142,7 @@ center
 the renting of the object.
 
 * *Repositories*
-Our backend uses CRUD-Repositories to access and update our data objects in the
+Our Backend uses CRUD-Repositories to access and update our data objects in the
 database. Most enquiries return lists with a specific type.
 
 ==== Package 'ProPay'

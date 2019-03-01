@@ -10,6 +10,7 @@ import {
     registerAndLoginUser,
     loginUser
 } from "../../../Services/User/authentificationCompleteService";
+import ErrorDialog from "../../App/ErrorDialog/ErrorDialog";
 
 export default class LandingPage extends React.Component {
     static contextTypes = { theme: PropTypes.object };
@@ -63,7 +64,7 @@ export default class LandingPage extends React.Component {
                                 this.registerUser();
                             }}
                         >
-                            <div className="dialog-container">
+                            <article className="dialog-container">
                                 <label>Username:</label>
                                 <TextBox
                                     required={true}
@@ -93,7 +94,7 @@ export default class LandingPage extends React.Component {
                                         Register
                                     </Button>
                                 </div>
-                            </div>
+                            </article>
                         </form>
                     </Dialog>
                 ) : null}
@@ -111,7 +112,7 @@ export default class LandingPage extends React.Component {
                                 this.loginUser();
                             }}
                         >
-                            <div className="dialog-container">
+                            <article className="dialog-container">
                                 <label>Username:</label>
                                 <TextBox
                                     defaultValue="user"
@@ -130,33 +131,21 @@ export default class LandingPage extends React.Component {
                                     </Button>
                                     <Button type="submit">Login</Button>
                                 </div>
-                            </div>
+                            </article>
                         </form>
                     </Dialog>
                 ) : null}
-                {this.state.showError ? (
-                    <Dialog
-                        defaultShow={this.state.showError}
-                        style={{ zIndex: 400 }}
-                        onCloseDialog={() =>
-                            this.setState({ showError: false })
-                        }
-                    >
-                        <article>
-                            <h5>Sorry, an error occurred.</h5>
-                            <p>{this.state.errorMessage}</p>
-                            <Button
-                                onClick={() =>
-                                    this.setState({ showError: false })
-                                }
-                            >
-                                Close
-                            </Button>
-                        </article>
-                    </Dialog>
-                ) : null}
+                <ErrorDialog
+                    showDialog={this.state.showError}
+                    description={this.state.errorMessage}
+                    closeDialog={() => this.hideError()}
+                />
             </div>
         );
+    }
+
+    hideError(){
+        this.setState({showError:false});
     }
 
     hideRegister() {
@@ -216,10 +205,8 @@ export default class LandingPage extends React.Component {
 
         if (result.error) {
             this.setState({
-
                 showError: true,
                 errorMessage: result.error.errorMessage
-
             });
         }
     }

@@ -8,3 +8,12 @@
     border-bottom: 2px solid rgba(255,255,255,20%);
     padding-bottom: 5px;
 }
+
+.light #lendview-container>h2 {
+    border-bottom-color: rgba(0,0,0,40%);
+}
+
+
+.dark #lendview-container>h2 {
+    border-bottom-color: rgba(255,255,255,20%);
+}

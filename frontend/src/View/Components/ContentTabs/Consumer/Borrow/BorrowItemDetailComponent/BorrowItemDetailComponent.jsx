@@ -9,6 +9,7 @@ import {
     borrowItem,
     getArticleAvailabilityList
 } from "../../../../../../Services/Borrow/borrowCompleteService";
+import ErrorDialog from "../../../../../App/ErrorDialog/ErrorDialog";
 
 export default class BorrowItemDetailComponent extends React.Component {
     constructor(props) {
@@ -22,7 +23,7 @@ export default class BorrowItemDetailComponent extends React.Component {
         };
 
         getArticleAvailabilityList(this.props.data.id).then(item => {
-            console.log('item', item);
+            console.log("item", item);
             this.setState({
                 timeSpans: item.data.data.blockedTimespans
                     ? item.data.data.blockedTimespans
@@ -36,32 +37,34 @@ export default class BorrowItemDetailComponent extends React.Component {
 
     render() {
         return (
-            <article>
+            <article className="max-width-article">
                 <h1>{this.props.data.title}</h1>
                 <h5>Lender:</h5>
                 <p>Username: {this.props.data.owner.username}</p>
-                <p>Email: {this.props.data.owner.email}</p>
                 <h5>Description:</h5>
                 <p>{this.props.data.description}</p>
                 <h5>Location:</h5>
                 <p>{this.props.data.location}</p>
-                <h5>Start date:</h5>
+                <h5 className="no-underline">Start date:</h5>
                 <DatePicker
                     ref={this.startRef}
                     onChangeDate={this.setStartDate}
                     defaultDate={this.state.startDate}
                 />
-                <h5>End date:</h5>
+                <h5 className="no-underline">End date:</h5>
                 <DatePicker
                     ref={this.endRef}
                     onChangeDate={this.setEndDate}
                     defaultDate={this.state.endDate}
                 />
-                <h5>Daily rate:</h5>
-                <p>{this.props.data.dailyRate}</p>
-                <h5>Safety deposit:</h5>
-                <p>{this.props.data.deposit}</p>
-                {this.state.timeSpans && (this.state.timeSpans !== 0) ? (
+                <div className="two-column-display">
+                    <h5>Daily rate:</h5>
+                    <p>{this.props.data.dailyRate}</p>
+                    <h5>Safety deposit:</h5>
+                    <p>{this.props.data.deposit}</p>
+                </div>
+
+                {this.state.timeSpans && this.state.timeSpans !== 0 ? (
                     <div>
                         <h5>Periods the item is not available</h5>
                         {this.state.timeSpans.map(item => (
@@ -87,17 +90,12 @@ export default class BorrowItemDetailComponent extends React.Component {
                         startDate={this.transformDate(this.state.startDate)}
                         endDate={this.transformDate(this.state.endDate)}
                     />
-                </Dialog>{" "}
-                <Dialog
-                    defaultShow={this.state.showError}
-                    style={{ zIndex: 400 }}
-                    onCloseDialog={() => this.setState({ showDialog: false })}
-                >
-                    <BorrowItemErrorDialog
-                        errorMessage={this.state.errorMessage}
-                        closeDialog={this.closeErrorDialog}
-                    />
                 </Dialog>
+                <ErrorDialog
+                    showDialog={this.state.showError}
+                    description={this.state.errorMessage}
+                    closeDialog={() => this.closeErrorDialog()}
+                />
             </article>
         );
     }

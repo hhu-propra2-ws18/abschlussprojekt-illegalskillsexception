@@ -1,7 +1,7 @@
 import React from "react";
 import NavigationView from "react-uwp/NavigationView";
 import SplitViewCommand from "react-uwp/SplitViewCommand";
-import Tabs, {Tab} from "react-uwp/Tabs";
+import Tabs, { Tab } from "react-uwp/Tabs";
 
 import { store } from "../../../Store/reduxInit";
 import ConsumerView from "../ContentTabs/Consumer/ConsumerView";
@@ -13,12 +13,11 @@ import UserView from "../ContentTabs/User/UserView";
 import Toast from "react-uwp/Toast";
 
 import "./ContentPage.css";
-import {getAllOverdueTransactions} from "../../../Services/User/authentificationCompleteService.js";
-import {logOutUser} from "../../../Services/User/authentificationCompleteService";
+import { getAllOverdueTransactions } from "../../../Services/User/authentificationCompleteService.js";
+import { logOutUser } from "../../../Services/User/authentificationCompleteService";
 import OwnerView from "../ContentTabs/Owner/OwnerView";
-import {setAdmin} from "../../../Services/Conflict/conflictCompleteService";
-import {connect} from "react-redux";
-
+import { setAdmin } from "../../../Services/Conflict/conflictCompleteService";
+import { connect } from "react-redux";
 
 class ContentPage extends React.Component {
     constructor(props) {
@@ -45,7 +44,6 @@ class ContentPage extends React.Component {
     }
 
     renderNavigation() {
-
         const nodeList = [
             <SplitViewCommand
                 onClick={() => this.switchTab(0)}
@@ -69,14 +67,14 @@ class ContentPage extends React.Component {
             />
         ];
 
-
-        if (this.props.user.admin){
+        if (this.props.user.admin) {
             nodeList.push(
                 <SplitViewCommand
                     onClick={() => this.switchTab(4)}
                     label="Conflicts"
                     icon={"Admin"}
-                />)
+                />
+            );
         }
         return nodeList;
     }
@@ -159,7 +157,7 @@ class ContentPage extends React.Component {
 }
 
 // start of code change
-const mapStateToProps = (state) => {
+const mapStateToProps = state => {
     return { user: state.user };
 };
 
