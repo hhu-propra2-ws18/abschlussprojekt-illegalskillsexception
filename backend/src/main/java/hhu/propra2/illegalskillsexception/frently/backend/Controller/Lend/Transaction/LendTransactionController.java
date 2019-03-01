@@ -19,7 +19,7 @@ import org.springframework.web.bind.annotation.RestController;
 @AllArgsConstructor
 public class LendTransactionController {
 
-    private final ILendTransactionService transactionService;
+    private ILendTransactionService transactionService;
 
     @RequestMapping("/")
     public FrentlyResponse retrieveAllOfUser(Authentication auth) {

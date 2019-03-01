@@ -12,7 +12,7 @@ import java.util.List;
 public interface ILendTransactionService {
     Transaction createTransaction(Inquiry inquiry); //TODO: move method from LendInquiryProcessingService
 
-    List<Transaction> retrieveAllOfCurrentUser(Authentication authentication);
+    List<Transaction> retrieveAllOfCurrentUser(Authentication authentication) throws Exception;
 
     Transaction updateTransaction(AcceptReturnedItemRequestDTO update)
             throws ArticleNotReturnedException, NoSuchTransactionException;
