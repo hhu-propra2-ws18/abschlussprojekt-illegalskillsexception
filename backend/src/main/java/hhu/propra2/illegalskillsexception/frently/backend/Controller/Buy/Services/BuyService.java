@@ -2,7 +2,7 @@ package hhu.propra2.illegalskillsexception.frently.backend.Controller.Buy.Servic
 
 import hhu.propra2.illegalskillsexception.frently.backend.Controller.Buy.Exceptions.NoSuchBuyArticleException;
 import hhu.propra2.illegalskillsexception.frently.backend.Controller.Buy.IServices.IBuyService;
-import hhu.propra2.illegalskillsexception.frently.backend.Controller.Lend.Transaction.Exceptions.InsuffientFundsException;
+import hhu.propra2.illegalskillsexception.frently.backend.Controller.Lend.Transaction.Exceptions.InsufficientFundsException;
 import hhu.propra2.illegalskillsexception.frently.backend.Controller.User.Exceptions.UserNotFoundException;
 import hhu.propra2.illegalskillsexception.frently.backend.Controller.User.IServices.IApplicationUserService;
 import hhu.propra2.illegalskillsexception.frently.backend.Data.Models.ApplicationUser;
@@ -33,7 +33,7 @@ public class BuyService implements IBuyService {
     }
 
     @Override
-    public void buyItem(Long sellArticleID, ApplicationUser buyer) throws NoSuchBuyArticleException, ProPayConnectionException, InsuffientFundsException, UserNotFoundException { //TODO catch exceptions locally
+    public void buyItem(Long sellArticleID, ApplicationUser buyer) throws NoSuchBuyArticleException, ProPayConnectionException, InsufficientFundsException, UserNotFoundException {
         BuyArticle article = buyArticleRepository.findById(sellArticleID).orElseThrow(NoSuchBuyArticleException::new);
 
         ApplicationUser owner = article.getOwner();

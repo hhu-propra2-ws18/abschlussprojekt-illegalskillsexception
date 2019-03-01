@@ -1,7 +1,7 @@
 package hhu.propra2.illegalskillsexception.frently.backend.Controller.Lend.Inquiry.Services;
 
 import hhu.propra2.illegalskillsexception.frently.backend.Controller.Lend.Inquiry.IServices.ILendInquiryProcessingService;
-import hhu.propra2.illegalskillsexception.frently.backend.Controller.Lend.Transaction.Exceptions.InsuffientFundsException;
+import hhu.propra2.illegalskillsexception.frently.backend.Controller.Lend.Transaction.Exceptions.InsufficientFundsException;
 import hhu.propra2.illegalskillsexception.frently.backend.Data.Exceptions.NoSuchInquiryException;
 import hhu.propra2.illegalskillsexception.frently.backend.Data.Models.ApplicationUser;
 import hhu.propra2.illegalskillsexception.frently.backend.Data.Models.BorrowArticle;
@@ -33,7 +33,7 @@ public class LendInquiryProcessingService implements ILendInquiryProcessingServi
 
     @Override
     public Transaction acceptInquiry(Long inquiryId)
-            throws NoSuchInquiryException, ProPayConnectionException, InsuffientFundsException {
+            throws NoSuchInquiryException, ProPayConnectionException, InsufficientFundsException {
 
         Inquiry inquiry = inquiryRepository.findById(inquiryId).orElseThrow(NoSuchInquiryException::new);
         BorrowArticle borrowArticle = inquiry.getBorrowArticle();
@@ -57,7 +57,7 @@ public class LendInquiryProcessingService implements ILendInquiryProcessingServi
     }
 
     private Long blockDeposit(ApplicationUser borrower, ApplicationUser lender, double deposit)
-            throws ProPayConnectionException, InsuffientFundsException {
+            throws ProPayConnectionException, InsufficientFundsException {
         String borrowerName = borrower.getUsername();
         String lenderName = lender.getUsername();
         return proPayService.blockDeposit(borrowerName, lenderName, deposit);

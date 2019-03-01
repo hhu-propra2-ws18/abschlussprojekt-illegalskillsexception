@@ -77,7 +77,7 @@ public class BorrowArticleControllerTest {
     }
 
     @Test
-    public void retrieveAvailibiltyTest() throws Exception {
+    public void retrieveAvailabilityTest() throws Exception {
 
         ArticleAvailabilityRequestDTO requestDTO = new ArticleAvailabilityRequestDTO();
         requestDTO.setArticleId(1);
@@ -101,7 +101,7 @@ public class BorrowArticleControllerTest {
     }
 
     @Test
-    public void retrieveAvailibiltyFailed() throws Exception {
+    public void retrieveAvailabilityFailed() throws Exception {
 
         ArticleAvailabilityRequestDTO requestDTO = new ArticleAvailabilityRequestDTO();
         requestDTO.setArticleId(1);

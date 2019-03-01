@@ -2,7 +2,7 @@ package hhu.propra2.illegalskillsexception.frently.backend.ProPay.Integration;
 
 import com.github.tomakehurst.wiremock.WireMockServer;
 import com.github.tomakehurst.wiremock.client.WireMock;
-import hhu.propra2.illegalskillsexception.frently.backend.Controller.Lend.Transaction.Exceptions.InsuffientFundsException;
+import hhu.propra2.illegalskillsexception.frently.backend.Controller.Lend.Transaction.Exceptions.InsufficientFundsException;
 import hhu.propra2.illegalskillsexception.frently.backend.Controller.User.Exceptions.UserNotFoundException;
 import hhu.propra2.illegalskillsexception.frently.backend.Data.Models.ApplicationUser;
 import hhu.propra2.illegalskillsexception.frently.backend.Data.Models.BorrowArticle;
@@ -107,7 +107,7 @@ public class ProPayIntegrationTest {
     }
 
     @Test
-    public void transfer100EuroBetweenMaxAndMoritz() throws ProPayConnectionException, InsuffientFundsException, UserNotFoundException {
+    public void transfer100EuroBetweenMaxAndMoritz() throws ProPayConnectionException, InsufficientFundsException, UserNotFoundException {
         stubFor(get(urlPathMatching("/account/Max"))
                 .willReturn(aResponse()
                         .withStatus(200)
@@ -129,7 +129,7 @@ public class ProPayIntegrationTest {
     }
 
     @Test
-    public void blockDepositOf80EuroOnMoritzProPay() throws ProPayConnectionException, InsuffientFundsException {
+    public void blockDepositOf80EuroOnMoritzProPay() throws ProPayConnectionException, InsufficientFundsException {
         stubFor(get(urlPathMatching("/account/Moritz"))
                 .willReturn(aResponse()
                         .withStatus(200)
@@ -157,8 +157,8 @@ public class ProPayIntegrationTest {
         verify(postRequestedFor(urlEqualTo("/reservation/reserve/Moritz/Max?amount=80.0")));
     }
 
-    @Test(expected = InsuffientFundsException.class)
-    public void blockDepositFailsBecauseMoritzDoesNotHaveEnoughMoney() throws ProPayConnectionException, InsuffientFundsException {
+    @Test(expected = InsufficientFundsException.class)
+    public void blockDepositFailsBecauseMoritzDoesNotHaveEnoughMoney() throws ProPayConnectionException, InsufficientFundsException {
         stubFor(get(urlPathMatching("/account/Moritz"))
                 .willReturn(aResponse()
                         .withStatus(200)
@@ -185,7 +185,7 @@ public class ProPayIntegrationTest {
     }
 
     @Test(expected = ProPayConnectionException.class)
-    public void blockDepositFailsBecauseProPayWasNotFound() throws ProPayConnectionException, InsuffientFundsException {
+    public void blockDepositFailsBecauseProPayWasNotFound() throws ProPayConnectionException, InsufficientFundsException {
         stubFor(get(urlPathMatching("/account/Moritz"))
                 .willReturn(aResponse()
                         .withStatus(200)

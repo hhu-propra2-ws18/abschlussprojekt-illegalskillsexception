@@ -1,6 +1,6 @@
 package hhu.propra2.illegalskillsexception.frently.backend.ProPay.IServices;
 
-import hhu.propra2.illegalskillsexception.frently.backend.Controller.Lend.Transaction.Exceptions.InsuffientFundsException;
+import hhu.propra2.illegalskillsexception.frently.backend.Controller.Lend.Transaction.Exceptions.InsufficientFundsException;
 import hhu.propra2.illegalskillsexception.frently.backend.Controller.User.Exceptions.UserNotFoundException;
 import hhu.propra2.illegalskillsexception.frently.backend.Data.Models.Transaction;
 import hhu.propra2.illegalskillsexception.frently.backend.ProPay.Exceptions.ProPayConnectionException;
@@ -19,7 +19,7 @@ public interface IProPayService {
 
     void payInMoney(Authentication auth, double amount) throws ProPayConnectionException, ExhaustedRetryException, UserNotFoundException;
 
-    void transferMoney(String borrower, String lender, double amount) throws InsuffientFundsException, ProPayConnectionException, ExhaustedRetryException, UserNotFoundException;
+    void transferMoney(String borrower, String lender, double amount) throws InsufficientFundsException, ProPayConnectionException, ExhaustedRetryException, UserNotFoundException;
 
     List<MoneyTransfer> getAllMoneyTransfers(String userName);
 
@@ -27,7 +27,7 @@ public interface IProPayService {
 
     boolean amountGreaterThanReservation(List<Reservation> reservations, double amount, double accountBalance);
 
-    Long blockDeposit(String borrower, String lender, double amount) throws ProPayConnectionException, InsuffientFundsException, ExhaustedRetryException;
+    Long blockDeposit(String borrower, String lender, double amount) throws ProPayConnectionException, InsufficientFundsException, ExhaustedRetryException;
 
     void freeDeposit(String borrower, Transaction transaction) throws ProPayConnectionException;
 

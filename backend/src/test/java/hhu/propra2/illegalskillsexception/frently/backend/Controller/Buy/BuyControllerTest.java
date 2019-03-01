@@ -82,7 +82,7 @@ public class BuyControllerTest {
     }
 
     @Test
-    public void buyItemSuccesful() throws Exception {
+    public void buyItemSuccessful() throws Exception {
         BuyArticleIDRequestDTO requestDTO = new BuyArticleIDRequestDTO();
         requestDTO.setBuyArticleId(1);
 
