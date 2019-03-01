@@ -8,6 +8,7 @@ import {
     declineInquiry,
     acceptInquiry
 } from "../../../../../Services/Inquiry/inquiryCompleteService";
+import ErrorDialog from "../../../../App/ErrorDialog/ErrorDialog";
 
 export default class InquiriesViewItem extends React.Component {
     constructor(props) {
@@ -23,7 +24,7 @@ export default class InquiriesViewItem extends React.Component {
         return (
             <article>
                 <h3>
-                    <span>{this.props.data.borrowArticle.title} </span>
+                    <span>{this.props.data.borrowArticle.title}</span>
                 </h3>
                 <h5>Lending period:</h5>
                 <p>
@@ -33,7 +34,7 @@ export default class InquiriesViewItem extends React.Component {
                     <div>
                         <h5>Borrower:</h5>
                         <p>{this.props.data.borrower.username} </p>
-                        <div className="dialog-buttons-div">
+                        <div className="two-buttons-bottom">
                             <Button onClick={() => this.accept()}>
                                 Accept
                             </Button>
@@ -50,16 +51,13 @@ export default class InquiriesViewItem extends React.Component {
                         <p>{this.props.data.status} </p>
                     </div>
                 )}
-                <Dialog
-                    defaultShow={this.state.showError}
-                    style={{ zIndex: 400 }}
-                    onCloseDialog={() => this.setState({ showDialog: false })}
-                >
-                    <InquiryItemErrorDialog
-                        errorMessage={this.state.errorMessage}
-                        closeDialog={this.closeErrorDialog}
-                    />
-                </Dialog>
+
+                <ErrorDialog
+                    showDialog={this.state.showError}
+                    description={this.state.errorMessage}
+                    closeDialog={this.closeErrorDialog}
+                />
+
             </article>
         );
     }

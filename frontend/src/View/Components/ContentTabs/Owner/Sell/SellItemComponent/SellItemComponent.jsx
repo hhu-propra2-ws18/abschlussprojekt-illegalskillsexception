@@ -18,7 +18,7 @@ export default class SellItemComponent extends Component {
                 <h5>Price:</h5>
                 <p>{this.props.data.price}</p>
                 <div>
-                    <Button onClick={() => this.setState({ showDialog: true })}>
+                    <Button className="bottom-button"onClick={() => this.setState({ showDialog: true })}>
                         Edit
                     </Button>
                 </div>

@@ -1,19 +1,20 @@
 === Frontend structure
-
 To have an easy way of adding new features and keeping separate features
 separated, the frontend is split into (feature) domains. We used the following
 feature domains in the frontend:
 
-* *Borrow:* Viewing items available for borrowing and borrowing an item
-* *Buy:* All items available for buying and buying items
-* *Lend:* Showing the items posted for renting and uploading new items
+* *Consumer*: Everything related to buying or renting an item as non item owner. Has the following subdomains:
+    ** *Borrow:* Viewing items available for borrowing and borrowing an item
+    ** *Buy:* All items available for buying and buying items
+* *Owner:* Everything related to owning items. Has the following subdomains:
+    ** *Sell:* Items a user has put up for sale
+    ** *Lend:* Showing the items posted for renting and uploading new items
 * *Inquiry:* Inquiries a user is involved in as either an item owner or as an
 item borrower
 * *Transactions:* Items a user has currently rented or items that are being
 currently rented.
 * *Conflict:* Conflicts the user can resolve, if the user is a support staff
 member
-* *Sell:* Items a user has put up for sale
 
 Every feature domain has classes and components in every package of the
 frontend, since every feature domain needs to fulfill certain actions.This

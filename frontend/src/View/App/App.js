@@ -8,6 +8,8 @@ import FloatNav from "react-uwp/FloatNav";
 import IconButton from "react-uwp/IconButton";
 
 import { connect } from "react-redux";
+import { setThemeAction } from "../../Store/UserStore/UserActions";
+import { store } from "../../Store/reduxInit";
 
 const mapStateToProps = state => {
     return { user: state.user };
@@ -34,9 +36,9 @@ export class App extends Component {
                         id="provider"
                     >
                         {this.props.user.isLoggedIn ? (
-                            <ContentPage />
+                            <ContentPage/>
                         ) : (
-                            <LandingPage />
+                            <LandingPage/>
                         )}
                         <FloatNav
                             id="float-nav"
@@ -52,7 +54,7 @@ export class App extends Component {
                                                 : "Brightness"}
                                         </IconButton>
                                     ),
-                                    title: "Toogle theme",
+                                    title: "Toggle theme",
                                     onClick: () => this.toggleThemeState()
                                 }
                             ]}
@@ -66,11 +68,19 @@ export class App extends Component {
     toggleThemeState() {
         if (this.state.theme === "light") {
             this.setState({ theme: "dark" });
-            document.getElementsByTagName("body")[0].className="dark";
+
+            //this.themeProvider.current.forceUpdate();
+
+            let action = setThemeAction("light");
+            store.dispatch(action);
+            document.getElementsByTagName("body")[0].className = "dark";
         } else {
             this.setState({ theme: "light" });
-            document.getElementsByTagName("body")[0].className="light";
+            //this.themeProvider.current.forceUpdate();
+            let action = setThemeAction("dark");
+            store.dispatch(action);
 
+            document.getElementsByTagName("body")[0].className = "light";
         }
     }
 }

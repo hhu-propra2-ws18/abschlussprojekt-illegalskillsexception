@@ -18,13 +18,28 @@ export class InquiriesView extends React.Component {
 
     render() {
         return (
+            <div>
+                {this.props.itemsBorrow.length === 0 && this.props.itemsLend.length === 0 ? (
+                    <article>
+                        <h4>No inquiries available</h4>
+                    </article>
+                ) : null}
             <div className="grid-article-view">
                 {this.props.itemsBorrow.map(dataItem => (
-                    <InquiriesViewItem isLendingInquiry={false} key={dataItem.id} data={dataItem} />
+                    <InquiriesViewItem
+                        isLendingInquiry={false}
+                        key={dataItem.id}
+                        data={dataItem}
+                    />
                 ))}
                 {this.props.itemsLend.map(dataItem => (
-                    <InquiriesViewItem  isLendingInquiry={true} key={dataItem.id} data={dataItem} />
+                    <InquiriesViewItem
+                        isLendingInquiry={true}
+                        key={dataItem.id}
+                        data={dataItem}
+                    />
                 ))}
+            </div>
             </div>
         );
     }

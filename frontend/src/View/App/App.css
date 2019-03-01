@@ -57,12 +57,17 @@ main {
     display: grid;
     grid-auto-rows: max-content;
     grid-gap: 10px;
-    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
 }
 
 article {
     margin: 10px;
     padding: 10px;
+}
+
+article .dialog-single-button {
+    margin: 10px 0 0 0;
+    width: 100%;
 }
 
 .light article {
@@ -81,9 +86,37 @@ article {
     border: 1px black solid;
 }
 
-article h1, article h2, article h3,article h4 {
+article h1, article h2, article h3, article h4 {
     width: 100%;
     text-align: center;
+}
+
+article h3 {
+    font-size: 20px;
+}
+
+article h6, article h5 {
+    font-size: 14px;
+    margin-top: 6px;
+    margin-bottom: 0;
+    border-bottom: 1px solid white;
+    width: fit-content;
+}
+
+.dark article h6, .dark article h5 {
+    border-bottom-color: white;
+}
+
+.light article h6, .light article h5 {
+    border-bottom-color: black;
+}
+
+article p {
+    padding-bottom: 2px;
+}
+
+.max-width-article {
+    max-width: 600px;
 }
 
 .react-uwp-theme-light article {
@@ -131,7 +164,94 @@ button {
     margin-right: 0px;
 }
 
+.two-buttons-bottom>button:first-child {
+    float: left;
+    margin-left: 0px;
+    margin-bottom: 0px;
+}
+
+.two-buttons-bottom>button:last-child {
+    float: right;
+    margin-right: 0px;
+    margin-bottom: 0px;
+}
+
+.two-buttons-stack {
+    display: flex;
+    flex-direction: column;
+}
+
+.two-buttons-stack>button {
+    margin-left: 0;
+    margin-right: 0;
+    width: 100%;
+}
+
+.underline {
+    border-bottom: 1px solid white;
+}
+
+.dark .underline {
+    border-bottom-color: white;
+}
+.light .underline {
+    border-bottom-color: black;
+}
+
+.no-underline {
+    border-bottom: 0;
+}
+
+.light>.underline {
+    border-bottom-color: black;
+}
+
+.dark>.underline {
+    border-bottom-color: white;
+}
+
+button.bottom-button {
+    width: 100%;
+    margin: 15px 0 0 0;
+}
+
 .loading-div {
     width: 100%;
     height: 100%;
+}
+
+.two-column-display {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: 1fr 1fr;
+    max-width: 400px;
+}
+
+.two-column-display h6, .two-column-display h5, .two-column-display p {}
+
+.two-column-display h5:first-child {
+    grid-column-start: 1;
+    grid-column-end: 1;
+    grid-row-start: 1;
+    grid-row-end: 1;
+}
+
+.two-column-display h5:nth-child(3) {
+    grid-column-start: 2;
+    grid-column-end: 2;
+    grid-row-start: 1;
+    grid-row-end: 1;
+}
+
+.two-item-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    justify-items: center;
+    justify-content: center;
+    justify-self: center;
+}
+
+.two-item-grid>p {
+    width: fit-content;
+    text-align: center;
 }

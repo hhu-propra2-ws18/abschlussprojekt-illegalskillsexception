@@ -14,13 +14,15 @@ export default class BorrowItemComponent extends React.Component {
         return (
             <article>
                 <h3>{this.props.data.title}</h3>
-                <h6>Daily rate:</h6>
-                <p>{this.props.data.dailyRate}</p>
-                <h6>Safety deposit:</h6>
-                <p>{this.props.data.deposit}</p>
-                <h6>Location:</h6>
+                <div className="two-column-display">
+                    <h5>Daily rate:</h5>
+                    <p>{this.props.data.dailyRate}</p>
+                    <h5>Safety deposit:</h5>
+                    <p>{this.props.data.deposit}</p>
+                </div>
+                <h5>Location:</h5>
                 <p>{this.props.data.location}</p>
-                <Button onClick={() => this.onClickDetails()}>Details</Button>
+                <Button className="bottom-button"onClick={() => this.onClickDetails()}>Details</Button>
                 {this.state.showDialog && (
                     <Dialog
                         defaultShow={this.state.showDialog}

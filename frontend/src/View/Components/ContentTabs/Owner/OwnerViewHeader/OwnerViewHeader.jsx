@@ -28,7 +28,7 @@ export default class OwnerViewHeader extends React.Component {
                         />,
                         <AppBarButton
                             label="List for sale"
-                            onClick={() => this.createOfferDialogLend()}
+                            onClick={() => this.createOfferDialogSell()}
                             icon={"\uE710"}
                             labelPosition="right"
                         />

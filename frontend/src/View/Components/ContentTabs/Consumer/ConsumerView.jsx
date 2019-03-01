@@ -36,12 +36,17 @@ export class ConsumerView extends React.Component {
                         <ProgressBar isIndeterminate={true} />
                     </div>
                 ) : (
-                    <Tabs style={{ display: "block" ,width:"100%"}}>
+                    <Tabs style={{ display: "block", width: "100%" }}>
                         <Tab
                             title="Up for rent"
                             style={{ width: "100%", height: "100%" }}
                         >
                             <div id="borrow-grid" className="grid-article-view">
+                                {this.props.itemsBorrow.length === 0 ? (
+                                    <article>
+                                        <h4>No items available</h4>
+                                    </article>
+                                ) : null}
                                 {this.props.itemsBorrow.map(dataItem => (
                                     <BorrowItemComponent
                                         key={dataItem.id}
@@ -55,6 +60,11 @@ export class ConsumerView extends React.Component {
                             style={{ width: "100%", height: "100%" }}
                         >
                             <div className="grid-article-view">
+                                {this.props.itemsBuy.length === 0 ? (
+                                    <article>
+                                        <h4>No items available</h4>
+                                    </article>
+                                ) : null}
                                 {this.props.itemsBuy.map(item => (
                                     <BuyItemComponent
                                         data={item}

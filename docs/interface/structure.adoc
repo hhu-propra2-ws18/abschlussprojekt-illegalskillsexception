@@ -6,7 +6,9 @@ This resulted in the following top level interfaces:
 
 * *`borrow`:* Everything a "borrow" user can do, so borrowing an item, seeing
 the transaction he is involved in as borrower etc.
+* *`buy`:* Everything related to buying an item as a normal user (and not item owner)
 * *`lend`:* Functions related to being a 'lender', e.g. uploading items,
+* *`sell`:* Functionality for puting items up for sale
 accepting inquiries
 * *`user`:* Interface for signing up new users, logging in users and accessing
 detailed informations about users
@@ -27,6 +29,12 @@ other users
 * *`/borrow/transaction/`:* Returns a list of all items the user currently has
 borrowed
 
+==== Interface 'buy'
+The interface buy contains the following functions:
+
+* *`/buy/`:* Returns a list of all items listed for sale
+* *`/buy/buyItem`:* Buys the item specified by ID
+
 ==== Interface 'lend'
 The lend interface consists of the following methods:
 
@@ -45,10 +53,18 @@ to items the user has put up
 * *`/lend/transaction/update`:* Updates the status of a transaction. Usually
 the status should change to "Item returned" or "Problem exists"
 
+==== Interface 'sell'
+The sell interface contains the following functions:
+
+* *`/sell/`:* Lists all items the user has put up for sale
+* *`/sell/create`:* PUts up a new item for sale
+* *`sell/update`:* Updates an item, the user has put up for sale
+
 ==== Interface 'user'
 In the user interface, the following methods exist:
 
 * *`/user/`:* Returns the profile of the current user.
+* *`/user/{id]`:* Returns information about the user with the specified id
 * *`/user/sign-up`:* Creates a new user. This does however not log in the user
 * *`/login`:* Logs a user in. This method returns a JWT Auth token, which is
 used for the authorization.

@@ -3,3 +3,7 @@
     width:100%;
     overflow-y: auto;
 }
+
+.fixable-item{
+    position: fixed;
+}
