@@ -30,7 +30,7 @@ public class BorrowArticleController {
 
 
     @PostMapping(value = "/")
-    public FrentlyResponse retriveAvailibilty(@RequestBody ArticleAvailabilityRequestDTO dto) {
+    public FrentlyResponse retrieveAvailability(@RequestBody ArticleAvailabilityRequestDTO dto) {
         FrentlyResponse response = new FrentlyResponse();
         try {
             response.setData(availabilityService.getArticleAvailabilityDTP(dto.getArticleId()));
